@@ -1,0 +1,215 @@
+/* KPMG WorkBench Design System - Button Styles */
+
+.kpmg-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-2);
+  font-family: var(--font-family-base);
+  font-weight: var(--font-weight-medium);
+  letter-spacing: 0px;
+  text-decoration: none;
+  border: 1px solid transparent;
+  cursor: pointer;
+  white-space: nowrap;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* ==========================================================================
+   SIZES
+   ========================================================================== */
+.kpmg-button--sm {
+  height: 32px;
+  padding: 0 var(--spacing-4);
+  font-size: var(--font-size-label-md);
+  line-height: var(--line-height-label-md);
+  border-radius: var(--radius-full);
+}
+
+.kpmg-button--md {
+  height: 40px;
+  padding: 0 var(--spacing-6);
+  font-size: var(--font-size-label-lg);
+  line-height: var(--line-height-label-lg);
+  border-radius: var(--radius-full);
+}
+
+.kpmg-button--lg {
+  height: 52px;
+  padding: 0 var(--spacing-7);
+  font-size: var(--font-size-title-md);
+  line-height: var(--line-height-title-md);
+  border-radius: var(--radius-full);
+}
+
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+
+/* Primary / Filled */
+.kpmg-button--primary,
+.kpmg-button--filled {
+  background-color: var(--color-button-filled-bg);
+  color: var(--color-button-filled-text);
+  border-color: transparent;
+}
+
+.kpmg-button--primary:hover:not(:disabled),
+.kpmg-button--filled:hover:not(:disabled) {
+  background-color: var(--color-button-filled-bg-hover);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.kpmg-button--primary:active:not(:disabled),
+.kpmg-button--filled:active:not(:disabled) {
+  background-color: var(--color-button-filled-bg-active);
+  transform: translateY(1px);
+}
+
+/* Tonal / Soft (#E9EAFC Container Fill) */
+.kpmg-button--tonal,
+.kpmg-button--soft {
+  background-color: var(--color-button-tonal-bg);
+  color: var(--color-button-tonal-text);
+  border-color: transparent;
+}
+
+.kpmg-button--tonal:hover:not(:disabled),
+.kpmg-button--soft:hover:not(:disabled) {
+  background-color: var(--color-button-tonal-bg-hover);
+}
+
+.kpmg-button--tonal:active:not(:disabled),
+.kpmg-button--soft:active:not(:disabled) {
+  background-color: var(--color-button-tonal-bg-active);
+  transform: translateY(1px);
+}
+
+/* Secondary */
+.kpmg-button--secondary {
+  background-color: var(--color-button-secondary-bg);
+  color: var(--color-button-secondary-text);
+  border-color: transparent;
+}
+
+.kpmg-button--secondary:hover:not(:disabled) {
+  background-color: var(--color-button-secondary-bg-hover);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.kpmg-button--secondary:active:not(:disabled) {
+  background-color: var(--color-button-secondary-bg-active);
+  transform: translateY(1px);
+}
+
+/* Outline / Outlined */
+.kpmg-button--outline,
+.kpmg-button--outlined {
+  background-color: transparent;
+  color: var(--color-button-outlined-text);
+  border-color: var(--color-button-outlined-border);
+}
+
+.kpmg-button--outline:hover:not(:disabled),
+.kpmg-button--outlined:hover:not(:disabled) {
+  background-color: var(--color-button-outlined-bg-hover);
+  border-color: var(--color-button-outlined-border-hover);
+}
+
+.kpmg-button--outline:active:not(:disabled),
+.kpmg-button--outlined:active:not(:disabled) {
+  background-color: rgba(26, 40, 193, 0.16);
+  transform: translateY(1px);
+}
+
+/* Text */
+.kpmg-button--text {
+  background-color: transparent;
+  color: var(--color-button-text-text);
+  border-color: transparent;
+}
+
+.kpmg-button--text:hover:not(:disabled) {
+  background-color: var(--color-button-text-bg-hover);
+}
+
+.kpmg-button--text:active:not(:disabled) {
+  background-color: rgba(26, 40, 193, 0.16);
+  transform: translateY(1px);
+}
+
+/* Elevated */
+.kpmg-button--elevated {
+  background-color: var(--color-button-elevated-bg);
+  color: var(--color-button-elevated-text);
+  border-color: transparent;
+  box-shadow: var(--color-button-elevated-shadow);
+}
+
+.kpmg-button--elevated:hover:not(:disabled) {
+  box-shadow: var(--shadow-500);
+  background-color: var(--color-primary-surface);
+}
+
+.kpmg-button--elevated:active:not(:disabled) {
+  box-shadow: var(--shadow-sm);
+  transform: translateY(1px);
+}
+
+/* ==========================================================================
+   FOCUS & DISABLED STATES
+   ========================================================================== */
+.kpmg-button:focus-visible {
+  outline: 2px solid var(--color-primary-action);
+  outline-offset: 2px;
+}
+
+/* Default Disabled State for Solid/Filled Buttons */
+.kpmg-button:disabled,
+.kpmg-button--disabled {
+  background-color: var(--color-button-disabled-bg);
+  color: var(--color-button-disabled-text);
+  border-color: transparent;
+  box-shadow: none !important;
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none !important;
+}
+
+/* Specific Outlined Disabled State (Gray border #D5D5DC + Transparent bg) */
+.kpmg-button--outline:disabled,
+.kpmg-button--outlined:disabled,
+.kpmg-button--outline.kpmg-button--disabled,
+.kpmg-button--outlined.kpmg-button--disabled {
+  background-color: transparent !important;
+  color: var(--color-button-disabled-text) !important;
+  border-color: var(--color-button-disabled-border) !important;
+}
+
+/* Specific Text Disabled State */
+.kpmg-button--text:disabled,
+.kpmg-button--text.kpmg-button--disabled {
+  background-color: transparent !important;
+  color: var(--color-button-disabled-text) !important;
+  border-color: transparent !important;
+}
+
+.kpmg-button--full-width {
+  width: 100%;
+}
+
+.kpmg-button__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2em;
+}
+
+.kpmg-button__icon svg {
+  width: 1.25em;
+  height: 1.25em;
+  fill: currentColor;
+}

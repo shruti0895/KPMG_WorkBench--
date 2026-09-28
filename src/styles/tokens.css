@@ -1,0 +1,349 @@
+/**
+ * KPMG WorkBench Design System - Design Tokens
+ * Auto-extracted & unified from Figma Design System (2026)
+ */
+
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+:root {
+  /* ==========================================================================
+     1. PRIMITIVE COLOR SCALES
+     ========================================================================== */
+  
+  /* Neutral Scale */
+  --color-neutral-000: #2f2f39;
+  --color-neutral-100: #454554;
+  --color-neutral-200: #9090a2;
+  --color-neutral-300: #b8b8c4;
+  --color-neutral-400: #c7c7d1;
+  --color-neutral-500: #d5d5dc;
+  --color-neutral-600: #e3e3e8;
+  --color-neutral-700: #f1f1f3;
+  --color-neutral-800: #f7f7f8;
+  --color-neutral-900: #ffffff;
+
+  /* Blue / Primary Scale */
+  --color-blue-000: #0d145e;
+  --color-blue-100: #131e90;
+  --color-blue-200: #1a28c1;
+  --color-blue-300: #2f3de3;
+  --color-blue-400: #5965e9;
+  --color-blue-500: #818aee;
+  --color-blue-600: #aab0f4;
+  --color-blue-700: #d7d9fa;
+  --color-blue-800: #e9eafc;
+  --color-blue-900: #f5f5fe;
+
+  /* Dark Blue / Secondary Scale */
+  --color-dark-blue-000: #001438;
+  --color-dark-blue-100: #011f56;
+  --color-dark-blue-200: #01286f;
+  --color-dark-blue-300: #01338d;
+  --color-dark-blue-400: #014bd5;
+  --color-dark-blue-500: #2571fd;
+  --color-dark-blue-600: #6c9ffe;
+  --color-dark-blue-700: #b8d1ff;
+  --color-dark-blue-800: #dce8ff;
+  --color-dark-blue-900: #f1f7ff;
+
+  /* Purple / Tertiary Scale */
+  --color-purple-000: #2f085e;
+  --color-purple-100: #460b8e;
+  --color-purple-200: #5d0fbd;
+  --color-purple-300: #7213ea;
+  --color-purple-400: #9042f0;
+  --color-purple-500: #ac71f4;
+  --color-purple-600: #c8a1f7;
+  --color-purple-700: #e3d0fb;
+  --color-purple-800: #f1e7fd;
+  --color-purple-900: #f8f3fe;
+
+  /* Red / Error Scale */
+  --color-red-000: #79013f;
+  --color-red-100: #b6025f;
+  --color-red-200: #f2027e;
+  --color-red-300: #fd349c;
+  --color-red-400: #fd5db0;
+  --color-red-500: #fe86c4;
+  --color-red-600: #feaed8;
+  --color-red-700: #ffd7eb;
+  --color-red-800: #ffebf5;
+  --color-red-900: #fff6fa;
+
+  /* Base Static Colors */
+  --color-base-white: #ffffff;
+  --color-base-black: #000000;
+
+  /* ==========================================================================
+     2. SEMANTIC COLOR TOKENS (LIGHT MODE)
+     ========================================================================== */
+  
+  /* Surfaces & Backgrounds */
+  --color-surface: #ffffff;
+  --color-surface-light: #f7f7f8;
+  --color-surface-dark: #f1f1f3;
+  --color-on-surface: #2f2f39;
+  --color-on-surface-light: #9090a2;
+  --color-on-surface-dark: #101018;
+
+  /* Primary Tokens */
+  --color-primary-surface: #f5f5fe;
+  --color-primary-on-surface: #1a28c1;
+  --color-primary-container: #e9eafc;
+  --color-primary-on-container: #1a28c1;
+  --color-primary-action: #1e49e2;
+  --color-primary-action-hover: #1a28c1;
+  --color-primary-action-active: #131e90;
+  --color-primary-on-action: #ffffff;
+  --color-primary-outline: #818aee;
+
+  /* Secondary Tokens */
+  --color-secondary-surface: #f2f5f9;
+  --color-secondary-on-surface: #01286f;
+  --color-secondary-container: #ccd6e8;
+  --color-secondary-on-container: #01286f;
+  --color-secondary-action: #00338d;
+  --color-secondary-action-hover: #01286f;
+  --color-secondary-action-active: #011f56;
+  --color-secondary-on-action: #ffffff;
+  --color-secondary-outline: #4166a9;
+
+  /* Tertiary Tokens */
+  --color-tertiary-surface: #f8f3fe;
+  --color-tertiary-on-surface: #5d0fbd;
+  --color-tertiary-container: #e3d2f8;
+  --color-tertiary-on-container: #5d0fbd;
+  --color-tertiary-action: #7213ea;
+  --color-tertiary-action-hover: #5d0fbd;
+  --color-tertiary-action-active: #460b8e;
+  --color-tertiary-on-action: #ffffff;
+  --color-tertiary-outline: #a461f9;
+
+  /* Neutral Action & Outline */
+  --color-neutral-container: #f1f1f3;
+  --color-neutral-on-container: #9090a2;
+  --color-neutral-action: #e3e3e8;
+  --color-neutral-action-hover: #c7c7d1;
+  --color-neutral-on-action: #454554;
+  --color-neutral-outline: #d5d5dc;
+  --color-neutral-outline-light: #9090a2;
+  --color-neutral-outline-dark: #454554;
+
+  /* State Feedback Tokens */
+  --color-error-action: #e6256b;
+  --color-error-action-hover: #cf0e54;
+  --color-error-on-action: #ffffff;
+  --color-error-container: #ffcedf;
+  --color-error-on-container: #cf0e54;
+  --color-error-outline: #fc659b;
+
+  --color-success-action: #3da384;
+  --color-success-action-hover: #029a6c;
+  --color-success-on-action: #ffffff;
+  --color-success-container: #cde3dc;
+  --color-success-on-container: #029a6c;
+  --color-success-outline: #80c0ac;
+
+  --color-warning-action: #f5da4d;
+  --color-warning-action-hover: #f4d533;
+  --color-warning-on-action: #2f2f39;
+  --color-warning-container: #fcf5cc;
+  --color-warning-on-container: #f4d533;
+  --color-warning-outline: #f8e580;
+
+  /* Button Specific Tokens */
+  --color-button-filled-bg: var(--color-primary-action);
+  --color-button-filled-bg-hover: var(--color-primary-action-hover);
+  --color-button-filled-bg-active: var(--color-primary-action-active);
+  --color-button-filled-text: #ffffff;
+
+  --color-button-tonal-bg: #e9eafc;
+  --color-button-tonal-bg-hover: #d7d9fa;
+  --color-button-tonal-bg-active: #aab0f4;
+  --color-button-tonal-text: #1a28c1;
+
+  --color-button-secondary-bg: var(--color-secondary-action);
+  --color-button-secondary-bg-hover: var(--color-secondary-action-hover);
+  --color-button-secondary-bg-active: var(--color-secondary-action-active);
+  --color-button-secondary-text: #ffffff;
+
+  --color-button-outlined-border: #1a28c1;
+  --color-button-outlined-border-hover: #131e90;
+  --color-button-outlined-text: #1a28c1;
+  --color-button-outlined-bg-hover: rgba(26, 40, 193, 0.08);
+
+  --color-button-text-text: #1a28c1;
+  --color-button-text-bg-hover: rgba(26, 40, 193, 0.08);
+
+  --color-button-elevated-bg: #ffffff;
+  --color-button-elevated-text: #1a28c1;
+  --color-button-elevated-shadow: var(--shadow-300);
+
+  --color-button-neutral-bg: #e3e3e8;
+  --color-button-neutral-text: #454554;
+  --color-button-neutral-bg-hover: #c7c7d1;
+
+  --color-button-disabled-bg: #e3e3e8;
+  --color-button-disabled-text: #9090a2;
+  --color-button-disabled-border: #d5d5dc;
+
+  /* ==========================================================================
+     3. SPACING & MARGINS (Incremental scale: 4px/8px increments)
+     ========================================================================== */
+  --spacing-none: 0px;
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 10px;
+  --spacing-4: 12px;
+  --spacing-5: 18px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
+  --spacing-9: 48px;
+  --spacing-10: 56px;
+  --spacing-11: 64px;
+  --spacing-12: 72px;
+  --spacing-13: 88px;
+  --spacing-14: 96px;
+
+  /* ==========================================================================
+     4. TYPOGRAPHY
+     ========================================================================== */
+  --font-family-base: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Display */
+  --font-size-display-lg: 60px;
+  --line-height-display-lg: 80px;
+  --font-weight-display-lg: 700;
+
+  --font-size-display-md: 46px;
+  --line-height-display-md: 64px;
+  --font-weight-display-md: 700;
+
+  --font-size-display-sm: 36px;
+  --line-height-display-sm: 48px;
+  --font-weight-display-sm: 700;
+
+  /* Headline */
+  --font-size-headline-lg: 32px;
+  --line-height-headline-lg: 44px;
+  --font-weight-headline-lg: 700;
+
+  --font-size-headline-md: 28px;
+  --line-height-headline-md: 38px;
+  --font-weight-headline-md: 700;
+
+  --font-size-headline-sm: 24px;
+  --line-height-headline-sm: 32px;
+  --font-weight-headline-sm: 700;
+
+  /* Title */
+  --font-size-title-lg: 22px;
+  --line-height-title-lg: 30px;
+  --font-weight-title-lg: 400;
+
+  --font-size-title-md: 16px;
+  --line-height-title-md: 22px;
+  --font-weight-title-md: 400;
+
+  --font-size-title-sm: 14px;
+  --line-height-title-sm: 20px;
+  --font-weight-title-sm: 400;
+
+  /* Body */
+  --font-size-body-lg: 16px;
+  --line-height-body-lg: 22px;
+  --font-weight-body-lg: 400;
+
+  --font-size-body-md: 14px;
+  --line-height-body-md: 20px;
+  --font-weight-body-md: 400;
+
+  --font-size-body-sm: 12px;
+  --line-height-body-sm: 16px;
+  --font-weight-body-sm: 400;
+
+  /* Label */
+  --font-size-label-lg: 14px;
+  --line-height-label-lg: 20px;
+  --font-weight-label-lg: 400;
+
+  --font-size-label-md: 12px;
+  --line-height-label-md: 16px;
+  --font-weight-label-md: 400;
+
+  --font-size-label-sm: 11px;
+  --line-height-label-sm: 14px;
+  --font-weight-label-sm: 400;
+
+  /* ==========================================================================
+     5. BORDER RADII
+     ========================================================================== */
+  --radius-none: 0px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 1000px;
+
+  /* ==========================================================================
+     6. ELEVATION / SHADOWS
+     ========================================================================== */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.08);
+  --shadow-300: 2px 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-500: 2px 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Dark Mode Theme Overrides */
+[data-theme="dark"] {
+  --color-surface: #454554;
+  --color-surface-light: #2f2f39;
+  --color-surface-dark: #2f2f39;
+  --color-on-surface: #ffffff;
+  --color-on-surface-light: #ffffff;
+
+  --color-primary-surface: #2f2f39;
+  --color-primary-on-surface: #ffffff;
+  --color-primary-container: #454554;
+  --color-primary-on-container: #1e49e2;
+  --color-primary-action: #1e49e2;
+  --color-primary-on-action: #f7f7f8;
+
+  --color-neutral-container: #2f2f39;
+  --color-neutral-on-container: #ffffff;
+  --color-neutral-action: #2f2f39;
+  --color-neutral-on-action: #f7f7f8;
+  --color-neutral-outline: #2f2f39;
+
+  --color-button-filled-bg: #1e49e2;
+  --color-button-filled-text: #f7f7f8;
+  --color-button-outlined-border: #ffffff;
+  --color-button-outlined-text: rgba(255, 255, 255, 0.9);
+  --color-button-outlined-bg-hover: rgba(255, 255, 255, 0.1);
+  --color-button-text-text: #f7f7f8;
+  --color-button-text-bg-hover: rgba(255, 255, 255, 0.1);
+}
+
+/* ==========================================================================
+   GLOBAL RESET & BASE LAYER
+   ========================================================================== */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body-md);
+  color: var(--color-on-surface);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}

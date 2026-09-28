@@ -1,0 +1,171 @@
+/* KPMG WorkBench Design System - IconButton Styles */
+
+.kpmg-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid transparent;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-sizing: border-box;
+  outline: none;
+  background-color: transparent;
+}
+
+/* ==========================================================================
+   SHAPES & SIZES
+   ========================================================================== */
+.kpmg-icon-button--circle {
+  border-radius: var(--radius-full);
+}
+
+.kpmg-icon-button--square {
+  border-radius: var(--radius-sm);
+}
+
+.kpmg-icon-button--sm {
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+}
+
+.kpmg-icon-button--md {
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+}
+
+.kpmg-icon-button--lg {
+  width: 52px;
+  height: 52px;
+  font-size: 24px;
+}
+
+/* ==========================================================================
+   VARIANTS
+   ========================================================================== */
+
+/* Filled */
+.kpmg-icon-button--filled {
+  background-color: var(--color-button-filled-bg);
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.kpmg-icon-button--filled:hover:not(:disabled) {
+  background-color: var(--color-button-filled-bg-hover);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+}
+
+.kpmg-icon-button--filled:active:not(:disabled) {
+  background-color: var(--color-button-filled-bg-active);
+}
+
+/* Outline / Outlined */
+.kpmg-icon-button--outline,
+.kpmg-icon-button--outlined {
+  background-color: transparent;
+  color: var(--color-button-outlined-text);
+  border-color: var(--color-button-outlined-border);
+}
+
+.kpmg-icon-button--outline:hover:not(:disabled),
+.kpmg-icon-button--outlined:hover:not(:disabled) {
+  background-color: var(--color-button-outlined-bg-hover);
+  border-color: var(--color-button-outlined-border-hover);
+}
+
+.kpmg-icon-button--outline:active:not(:disabled),
+.kpmg-icon-button--outlined:active:not(:disabled) {
+  background-color: rgba(26, 40, 193, 0.16);
+}
+
+/* Standard */
+.kpmg-icon-button--standard {
+  background-color: transparent;
+  color: var(--color-button-text-text);
+  border-color: transparent;
+}
+
+.kpmg-icon-button--standard:hover:not(:disabled) {
+  background-color: var(--color-button-text-bg-hover);
+}
+
+.kpmg-icon-button--standard:active:not(:disabled) {
+  background-color: rgba(26, 40, 193, 0.16);
+}
+
+/* Neutral */
+.kpmg-icon-button--neutral {
+  background-color: var(--color-button-neutral-bg);
+  color: var(--color-button-neutral-text);
+  border-color: transparent;
+}
+
+.kpmg-icon-button--neutral:hover:not(:disabled) {
+  background-color: var(--color-button-neutral-bg-hover);
+}
+
+.kpmg-icon-button--neutral:active:not(:disabled) {
+  background-color: #b8b8c4;
+}
+
+/* ==========================================================================
+   TOGGLED / SELECTED STATE
+   ========================================================================== */
+.kpmg-icon-button--selected.kpmg-icon-button--filled {
+  background-color: var(--color-primary-action-active);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.kpmg-icon-button--selected.kpmg-icon-button--outline {
+  background-color: rgba(26, 40, 193, 0.12);
+  border-color: var(--color-primary-action-active);
+}
+
+.kpmg-icon-button--selected.kpmg-icon-button--standard {
+  background-color: rgba(26, 40, 193, 0.12);
+  color: var(--color-primary-action-active);
+}
+
+.kpmg-icon-button--selected.kpmg-icon-button--neutral {
+  background-color: #c7c7d1;
+}
+
+/* ==========================================================================
+   DISABLED STATES
+   ========================================================================== */
+.kpmg-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.8;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.kpmg-icon-button--filled:disabled,
+.kpmg-icon-button--neutral:disabled {
+  background-color: var(--color-button-disabled-bg) !important;
+  color: var(--color-button-disabled-text) !important;
+  border-color: transparent !important;
+}
+
+.kpmg-icon-button--outline:disabled {
+  background-color: transparent !important;
+  color: var(--color-button-disabled-text) !important;
+  border-color: var(--color-button-disabled-border) !important;
+}
+
+.kpmg-icon-button--standard:disabled {
+  background-color: transparent !important;
+  color: var(--color-button-disabled-text) !important;
+  border-color: transparent !important;
+}
+
+/* SVG Icon Sizing */
+.kpmg-icon-button svg {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+}

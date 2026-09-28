@@ -1,0 +1,16 @@
+@import './styles/tokens.css';
+
+:root {
+  --text: var(--color-on-surface);
+  --text-h: var(--color-on-surface-dark);
+  --bg: var(--color-surface);
+  --border: var(--color-neutral-outline);
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--spacing-6);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
