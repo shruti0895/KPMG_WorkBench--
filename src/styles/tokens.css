@@ -187,6 +187,141 @@
   --color-button-disabled-text: #9090a2;
   --color-button-disabled-border: #d5d5dc;
 
+  /* Checkbox Specific Tokens */
+  --color-checkbox-primary-fill: #3d405b;
+  --color-checkbox-primary-stroke: #3d405b;
+  --color-checkbox-primary-tick: #ffffff;
+  --color-checkbox-hover-layer: #e9eafc;
+  --color-checkbox-pressed-layer: #d7d9fa;
+
+  --color-checkbox-error-fill: #c00f48;
+  --color-checkbox-error-stroke: #c00f48;
+  --color-checkbox-error-tick: #ffffff;
+  --color-checkbox-error-hover-layer: #ffcedf;
+  --color-checkbox-error-pressed-layer: #feaac8;
+
+  --color-checkbox-disabled-fill: #b8b8c4;
+  --color-checkbox-disabled-stroke: #9090a2;
+  --color-checkbox-disabled-tick: #ffffff;
+
+  /* Slider Specific Tokens */
+  --color-slider-track-active: #1e49e2;
+  --color-slider-track-inactive: #e3e3e8;
+  --color-slider-thumb-fill: #1e49e2;
+  --color-slider-thumb-hover-halo: rgba(30, 73, 226, 0.15);
+  --color-slider-thumb-pressed-halo: rgba(30, 73, 226, 0.3);
+  --color-slider-indicator-bg: #2f3de3;
+  --color-slider-indicator-text: #ffffff;
+  --color-slider-disabled-track: #e3e3e8;
+  --color-slider-disabled-thumb: #9090a2;
+
+  /* ProgressIndicator Specific Tokens */
+  --color-progress-track-active: #1e49e2;
+  --color-progress-track-inactive: #e3e3e8;
+  --color-progress-label-text: #2f2f39;
+  --color-progress-subtext: #9090a2;
+
+  /* FileUploader Specific Tokens */
+  --color-uploader-bg-outline: #ffffff;
+  --color-uploader-border-outline: #d5d5dc;
+  --color-uploader-bg-elevated: #f8f9fe;
+  --color-uploader-shadow-elevated: 0px 4px 16px rgba(0, 0, 0, 0.06);
+  --color-uploader-bg-filled: #e9eafc;
+  --color-uploader-text-primary: #2f2f39;
+  --color-uploader-text-link: #1e49e2;
+  --color-uploader-drag-border: #1e49e2;
+  --color-uploader-drag-bg: rgba(30, 73, 226, 0.04);
+
+  /* Chip Specific Tokens */
+  --color-chip-text: var(--color-neutral-100); /* #454554 - neutral/on-action/on-action-dark */
+  --color-chip-text-disabled: var(--color-neutral-200); /* #9090a2 - neutral/on-action/on-action */
+  --color-chip-outline-border: var(--color-neutral-100); /* #454554 - neutral/outline/outline-dark */
+  --color-chip-outline-border-disabled: var(--color-neutral-500); /* #d5d5dc - neutral/outline/outline */
+  --color-chip-bg-unselected: transparent;
+  --color-chip-bg-hover: var(--color-neutral-800); /* #f7f7f8 - neutral/container/container-light */
+  --color-chip-bg-pressed: var(--color-neutral-700); /* #f1f1f3 - neutral/container/container */
+  --color-chip-selected-bg: var(--color-blue-800); /* #e9eafc - primary/container/container */
+  --color-chip-selected-hover-bg: var(--color-blue-700); /* #d7d9fa - primary/container/container-dark */
+  --color-chip-selected-pressed-bg: var(--color-blue-700); /* #d7d9fa */
+  --color-chip-disabled-selected-bg: var(--color-neutral-700); /* #f1f1f3 */
+  --color-chip-disabled-elevated-bg: var(--color-neutral-800); /* #f7f7f8 */
+  --color-chip-elevated-bg: var(--color-surface); /* #ffffff - neutral/container/container-lightest */
+  --color-chip-elevated-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.25), 0px 1px 2px rgba(0, 0, 0, 0.1);
+  --color-chip-dragged-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.3);
+  --color-chip-focus-ring: var(--color-primary-outline); /* #818aee */
+
+  /* Chip Dimension & Layout Tokens */
+  --size-chip-height: 32px;
+  --size-chip-icon: 16px;
+  --size-chip-icon-only-width: 40px;
+  --spacing-chip-gap: 6px;
+  --spacing-chip-padding-x: var(--spacing-4);
+  --spacing-chip-icon-only-padding-x: var(--spacing-2);
+
+  /* Badge Specific Tokens */
+  --color-badge-primary-loud-bg: var(--color-primary-action); /* #1e49e2 */
+  --color-badge-primary-loud-text: var(--color-base-white); /* #ffffff */
+  --color-badge-primary-quiet-bg: var(--color-blue-700); /* #d7d9fa */
+  --color-badge-primary-quiet-text: var(--color-primary-on-surface); /* #1a28c1 */
+  --color-badge-neutral-loud-bg: var(--color-neutral-600); /* #e3e3e8 */
+  --color-badge-neutral-loud-text: var(--color-neutral-100); /* #454554 */
+  --color-badge-neutral-quiet-bg: var(--color-neutral-800); /* #f7f7f8 */
+  --color-badge-neutral-quiet-text: var(--color-neutral-100); /* #454554 */
+
+  /* Badge Dimension & Layout Tokens */
+  --size-badge-sm: 6px;
+  --size-badge-md: 16px;
+  --size-badge-lg: 24px;
+  --spacing-badge-md-padding-x: var(--spacing-1); /* 4px */
+  --spacing-badge-lg-padding-x: var(--spacing-2); /* 8px */
+
+  /* Banner Specific Tokens */
+  --color-banner-default-bg: var(--color-primary-surface); /* #f5f5fe */
+  --color-banner-animated-gradient: linear-gradient(180deg, var(--color-blue-500) 12%, var(--color-primary-surface) 100%); /* #818aee to #f5f5fe */
+  --color-banner-text-primary: var(--color-primary-on-container); /* #1a28c1 */
+  --color-banner-icon: var(--color-neutral-100); /* #454554 */
+  --color-banner-icon-btn-hover: var(--color-primary-container); /* #e9eafc */
+  --color-banner-progress-track: var(--color-neutral-600); /* #e3e3e8 */
+  --color-banner-progress-fill: var(--color-primary-on-container); /* #1a28c1 */
+
+  /* Banner Semantic Variants Tokens (12-variant complete matrix) */
+  --color-banner-neutral-bg: var(--color-neutral-800); /* #f7f7f8 */
+  --color-banner-neutral-text: var(--color-neutral-000); /* #2f2f39 */
+  --color-banner-neutral-icon: var(--color-neutral-100); /* #454554 */
+  --color-banner-neutral-gradient: linear-gradient(180deg, var(--color-neutral-400) 12%, var(--color-neutral-800) 100%);
+
+  --color-banner-info-bg: var(--color-blue-900); /* #f5f5fe */
+  --color-banner-info-text: var(--color-blue-200); /* #1a28c1 */
+  --color-banner-info-icon: var(--color-blue-300); /* #2f3de3 */
+  --color-banner-info-gradient: linear-gradient(180deg, var(--color-blue-500) 12%, var(--color-blue-900) 100%);
+
+  --color-banner-success-bg: #e6f8ee;
+  --color-banner-success-text: #0b7a3e;
+  --color-banner-success-icon: #0e9f50;
+  --color-banner-success-gradient: linear-gradient(180deg, #86e0aa 12%, #e6f8ee 100%);
+
+  --color-banner-warning-bg: #fef7e6;
+  --color-banner-warning-text: #8c5b00;
+  --color-banner-warning-icon: #b87900;
+  --color-banner-warning-gradient: linear-gradient(180deg, #fcd37e 12%, #fef7e6 100%);
+
+  --color-banner-critical-bg: var(--color-red-900); /* #fff6fa */
+  --color-banner-critical-text: var(--color-red-100); /* #b6025f */
+  --color-banner-critical-icon: var(--color-red-200); /* #f2027e */
+  --color-banner-critical-gradient: linear-gradient(180deg, var(--color-red-500) 12%, var(--color-red-900) 100%);
+
+  /* Banner Dimensions & Spacing Tokens */
+  --size-banner-min-height: 64px;
+  --size-banner-icon-container: 40px;
+  --size-banner-icon: 24px;
+  --size-banner-progress-width: 260px;
+  --size-banner-progress-height: 4px;
+  --radius-banner: var(--radius-md); /* 12px */
+  --spacing-banner-padding-x: var(--spacing-5); /* 18px */
+  --spacing-banner-padding-y: var(--spacing-4); /* 12px */
+  --spacing-banner-gap: var(--spacing-5); /* 18px */
+  --spacing-banner-label-gap: var(--spacing-5); /* 18px */
+
   /* ==========================================================================
      3. SPACING & MARGINS (Incremental scale: 4px/8px increments)
      ========================================================================== */
@@ -299,6 +434,12 @@
   --shadow-500: 2px 2px 12px rgba(0, 0, 0, 0.3);
 }
 
+
+
+
+
+
+
 /* Dark Mode Theme Overrides */
 [data-theme="dark"] {
   --color-surface: #454554;
@@ -327,7 +468,75 @@
   --color-button-outlined-bg-hover: rgba(255, 255, 255, 0.1);
   --color-button-text-text: #f7f7f8;
   --color-button-text-bg-hover: rgba(255, 255, 255, 0.1);
+
+  /* Chip Dark Mode Tokens */
+  --color-chip-text: #ffffff;
+  --color-chip-text-disabled: #9090a2;
+  --color-chip-outline-border: #ffffff;
+  --color-chip-outline-border-disabled: #555566;
+  --color-chip-bg-unselected: transparent;
+  --color-chip-bg-hover: rgba(255, 255, 255, 0.08);
+  --color-chip-bg-pressed: rgba(255, 255, 255, 0.15);
+  --color-chip-selected-bg: #454554;
+  --color-chip-selected-hover-bg: #5965e9;
+  --color-chip-selected-pressed-bg: #5965e9;
+  --color-chip-disabled-selected-bg: rgba(255, 255, 255, 0.05);
+  --color-chip-disabled-elevated-bg: #2f2f39;
+  --color-chip-elevated-bg: #2f2f39;
+  --color-chip-elevated-shadow: 0px 1px 3px rgba(0, 0, 0, 0.5);
+  --color-chip-dragged-shadow: 0px 2px 6px rgba(0, 0, 0, 0.6);
+  --color-chip-focus-ring: #818aee;
+
+  /* Badge Dark Mode Tokens */
+  --color-badge-primary-loud-bg: #1e49e2;
+  --color-badge-primary-loud-text: #ffffff;
+  --color-badge-primary-quiet-bg: #2f3de3;
+  --color-badge-primary-quiet-text: #ffffff;
+  --color-badge-neutral-loud-bg: #555566;
+  --color-badge-neutral-loud-text: #ffffff;
+  --color-badge-neutral-quiet-bg: #2f2f39;
+  --color-badge-neutral-quiet-text: #ffffff;
+
+  /* Banner Dark Mode Tokens */
+  --color-banner-default-bg: #232338;
+  --color-banner-animated-gradient: linear-gradient(180deg, #373b7a 12%, #232338 100%);
+  --color-banner-text-primary: #aab0f4;
+  --color-banner-icon: #c7c7d1;
+  --color-banner-icon-btn-hover: #32324d;
+  --color-banner-progress-track: #454554;
+  --color-banner-progress-fill: #5965e9;
+
+  --color-banner-neutral-bg: #272733;
+  --color-banner-neutral-text: #f1f1f3;
+  --color-banner-neutral-icon: #c7c7d1;
+  --color-banner-neutral-gradient: linear-gradient(180deg, #454554 12%, #272733 100%);
+
+  --color-banner-info-bg: #1c233f;
+  --color-banner-info-text: #aab0f4;
+  --color-banner-info-icon: #818aee;
+  --color-banner-info-gradient: linear-gradient(180deg, #2b396b 12%, #1c233f 100%);
+
+  --color-banner-success-bg: #142e20;
+  --color-banner-success-text: #70df9e;
+  --color-banner-success-icon: #4cd485;
+  --color-banner-success-gradient: linear-gradient(180deg, #1b4b32 12%, #142e20 100%);
+
+  --color-banner-warning-bg: #332712;
+  --color-banner-warning-text: #fcd37e;
+  --color-banner-warning-icon: #f5b742;
+  --color-banner-warning-gradient: linear-gradient(180deg, #57401a 12%, #332712 100%);
+
+  --color-banner-critical-bg: #351221;
+  --color-banner-critical-text: #feaed8;
+  --color-banner-critical-icon: #fd5db0;
+  --color-banner-critical-gradient: linear-gradient(180deg, #591634 12%, #351221 100%);
 }
+
+
+
+
+
+
 
 /* ==========================================================================
    GLOBAL RESET & BASE LAYER
