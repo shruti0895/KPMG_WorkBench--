@@ -1,0 +1,155 @@
+/**
+ * KPMG WorkBench Design System - ProgressIndicator Component Styles
+ * Formatted directly to Figma Specs (Node 964:63787).
+ * Linear & Circular variants, Indeterminate Loading Animations, and Token Integration.
+ */
+
+.kpmg-progress {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1, 4px);
+  width: 100%;
+  font-family: var(--font-family-base);
+  box-sizing: border-box;
+}
+
+.kpmg-progress--linear {
+  max-width: 500px;
+}
+
+.kpmg-progress--circular {
+  width: auto;
+  display: inline-flex;
+}
+
+/* Linear Progress Bar Header (Label & Value %) */
+.kpmg-progress__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-1, 4px);
+}
+
+.kpmg-progress__label {
+  font-size: var(--font-size-body-md, 14px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-progress-label-text, #2f2f39);
+}
+
+.kpmg-progress__value-text {
+  font-size: var(--font-size-body-sm, 12px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-progress-track-active, #1e49e2);
+}
+
+.kpmg-progress__subtext {
+  font-size: var(--font-size-body-sm, 12px);
+  color: var(--color-progress-subtext, #9090a2);
+  margin-top: 2px;
+}
+
+/* Linear Progress Bar Track & Fill */
+.kpmg-progress__linear-track {
+  width: 100%;
+  position: relative;
+  background-color: var(--color-progress-track-inactive, #e3e3e8);
+  border-radius: var(--radius-full, 1000px);
+  overflow: hidden;
+}
+
+.kpmg-progress__linear-fill {
+  height: 100%;
+  background-color: var(--color-progress-track-active, #1e49e2);
+  border-radius: var(--radius-full, 1000px);
+  transition: width 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Linear Indeterminate Sliding Animation */
+.kpmg-progress__linear-track--indeterminate .kpmg-progress__linear-fill--indeterminate {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  animation: kpmg-linear-indeterminate 1.8s infinite ease-in-out;
+}
+
+@keyframes kpmg-linear-indeterminate {
+  0% {
+    left: -40%;
+    width: 30%;
+  }
+  50% {
+    left: 40%;
+    width: 50%;
+  }
+  100% {
+    left: 100%;
+    width: 30%;
+  }
+}
+
+/* Circular Progress Container & SVG */
+.kpmg-progress__circular-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-3, 10px);
+}
+
+.kpmg-progress__circular-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpmg-progress__circular-svg {
+  transform: rotate(-90deg); /* Start arc from top center */
+  transform-origin: 50% 50%;
+}
+
+.kpmg-progress__circular-arc {
+  transition: stroke-dashoffset 0.3s ease-out;
+}
+
+.kpmg-progress__circular-value {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-body-sm, 12px);
+  font-weight: var(--font-weight-semibold, 600);
+  color: var(--color-progress-track-active, #1e49e2);
+  user-select: none;
+}
+
+.kpmg-progress__circular-container--large .kpmg-progress__circular-value {
+  font-size: var(--font-size-headline-sm, 20px);
+}
+
+.kpmg-progress__circular-container--medium .kpmg-progress__circular-value {
+  font-size: var(--font-size-body-sm, 12px);
+}
+
+/* Circular Indeterminate Rotating Animation */
+.kpmg-progress__circular-svg--indeterminate {
+  animation: kpmg-circular-spin 1.4s linear infinite;
+}
+
+.kpmg-progress__circular-arc--indeterminate {
+  animation: kpmg-circular-dash 1.4s ease-in-out infinite;
+}
+
+@keyframes kpmg-circular-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.kpmg-progress__circular-labels {
+  display: flex;
+  flex-direction: column;
+}
