@@ -9,6 +9,26 @@ import { FileUploader } from './components/FileUploader/FileUploader';
 import { Chip, ChipStarSvg, ChipBrandedDocSvg } from './components/Chip';
 import { Badge } from './components/Badge';
 import { Banner } from './components/Banner';
+import { List, ListItem } from './components/List';
+import { Tab, TabItem } from './components/Tab';
+import { Textarea } from './components/Textarea';
+import { Tooltip } from './components/Tooltip';
+import { Snackbar, SnackbarContainer } from './components/Snackbar';
+import {
+  Menu,
+  MenuItem,
+  MenuGroup,
+  MenuDivider,
+  DropdownMenu,
+  DropdownBase,
+  DropdownItemGroup,
+  NavigationMenu,
+  OverflowMenu,
+  AssistantMenu,
+  AssistantCard,
+} from './components/Menu';
+import { Switch } from './components/Switch';
+import { Dividers } from './components/Dividers';
 
 const SettingsIcon = () => (
 
@@ -59,6 +79,78 @@ function App() {
   const [bannerVariant, setBannerVariant] = useState('primary');
   const [isIndeterminate, setIsIndeterminate] = useState(false);
   const [showDismissibleBanner, setShowDismissibleBanner] = useState(true);
+  const [listStyle, setListStyle] = useState('outlined');
+  const [listSize, setListSize] = useState('medium');
+  const [listDivided, setListDivided] = useState(false);
+  const [selectedRadio, setSelectedRadio] = useState('opt-1');
+  const [selectedChecks, setSelectedChecks] = useState(['chk-1', 'chk-2']);
+  const [tabInteractiveSize, setTabInteractiveSize] = useState('large');
+  const [activeTabId, setActiveTabId] = useState('summary');
+  const [textareaValue, setTextareaValue] = useState('Antigravity token-driven architecture enables scalable and consistent enterprise design systems.');
+  const [textareaVariant, setTextareaVariant] = useState('outlined');
+  const [textareaState, setTextareaState] = useState('enabled');
+  const [textareaWithHeader, setTextareaWithHeader] = useState(true);
+  const [textareaActionStatus, setTextareaActionStatus] = useState('');
+
+  const handleTextareaVoiceClick = () => {
+    setTextareaActionStatus('Listening to voice audio...');
+    setTimeout(() => {
+      setTextareaValue((prev) => prev + ' [Speech transcribed successfully]');
+      setTextareaActionStatus('Voice input transcribed into field.');
+    }, 800);
+  };
+
+  const [tooltipTheme, setTooltipTheme] = useState('elevated');
+  const [tooltipVariant, setTooltipVariant] = useState('rich-action');
+  const [tooltipPlacement, setTooltipPlacement] = useState('top');
+
+  const [snackbarSize, setSnackbarSize] = useState('single-line');
+  const [snackbarOutlined, setSnackbarOutlined] = useState(false);
+  const [liveToasts, setLiveToasts] = useState([]);
+
+  const [appSwitchChecked, setAppSwitchChecked] = useState(true);
+  const [appSwitchWithIcon, setAppSwitchWithIcon] = useState(true);
+
+  const spawnAppToast = (size, outlined) => {
+    const id = Date.now().toString();
+    const newToast = {
+      id,
+      size,
+      outlined,
+      header: size.includes('header') || size.includes('media') ? 'Sources' : undefined,
+      message: 'Client sample request updated successfully.',
+      description: 'Audit documentation was verified and indexed into the engagement directory.',
+      actionLabel: 'Modify',
+      onAction: () => alert('Action clicked on snackbar!'),
+    };
+    setLiveToasts((prev) => [...prev, newToast]);
+  };
+
+  const removeAppToast = (id) => {
+    setLiveToasts((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const [activeMenuType, setActiveMenuType] = useState('dropdown');
+  const [activeMenuDensity, setActiveMenuDensity] = useState('medium');
+  const [dropdownBaseStyle, setDropdownBaseStyle] = useState('default-pill');
+  const [dropdownBaseSize, setDropdownBaseSize] = useState('medium');
+  const [dropdownOrientation, setDropdownOrientation] = useState('bottom');
+  const [dropdownAlignment, setDropdownAlignment] = useState('left');
+  const [dropdownItemType, setDropdownItemType] = useState('checklist');
+  const [selectedDropdownItems, setSelectedDropdownItems] = useState(['Option 2', 'Option 4']);
+  const [activeNavSelection, setActiveNavSelection] = useState('Inbox');
+
+  const toggleDropdownSelection = (val) => {
+    setSelectedDropdownItems((prev) =>
+      prev.includes(val) ? prev.filter((item) => item !== val) : [...prev, val]
+    );
+  };
+
+  const toggleListCheck = (id) => {
+    setSelectedChecks((prev) =>
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+    );
+  };
 
   const toggleFilter = (key) => {
     setSelectedFilters((prev) =>
@@ -77,11 +169,1673 @@ function App() {
           KPMG WorkBench Design System
         </h1>
         <p style={{ fontSize: 'var(--font-size-body-lg)', color: 'var(--color-on-surface-light)' }}>
-          Component Specifications: Banners (12 Variants), Badges (12 Variants), Chips (80+ Variants), File Uploaders, Progress Indicators, Sliders, Checkboxes, Buttons &amp; Breadcrumbs.
+          Component Specifications: Menu (4 Canonical Types: Dropdown, Navigation, Overflow, Assistant), Snackbar (10 Canonical Variants), Tooltip (36 Positional &amp; 8 Content Variants), Textarea (20 Variants), Tab / Tabs (12 Variants), Lists (12 Variants), Banners (12 Variants), Badges (12 Variants), Chips (80+ Variants), File Uploaders, Progress Indicators, Sliders, Checkboxes, Buttons &amp; Breadcrumbs.
         </p>
       </header>
 
       <main style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-8)' }}>
+        {/* Menu Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Menu Component (4 Canonical Types: Dropdown, Navigation, Overflow, Assistant)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Menu Type:</span>
+              {[
+                { id: 'dropdown', label: 'Dropdown Menu' },
+                { id: 'navigation', label: 'Navigation Menu' },
+                { id: 'overflow', label: 'Overflow Menu' },
+                { id: 'assistant', label: 'Assistant Menu' },
+              ].map((t) => (
+                <Button
+                  key={t.id}
+                  size="small"
+                  variant={activeMenuType === t.id ? 'primary' : 'outline'}
+                  onClick={() => setActiveMenuType(t.id)}
+                >
+                  {t.label}
+                </Button>
+              ))}
+
+              {activeMenuType === 'dropdown' && (
+                <>
+                  <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)', marginLeft: '8px' }}>Density:</span>
+                  {[
+                    { id: 'small', label: 'Small (32px)' },
+                    { id: 'medium', label: 'Medium (40px)' },
+                    { id: 'large', label: 'Large (44px)' },
+                  ].map((d) => (
+                    <Button
+                      key={d.id}
+                      size="small"
+                      variant={activeMenuDensity === d.id ? 'primary' : 'outline'}
+                      onClick={() => setActiveMenuDensity(d.id)}
+                    >
+                      {d.label}
+                    </Button>
+                  ))}
+                </>
+              )}
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            100% token-driven menu system. Implements all 4 canonical paradigms from the KPMG WorkBench design system: Dropdown menus (with Checklist &amp; Icon list items across 3 densities, 24 base variants, and 6 canonical item group assemblies), Navigation menus (with KPMG brand pill trigger, 52px pill items, notification badges, and section dividers), Overflow menus (compact 3-dots action menus), and Assistant menus (KPMG Trusted AI conversational search, verified badge, and rich prompt cards).
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+            {/* Interactive Showcase Panel for Selected Menu Type */}
+            <div style={{ border: '1px solid var(--color-neutral-500)', borderRadius: '12px', padding: '24px', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '14px', fontWeight: '600', color: 'var(--color-on-surface)' }}>
+                  Active Playground: {activeMenuType.toUpperCase()} MENU
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--color-neutral-200)' }}>
+                  Selected Items: <strong>{selectedDropdownItems.join(', ') || 'None'}</strong>
+                </span>
+              </div>
+
+              {/* 1. Dropdown Menu Playground */}
+              {activeMenuType === 'dropdown' && (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
+                  {/* Dropdown Interactive Configurator Bar */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '16px', borderRadius: '8px', backgroundColor: 'var(--color-surface-light)', border: '1px solid var(--color-neutral-outline)' }}>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Base Style:</span>
+                        {[
+                          { id: 'default-pill', label: 'Default Pill' },
+                          { id: 'default-ghost', label: 'Default Ghost' },
+                          { id: 'gradient', label: 'Gradient' },
+                          { id: 'branded', label: 'Branded Logo' },
+                          { id: 'card-outlined', label: 'Card Outlined' },
+                          { id: 'card-filled', label: 'Card Filled' },
+                        ].map((s) => (
+                          <Button
+                            key={s.id}
+                            size="small"
+                            variant={dropdownBaseStyle === s.id ? 'primary' : 'outline'}
+                            onClick={() => setDropdownBaseStyle(s.id)}
+                          >
+                            {s.label}
+                          </Button>
+                        ))}
+                      </div>
+
+                      {!dropdownBaseStyle.startsWith('card') && dropdownBaseStyle !== 'branded' && (
+                        <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                          <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Base Size:</span>
+                          {[
+                            { id: 'small', label: '32px' },
+                            { id: 'medium', label: '36px' },
+                            { id: 'large', label: '40px' },
+                          ].map((bs) => (
+                            <Button
+                              key={bs.id}
+                              size="small"
+                              variant={dropdownBaseSize === bs.id ? 'primary' : 'outline'}
+                              onClick={() => setDropdownBaseSize(bs.id)}
+                            >
+                              {bs.label}
+                            </Button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center' }}>
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Orientation:</span>
+                        {['bottom', 'top'].map((o) => (
+                          <Button
+                            key={o}
+                            size="small"
+                            variant={dropdownOrientation === o ? 'primary' : 'outline'}
+                            onClick={() => setDropdownOrientation(o)}
+                          >
+                            {o.charAt(0).toUpperCase() + o.slice(1)}
+                          </Button>
+                        ))}
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Alignment:</span>
+                        {['left', 'center', 'right'].map((a) => (
+                          <Button
+                            key={a}
+                            size="small"
+                            variant={dropdownAlignment === a ? 'primary' : 'outline'}
+                            onClick={() => setDropdownAlignment(a)}
+                          >
+                            {a.charAt(0).toUpperCase() + a.slice(1)}
+                          </Button>
+                        ))}
+                      </div>
+
+                      <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                        <span style={{ fontSize: '12px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Item Type:</span>
+                        {[
+                          { id: 'checklist', label: 'Checklist (Circle)' },
+                          { id: 'item-list', label: 'Item List (Star + Check)' },
+                        ].map((it) => (
+                          <Button
+                            key={it.id}
+                            size="small"
+                            variant={dropdownItemType === it.id ? 'primary' : 'outline'}
+                            onClick={() => setDropdownItemType(it.id)}
+                          >
+                            {it.label}
+                          </Button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Interactive Popovers Preview Row */}
+                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '32px', alignItems: 'flex-start' }}>
+                    <div style={{ minWidth: '220px' }}>
+                      <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                        Configured Trigger (Click to open menu popover)
+                      </div>
+                      <div style={{ padding: '8px 0' }}>
+                        <DropdownMenu
+                          triggerLabel={dropdownBaseStyle.startsWith('card') ? 'Header' : (dropdownBaseStyle === 'branded' ? 'KPMG' : 'Options')}
+                          baseStyle={
+                            dropdownBaseStyle === 'gradient' ? 'gradient' :
+                            dropdownBaseStyle === 'branded' ? 'branded' :
+                            dropdownBaseStyle.startsWith('card') ? 'card' : 'default'
+                          }
+                          baseBackground={
+                            dropdownBaseStyle === 'default-pill' || dropdownBaseStyle === 'branded' || dropdownBaseStyle === 'card-filled'
+                          }
+                          baseSize={
+                            dropdownBaseStyle === 'branded' ? 'branded' :
+                            dropdownBaseStyle.startsWith('card') ? 'none' : dropdownBaseSize
+                          }
+                          orientation={dropdownOrientation}
+                          alignment={dropdownAlignment}
+                          density={activeMenuDensity}
+                          selectedValues={selectedDropdownItems}
+                          onSelect={toggleDropdownSelection}
+                          items={[
+                            { label: 'Option 1', type: dropdownItemType === 'item-list' ? 'icon' : 'checklist' },
+                            { label: 'Option 2', type: dropdownItemType === 'item-list' ? 'icon' : 'checklist' },
+                            { label: 'Option 3', type: dropdownItemType === 'item-list' ? 'icon' : 'checklist' },
+                            { label: 'Option 4', type: dropdownItemType === 'item-list' ? 'icon' : 'checklist' },
+                            { type: 'divider' },
+                            { label: 'Option 5', type: dropdownItemType === 'item-list' ? 'icon' : 'checklist' },
+                          ]}
+                        />
+                      </div>
+                    </div>
+
+                    <div style={{ minWidth: '320px', maxWidth: '450px', flex: 1 }}>
+                      <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                        Card Trigger Dropdown (Outlined / Filled Form Factor)
+                      </div>
+                      <DropdownMenu
+                        triggerType="card"
+                        triggerLabel="Header"
+                        baseBackground={dropdownBaseStyle === 'card-filled'}
+                        density={activeMenuDensity}
+                        orientation={dropdownOrientation}
+                        alignment={dropdownAlignment}
+                        selectedValues={selectedDropdownItems}
+                        onSelect={toggleDropdownSelection}
+                        items={[
+                          { label: 'Option 1', type: 'icon' },
+                          { label: 'Option 2', type: 'icon' },
+                          { label: 'Option 3', type: 'icon' },
+                          { label: 'Option 4', type: 'icon' },
+                        ]}
+                      />
+                    </div>
+                  </div>
+
+                  {/* 6 Canonical Dropdown Item Groups Showcase */}
+                  <div>
+                    <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '12px', color: 'var(--color-on-surface)' }}>
+                      Dropdown Item Groups (6 Canonical Variants: 3 Densities &times; Checklist &amp; Item List)
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px', alignItems: 'flex-start' }}>
+                      <div>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '8px' }}>
+                          CHECKLIST &bull; SMALL (250px)
+                        </div>
+                        <DropdownItemGroup density="small" type="checklist" selectedValues={selectedDropdownItems} onSelect={toggleDropdownSelection} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '8px' }}>
+                          CHECKLIST &bull; MEDIUM (298px)
+                        </div>
+                        <DropdownItemGroup density="medium" type="checklist" selectedValues={selectedDropdownItems} onSelect={toggleDropdownSelection} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '8px' }}>
+                          CHECKLIST &bull; LARGE (322px)
+                        </div>
+                        <DropdownItemGroup density="large" type="checklist" selectedValues={selectedDropdownItems} onSelect={toggleDropdownSelection} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '8px' }}>
+                          ITEM LIST &bull; SMALL (250px)
+                        </div>
+                        <DropdownItemGroup density="small" type="item-list" selectedValues={selectedDropdownItems} onSelect={toggleDropdownSelection} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '8px' }}>
+                          ITEM LIST &bull; MEDIUM (298px)
+                        </div>
+                        <DropdownItemGroup density="medium" type="item-list" selectedValues={selectedDropdownItems} onSelect={toggleDropdownSelection} />
+                      </div>
+                      <div>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '8px' }}>
+                          ITEM LIST &bull; LARGE (322px)
+                        </div>
+                        <DropdownItemGroup density="large" type="item-list" selectedValues={selectedDropdownItems} onSelect={toggleDropdownSelection} />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Canonical Dropdown Bases Showcase */}
+                  <div>
+                    <h3 style={{ fontSize: '14px', fontWeight: '600', marginBottom: '12px', color: 'var(--color-on-surface)' }}>
+                      Dropdown Bases (24 Canonical Variants: 4 Styles &times; Sizes &times; States)
+                    </h3>
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+                      <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '10px' }}>DEFAULT PILL</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+                          <DropdownBase styleType="default" background size="small" label="Options" />
+                          <DropdownBase styleType="default" background size="medium" label="Options" />
+                          <DropdownBase styleType="default" background size="large" label="Options" open />
+                        </div>
+                      </div>
+                      <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '10px' }}>DEFAULT GHOST</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+                          <DropdownBase styleType="default" background={false} size="small" label="Options" />
+                          <DropdownBase styleType="default" background={false} size="medium" label="Options" />
+                          <DropdownBase styleType="default" background={false} size="large" label="Options" open />
+                        </div>
+                      </div>
+                      <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '10px' }}>GRADIENT &amp; BRANDED</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'flex-start' }}>
+                          <DropdownBase styleType="gradient" size="medium" label="Options" />
+                          <DropdownBase styleType="branded" size="branded" label="KPMG" />
+                          <DropdownBase styleType="branded" size="branded" label="KPMG" open />
+                        </div>
+                      </div>
+                      <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                        <div style={{ fontSize: '11px', fontWeight: '600', color: 'var(--color-neutral-200)', marginBottom: '10px' }}>CARD TRIGGERS</div>
+                        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                          <DropdownBase styleType="card" background={false} label="Header (Outlined)" />
+                          <DropdownBase styleType="card" background={true} label="Header (Filled)" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* 2. Navigation Menu Playground */}
+              {activeMenuType === 'navigation' && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'flex-start' }}>
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      KPMG Brand Pill Popover (Click to toggle)
+                    </div>
+                    <NavigationMenu
+                      brandLabel="KPMG"
+                      activeItem={activeNavSelection}
+                      onSelect={(val) => setActiveNavSelection(val)}
+                      items={[
+                        { label: 'Inbox', badge: '24' },
+                        { label: 'Outbox' },
+                        { label: 'Favorites' },
+                        { label: 'Trash' },
+                        { type: 'divider' },
+                        {
+                          type: 'group',
+                          title: 'Labels',
+                          items: [
+                            { label: 'Audit 2026', actionButton: true },
+                            { label: 'Tax Strategy', actionButton: true },
+                            { label: 'Cyber Advisory', actionButton: true },
+                          ],
+                        },
+                      ]}
+                    />
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      Stationary Sidebar Panel (Inline)
+                    </div>
+                    <NavigationMenu
+                      inline
+                      header="Navigation"
+                      activeItem={activeNavSelection}
+                      onSelect={(val) => setActiveNavSelection(val)}
+                      items={[
+                        { label: 'Inbox', badge: '24' },
+                        { label: 'Outbox' },
+                        { label: 'Favorites' },
+                        { label: 'Trash' },
+                        { type: 'divider' },
+                        {
+                          type: 'group',
+                          title: 'Labels',
+                          items: [
+                            { label: 'Audit 2026', actionButton: true },
+                            { label: 'Tax Strategy', actionButton: true },
+                            { label: 'Cyber Advisory', actionButton: true },
+                          ],
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
+              )}
+
+              {/* 3. Overflow Menu Playground */}
+              {activeMenuType === 'overflow' && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'flex-start' }}>
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      Large Trigger (40px)
+                    </div>
+                    <OverflowMenu
+                      size="large"
+                      items={[
+                        { label: 'Option 1' },
+                        { label: 'Option 2' },
+                        { label: 'Option 3' },
+                        { type: 'divider' },
+                        { label: 'Delete record', destructive: true },
+                      ]}
+                    />
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      Small Trigger (24px)
+                    </div>
+                    <OverflowMenu
+                      size="small"
+                      items={[
+                        { label: 'Option 1' },
+                        { label: 'Option 2' },
+                        { label: 'Option 3' },
+                        { type: 'divider' },
+                        { label: 'Remove', destructive: true },
+                      ]}
+                    />
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      Static Overflow Card
+                    </div>
+                    <Menu inline type="overflow" width={200}>
+                      <MenuItem label="Edit details" />
+                      <MenuItem label="Duplicate item" />
+                      <MenuItem label="Export as CSV" />
+                      <MenuDivider />
+                      <MenuItem label="Delete record" destructive />
+                    </Menu>
+                  </div>
+                </div>
+              )}
+
+              {/* 4. Assistant Menu Playground */}
+              {activeMenuType === 'assistant' && (
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'flex-start' }}>
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      Interactive Assistant Trigger (Click sparkle)
+                    </div>
+                    <AssistantMenu
+                      searchPlaceholder="Ask me anything"
+                      ctaLabel="Longer action"
+                      onCtaClick={() => alert('Starting new chat with KPMG Trusted AI...')}
+                      sections={[
+                        {
+                          title: 'Title',
+                          cards: [
+                            {
+                              title: 'Header',
+                              subtitle: 'Supporting line text lorem ipsum...',
+                            },
+                            {
+                              title: 'Header',
+                              subtitle: 'Supporting line text lorem ipsum...',
+                            },
+                            {
+                              title: 'Header',
+                              subtitle: 'Supporting line text lorem ipsum...',
+                            },
+                          ],
+                        },
+                      ]}
+                    />
+                  </div>
+
+                  <div>
+                    <div style={{ fontSize: '12px', fontWeight: '600', marginBottom: '8px', color: 'var(--color-neutral-100)' }}>
+                      Static Preview (Figma Prototype View)
+                    </div>
+                    <Menu inline type="assistant" width={380}>
+                      <div className="kpmg-assistant-menu__search-bar">
+                        <span className="kpmg-assistant-menu__search-icon">
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                        </span>
+                        <input
+                          type="text"
+                          className="kpmg-assistant-menu__search-input"
+                          placeholder="Ask me anything"
+                          readOnly
+                        />
+                      </div>
+                      <div className="kpmg-assistant-menu__verification">
+                        Verified by KPMG Trusted AI
+                      </div>
+                      <MenuGroup title="Title">
+                        <AssistantCard
+                          title="Header"
+                          subtitle="Supporting line text lorem ipsum..."
+                        />
+                        <AssistantCard
+                          title="Header"
+                          subtitle="Supporting line text lorem ipsum..."
+                        />
+                      </MenuGroup>
+                      <div className="kpmg-assistant-menu__footer">
+                        <button type="button" className="kpmg-assistant-menu__cta-btn">
+                          Longer action
+                        </button>
+                      </div>
+                    </Menu>
+                  </div>
+                </div>
+              )}
+            </div>
+
+            {/* 4 Canonical Types Comparison Matrix */}
+            <div>
+              <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '16px', color: 'var(--color-on-surface)' }}>
+                4 Canonical Menu Types Overview
+              </h3>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '20px', alignItems: 'flex-start' }}>
+                {/* 1. Dropdown Menu */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    01. Dropdown Menu
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Menu inline type="dropdown" density="small">
+                      <MenuItem density="small" type="checklist" selected={false} label="Option 1" />
+                      <MenuItem density="small" type="checklist" selected={true} label="Option 2" />
+                      <MenuItem density="small" type="checklist" selected={false} label="Option 3" />
+                      <MenuDivider />
+                      <MenuItem density="small" type="checklist" selected={false} label="Option 4" />
+                    </Menu>
+                  </div>
+                </div>
+
+                {/* 2. Navigation Menu */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    02. Navigation Menu
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <NavigationMenu
+                      inline
+                      header="Header"
+                      activeItem="Inbox"
+                      width="100%"
+                      items={[
+                        { label: 'Inbox', badge: '24' },
+                        { label: 'Outbox' },
+                        { type: 'divider' },
+                        {
+                          type: 'group',
+                          title: 'Labels',
+                          items: [
+                            { label: 'Label 1', actionButton: true },
+                            { label: 'Label 2', actionButton: true },
+                          ],
+                        },
+                      ]}
+                    />
+                  </div>
+                </div>
+
+                {/* 3. Overflow Menu */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    03. Overflow Menu
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Menu inline type="overflow" width="100%">
+                      <MenuItem density="small" label="Option 1" />
+                      <MenuItem density="small" label="Option 2" />
+                      <MenuItem density="small" label="Option 3" />
+                      <MenuDivider />
+                      <MenuItem density="small" label="Delete Option" destructive />
+                    </Menu>
+                  </div>
+                </div>
+
+                {/* 4. Assistant Menu */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    04. Assistant Menu
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Menu inline type="assistant" width="100%">
+                      <div className="kpmg-assistant-menu__search-bar">
+                        <span className="kpmg-assistant-menu__search-icon">
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                        </span>
+                        <input
+                          type="text"
+                          className="kpmg-assistant-menu__search-input"
+                          placeholder="Ask me anything"
+                          readOnly
+                          style={{ fontSize: '12px' }}
+                        />
+                      </div>
+                      <div className="kpmg-assistant-menu__verification" style={{ fontSize: '10px' }}>
+                        Verified by KPMG Trusted AI
+                      </div>
+                      <AssistantCard
+                        title="Header"
+                        subtitle="Supporting line text lorem ipsum..."
+                      />
+                      <div className="kpmg-assistant-menu__footer">
+                        <button type="button" className="kpmg-assistant-menu__cta-btn" style={{ fontSize: '12px', padding: '6px 16px' }}>
+                          Longer action
+                        </button>
+                      </div>
+                    </Menu>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Snackbar Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Snackbar Component (10 Canonical Variants: 5 Layout Form Factors &times; Elevated &amp; Outlined)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Treatment:</span>
+              <Button
+                size="small"
+                variant={!snackbarOutlined ? 'primary' : 'outline'}
+                onClick={() => setSnackbarOutlined(false)}
+              >
+                Elevated
+              </Button>
+              <Button
+                size="small"
+                variant={snackbarOutlined ? 'primary' : 'outline'}
+                onClick={() => setSnackbarOutlined(true)}
+              >
+                Outlined
+              </Button>
+
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)', marginLeft: '8px' }}>Size:</span>
+              {[
+                { id: 'single-line', label: 'Single' },
+                { id: 'two-line', label: 'Two-Line' },
+                { id: 'extended', label: 'Extended' },
+                { id: 'extended-header', label: 'Header' },
+                { id: 'extended-media', label: 'Media' },
+              ].map((s) => (
+                <Button
+                  key={s.id}
+                  size="small"
+                  variant={snackbarSize === s.id ? 'primary' : 'outline'}
+                  onClick={() => setSnackbarSize(s.id)}
+                >
+                  {s.label}
+                </Button>
+              ))}
+
+              <Button
+                size="small"
+                variant="secondary"
+                onClick={() => spawnAppToast(snackbarSize, snackbarOutlined)}
+                style={{ marginLeft: '12px' }}
+              >
+                Spawn Live Toast
+              </Button>
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            100% token-driven feedback notifications. Standard 340px width, 8px border radius, 18px padding, primary action buttons, dismissible close icons, and up to 3 interactive media card items. Includes bottom-left viewport toast support.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+            {/* Interactive Live Snackbar Playground */}
+            <div style={{ border: '1px solid var(--color-neutral-500)', borderRadius: '12px', padding: '24px', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '16px', maxWidth: '640px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-on-surface)' }}>
+                  Interactive Playground Preview
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--color-neutral-200)' }}>
+                  Size: <strong>{snackbarSize}</strong> | Treatment: <strong>{snackbarOutlined ? 'Outlined' : 'Elevated'}</strong>
+                </span>
+              </div>
+
+              <div style={{ padding: '16px 0', display: 'flex', justifyContent: 'flex-start' }}>
+                <Snackbar
+                  size={snackbarSize}
+                  outlined={snackbarOutlined}
+                  header="Sources"
+                  message="Snackbar text goes here"
+                  description="Audit documentation was verified and indexed into the engagement directory."
+                  actionLabel={snackbarSize.includes('extended') ? 'Longer action' : 'Action'}
+                  onAction={() => alert('Snackbar action clicked')}
+                />
+              </div>
+            </div>
+
+            {/* Canonical 10-Variant Overview Matrix */}
+            <div>
+              <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '16px', color: 'var(--color-on-surface)' }}>
+                Canonical 10-Variant Overview Matrix
+              </h3>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px' }}>
+                {/* 1. Single Line Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    01. Single-Line &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="single-line" outlined={false} message="Snackbar text goes here" actionLabel="Action" />
+                  </div>
+                </div>
+
+                {/* 2. Single Line Outlined */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    02. Single-Line &bull; Outlined
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="single-line" outlined={true} message="Snackbar text goes here" actionLabel="Action" />
+                  </div>
+                </div>
+
+                {/* 3. Two Line Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    03. Two-Line &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="two-line" outlined={false} message="Snackbar text goes here" actionLabel="Action" />
+                  </div>
+                </div>
+
+                {/* 4. Two Line Outlined */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    04. Two-Line &bull; Outlined
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="two-line" outlined={true} message="Snackbar text goes here" actionLabel="Action" />
+                  </div>
+                </div>
+
+                {/* 5. Extended Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    05. Extended &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="extended" outlined={false} description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." actionLabel="Longer action" />
+                  </div>
+                </div>
+
+                {/* 6. Extended Outlined */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    06. Extended &bull; Outlined
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="extended" outlined={true} description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." actionLabel="Longer action" />
+                  </div>
+                </div>
+
+                {/* 7. Extended with Header Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    07. Extended with Header &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="extended-header" outlined={false} header="Header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." actionLabel="Longer action" />
+                  </div>
+                </div>
+
+                {/* 8. Extended with Header Outlined */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    08. Extended with Header &bull; Outlined
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="extended-header" outlined={true} header="Header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." actionLabel="Longer action" />
+                  </div>
+                </div>
+
+                {/* 9. Extended with Media Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    09. Extended with Media &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="extended-media" outlined={false} header="Header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." actionLabel="Longer action" />
+                  </div>
+                </div>
+
+                {/* 10. Extended with Media Outlined */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    10. Extended with Media &bull; Outlined
+                  </span>
+                  <div style={{ marginTop: '12px' }}>
+                    <Snackbar size="extended-media" outlined={true} header="Header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." actionLabel="Longer action" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tooltip Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Tooltip Component (36 Positional &amp; 8 Content Variants: Elevated &amp; Filled &times; Carets &times; Rich Formats)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Theme:</span>
+              {['elevated', 'filled'].map((th) => (
+                <Button
+                  key={th}
+                  size="small"
+                  variant={tooltipTheme === th ? 'primary' : 'outline'}
+                  onClick={() => setTooltipTheme(th)}
+                >
+                  {th.charAt(0).toUpperCase() + th.slice(1)}
+                </Button>
+              ))}
+
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)', marginLeft: '8px' }}>Placement:</span>
+              {['top', 'bottom', 'left', 'right'].map((pl) => (
+                <Button
+                  key={pl}
+                  size="small"
+                  variant={tooltipPlacement === pl ? 'primary' : 'outline'}
+                  onClick={() => setTooltipPlacement(pl)}
+                >
+                  {pl.charAt(0).toUpperCase() + pl.slice(1)}
+                </Button>
+              ))}
+
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)', marginLeft: '8px' }}>Type:</span>
+              {[
+                { id: 'single-line', label: 'Single' },
+                { id: 'multi-line', label: 'Multi' },
+                { id: 'rich-action', label: 'Action' },
+                { id: 'rich-source', label: 'Source' },
+                { id: 'rich-alert-large', label: 'Alert' },
+                { id: 'menu-list', label: 'Menu' },
+              ].map((ty) => (
+                <Button
+                  key={ty.id}
+                  size="small"
+                  variant={tooltipVariant === ty.id ? 'primary' : 'outline'}
+                  onClick={() => setTooltipVariant(ty.id)}
+                >
+                  {ty.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            100% token-driven contextual feedback system. Features 2 color themes (Elevated white &amp; Filled lavender), 3 caret dimensions (Small 12&times;6, Medium 18&times;9, Large 24&times;12), 12 orientation alignments, interactive hover/click triggers, and full WAI-ARIA compliance.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+            {/* Interactive Live Tooltip Playground */}
+            <div style={{ border: '1px solid var(--color-neutral-500)', borderRadius: '12px', padding: '32px', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-on-surface)' }}>
+                  Interactive Live Trigger Playground
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--color-neutral-200)' }}>
+                  Theme: <strong>{tooltipTheme}</strong> | Type: <strong>{tooltipVariant}</strong> | Placement: <strong>{tooltipPlacement}</strong>
+                </span>
+              </div>
+
+              <div style={{ display: 'flex', gap: '32px', alignItems: 'center', flexWrap: 'wrap', padding: '24px 0' }}>
+                <Tooltip
+                  theme={tooltipTheme}
+                  variant={tooltipVariant}
+                  placement={tooltipPlacement}
+                  trigger="hover"
+                  title="Project Methodology"
+                  content="Supporting guidance for audit engagement protocols and verification workflows."
+                  sectionLabel="Secondary text"
+                >
+                  <Button variant="primary">Hover Me (Dynamic Tooltip)</Button>
+                </Tooltip>
+
+                <Tooltip
+                  theme={tooltipTheme}
+                  variant="rich-action"
+                  placement={tooltipPlacement}
+                  trigger="click"
+                  title="Contextual Action Required"
+                  content="Review document comparison results before submitting to the client review portal."
+                >
+                  <Button variant="secondary">Click Me (Rich Action)</Button>
+                </Tooltip>
+
+                <Tooltip
+                  theme={tooltipTheme}
+                  variant="menu-list"
+                  placement={tooltipPlacement}
+                  trigger="click"
+                >
+                  <Button variant="outline">Click Me (Action Menu)</Button>
+                </Tooltip>
+              </div>
+            </div>
+
+            {/* Static Variant Showcase Cards */}
+            <div>
+              <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '16px', color: 'var(--color-on-surface)' }}>
+                Canonical Tooltip Formats &amp; Themes Overview
+              </h3>
+
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: '20px' }}>
+                {/* 1. Single Line Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    01. Single-Line &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="elevated" variant="single-line" placement="top" content="Supporting text" />
+                  </div>
+                </div>
+
+                {/* 2. Single Line Filled */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    02. Single-Line &bull; Filled
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="filled" variant="single-line" placement="top" content="Supporting text" />
+                  </div>
+                </div>
+
+                {/* 3. Multi Line Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    03. Multi-Line &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="elevated" variant="multi-line" placement="top" content="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit." />
+                  </div>
+                </div>
+
+                {/* 4. Multi Line Filled */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    04. Multi-Line &bull; Filled
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="filled" variant="multi-line" placement="top" content="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit." />
+                  </div>
+                </div>
+
+                {/* 5. Rich Action Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    05. Rich Action &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="elevated" variant="rich-action" placement="top" title="Title" content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt." />
+                  </div>
+                </div>
+
+                {/* 6. Rich Action Filled */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    06. Rich Action &bull; Filled
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="filled" variant="rich-action" placement="top" title="Title" content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt." />
+                  </div>
+                </div>
+
+                {/* 7. Rich Alert Large Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    07. Rich Alert &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="elevated" variant="rich-alert-large" placement="top" title="Citation" content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit." sectionLabel="Source files" />
+                  </div>
+                </div>
+
+                {/* 8. Menu List Elevated */}
+                <div style={{ padding: '20px', borderRadius: '12px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    08. Menu List &bull; Elevated
+                  </span>
+                  <div style={{ marginTop: '16px', display: 'flex', justifyContent: 'center' }}>
+                    <Tooltip static theme="elevated" variant="menu-list" placement="top" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Textarea Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Textarea Component (20 Production Variants: Outlined &amp; Filled &times; With/Without Header &times; 5 States)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Style:</span>
+              {['outlined', 'filled'].map((v) => (
+                <Button
+                  key={v}
+                  size="small"
+                  variant={textareaVariant === v ? 'primary' : 'outline'}
+                  onClick={() => setTextareaVariant(v)}
+                >
+                  {v.charAt(0).toUpperCase() + v.slice(1)}
+                </Button>
+              ))}
+
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)', marginLeft: '8px' }}>State:</span>
+              {['enabled', 'hovered', 'focused', 'error', 'disabled'].map((st) => (
+                <Button
+                  key={st}
+                  size="small"
+                  variant={textareaState === st ? 'primary' : 'outline'}
+                  onClick={() => setTextareaState(st)}
+                >
+                  {st.charAt(0).toUpperCase() + st.slice(1)}
+                </Button>
+              ))}
+
+              <Button
+                size="small"
+                variant={textareaWithHeader ? 'primary' : 'outline'}
+                onClick={() => setTextareaWithHeader(!textareaWithHeader)}
+                style={{ marginLeft: '8px' }}
+              >
+                {textareaWithHeader ? 'With Header' : 'Without Header'}
+              </Button>
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            100% token-driven multi-line input field. Supports Outlined and Filled visual styles, live character count (0/100), trailing speech-to-text action button, and full WAI-ARIA form validation.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+            {/* Live Interactive Textarea */}
+            <div style={{ border: '1px solid var(--color-neutral-500)', borderRadius: '12px', padding: '24px', backgroundColor: 'var(--color-surface)', maxWidth: '640px' }}>
+              <div style={{ marginBottom: '16px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-on-surface)' }}>
+                  Interactive Playground (Live Speech &amp; Dynamic State)
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--color-neutral-200)' }}>
+                  Active State: <strong>{textareaState}</strong> | Style: <strong>{textareaVariant}</strong>
+                </span>
+              </div>
+
+              <Textarea
+                label={textareaWithHeader ? 'Project Notes & Methodology' : undefined}
+                value={textareaValue}
+                onChange={(e) => setTextareaValue(e.target.value)}
+                variant={textareaVariant}
+                state={textareaState}
+                disabled={textareaState === 'disabled'}
+                maxLength={200}
+                showCount={textareaWithHeader}
+                placeholder="Enter project specifications or click microphone for voice transcription..."
+                onActionClick={handleTextareaVoiceClick}
+                helperText={textareaActionStatus || (textareaState === 'error' ? 'Validation Error: Character limits or required parameters violated.' : 'Press speech action icon to dictate commentary.')}
+              />
+            </div>
+
+            {/* 20 Variants Canonical Grid Preview */}
+            <div style={{ marginTop: '16px' }}>
+              <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '12px', color: 'var(--color-on-surface)' }}>
+                Canonical 20-Variant Overview Matrix
+              </h3>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
+                {/* 1. Outlined Without Header */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    01. Outlined &bull; Without Header &bull; Enabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="outlined" state="enabled" placeholder="Outlined Resting" />
+                  </div>
+                </div>
+
+                {/* 2. Outlined Without Header Hovered */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    02. Outlined &bull; Without Header &bull; Hovered
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="outlined" state="hovered" placeholder="Outlined Hovered" />
+                  </div>
+                </div>
+
+                {/* 3. Outlined Without Header Focused */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    03. Outlined &bull; Without Header &bull; Focused
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="outlined" state="focused" placeholder="Outlined Focused" />
+                  </div>
+                </div>
+
+                {/* 4. Outlined Without Header Error */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    04. Outlined &bull; Without Header &bull; Error
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="outlined" state="error" placeholder="Outlined Error" helperText="Error feedback" />
+                  </div>
+                </div>
+
+                {/* 5. Outlined Without Header Disabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    05. Outlined &bull; Without Header &bull; Disabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="outlined" state="disabled" placeholder="Outlined Disabled" disabled />
+                  </div>
+                </div>
+
+                {/* 6. Filled Without Header Enabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    06. Filled &bull; Without Header &bull; Enabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="filled" state="enabled" placeholder="Filled Resting" />
+                  </div>
+                </div>
+
+                {/* 7. Filled Without Header Hovered */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    07. Filled &bull; Without Header &bull; Hovered
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="filled" state="hovered" placeholder="Filled Hovered" />
+                  </div>
+                </div>
+
+                {/* 8. Filled Without Header Focused */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    08. Filled &bull; Without Header &bull; Focused
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="filled" state="focused" placeholder="Filled Focused" />
+                  </div>
+                </div>
+
+                {/* 9. Filled Without Header Error */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    09. Filled &bull; Without Header &bull; Error
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="filled" state="error" placeholder="Filled Error" helperText="Error feedback" />
+                  </div>
+                </div>
+
+                {/* 10. Filled Without Header Disabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    10. Filled &bull; Without Header &bull; Disabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea variant="filled" state="disabled" placeholder="Filled Disabled" disabled />
+                  </div>
+                </div>
+
+                {/* 11. Outlined With Header Enabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    11. Outlined &bull; With Header &bull; Enabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="outlined" state="enabled" placeholder="Placeholder" />
+                  </div>
+                </div>
+
+                {/* 12. Outlined With Header Hovered */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    12. Outlined &bull; With Header &bull; Hovered
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="outlined" state="hovered" placeholder="Placeholder" />
+                  </div>
+                </div>
+
+                {/* 13. Outlined With Header Focused */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    13. Outlined &bull; With Header &bull; Focused
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="outlined" state="focused" placeholder="Placeholder" />
+                  </div>
+                </div>
+
+                {/* 14. Outlined With Header Error */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    14. Outlined &bull; With Header &bull; Error
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="outlined" state="error" placeholder="Placeholder" helperText="Input validation error" />
+                  </div>
+                </div>
+
+                {/* 15. Outlined With Header Disabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    15. Outlined &bull; With Header &bull; Disabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="outlined" state="disabled" placeholder="Placeholder" disabled />
+                  </div>
+                </div>
+
+                {/* 16. Filled With Header Enabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    16. Filled &bull; With Header &bull; Enabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="filled" state="enabled" placeholder="Placeholder" />
+                  </div>
+                </div>
+
+                {/* 17. Filled With Header Hovered */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    17. Filled &bull; With Header &bull; Hovered
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="filled" state="hovered" placeholder="Placeholder" />
+                  </div>
+                </div>
+
+                {/* 18. Filled With Header Focused */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    18. Filled &bull; With Header &bull; Focused
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="filled" state="focused" placeholder="Placeholder" />
+                  </div>
+                </div>
+
+                {/* 19. Filled With Header Error */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    19. Filled &bull; With Header &bull; Error
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="filled" state="error" placeholder="Placeholder" helperText="Input validation error" />
+                  </div>
+                </div>
+
+                {/* 20. Filled With Header Disabled */}
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
+                  <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-200)', textTransform: 'uppercase' }}>
+                    20. Filled &bull; With Header &bull; Disabled
+                  </span>
+                  <div style={{ marginTop: '8px' }}>
+                    <Textarea label="Label" maxLength={100} showCount variant="filled" state="disabled" placeholder="Placeholder" disabled />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Tab (Tabs / Tab Bar) Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Tab Component (12 Production Variants: Small &amp; Large &times; Default &amp; With Badge &times; States)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Container Size:</span>
+              {['small', 'large'].map((sz) => (
+                <Button
+                  key={sz}
+                  size="small"
+                  variant={tabInteractiveSize === sz ? 'primary' : 'outline'}
+                  onClick={() => setTabInteractiveSize(sz)}
+                >
+                  {sz.charAt(0).toUpperCase() + sz.slice(1)}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            100% token-driven architecture: Compact 41px height for widgets/tiles and 65px Top App Bar with trailing action controls. Features full WAI-ARIA tablist accessibility, keyboard navigation, and complete Light &amp; Dark theme token support.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+            {/* Interactive Live Preview */}
+            <div style={{ border: '1px solid var(--color-neutral-500)', borderRadius: '12px', overflow: 'hidden', backgroundColor: 'var(--color-surface)' }}>
+              <div style={{ padding: '12px 18px', borderBottom: '1px solid var(--color-neutral-500)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'var(--color-surface-light)' }}>
+                <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-on-surface)' }}>
+                  Interactive Live Workspace (Active Tab: {activeTabId})
+                </span>
+                <span style={{ fontSize: '12px', color: 'var(--color-neutral-100)' }}>
+                  Keyboard navigable (Arrow keys, Home, End)
+                </span>
+              </div>
+              <Tab
+                size={tabInteractiveSize}
+                value={activeTabId}
+                onChange={(tabId) => setActiveTabId(tabId)}
+              >
+                <TabItem id="summary" label="Summary" badge="4" />
+                <TabItem id="projects" label="Projects" badge="12" />
+                <TabItem id="analytics" label="Analytics" />
+                <TabItem id="reports" label="Audit Reports" />
+                <TabItem id="archive" label="Archived" disabled />
+              </Tab>
+              <div style={{ padding: '24px', minHeight: '100px' }}>
+                {activeTabId === 'summary' && (
+                  <div>
+                    <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-on-surface)', marginBottom: '4px' }}>Overview &amp; Summary</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--color-neutral-100)' }}>
+                      Interactive navigation synchronized across responsive tabs with tokenized active background fills.
+                    </p>
+                  </div>
+                )}
+                {activeTabId === 'projects' && (
+                  <div>
+                    <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-on-surface)', marginBottom: '4px' }}>Active Projects (12)</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--color-neutral-100)' }}>
+                      High-priority audit and advisory engagements in progress with real-time badge counters.
+                    </p>
+                  </div>
+                )}
+                {activeTabId === 'analytics' && (
+                  <div>
+                    <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-on-surface)', marginBottom: '4px' }}>Performance Analytics</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--color-neutral-100)' }}>
+                      Predictive engagement telemetry displaying 99.4% on-schedule milestone delivery.
+                    </p>
+                  </div>
+                )}
+                {activeTabId === 'reports' && (
+                  <div>
+                    <h3 style={{ fontSize: '16px', fontWeight: 600, color: 'var(--color-on-surface)', marginBottom: '4px' }}>Audit Reports</h3>
+                    <p style={{ fontSize: '14px', color: 'var(--color-neutral-100)' }}>
+                      Governance documentation verified against KPMG compliance standards.
+                    </p>
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Complete 12 Canonical Variants Matrix */}
+            <div>
+              <h3 style={{ fontSize: 'var(--font-size-title-sm)', marginBottom: 'var(--spacing-3)', color: 'var(--color-on-surface)' }}>
+                All 12 Canonical Design System Variants
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '16px' }}>
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>1. Small - Default - Inactive</div>
+                  <Tab size="small">
+                    <TabItem id="1" label="Tab" state="enabled" />
+                    <TabItem id="2" label="Tab" state="enabled" />
+                    <TabItem id="3" label="Tab" state="enabled" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>2. Small - Default - Active (Selected)</div>
+                  <Tab size="small" defaultValue="1">
+                    <TabItem id="1" label="Tab" selected />
+                    <TabItem id="2" label="Tab" />
+                    <TabItem id="3" label="Tab" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>3. Small - Default - Hovered</div>
+                  <Tab size="small">
+                    <TabItem id="1" label="Tab" state="hovered" />
+                    <TabItem id="2" label="Tab" />
+                    <TabItem id="3" label="Tab" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>4. Small - Default - Disabled</div>
+                  <Tab size="small">
+                    <TabItem id="1" label="Tab" disabled />
+                    <TabItem id="2" label="Tab" disabled />
+                    <TabItem id="3" label="Tab" disabled />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>5. Small - With Badge - Inactive</div>
+                  <Tab size="small">
+                    <TabItem id="1" label="Tab" badge="4" state="enabled" />
+                    <TabItem id="2" label="Tab" badge="4" state="enabled" />
+                    <TabItem id="3" label="Tab" badge="4" state="enabled" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>6. Small - With Badge - Active (Selected)</div>
+                  <Tab size="small" defaultValue="1">
+                    <TabItem id="1" label="Tab" badge="4" selected />
+                    <TabItem id="2" label="Tab" badge="4" />
+                    <TabItem id="3" label="Tab" badge="4" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>7. Small - With Badge - Hovered</div>
+                  <Tab size="small">
+                    <TabItem id="1" label="Tab" badge="4" state="hovered" />
+                    <TabItem id="2" label="Tab" badge="4" />
+                    <TabItem id="3" label="Tab" badge="4" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>8. Small - With Badge - Disabled</div>
+                  <Tab size="small">
+                    <TabItem id="1" label="Tab" badge="4" disabled />
+                    <TabItem id="2" label="Tab" badge="4" disabled />
+                    <TabItem id="3" label="Tab" badge="4" disabled />
+                  </Tab>
+                </div>
+              </div>
+
+              {/* Large Bar Variants */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '16px' }}>
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>9. Large - Default - Active with Trailing Actions</div>
+                  <Tab size="large" defaultValue="1">
+                    <TabItem id="1" label="Tab" selected />
+                    <TabItem id="2" label="Tab" />
+                    <TabItem id="3" label="Tab" />
+                    <TabItem id="4" label="Tab" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>10. Large - With Badge - Active with Trailing Actions</div>
+                  <Tab size="large" defaultValue="1">
+                    <TabItem id="1" label="Tab" badge="4" selected />
+                    <TabItem id="2" label="Tab" badge="4" />
+                    <TabItem id="3" label="Tab" badge="4" />
+                    <TabItem id="4" label="Tab" badge="4" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>11. Large - Clean - Without Trailing Actions</div>
+                  <Tab size="large" actions={<span />} defaultValue="1">
+                    <TabItem id="1" label="Tab" selected />
+                    <TabItem id="2" label="Tab" />
+                    <TabItem id="3" label="Tab" />
+                    <TabItem id="4" label="Tab" />
+                  </Tab>
+                </div>
+
+                <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', background: 'var(--color-surface)' }}>
+                  <div style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)', marginBottom: '10px' }}>12. Large - Mixed Badges - With Trailing Actions</div>
+                  <Tab size="large" defaultValue="1">
+                    <TabItem id="1" label="Tab" selected />
+                    <TabItem id="2" label="Tab" badge="8" />
+                    <TabItem id="3" label="Tab" badge="3" />
+                    <TabItem id="4" label="Tab" disabled />
+                  </Tab>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* List Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              List Component (12 Variants: 4 Leading Types &times; 3 Container Styles)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+              {['outlined', 'elevated', 'filled'].map((st) => (
+                <Button
+                  key={st}
+                  size="small"
+                  variant={listStyle === st ? 'primary' : 'outline'}
+                  onClick={() => setListStyle(st)}
+                >
+                  {st.charAt(0).toUpperCase() + st.slice(1)}
+                </Button>
+              ))}
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            100% token-driven: Vertical collection layout with Outlined, Elevated, and Filled container treatments. Supports Avatar, Image Thumbnail, Checkbox, and Radio button rows in Small (1-line), Medium (2-line), and Large (3-line) densities.
+          </p>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
+            {/* Interactive Customizer */}
+            <div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-3)', flexWrap: 'wrap', gap: '8px' }}>
+                <h3 style={{ fontSize: 'var(--font-size-title-sm)', margin: 0, color: 'var(--color-on-surface)' }}>
+                  Interactive Preview (Style: {listStyle}, Density: {listSize}, Dividers: {listDivided ? 'Yes' : 'No'})
+                </h3>
+                <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                  <span style={{ fontSize: '13px', fontWeight: '600' }}>Density:</span>
+                  {['small', 'medium', 'large'].map((sz) => (
+                    <Button
+                      key={sz}
+                      size="small"
+                      variant={listSize === sz ? 'tonal' : 'text'}
+                      onClick={() => setListSize(sz)}
+                    >
+                      {sz}
+                    </Button>
+                  ))}
+                  <Button
+                    size="small"
+                    variant={listDivided ? 'filled' : 'outline'}
+                    onClick={() => setListDivided(!listDivided)}
+                  >
+                    {listDivided ? 'Dividers On' : 'Dividers Off'}
+                  </Button>
+                </div>
+              </div>
+
+              <div style={{ maxWidth: '480px' }}>
+                <List styleType={listStyle} size={listSize} divided={listDivided}>
+                  <ListItem
+                    title="Audit Workpaper FY2026"
+                    supportingText="Supporting line text lorem ipsum dolor sit amet."
+                    secondaryText="Last modified today at 10:45 AM"
+                    leading="avatar"
+                    leadingProps={{ initials: 'AW' }}
+                    trailing="checkbox"
+                    trailingProps={{ checked: true }}
+                    onClick={() => alert('Clicked Audit Workpaper')}
+                  />
+                  <ListItem
+                    title="Financial Forecasting Document"
+                    supportingText="Supporting line text lorem ipsum dolor sit amet."
+                    secondaryText="Pending team review"
+                    leading="image"
+                    trailing="arrow"
+                    onClick={() => alert('Clicked Financial Forecasting')}
+                  />
+                  <ListItem
+                    title="Cloud Security Compliance"
+                    supportingText="Supporting line text lorem ipsum dolor sit amet."
+                    secondaryText="ISO 27001 standard approved"
+                    leading="checkbox"
+                    leadingProps={{ checked: selectedChecks.includes('chk-1') }}
+                    trailing="arrow"
+                    selected={selectedChecks.includes('chk-1')}
+                    onClick={() => toggleListCheck('chk-1')}
+                  />
+                  <ListItem
+                    title="Executive Board Summary"
+                    supportingText="Supporting line text lorem ipsum dolor sit amet."
+                    secondaryText="Ready for quarterly presentation"
+                    leading="radio"
+                    leadingProps={{ checked: selectedRadio === 'opt-1' }}
+                    trailing="arrow"
+                    selected={selectedRadio === 'opt-1'}
+                    onClick={() => setSelectedRadio('opt-1')}
+                  />
+                </List>
+              </div>
+            </div>
+
+            {/* Complete 12 Variants Matrix */}
+            <div>
+              <h3 style={{ fontSize: 'var(--font-size-title-sm)', marginBottom: 'var(--spacing-3)', color: 'var(--color-on-surface)' }}>
+                Complete 12-Variant Matrix (4 Leading Control Types &times; 3 Container Styles)
+              </h3>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '20px' }}>
+                {/* 1. Avatar Leading (Outlined, Elevated, Filled) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--color-primary-on-surface)' }}>
+                    1. AVATAR LEADING
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Outlined Style</div>
+                  <List styleType="outlined" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ip..." leading="avatar" leadingProps={{ initials: 'AZ' }} trailing="checkbox" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ip..." leading="avatar" leadingProps={{ initials: 'AZ' }} trailing="checkbox" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Elevated Style</div>
+                  <List styleType="elevated" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ip..." leading="avatar" leadingProps={{ initials: 'AZ' }} trailing="checkbox" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ip..." leading="avatar" leadingProps={{ initials: 'AZ' }} trailing="checkbox" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Filled Style</div>
+                  <List styleType="filled" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ip..." leading="avatar" leadingProps={{ initials: 'AZ' }} trailing="checkbox" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ip..." leading="avatar" leadingProps={{ initials: 'AZ' }} trailing="checkbox" />
+                  </List>
+                </div>
+
+                {/* 2. Image Thumbnail Leading (Outlined, Elevated, Filled) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--color-primary-on-surface)' }}>
+                    2. IMAGE / THUMBNAIL LEADING
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Outlined Style</div>
+                  <List styleType="outlined" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ipsum d..." leading="image" trailing="none" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ipsum d..." leading="image" trailing="none" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Elevated Style</div>
+                  <List styleType="elevated" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ipsum d..." leading="image" trailing="none" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ipsum d..." leading="image" trailing="none" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Filled Style</div>
+                  <List styleType="filled" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ipsum d..." leading="image" trailing="none" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ipsum d..." leading="image" trailing="none" />
+                  </List>
+                </div>
+
+                {/* 3. Checkbox Leading (Outlined, Elevated, Filled) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--color-primary-on-surface)' }}>
+                    3. CHECKBOX LEADING
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Outlined Style</div>
+                  <List styleType="outlined" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="checkbox" leadingProps={{ checked: true }} trailing="arrow" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="checkbox" leadingProps={{ checked: true }} trailing="arrow" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Elevated Style</div>
+                  <List styleType="elevated" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="checkbox" leadingProps={{ checked: true }} trailing="arrow" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="checkbox" leadingProps={{ checked: true }} trailing="arrow" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Filled Style</div>
+                  <List styleType="filled" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="checkbox" leadingProps={{ checked: true }} trailing="arrow" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="checkbox" leadingProps={{ checked: true }} trailing="arrow" />
+                  </List>
+                </div>
+
+                {/* 4. Radio Leading (Outlined, Elevated, Filled) */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ fontSize: '13px', fontWeight: '700', color: 'var(--color-primary-on-surface)' }}>
+                    4. RADIO BUTTON LEADING
+                  </div>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Outlined Style</div>
+                  <List styleType="outlined" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="radio" leadingProps={{ checked: true }} trailing="arrow" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="radio" leadingProps={{ checked: true }} trailing="arrow" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Elevated Style</div>
+                  <List styleType="elevated" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="radio" leadingProps={{ checked: true }} trailing="arrow" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="radio" leadingProps={{ checked: true }} trailing="arrow" />
+                  </List>
+                  <div style={{ fontSize: '11px', color: 'var(--color-on-surface-light)' }}>Filled Style</div>
+                  <List styleType="filled" size="medium">
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="radio" leadingProps={{ checked: true }} trailing="arrow" />
+                    <ListItem title="List item" supportingText="Supporting line text lorem ips..." leading="radio" leadingProps={{ checked: true }} trailing="arrow" />
+                  </List>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* Banner Component Showcase */}
         <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
@@ -640,7 +2394,118 @@ function App() {
             <IconButton variant="outline" disabled icon={<SettingsIcon />} aria-label="Disabled Settings" />
           </div>
         </section>
+
+        {/* Switch Component — 16 Canonical Variants */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+          <div>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', marginBottom: 'var(--spacing-2)' }}>Switch Toggle Component (16 Canonical Variants)</h2>
+            <p style={{ color: 'var(--color-neutral-100)', fontSize: 'var(--font-size-body-sm)', margin: 0 }}>
+              KPMG WorkBench toggle switch featuring Fluent Checkmark / Dismiss vector icons, active 28px thumb expansion, and complete token-driven theming.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-6)', alignItems: 'center', padding: 'var(--spacing-4)', backgroundColor: 'var(--color-surface)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)' }}>
+            <Switch
+              checked={appSwitchChecked}
+              onChange={setAppSwitchChecked}
+              icon={appSwitchWithIcon}
+              label="Live Interactive Switch"
+              helperText={`Current state: ${appSwitchChecked ? 'ON (Selected)' : 'OFF (Unselected)'}`}
+            />
+            <Button size="small" variant="outline" onClick={() => setAppSwitchWithIcon(!appSwitchWithIcon)}>
+              Toggle Icons: {appSwitchWithIcon ? 'With Icons (Check/X)' : 'Plain (No Icon)'}
+            </Button>
+          </div>
+
+          {/* Canonical 4-State Quick Gallery */}
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'var(--spacing-4)' }}>
+            <div style={{ padding: 'var(--spacing-4)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)' }}>Checked &bull; Enabled</span>
+              <Switch defaultChecked={true} icon={true} />
+            </div>
+            <div style={{ padding: 'var(--spacing-4)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)' }}>Checked &bull; Hovered</span>
+              <Switch defaultChecked={true} icon={true} state="Hovered" />
+            </div>
+            <div style={{ padding: 'var(--spacing-4)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)' }}>Unchecked &bull; Enabled</span>
+              <Switch defaultChecked={false} icon={true} />
+            </div>
+            <div style={{ padding: 'var(--spacing-4)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100)' }}>Disabled State</span>
+              <Switch defaultChecked={true} icon={true} disabled={true} />
+            </div>
+          </div>
+        </section>
+
+        {/* Dividers Component — 18 Canonical Variants */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+          <div>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', marginBottom: 'var(--spacing-2)' }}>Dividers Component (18 Canonical Variants)</h2>
+            <p style={{ color: 'var(--color-neutral-100)', fontSize: 'var(--font-size-body-sm)', margin: 0 }}>
+              KPMG WorkBench token-driven dividers supporting horizontal and vertical orientations, calibrated insets, subheaders, and light/dark theme contrast.
+            </p>
+          </div>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: 'var(--spacing-6)' }}>
+            {/* Card 1: Horizontal Dividers */}
+            <div style={{ padding: 'var(--spacing-5)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-3)' }}>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>Horizontal Insets & Subheaders</span>
+              
+              <div>
+                <span style={{ fontSize: '11px', color: 'var(--color-neutral-100)' }}>Full Width</span>
+                <Dividers width="Full" />
+              </div>
+
+              <div>
+                <span style={{ fontSize: '11px', color: 'var(--color-neutral-100)' }}>Inset (16px Left)</span>
+                <Dividers width="Inset" />
+              </div>
+
+              <div>
+                <span style={{ fontSize: '11px', color: 'var(--color-neutral-100)' }}>Inset Middle Small (8px Both Sides)</span>
+                <Dividers width="Inset middle small" />
+              </div>
+
+              <div>
+                <span style={{ fontSize: '11px', color: 'var(--color-neutral-100)' }}>Inset Middle with Subheader</span>
+                <Dividers width="Inset middle with text" text="Audit Section Breakdown" />
+              </div>
+            </div>
+
+            {/* Card 2: Vertical Dividers & Toolbar Integration */}
+            <div style={{ padding: 'var(--spacing-5)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>Vertical Dividers (Toolbar Layout)</span>
+              
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: 'var(--spacing-3)', backgroundColor: 'var(--color-surface-light)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)' }}>
+                <Button size="small" variant="standard">Dashboard</Button>
+                <Dividers state="Vertical" width="Full" style={{ height: '32px', minHeight: '32px' }} />
+                <Button size="small" variant="standard">Analytics</Button>
+                <Dividers state="Vertical" width="Inset middle" style={{ height: '32px', minHeight: '32px' }} />
+                <Button size="small" variant="standard">Settings</Button>
+              </div>
+
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', marginTop: '8px' }}>Dark Theme High-Contrast</span>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                <Dividers theme="Dark" width="Full" />
+                <Dividers theme="Dark" width="Inset middle with text" text="High-Contrast Dark Subheader" />
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
+
+      {/* Viewport Toast Notifications Container */}
+      <SnackbarContainer position="bottom-left">
+        {liveToasts.map((toast) => (
+          <Snackbar
+            key={toast.id}
+            {...toast}
+            autoHideDuration={6000}
+            onClose={() => removeAppToast(toast.id)}
+          />
+        ))}
+      </SnackbarContainer>
     </div>
   );
 }

@@ -1,0 +1,235 @@
+/**
+ * KPMG WorkBench Design System - Textarea Component
+ * 100% Token-Driven Styles
+ */
+
+/* ==========================================================================
+   Wrapper / Layout
+   ========================================================================== */
+.kpmg-textarea-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  font-family: var(--font-family-base);
+  box-sizing: border-box;
+}
+
+.kpmg-textarea-wrapper--inline {
+  width: auto;
+  max-width: 340px;
+}
+
+/* ==========================================================================
+   Header Bar (Label + Word Count)
+   ========================================================================== */
+.kpmg-textarea__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-textarea-header-gap);
+  user-select: none;
+}
+
+.kpmg-textarea__label {
+  font-size: var(--font-size-textarea-label);
+  line-height: var(--line-height-textarea-label);
+  font-weight: var(--font-weight-textarea-label);
+  color: var(--color-textarea-label);
+  transition: color var(--transition-fast);
+}
+
+.kpmg-textarea__count {
+  font-size: var(--font-size-textarea-count);
+  line-height: var(--line-height-textarea-count);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-textarea-count);
+  transition: color var(--transition-fast);
+}
+
+/* Header state modifiers */
+.kpmg-textarea-wrapper--focused .kpmg-textarea__label {
+  color: var(--color-textarea-label-focus);
+}
+
+.kpmg-textarea-wrapper--error .kpmg-textarea__label {
+  color: var(--color-textarea-label-error);
+}
+
+.kpmg-textarea-wrapper--error .kpmg-textarea__count {
+  color: var(--color-textarea-count-error);
+}
+
+.kpmg-textarea-wrapper--disabled .kpmg-textarea__label,
+.kpmg-textarea-wrapper--disabled .kpmg-textarea__count {
+  color: var(--color-textarea-label-disabled);
+}
+
+/* ==========================================================================
+   Container Box
+   ========================================================================== */
+.kpmg-textarea__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-textarea);
+  min-height: var(--size-textarea-min-height);
+  box-sizing: border-box;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* Outlined Treatment */
+.kpmg-textarea__container--outlined {
+  background-color: var(--color-textarea-outlined-bg);
+  border: 1px solid var(--color-textarea-outlined-border-default);
+}
+
+.kpmg-textarea__container--outlined:hover:not(.kpmg-textarea__container--disabled),
+.kpmg-textarea__container--outlined.kpmg-textarea__container--hovered {
+  border-color: var(--color-textarea-outlined-border-hover);
+}
+
+.kpmg-textarea__container--outlined:focus-within:not(.kpmg-textarea__container--disabled):not(.kpmg-textarea__container--error),
+.kpmg-textarea__container--outlined.kpmg-textarea__container--focused:not(.kpmg-textarea__container--error) {
+  border-color: var(--color-textarea-outlined-border-focus);
+  box-shadow: 0 0 0 1px var(--color-textarea-outlined-border-focus);
+}
+
+.kpmg-textarea__container--outlined.kpmg-textarea__container--error {
+  border-color: var(--color-textarea-outlined-border-error);
+}
+
+.kpmg-textarea__container--outlined.kpmg-textarea__container--disabled {
+  background-color: var(--color-textarea-outlined-bg);
+  border-color: var(--color-textarea-outlined-border-disabled);
+  cursor: not-allowed;
+}
+
+/* Filled Treatment */
+.kpmg-textarea__container--filled {
+  background-color: var(--color-textarea-filled-bg-default);
+  border: 1px solid transparent;
+}
+
+.kpmg-textarea__container--filled:hover:not(.kpmg-textarea__container--disabled),
+.kpmg-textarea__container--filled.kpmg-textarea__container--hovered {
+  background-color: var(--color-textarea-filled-bg-hover);
+}
+
+.kpmg-textarea__container--filled:focus-within:not(.kpmg-textarea__container--disabled):not(.kpmg-textarea__container--error),
+.kpmg-textarea__container--filled.kpmg-textarea__container--focused:not(.kpmg-textarea__container--error) {
+  background-color: var(--color-textarea-filled-bg-focus);
+  border-color: var(--color-textarea-outlined-border-focus);
+}
+
+.kpmg-textarea__container--filled.kpmg-textarea__container--error {
+  background-color: var(--color-textarea-filled-bg-error);
+  border-color: var(--color-textarea-outlined-border-error);
+}
+
+.kpmg-textarea__container--filled.kpmg-textarea__container--disabled {
+  background-color: var(--color-textarea-filled-bg-disabled);
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   Textarea Input Field
+   ========================================================================== */
+.kpmg-textarea__input {
+  width: 100%;
+  flex: 1 1 auto;
+  min-height: calc(var(--size-textarea-min-height) - 36px);
+  padding: var(--spacing-textarea-padding-y) var(--spacing-textarea-padding-x);
+  padding-bottom: 36px; /* reserve space for bottom action button */
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--color-textarea-text);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-textarea-input);
+  line-height: var(--line-height-textarea-input);
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.kpmg-textarea__input::placeholder {
+  color: var(--color-textarea-placeholder);
+}
+
+.kpmg-textarea__input:disabled {
+  color: var(--color-textarea-text-disabled);
+  cursor: not-allowed;
+}
+
+.kpmg-textarea__input--no-action {
+  padding-bottom: var(--spacing-textarea-padding-y);
+}
+
+/* ==========================================================================
+   Trailing Action Row / Button (e.g. Microphone, Alert, Clear)
+   ========================================================================== */
+.kpmg-textarea__action-wrapper {
+  position: absolute;
+  right: var(--spacing-textarea-action-inset);
+  bottom: var(--spacing-textarea-action-inset);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.kpmg-textarea__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-textarea-action-button);
+  height: var(--size-textarea-action-button);
+  border-radius: var(--radius-full);
+  background: transparent;
+  border: none;
+  color: var(--color-textarea-action);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.kpmg-textarea__action-btn:hover:not(:disabled) {
+  background-color: var(--color-textarea-action-hover-bg);
+  color: var(--color-textarea-action-focus);
+}
+
+.kpmg-textarea__action-btn:focus-visible {
+  outline: 2px solid var(--color-textarea-outlined-border-focus);
+  outline-offset: 2px;
+}
+
+.kpmg-textarea__action-btn:disabled {
+  color: var(--color-textarea-action-disabled);
+  cursor: not-allowed;
+}
+
+.kpmg-textarea-wrapper--error .kpmg-textarea__action-btn {
+  color: var(--color-textarea-action-error);
+}
+
+.kpmg-textarea__action-icon {
+  width: var(--size-textarea-action-icon);
+  height: var(--size-textarea-action-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==========================================================================
+   Helper Text & Error Messages
+   ========================================================================== */
+.kpmg-textarea__helper {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-sm);
+  color: var(--color-neutral-100);
+}
+
+.kpmg-textarea__helper--error {
+  color: var(--color-textarea-label-error);
+}

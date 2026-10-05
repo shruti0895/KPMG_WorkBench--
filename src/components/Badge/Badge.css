@@ -1,0 +1,123 @@
+/**
+ * KPMG WorkBench Design System - Badge Component Styles
+ * Supports 12 variants: 3 Sizes (Small, Medium, Large) × 2 Styles (Primary, Neutral) × 2 States (Quiet, Loud)
+ * 100% token-driven with zero hardcoded values.
+ */
+
+.kpmg-badge-container {
+  position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.kpmg-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  user-select: none;
+  white-space: nowrap;
+  letter-spacing: 0;
+  text-align: center;
+  border-radius: var(--radius-full, 1000px);
+  transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1),
+              color 150ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ==========================================================================
+   Sizes
+   ========================================================================== */
+
+/* Small (6px dot indicator) */
+.kpmg-badge--small {
+  width: var(--size-badge-sm, 6px);
+  height: var(--size-badge-sm, 6px);
+  min-width: var(--size-badge-sm, 6px);
+  padding: 0;
+  border-radius: var(--radius-full, 1000px);
+}
+
+/* Medium (16px compact count / pill) */
+.kpmg-badge--medium {
+  height: var(--size-badge-md, 16px);
+  min-width: var(--size-badge-md, 16px);
+  padding: 0 var(--spacing-badge-md-padding-x, var(--spacing-1, 4px));
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-sm, 11px);
+  line-height: var(--line-height-label-sm, 14px);
+  font-weight: var(--font-weight-regular, 400);
+}
+
+/* Large (24px prominent count / pill) */
+.kpmg-badge--large {
+  height: var(--size-badge-lg, 24px);
+  min-width: var(--size-badge-lg, 24px);
+  padding: 0 var(--spacing-badge-lg-padding-x, var(--spacing-2, 8px));
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  line-height: var(--line-height-label-lg, 20px);
+  font-weight: var(--font-weight-regular, 400);
+}
+
+/* ==========================================================================
+   Color Variants (Style + State/Intensity)
+   ========================================================================== */
+
+/* Primary - Loud */
+.kpmg-badge--primary-loud {
+  background-color: var(--color-badge-primary-loud-bg, #1e49e2);
+  color: var(--color-badge-primary-loud-text, #ffffff);
+}
+
+/* Primary - Quiet */
+.kpmg-badge--primary-quiet {
+  background-color: var(--color-badge-primary-quiet-bg, #d7d9fa);
+  color: var(--color-badge-primary-quiet-text, #1a28c1);
+}
+
+/* Neutral - Loud */
+.kpmg-badge--neutral-loud {
+  background-color: var(--color-badge-neutral-loud-bg, #e3e3e8);
+  color: var(--color-badge-neutral-loud-text, #454554);
+}
+
+/* Neutral - Quiet */
+.kpmg-badge--neutral-quiet {
+  background-color: var(--color-badge-neutral-quiet-bg, #f7f7f8);
+  color: var(--color-badge-neutral-quiet-text, #454554);
+}
+
+/* ==========================================================================
+   Overlapping / Positioned on Children
+   ========================================================================== */
+
+.kpmg-badge--overlap {
+  position: absolute;
+  z-index: 1;
+  box-shadow: 0 0 0 2px var(--color-surface, #ffffff);
+}
+
+.kpmg-badge--overlap-top-right {
+  top: 0;
+  right: 0;
+  transform: translate(50%, -50%);
+}
+
+.kpmg-badge--overlap-top-left {
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+}
+
+.kpmg-badge--overlap-bottom-right {
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 50%);
+}
+
+.kpmg-badge--overlap-bottom-left {
+  bottom: 0;
+  left: 0;
+  transform: translate(-50%, 50%);
+}

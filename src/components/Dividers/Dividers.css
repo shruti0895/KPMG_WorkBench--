@@ -1,0 +1,191 @@
+/**
+ * KPMG WorkBench Design System - Dividers Component Styles
+ *
+ * 100% token-driven divider and separator component implementing all 18 canonical Figma variants:
+ * - 2 Orientations: Horizontal, Vertical
+ * - 2 Themes: Light, Dark
+ * - Inset Configurations:
+ *   - Horizontal (6 variants x 2 themes = 12 variants):
+ *     1. Full width
+ *     2. Inset (16px left indentation)
+ *     3. Inset middle small (8px left & right insets)
+ *     4. Inset middle medium (10px left & right insets)
+ *     5. Inset middle large (18px left & right insets)
+ *     6. Inset middle with text (Subheader label with 16px left indent)
+ *   - Vertical (3 variants x 2 themes = 6 variants):
+ *     1. Full height (120px default, 8px lateral padding)
+ *     2. Inset (16px top indentation)
+ *     3. Inset middle (16px top & bottom indentations)
+ */
+
+/* ==========================================================================
+   1. BASE DIVIDER CONTAINER
+   ========================================================================== */
+.kpmg-divider {
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* ==========================================================================
+   2. HORIZONTAL DIVIDERS
+   ========================================================================== */
+.kpmg-divider--horizontal {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* 2A. Inset Variations for Horizontal */
+.kpmg-divider--horizontal.kpmg-divider--full {
+  padding-top: var(--divider-padding-horizontal, 8px);
+  padding-bottom: var(--divider-padding-horizontal, 8px);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.kpmg-divider--horizontal.kpmg-divider--inset {
+  padding-top: var(--divider-padding-horizontal, 8px);
+  padding-bottom: var(--divider-padding-horizontal, 8px);
+  padding-left: var(--divider-inset-default, 16px);
+  padding-right: 0;
+}
+
+.kpmg-divider--horizontal.kpmg-divider--inset-middle-small {
+  padding: var(--divider-padding-horizontal, 8px) var(--divider-inset-small, 8px);
+}
+
+.kpmg-divider--horizontal.kpmg-divider--inset-middle-medium {
+  padding: var(--divider-padding-horizontal, 8px) var(--divider-inset-medium, 10px);
+}
+
+.kpmg-divider--horizontal.kpmg-divider--inset-middle-large {
+  padding: var(--divider-padding-horizontal, 8px) var(--divider-inset-large, 18px);
+}
+
+.kpmg-divider--horizontal.kpmg-divider--inset-middle-with-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: var(--divider-padding-horizontal, 8px);
+  padding-bottom: var(--divider-padding-horizontal, 8px);
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.kpmg-divider--horizontal.kpmg-divider--inset-middle-with-text .kpmg-divider-line-wrapper {
+  padding-left: var(--divider-inset-small, 8px);
+  padding-right: var(--divider-inset-small, 8px);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   3. VERTICAL DIVIDERS
+   ========================================================================== */
+.kpmg-divider--vertical {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  width: var(--divider-width-vertical, 17px);
+  min-width: var(--divider-width-vertical, 17px);
+  height: var(--divider-height-vertical, 120px);
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+/* 3A. Inset Variations for Vertical */
+.kpmg-divider--vertical.kpmg-divider--full {
+  padding-left: var(--divider-padding-vertical, 8px);
+  padding-right: var(--divider-padding-vertical, 8px);
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.kpmg-divider--vertical.kpmg-divider--inset {
+  padding-left: var(--divider-padding-vertical, 8px);
+  padding-right: var(--divider-padding-vertical, 8px);
+  padding-top: var(--divider-inset-default, 16px);
+  padding-bottom: 0;
+}
+
+.kpmg-divider--vertical.kpmg-divider--inset-middle {
+  padding-left: var(--divider-padding-vertical, 8px);
+  padding-right: var(--divider-padding-vertical, 8px);
+  padding-top: var(--divider-inset-default, 16px);
+  padding-bottom: var(--divider-inset-default, 16px);
+}
+
+/* ==========================================================================
+   4. DIVIDER LINE ELEMENT
+   ========================================================================== */
+.kpmg-divider-line {
+  display: block;
+  box-sizing: border-box;
+  border: none;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+/* Horizontal Line Dimensions */
+.kpmg-divider--horizontal .kpmg-divider-line {
+  width: 100%;
+  height: var(--divider-thickness, 1px);
+}
+
+/* Vertical Line Dimensions */
+.kpmg-divider--vertical .kpmg-divider-line {
+  width: var(--divider-thickness, 1px);
+  height: 100%;
+  min-height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   4A. Theme Colors
+   -------------------------------------------------------------------------- */
+/* Light Theme Line */
+.kpmg-divider--theme-light .kpmg-divider-line {
+  background-color: var(--color-divider-line, #d5d5dc);
+}
+
+/* Dark Theme Line (High-Contrast Neutral) */
+.kpmg-divider--theme-dark .kpmg-divider-line {
+  background-color: var(--color-divider-line-dark, #454554);
+}
+
+/* ==========================================================================
+   5. SUBHEADER TEXT (DIVIDER WITH TEXT)
+   ========================================================================== */
+.kpmg-divider-text-container {
+  display: flex;
+  align-items: center;
+  padding-left: var(--divider-inset-default, 16px);
+  flex-shrink: 0;
+}
+
+.kpmg-divider-text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-divider-text, 14px);
+  line-height: var(--line-height-divider-text, 20px);
+  font-weight: var(--font-weight-divider-text, 400);
+  letter-spacing: 0;
+  white-space: nowrap;
+  word-break: break-word;
+  margin: 0;
+  padding: 0;
+}
+
+/* Light Theme Text */
+.kpmg-divider--theme-light .kpmg-divider-text {
+  color: var(--color-divider-text, #2f2f39);
+}
+
+/* Dark Theme Text */
+.kpmg-divider--theme-dark .kpmg-divider-text {
+  color: var(--color-divider-text-dark, #2f2f39);
+}
+
+[data-theme="dark"] .kpmg-divider--theme-dark .kpmg-divider-text {
+  color: #f5f5f7;
+}
