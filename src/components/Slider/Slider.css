@@ -1,0 +1,171 @@
+/**
+ * KPMG WorkBench Design System - Slider Component Styles
+ * Formatted directly to Figma Specs (Node 964:63925).
+ * Continuous & Discrete modes, Floating Tooltip Indicators, and Token Design System Integration.
+ */
+
+.kpmg-slider {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, 8px);
+  width: 100%;
+  max-width: 600px;
+  user-select: none;
+  position: relative;
+  font-family: var(--font-family-base);
+}
+
+/* Header (Label & Subtext) */
+.kpmg-slider__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.kpmg-slider__label {
+  font-size: var(--font-size-body-md, 14px);
+  font-weight: var(--font-weight-medium, 500);
+  color: var(--color-on-surface, #2f2f39);
+}
+
+.kpmg-slider__subtext {
+  font-size: var(--font-size-body-sm, 12px);
+  color: var(--color-on-surface-light, #9090a2);
+}
+
+/* Main Track & Input Outer Wrapper */
+.kpmg-slider__wrapper {
+  position: relative;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* Inactive Background Track (Full Width) */
+.kpmg-slider__track-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background-color: var(--color-slider-track-inactive, #e3e3e8);
+  border-radius: var(--radius-full, 1000px);
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* Active Fill Progress Track */
+.kpmg-slider__track-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--color-slider-track-active, #1e49e2);
+  border-radius: var(--radius-full, 1000px);
+  transition: width 0.05s ease-out;
+}
+
+/* Discrete Step Tick Marks */
+.kpmg-slider__ticks {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.kpmg-slider__tick {
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background-color: var(--color-neutral-200, #9090a2);
+  transform: translate(-50%, -50%);
+}
+
+.kpmg-slider__tick--active {
+  background-color: var(--color-base-white, #ffffff);
+}
+
+/* Floating Tooltip Value Indicator Badge above Thumb */
+.kpmg-slider__indicator-container {
+  position: absolute;
+  bottom: 38px;
+  transform: translate(-50%, -10%);
+  pointer-events: none;
+  z-index: 10;
+  transition: left 0.05s ease-out;
+}
+
+.kpmg-slider__indicator-badge {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-slider-indicator-bg, #2f3de3);
+  color: var(--color-slider-indicator-text, #ffffff);
+  padding: 4px 10px;
+  border-radius: var(--radius-md, 8px);
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); */
+}
+
+.kpmg-slider__indicator-text {
+  font-size: var(--font-size-label-sm, 11px);
+  font-weight: var(--font-weight-semibold, 600);
+  line-height: 14px;
+}
+
+
+/* Visual Thumb Handle Circle & State Halo */
+.kpmg-slider__thumb {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 5;
+  transition: left 0.05s ease-out, transform 0.15s ease-in-out;
+}
+
+
+/* Hidden Accessible Range Input Element Overlay */
+.kpmg-slider__input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 20;
+}
+
+/* Focus Visible Accessibility Outline Ring */
+.kpmg-slider__input:focus-visible~.kpmg-slider__thumb {
+  outline: 2px solid var(--color-primary-action, #1e49e2);
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+
+/* Disabled State Styles */
+.kpmg-slider--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.kpmg-slider--disabled .kpmg-slider__input {
+  cursor: not-allowed;
+}
+
+.kpmg-slider--disabled .kpmg-slider__track-fill {
+  background-color: var(--color-slider-disabled-thumb, #9090a2);
+}
+
+.kpmg-slider--disabled .kpmg-slider__thumb {
+  box-shadow: none !important;
+}

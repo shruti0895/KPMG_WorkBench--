@@ -1,0 +1,318 @@
+/**
+ * KPMG WorkBench Design System - Switch Component Styles
+ *
+ * 100% token-driven switch toggle component implementing all 16 canonical Figma variants:
+ * - 2 Selection States (Selected / Checked, Unselected / Unchecked)
+ * - 2 Icon Configurations (With Icons [Checkmark & Dismiss], Without Icons)
+ * - 4 Interaction States (Enabled, Hovered, Pressed [28px expanded thumb], Disabled)
+ */
+
+/* ==========================================================================
+   1. SWITCH ROOT CONTAINER (WRAPPER FOR SWITCH + LABEL)
+   ========================================================================== */
+.kpmg-switch-root {
+  display: inline-flex;
+  align-items: flex-start;
+  position: relative;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  user-select: none;
+  cursor: pointer;
+  gap: var(--spacing-switch-gap, 12px);
+  vertical-align: middle;
+}
+
+.kpmg-switch-root--disabled {
+  cursor: not-allowed;
+}
+
+.kpmg-switch-root--label-start {
+  flex-direction: row-reverse;
+}
+
+/* Visually Hidden Native Input for standard accessibility & form participation */
+.kpmg-switch-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   2. SWITCH TRACK (ACCESSIBLE BUTTON ROLE="SWITCH")
+   ========================================================================== */
+.kpmg-switch-track {
+  box-sizing: border-box;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: var(--width-switch-track, 52px);
+  min-width: var(--width-switch-track, 52px);
+  height: var(--height-switch-track, 32px);
+  border-radius: var(--radius-switch-track, 1000px);
+  border: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  font-family: inherit;
+  flex-shrink: 0;
+  appearance: none;
+  -webkit-appearance: none;
+  vertical-align: middle;
+  transition: background-color 160ms cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Disabled Track Cursor */
+.kpmg-switch-track:disabled,
+.kpmg-switch-track--disabled {
+  cursor: not-allowed;
+}
+
+/* Focus Ring for Keyboard Navigation */
+.kpmg-switch-track:focus-visible {
+  outline: 2px solid var(--color-switch-focus-ring, #1e49e2);
+  outline-offset: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   2A. Selected (Checked) Track Styling
+   -------------------------------------------------------------------------- */
+.kpmg-switch-track--checked {
+  background-color: var(--color-switch-track-selected, #1e49e2);
+  box-shadow: none;
+}
+
+.kpmg-switch-track--checked.kpmg-switch-track--hovered,
+.kpmg-switch-track--checked:hover:not(:disabled):not(.kpmg-switch-track--disabled) {
+  background-color: var(--color-switch-track-selected-hover, #153bc0);
+}
+
+.kpmg-switch-track--checked.kpmg-switch-track--pressed,
+.kpmg-switch-track--checked:active:not(:disabled):not(.kpmg-switch-track--disabled) {
+  background-color: var(--color-switch-track-selected-pressed, #0f2c96);
+}
+
+.kpmg-switch-track--checked.kpmg-switch-track--disabled,
+.kpmg-switch-track--checked:disabled {
+  background-color: var(--color-switch-track-selected-disabled, #e3e3e8);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   2B. Unselected (Unchecked) Track Styling
+   Note: Inset box-shadow is used instead of CSS border to preserve the 
+   exact 52x32px coordinate box, ensuring the 24px thumb has perfectly equal 
+   4px concentric spacing around the pill capsule.
+   -------------------------------------------------------------------------- */
+.kpmg-switch-track--unchecked {
+  background-color: var(--color-switch-track-unselected-bg, transparent);
+  box-shadow: inset 0 0 0 2px var(--color-switch-track-unselected-border, #c7c7d1);
+}
+
+.kpmg-switch-track--unchecked.kpmg-switch-track--hovered,
+.kpmg-switch-track--unchecked:hover:not(:disabled):not(.kpmg-switch-track--disabled) {
+  box-shadow: inset 0 0 0 2px var(--color-switch-track-unselected-border, #c7c7d1);
+}
+
+.kpmg-switch-track--unchecked.kpmg-switch-track--pressed,
+.kpmg-switch-track--unchecked:active:not(:disabled):not(.kpmg-switch-track--disabled) {
+  box-shadow: inset 0 0 0 2px var(--color-switch-track-unselected-border, #c7c7d1);
+}
+
+.kpmg-switch-track--unchecked.kpmg-switch-track--disabled,
+.kpmg-switch-track--unchecked:disabled {
+  background-color: var(--color-switch-track-unselected-bg, transparent);
+  box-shadow: inset 0 0 0 2px var(--color-switch-track-unselected-border-disabled, #e3e3e8);
+}
+
+/* ==========================================================================
+   3. SWITCH THUMB (CONCENTRIC CIRCULAR BUTTON)
+   ========================================================================== */
+.kpmg-switch-thumb {
+  box-sizing: border-box;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-switch-thumb, 24px);
+  height: var(--size-switch-thumb, 24px);
+  border-radius: var(--radius-switch-thumb, 50%);
+  top: var(--spacing-switch-thumb-inset, 4px);
+  transition: transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              width 140ms ease,
+              height 140ms ease,
+              background-color 160ms cubic-bezier(0.16, 1, 0.3, 1),
+              left 180ms cubic-bezier(0.16, 1, 0.3, 1),
+              top 140ms ease;
+  flex-shrink: 0;
+  pointer-events: none; /* Clicks pass through to track button directly */
+}
+
+/* --------------------------------------------------------------------------
+   3A. Thumb Position (Unchecked vs Checked)
+   - Pill radius: 16px. Thumb radius: 12px.
+   - Offset = 16 - 12 = 4px on all sides (top, bottom, and capsule curve).
+   -------------------------------------------------------------------------- */
+/* Unchecked: exactly 4px from left, 4px from top, 4px from bottom */
+.kpmg-switch-thumb--unchecked {
+  left: var(--spacing-switch-thumb-inset, 4px);
+}
+
+/* Checked: exactly 4px from right, 4px from top, 4px from bottom */
+.kpmg-switch-thumb--checked {
+  left: calc(var(--width-switch-track, 52px) - var(--size-switch-thumb, 24px) - var(--spacing-switch-thumb-inset, 4px));
+}
+
+/* Pressed State: Expands from 24px to 28px, inset reduces from 4px to 2px */
+.kpmg-switch-thumb--pressed,
+.kpmg-switch-track--pressed .kpmg-switch-thumb,
+.kpmg-switch-track:active:not(:disabled):not(.kpmg-switch-track--disabled) .kpmg-switch-thumb {
+  width: var(--size-switch-thumb-pressed, 28px);
+  height: var(--size-switch-thumb-pressed, 28px);
+  top: var(--spacing-switch-thumb-inset-pressed, 2px);
+}
+
+.kpmg-switch-thumb--unchecked.kpmg-switch-thumb--pressed,
+.kpmg-switch-track--unchecked.kpmg-switch-track--pressed .kpmg-switch-thumb,
+.kpmg-switch-track--unchecked:active:not(:disabled):not(.kpmg-switch-track--disabled) .kpmg-switch-thumb {
+  left: var(--spacing-switch-thumb-inset-pressed, 2px);
+}
+
+.kpmg-switch-thumb--checked.kpmg-switch-thumb--pressed,
+.kpmg-switch-track--checked.kpmg-switch-track--pressed .kpmg-switch-thumb,
+.kpmg-switch-track--checked:active:not(:disabled):not(.kpmg-switch-track--disabled) .kpmg-switch-thumb {
+  left: calc(var(--width-switch-track, 52px) - var(--size-switch-thumb-pressed, 28px) - var(--spacing-switch-thumb-inset-pressed, 2px));
+}
+
+/* --------------------------------------------------------------------------
+   3B. Thumb Color Variants - Checked States
+   -------------------------------------------------------------------------- */
+.kpmg-switch-thumb--checked {
+  background-color: var(--color-switch-thumb-selected, #ffffff);
+}
+
+.kpmg-switch-thumb--checked.kpmg-switch-thumb--hovered,
+.kpmg-switch-root:hover:not(.kpmg-switch-root--disabled) .kpmg-switch-thumb--checked {
+  background-color: var(--color-switch-thumb-selected-hover, #e9eafc);
+}
+
+.kpmg-switch-thumb--checked.kpmg-switch-thumb--pressed,
+.kpmg-switch-root:active:not(.kpmg-switch-root--disabled) .kpmg-switch-thumb--checked {
+  background-color: var(--color-switch-thumb-selected-pressed, #e9eafc);
+}
+
+.kpmg-switch-thumb--checked.kpmg-switch-thumb--disabled {
+  background-color: var(--color-switch-thumb-selected-disabled, #ffffff);
+}
+
+/* --------------------------------------------------------------------------
+   3C. Thumb Color Variants - Unchecked States
+   -------------------------------------------------------------------------- */
+.kpmg-switch-thumb--unchecked {
+  background-color: var(--color-switch-thumb-unselected, #b8b8c4);
+}
+
+.kpmg-switch-thumb--unchecked.kpmg-switch-thumb--hovered,
+.kpmg-switch-root:hover:not(.kpmg-switch-root--disabled) .kpmg-switch-thumb--unchecked {
+  background-color: var(--color-switch-thumb-unselected-hover, #9090a2);
+}
+
+.kpmg-switch-thumb--unchecked.kpmg-switch-thumb--pressed,
+.kpmg-switch-root:active:not(.kpmg-switch-root--disabled) .kpmg-switch-thumb--unchecked {
+  background-color: var(--color-switch-thumb-unselected-pressed, #9090a2);
+}
+
+.kpmg-switch-thumb--unchecked.kpmg-switch-thumb--disabled {
+  background-color: var(--color-switch-thumb-unselected-disabled, #e3e3e8);
+}
+
+/* ==========================================================================
+   4. THUMB ICONS (CHECKMARK & DISMISS / X)
+   ========================================================================== */
+.kpmg-switch-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-switch-icon, 16px);
+  height: var(--size-switch-icon, 16px);
+  flex-shrink: 0;
+  transition: color 160ms cubic-bezier(0.16, 1, 0.3, 1),
+              transform 160ms ease;
+  pointer-events: none;
+}
+
+/* Checked (Checkmark) Icon Colors */
+.kpmg-switch-icon--checked {
+  color: var(--color-switch-icon-selected, #1e49e2);
+}
+
+.kpmg-switch-icon--checked.kpmg-switch-icon--hovered,
+.kpmg-switch-root:hover:not(.kpmg-switch-root--disabled) .kpmg-switch-icon--checked {
+  color: var(--color-switch-icon-selected-hover, #1e49e2);
+}
+
+.kpmg-switch-icon--checked.kpmg-switch-icon--pressed,
+.kpmg-switch-root:active:not(.kpmg-switch-root--disabled) .kpmg-switch-icon--checked {
+  color: var(--color-switch-icon-selected-pressed, #1e49e2);
+}
+
+.kpmg-switch-icon--checked.kpmg-switch-icon--disabled {
+  color: var(--color-switch-icon-selected-disabled, #9090a2);
+}
+
+/* Unchecked (Dismiss / X) Icon Colors */
+.kpmg-switch-icon--unchecked {
+  color: var(--color-switch-icon-unselected, #9090a2);
+}
+
+.kpmg-switch-icon--unchecked.kpmg-switch-icon--hovered,
+.kpmg-switch-root:hover:not(.kpmg-switch-root--disabled) .kpmg-switch-icon--unchecked {
+  color: var(--color-switch-icon-unselected-hover, #454554);
+}
+
+.kpmg-switch-icon--unchecked.kpmg-switch-icon--pressed,
+.kpmg-switch-root:active:not(.kpmg-switch-root--disabled) .kpmg-switch-icon--unchecked {
+  color: var(--color-switch-icon-unselected-pressed, #454554);
+}
+
+.kpmg-switch-icon--unchecked.kpmg-switch-icon--disabled {
+  color: var(--color-switch-icon-unselected-disabled, #b8b8c4);
+}
+
+/* ==========================================================================
+   5. LABEL & HELPER TEXT
+   ========================================================================== */
+.kpmg-switch-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.4;
+  padding-top: 5px; /* Centers text visually against 32px track */
+}
+
+.kpmg-switch-label {
+  font-size: var(--font-size-body-md, 14px);
+  line-height: var(--line-height-body-md, 20px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-switch-label, #2f2f39);
+  transition: color 140ms ease;
+}
+
+.kpmg-switch-root--disabled .kpmg-switch-label {
+  color: var(--color-switch-label-disabled, #9090a2);
+}
+
+.kpmg-switch-helper {
+  font-size: var(--font-size-label-sm, 12px);
+  line-height: var(--line-height-label-sm, 16px);
+  color: var(--color-switch-helper, #454554);
+}
+
+.kpmg-switch-root--disabled .kpmg-switch-helper {
+  color: var(--color-switch-label-disabled, #9090a2);
+}

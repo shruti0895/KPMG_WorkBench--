@@ -1,0 +1,498 @@
+/**
+ * KPMG WorkBench Design System - Tooltip Component
+ * 100% Token-Driven Styles
+ */
+
+/* ==========================================================================
+   Root Tooltip Container
+   ========================================================================== */
+.kpmg-tooltip-wrapper {
+  position: relative;
+  display: inline-flex;
+}
+
+.kpmg-tooltip-target {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+.kpmg-tooltip {
+  position: absolute;
+  z-index: 1000;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-family-base);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity var(--transition-fast, 150ms ease),
+              transform var(--transition-fast, 150ms ease),
+              visibility var(--transition-fast, 150ms ease);
+}
+
+.kpmg-tooltip--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.kpmg-tooltip--static {
+  position: relative;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  z-index: 1;
+}
+
+/* ==========================================================================
+   Theme Treatments (Elevated & Filled)
+   ========================================================================== */
+.kpmg-tooltip--elevated {
+  background-color: var(--color-tooltip-elevated-bg);
+  color: var(--color-tooltip-elevated-text);
+  border: 1px solid var(--color-tooltip-elevated-border);
+  box-shadow: var(--color-tooltip-elevated-shadow);
+  --caret-color: var(--color-tooltip-elevated-bg);
+}
+
+.kpmg-tooltip--filled {
+  background-color: var(--color-tooltip-filled-bg);
+  color: var(--color-tooltip-filled-text);
+  border: 1px solid var(--color-tooltip-filled-border);
+  box-shadow: var(--color-tooltip-filled-shadow);
+  --caret-color: var(--color-tooltip-filled-bg);
+}
+
+/* ==========================================================================
+   Size & Content Formats
+   ========================================================================== */
+/* 1. Single-line (Compact Label) */
+.kpmg-tooltip--single-line {
+  border-radius: var(--radius-tooltip-sm);
+  padding: var(--spacing-tooltip-py-sm) var(--spacing-tooltip-px);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-sm);
+  font-weight: var(--font-weight-regular);
+  white-space: nowrap;
+  min-height: 32px;
+  justify-content: center;
+  align-items: center;
+  width: max-content;
+  max-width: 260px;
+}
+
+/* 2. Multi-line (Plain Description) */
+.kpmg-tooltip--multi-line {
+  border-radius: var(--radius-tooltip-md);
+  padding: var(--spacing-tooltip-py-md) var(--spacing-tooltip-px);
+  font-size: var(--font-size-body-sm);
+  line-height: var(--line-height-body-sm);
+  font-weight: var(--font-weight-regular);
+  width: var(--width-tooltip-multi-line);
+  max-width: var(--width-tooltip-multi-line);
+}
+
+/* 3. Rich Base (Action, Source, Alert Small, Alert Large) */
+.kpmg-tooltip--rich {
+  border-radius: var(--radius-tooltip-lg);
+  padding: var(--spacing-tooltip-pt-rich) var(--spacing-tooltip-px) var(--spacing-tooltip-pb-rich) var(--spacing-tooltip-px);
+  width: var(--width-tooltip-rich);
+  max-width: var(--width-tooltip-rich);
+  gap: var(--spacing-tooltip-gap);
+}
+
+/* 4. Menu Base (List Menu & Icon Menu) */
+.kpmg-tooltip--menu {
+  border-radius: var(--radius-tooltip-md);
+  padding: var(--spacing-2) 0;
+  width: var(--width-tooltip-menu);
+  max-width: var(--width-tooltip-menu);
+}
+
+/* ==========================================================================
+   Placements & Offsets
+   ========================================================================== */
+/* Top Placements */
+.kpmg-tooltip--placement-top {
+  bottom: calc(100% + 8px);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-center {
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-left {
+  left: 0;
+  transform: translateY(4px);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-right {
+  right: 0;
+  transform: translateY(4px);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--visible {
+  transform: translateX(-50%) translateY(0);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-left.kpmg-tooltip--visible {
+  transform: translateY(0);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-right.kpmg-tooltip--visible {
+  transform: translateY(0);
+}
+
+/* Bottom Placements */
+.kpmg-tooltip--placement-bottom {
+  top: calc(100% + 8px);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-center {
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-left {
+  left: 0;
+  transform: translateY(-4px);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-right {
+  right: 0;
+  transform: translateY(-4px);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--visible {
+  transform: translateX(-50%) translateY(0);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-left.kpmg-tooltip--visible {
+  transform: translateY(0);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-right.kpmg-tooltip--visible {
+  transform: translateY(0);
+}
+
+/* Left (Side L) Placements */
+.kpmg-tooltip--placement-left {
+  right: calc(100% + 8px);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-middle {
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-top {
+  top: 0;
+  transform: translateX(4px);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-bottom {
+  bottom: 0;
+  transform: translateX(4px);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--visible {
+  transform: translateY(-50%) translateX(0);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-top.kpmg-tooltip--visible {
+  transform: translateX(0);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-bottom.kpmg-tooltip--visible {
+  transform: translateX(0);
+}
+
+/* Right (Side R) Placements */
+.kpmg-tooltip--placement-right {
+  left: calc(100% + 8px);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-middle {
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-top {
+  top: 0;
+  transform: translateX(-4px);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-bottom {
+  bottom: 0;
+  transform: translateX(-4px);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--visible {
+  transform: translateY(-50%) translateX(0);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-top.kpmg-tooltip--visible {
+  transform: translateX(0);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-bottom.kpmg-tooltip--visible {
+  transform: translateX(0);
+}
+
+/* ==========================================================================
+   Carets / Pointer Arrows (Small, Medium, Large)
+   ========================================================================== */
+.kpmg-tooltip__caret {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-style: solid;
+  pointer-events: none;
+}
+
+/* Caret on Bottom (pointing DOWN when tooltip is on Top) */
+.kpmg-tooltip--placement-top .kpmg-tooltip__caret--sm {
+  bottom: -6px;
+  border-width: var(--size-tooltip-caret-sm-h) calc(var(--size-tooltip-caret-sm-w) / 2) 0 calc(var(--size-tooltip-caret-sm-w) / 2);
+  border-color: var(--caret-color) transparent transparent transparent;
+}
+.kpmg-tooltip--placement-top .kpmg-tooltip__caret--md {
+  bottom: -9px;
+  border-width: var(--size-tooltip-caret-md-h) calc(var(--size-tooltip-caret-md-w) / 2) 0 calc(var(--size-tooltip-caret-md-w) / 2);
+  border-color: var(--caret-color) transparent transparent transparent;
+}
+.kpmg-tooltip--placement-top .kpmg-tooltip__caret--lg {
+  bottom: -12px;
+  border-width: var(--size-tooltip-caret-lg-h) calc(var(--size-tooltip-caret-lg-w) / 2) 0 calc(var(--size-tooltip-caret-lg-w) / 2);
+  border-color: var(--caret-color) transparent transparent transparent;
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-center .kpmg-tooltip__caret {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-left .kpmg-tooltip__caret {
+  left: var(--spacing-tooltip-caret-inset);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--align-right .kpmg-tooltip__caret {
+  right: var(--spacing-tooltip-caret-inset);
+}
+
+/* Caret on Top (pointing UP when tooltip is on Bottom) */
+.kpmg-tooltip--placement-bottom .kpmg-tooltip__caret--sm {
+  top: -6px;
+  border-width: 0 calc(var(--size-tooltip-caret-sm-w) / 2) var(--size-tooltip-caret-sm-h) calc(var(--size-tooltip-caret-sm-w) / 2);
+  border-color: transparent transparent var(--caret-color) transparent;
+}
+.kpmg-tooltip--placement-bottom .kpmg-tooltip__caret--md {
+  top: -9px;
+  border-width: 0 calc(var(--size-tooltip-caret-md-w) / 2) var(--size-tooltip-caret-md-h) calc(var(--size-tooltip-caret-md-w) / 2);
+  border-color: transparent transparent var(--caret-color) transparent;
+}
+.kpmg-tooltip--placement-bottom .kpmg-tooltip__caret--lg {
+  top: -12px;
+  border-width: 0 calc(var(--size-tooltip-caret-lg-w) / 2) var(--size-tooltip-caret-lg-h) calc(var(--size-tooltip-caret-lg-w) / 2);
+  border-color: transparent transparent var(--caret-color) transparent;
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-center .kpmg-tooltip__caret {
+  left: 50%;
+  transform: translateX(-50%);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-left .kpmg-tooltip__caret {
+  left: var(--spacing-tooltip-caret-inset);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-right .kpmg-tooltip__caret {
+  right: var(--spacing-tooltip-caret-inset);
+}
+
+/* Caret on Right (pointing RIGHT when tooltip is on Left) */
+.kpmg-tooltip--placement-left .kpmg-tooltip__caret--sm {
+  right: -6px;
+  border-width: calc(var(--size-tooltip-caret-sm-w) / 2) 0 calc(var(--size-tooltip-caret-sm-w) / 2) var(--size-tooltip-caret-sm-h);
+  border-color: transparent transparent transparent var(--caret-color);
+}
+.kpmg-tooltip--placement-left .kpmg-tooltip__caret--md {
+  right: -9px;
+  border-width: calc(var(--size-tooltip-caret-md-w) / 2) 0 calc(var(--size-tooltip-caret-md-w) / 2) var(--size-tooltip-caret-md-h);
+  border-color: transparent transparent transparent var(--caret-color);
+}
+.kpmg-tooltip--placement-left .kpmg-tooltip__caret--lg {
+  right: -12px;
+  border-width: calc(var(--size-tooltip-caret-lg-w) / 2) 0 calc(var(--size-tooltip-caret-lg-w) / 2) var(--size-tooltip-caret-lg-h);
+  border-color: transparent transparent transparent var(--caret-color);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-middle .kpmg-tooltip__caret {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-top .kpmg-tooltip__caret {
+  top: var(--spacing-tooltip-caret-inset);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--align-bottom .kpmg-tooltip__caret {
+  bottom: var(--spacing-tooltip-caret-inset);
+}
+
+/* Caret on Left (pointing LEFT when tooltip is on Right) */
+.kpmg-tooltip--placement-right .kpmg-tooltip__caret--sm {
+  left: -6px;
+  border-width: calc(var(--size-tooltip-caret-sm-w) / 2) var(--size-tooltip-caret-sm-h) calc(var(--size-tooltip-caret-sm-w) / 2) 0;
+  border-color: transparent var(--caret-color) transparent transparent;
+}
+.kpmg-tooltip--placement-right .kpmg-tooltip__caret--md {
+  left: -9px;
+  border-width: calc(var(--size-tooltip-caret-md-w) / 2) var(--size-tooltip-caret-md-h) calc(var(--size-tooltip-caret-md-w) / 2) 0;
+  border-color: transparent var(--caret-color) transparent transparent;
+}
+.kpmg-tooltip--placement-right .kpmg-tooltip__caret--lg {
+  left: -12px;
+  border-width: calc(var(--size-tooltip-caret-lg-w) / 2) var(--size-tooltip-caret-lg-h) calc(var(--size-tooltip-caret-lg-w) / 2) 0;
+  border-color: transparent var(--caret-color) transparent transparent;
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-middle .kpmg-tooltip__caret {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-top .kpmg-tooltip__caret {
+  top: var(--spacing-tooltip-caret-inset);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--align-bottom .kpmg-tooltip__caret {
+  bottom: var(--spacing-tooltip-caret-inset);
+}
+
+/* ==========================================================================
+   Rich Content Structure (Typography & Slots)
+   ========================================================================== */
+.kpmg-tooltip__header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.kpmg-tooltip__title {
+  font-size: var(--font-size-title-sm, 14px);
+  line-height: var(--line-height-title-sm, 20px);
+  font-weight: 600;
+  color: inherit;
+  margin: 0;
+}
+
+.kpmg-tooltip__body {
+  font-size: var(--font-size-body-sm, 12px);
+  line-height: var(--line-height-body-sm, 16px);
+  color: var(--color-tooltip-elevated-text-secondary);
+  margin: 0;
+}
+
+.kpmg-tooltip--filled .kpmg-tooltip__body {
+  color: var(--color-tooltip-filled-text-secondary);
+}
+
+.kpmg-tooltip__section-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-tooltip-elevated-text-muted);
+  margin-top: 4px;
+}
+
+.kpmg-tooltip--filled .kpmg-tooltip__section-label {
+  color: var(--color-tooltip-filled-text-muted);
+}
+
+/* Actions Row */
+.kpmg-tooltip__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* Preview Card Item (Alert Small & Large) */
+.kpmg-tooltip__card-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kpmg-tooltip__card-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background-color: var(--color-tooltip-item-bg);
+  border: 1px solid var(--color-tooltip-item-border);
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.kpmg-tooltip__card-item:hover {
+  background-color: var(--color-tooltip-item-hover);
+}
+
+.kpmg-tooltip__card-thumb {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #7213ea 0%, #aab0f4 100%);
+  flex-shrink: 0;
+}
+
+.kpmg-tooltip__card-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.kpmg-tooltip__card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-on-surface);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpmg-tooltip__card-subtitle {
+  font-size: 11px;
+  color: var(--color-neutral-100);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpmg-tooltip__card-action {
+  background: transparent;
+  border: none;
+  color: var(--color-neutral-200);
+  cursor: pointer;
+  padding: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+}
+
+.kpmg-tooltip__card-action:hover {
+  color: var(--color-neutral-000);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Menu List Items */
+.kpmg-tooltip__menu-list {
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.kpmg-tooltip__menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  font-size: 13px;
+  color: inherit;
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease);
+  user-select: none;
+}
+
+.kpmg-tooltip__menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.kpmg-tooltip--filled .kpmg-tooltip__menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.kpmg-tooltip__menu-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kpmg-tooltip__menu-divider {
+  height: 1px;
+  background-color: var(--color-tooltip-item-border);
+  margin: 6px 0;
+}

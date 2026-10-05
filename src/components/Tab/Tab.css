@@ -1,0 +1,268 @@
+/**
+ * KPMG WorkBench Design System - Tab (Tabs / Tab Bar)
+ * 100% Token-Driven Styles
+ */
+
+/* ==========================================================================
+   Container Styles
+   ========================================================================== */
+.kpmg-tab,
+.kpmg-tb {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: auto;
+  box-sizing: border-box;
+  font-family: var(--font-family-base);
+  user-select: none;
+}
+
+/* Small Variant (Compact, Hug contents, used in cards, tiles, dialogs) */
+.kpmg-tab--small,
+.kpmg-tb--small {
+  min-height: var(--size-tab-height-small);
+  height: var(--size-tab-height-small);
+  background-color: var(--color-tab-bg-small);
+  padding: var(--spacing-tab-padding-y-small) var(--spacing-tab-padding-x-small);
+  display: inline-flex;
+}
+
+/* Large Variant (App Bar, Fill container, full width with optional actions) */
+.kpmg-tab--large,
+.kpmg-tb--large {
+  min-height: var(--size-tab-height-large);
+  height: var(--size-tab-height-large);
+  width: 100%;
+  background-color: var(--color-tab-bg-large);
+  padding: var(--spacing-tab-padding-y-large) var(--spacing-tab-padding-x-large);
+  justify-content: space-between;
+}
+
+.kpmg-tab--bordered,
+.kpmg-tb--bordered {
+  border-bottom: 1px solid var(--color-tab-border-large);
+}
+
+.kpmg-tab--full-width,
+.kpmg-tb--full-width {
+  width: 100%;
+}
+
+/* Navigation / Scroll Wrapper */
+.kpmg-tab__nav,
+.kpmg-tb__nav {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+}
+
+/* Tab List Items Row */
+.kpmg-tab__list,
+.kpmg-tb__list {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-tab-gap);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.kpmg-tab__list::-webkit-scrollbar,
+.kpmg-tb__list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
+/* ==========================================================================
+   Tab Item Styles
+   ========================================================================== */
+.kpmg-tab__item,
+.kpmg-tb__item {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--size-tab-item-height);
+  height: var(--size-tab-item-height);
+  padding: var(--spacing-tab-item-padding-y) var(--spacing-tab-item-padding-x-default);
+  border-radius: var(--radius-tab-item);
+  background-color: var(--color-tab-item-bg-default);
+  color: var(--color-tab-item-text-default);
+  border: none;
+  outline: none;
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-tab-item);
+  line-height: var(--line-height-tab-item);
+  font-weight: var(--font-weight-tab-item);
+  transition: background-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
+  box-sizing: border-box;
+}
+
+/* When Tab has a Badge, adjust right padding according to design specs (18px left, 12px right) */
+.kpmg-tab__item--with-badge,
+.kpmg-tb__item--with-badge {
+  padding-left: var(--spacing-tab-item-padding-left-badge);
+  padding-right: var(--spacing-tab-item-padding-right-badge);
+}
+
+/* Tab Label */
+.kpmg-tab__item-label,
+.kpmg-tb__item-label {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+/* Hover State */
+.kpmg-tab__item:hover:not(:disabled):not(.kpmg-tab__item--disabled),
+.kpmg-tab__item--state-hovered,
+.kpmg-tb__item:hover:not(:disabled):not(.kpmg-tb__item--disabled),
+.kpmg-tb__item--state-hovered {
+  background-color: var(--color-tab-item-bg-hover);
+  color: var(--color-tab-item-text-hover);
+}
+
+/* Active / Selected / Pressed State */
+.kpmg-tab__item--selected,
+.kpmg-tab__item:active:not(:disabled):not(.kpmg-tab__item--disabled),
+.kpmg-tab__item--state-pressed,
+.kpmg-tb__item--selected,
+.kpmg-tb__item:active:not(:disabled):not(.kpmg-tb__item--disabled),
+.kpmg-tb__item--state-pressed {
+  background-color: var(--color-tab-item-bg-selected);
+  color: var(--color-tab-item-text-selected);
+  font-weight: var(--font-weight-tab-item-selected);
+}
+
+/* Disabled State */
+.kpmg-tab__item:disabled,
+.kpmg-tab__item--disabled,
+.kpmg-tab__item--state-disabled,
+.kpmg-tb__item:disabled,
+.kpmg-tb__item--disabled,
+.kpmg-tb__item--state-disabled {
+  background-color: var(--color-tab-item-bg-disabled);
+  color: var(--color-tab-item-text-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Focus Visible */
+.kpmg-tab__item:focus-visible,
+.kpmg-tb__item:focus-visible {
+  outline: 2px solid var(--color-tab-item-focus-ring);
+  outline-offset: 2px;
+}
+
+/* ==========================================================================
+   Tab Item Badge Styles
+   ========================================================================== */
+.kpmg-tab__badge,
+.kpmg-tb__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: var(--size-tab-badge);
+  height: var(--size-tab-badge);
+  padding: 0 var(--spacing-1);
+  margin-left: var(--spacing-tab-item-badge-gap);
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-label-large);
+  line-height: var(--line-height-label-large);
+  font-weight: var(--font-weight-regular);
+  box-sizing: border-box;
+  background-color: var(--color-tab-item-badge-bg-default);
+  color: var(--color-tab-item-badge-text-default);
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+/* Badge in Hovered Tab */
+.kpmg-tab__item:hover:not(:disabled):not(.kpmg-tab__item--disabled) .kpmg-tab__badge,
+.kpmg-tab__item--state-hovered .kpmg-tab__badge,
+.kpmg-tb__item:hover:not(:disabled):not(.kpmg-tb__item--disabled) .kpmg-tb__badge,
+.kpmg-tb__item--state-hovered .kpmg-tb__badge {
+  background-color: var(--color-tab-item-badge-bg-hover);
+  color: var(--color-tab-item-badge-text-hover);
+}
+
+/* Badge in Selected / Pressed Tab */
+.kpmg-tab__item--selected .kpmg-tab__badge,
+.kpmg-tab__item:active:not(:disabled):not(.kpmg-tab__item--disabled) .kpmg-tab__badge,
+.kpmg-tab__item--state-pressed .kpmg-tab__badge,
+.kpmg-tb__item--selected .kpmg-tb__badge,
+.kpmg-tb__item:active:not(:disabled):not(.kpmg-tb__item--disabled) .kpmg-tb__badge,
+.kpmg-tb__item--state-pressed .kpmg-tb__badge {
+  background-color: var(--color-tab-item-badge-bg-selected);
+  color: var(--color-tab-item-badge-text-selected);
+}
+
+/* Badge in Disabled Tab */
+.kpmg-tab__item:disabled .kpmg-tab__badge,
+.kpmg-tab__item--disabled .kpmg-tab__badge,
+.kpmg-tab__item--state-disabled .kpmg-tab__badge,
+.kpmg-tb__item:disabled .kpmg-tb__badge,
+.kpmg-tb__item--disabled .kpmg-tb__badge,
+.kpmg-tb__item--state-disabled .kpmg-tb__badge {
+  background-color: var(--color-tab-item-badge-bg-disabled);
+  color: var(--color-tab-item-badge-text-disabled);
+}
+
+/* ==========================================================================
+   Trailing Actions & Controls
+   ========================================================================== */
+.kpmg-tab__actions,
+.kpmg-tb__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-tab-actions-gap);
+  margin-left: auto;
+  padding-left: var(--spacing-tab-gap);
+  flex-shrink: 0;
+}
+
+.kpmg-tab__action-btn,
+.kpmg-tb__action-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-tab-action-button);
+  height: var(--size-tab-action-button);
+  border-radius: var(--radius-full);
+  background-color: transparent;
+  color: var(--color-neutral-100);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.kpmg-tab__action-btn:hover,
+.kpmg-tb__action-btn:hover {
+  background-color: var(--color-primary-surface);
+  color: var(--color-primary-action);
+}
+
+.kpmg-tab__action-btn:active,
+.kpmg-tb__action-btn:active {
+  background-color: var(--color-primary-container);
+}
+
+.kpmg-tab__action-btn:focus-visible,
+.kpmg-tb__action-btn:focus-visible {
+  outline: 2px solid var(--color-tab-item-focus-ring);
+  outline-offset: 2px;
+}
+
+.kpmg-tab__action-icon,
+.kpmg-tb__action-icon {
+  width: var(--size-tab-action-icon);
+  height: var(--size-tab-action-icon);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
