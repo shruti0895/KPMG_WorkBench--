@@ -1,0 +1,341 @@
+/**
+ * KPMG WorkBench Design System - Banner Component Styles
+ * 100% Token-Driven, Zero Hardcoded Values
+ */
+
+/* ==========================================================================
+   Base Banner Container
+   ========================================================================== */
+.kpmg-banner {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: var(--size-banner-min-height, 64px);
+  padding: var(--spacing-banner-padding-y, var(--spacing-4, 12px)) var(--spacing-banner-padding-x, var(--spacing-5, 18px));
+  border-radius: var(--radius-banner, var(--radius-md, 12px));
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  position: relative;
+  overflow: hidden;
+  transition: background-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* ==========================================================================
+   State Styles: Default & Animated
+   ========================================================================== */
+
+/* Default State */
+.kpmg-banner--state-default {
+  background: var(--color-banner-default-bg);
+}
+
+/* Animated State (Gradient Background with Ambient Wave) */
+.kpmg-banner--state-animated {
+  background: var(--color-banner-animated-gradient);
+  background-size: 100% 150%;
+  animation: kpmg-banner-ambient 4s ease-in-out infinite alternate;
+}
+
+@keyframes kpmg-banner-ambient {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+/* ==========================================================================
+   Semantic Variant Themes (12-variant complete matrix)
+   ========================================================================== */
+
+/* 1. Primary (Canonical Figma Blue) */
+.kpmg-banner--primary.kpmg-banner--state-default {
+  background: var(--color-banner-default-bg);
+}
+.kpmg-banner--primary.kpmg-banner--state-animated {
+  background: var(--color-banner-animated-gradient);
+}
+.kpmg-banner--primary .kpmg-banner__text-title,
+.kpmg-banner--primary .kpmg-banner__text-detail {
+  color: var(--color-banner-text-primary);
+}
+.kpmg-banner--primary .kpmg-banner__icon-wrapper {
+  color: var(--color-banner-icon);
+}
+.kpmg-banner--primary .kpmg-banner__progress-fill {
+  background-color: var(--color-banner-progress-fill);
+}
+
+/* 2. Neutral */
+.kpmg-banner--neutral.kpmg-banner--state-default {
+  background: var(--color-banner-neutral-bg);
+}
+.kpmg-banner--neutral.kpmg-banner--state-animated {
+  background: var(--color-banner-neutral-gradient);
+}
+.kpmg-banner--neutral .kpmg-banner__text-title,
+.kpmg-banner--neutral .kpmg-banner__text-detail {
+  color: var(--color-banner-neutral-text);
+}
+.kpmg-banner--neutral .kpmg-banner__icon-wrapper {
+  color: var(--color-banner-neutral-icon);
+}
+.kpmg-banner--neutral .kpmg-banner__progress-fill {
+  background-color: var(--color-banner-neutral-text);
+}
+
+/* 3. Info */
+.kpmg-banner--info.kpmg-banner--state-default {
+  background: var(--color-banner-info-bg);
+}
+.kpmg-banner--info.kpmg-banner--state-animated {
+  background: var(--color-banner-info-gradient);
+}
+.kpmg-banner--info .kpmg-banner__text-title,
+.kpmg-banner--info .kpmg-banner__text-detail {
+  color: var(--color-banner-info-text);
+}
+.kpmg-banner--info .kpmg-banner__icon-wrapper {
+  color: var(--color-banner-info-icon);
+}
+.kpmg-banner--info .kpmg-banner__progress-fill {
+  background-color: var(--color-banner-info-icon);
+}
+
+/* 4. Success */
+.kpmg-banner--success.kpmg-banner--state-default {
+  background: var(--color-banner-success-bg);
+}
+.kpmg-banner--success.kpmg-banner--state-animated {
+  background: var(--color-banner-success-gradient);
+}
+.kpmg-banner--success .kpmg-banner__text-title,
+.kpmg-banner--success .kpmg-banner__text-detail {
+  color: var(--color-banner-success-text);
+}
+.kpmg-banner--success .kpmg-banner__icon-wrapper {
+  color: var(--color-banner-success-icon);
+}
+.kpmg-banner--success .kpmg-banner__progress-fill {
+  background-color: var(--color-banner-success-icon);
+}
+
+/* 5. Warning */
+.kpmg-banner--warning.kpmg-banner--state-default {
+  background: var(--color-banner-warning-bg);
+}
+.kpmg-banner--warning.kpmg-banner--state-animated {
+  background: var(--color-banner-warning-gradient);
+}
+.kpmg-banner--warning .kpmg-banner__text-title,
+.kpmg-banner--warning .kpmg-banner__text-detail {
+  color: var(--color-banner-warning-text);
+}
+.kpmg-banner--warning .kpmg-banner__icon-wrapper {
+  color: var(--color-banner-warning-icon);
+}
+.kpmg-banner--warning .kpmg-banner__progress-fill {
+  background-color: var(--color-banner-warning-icon);
+}
+
+/* 6. Critical / Alert */
+.kpmg-banner--critical.kpmg-banner--state-default {
+  background: var(--color-banner-critical-bg);
+}
+.kpmg-banner--critical.kpmg-banner--state-animated {
+  background: var(--color-banner-critical-gradient);
+}
+.kpmg-banner--critical .kpmg-banner__text-title,
+.kpmg-banner--critical .kpmg-banner__text-detail {
+  color: var(--color-banner-critical-text);
+}
+.kpmg-banner--critical .kpmg-banner__icon-wrapper {
+  color: var(--color-banner-critical-icon);
+}
+.kpmg-banner--critical .kpmg-banner__progress-fill {
+  background-color: var(--color-banner-critical-icon);
+}
+
+/* ==========================================================================
+   Inner Layout Sections
+   ========================================================================== */
+
+/* Main leading group (icon + title + percentage/detail) */
+.kpmg-banner__lead {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-banner-gap, var(--spacing-5, 18px));
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+/* Leading Icon Button / Container */
+.kpmg-banner__icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-banner-icon-container, var(--spacing-8, 40px));
+  height: var(--size-banner-icon-container, var(--spacing-8, 40px));
+  padding: var(--spacing-2, 8px) var(--spacing-3, 10px);
+  border-radius: var(--radius-full, 1000px);
+  background: transparent;
+  border: none;
+  cursor: default;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.kpmg-banner__icon-container--clickable {
+  cursor: pointer;
+}
+
+.kpmg-banner__icon-container--clickable:hover,
+.kpmg-banner__icon-container--clickable:focus-visible {
+  background-color: var(--color-banner-icon-btn-hover);
+  outline: none;
+}
+
+.kpmg-banner__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-banner-icon, 24px);
+  height: var(--size-banner-icon, 24px);
+  flex-shrink: 0;
+}
+
+/* Status Item / Typography */
+.kpmg-banner__status-group {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-banner-label-gap, var(--spacing-5, 18px));
+  min-width: 0;
+}
+
+.kpmg-banner__text-title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  line-height: var(--line-height-label-lg, 20px);
+  font-weight: var(--font-weight-regular, 400);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.kpmg-banner__text-detail {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  line-height: var(--line-height-label-lg, 20px);
+  font-weight: var(--font-weight-regular, 400);
+  margin: 0;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   Trailing Section (Progress bar, Actions, Close)
+   ========================================================================== */
+.kpmg-banner__trailing {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-4, 12px);
+  flex-shrink: 0;
+  margin-left: var(--spacing-5, 18px);
+}
+
+/* Linear Progress Bar Frame */
+.kpmg-banner__progress-frame {
+  width: var(--size-banner-progress-width, 260px);
+  max-width: 100%;
+  height: 12px;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.kpmg-banner__progress-track {
+  width: 100%;
+  height: var(--size-banner-progress-height, 4px);
+  background-color: var(--color-banner-progress-track);
+  border-radius: var(--radius-sm, 8px);
+  overflow: hidden;
+  position: relative;
+}
+
+.kpmg-banner__progress-fill {
+  height: 100%;
+  border-radius: var(--radius-sm, 8px);
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Indeterminate Progress Bar Animation */
+.kpmg-banner__progress-track--indeterminate .kpmg-banner__progress-fill {
+  width: 40% !important;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  animation: kpmg-banner-indeterminate 1.6s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}
+
+@keyframes kpmg-banner-indeterminate {
+  0% {
+    left: -40%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Actions */
+.kpmg-banner__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+}
+
+/* Dismiss / Close Button */
+.kpmg-banner__close-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-full, 1000px);
+  background: transparent;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  padding: 0;
+}
+
+.kpmg-banner__close-btn:hover,
+.kpmg-banner__close-btn:focus-visible {
+  opacity: 1;
+  background-color: var(--color-banner-icon-btn-hover);
+  outline: none;
+}
+
+/* Responsive Handling */
+@media (max-width: 768px) {
+  .kpmg-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-3, 10px);
+    height: auto;
+    padding: var(--spacing-3, 10px) var(--spacing-4, 12px);
+  }
+
+  .kpmg-banner__trailing {
+    width: 100%;
+    margin-left: 0;
+    justify-content: space-between;
+  }
+
+  .kpmg-banner__progress-frame {
+    width: 100%;
+    flex: 1 1 auto;
+  }
+}

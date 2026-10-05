@@ -1,0 +1,149 @@
+/**
+ * KPMG WorkBench Design System - FileUploader Component Styles
+ * Formatted directly to Figma Specs (Node 1003:54273).
+ * Small/Medium/Large sizes, Outline/Elevated/Filled visual states, and Token Integration.
+ */
+
+.kpmg-uploader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-3, 10px);
+  width: 100%;
+  max-width: 414px;
+  border-radius: var(--radius-md, 12px);
+  box-sizing: border-box;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: var(--font-family-base);
+  text-align: center;
+}
+
+/* Hidden Native File Input */
+.kpmg-uploader__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* 1. Size Variants */
+.kpmg-uploader--size-small,
+.kpmg-uploader--size-medium {
+  height: 128px;
+  padding: var(--spacing-6, 24px);
+}
+
+.kpmg-uploader--size-large {
+  height: 202px;
+  padding: var(--spacing-7, 32px);
+  gap: var(--spacing-4, 12px);
+}
+
+/* 2. Visual State Variants */
+
+/* Outline State */
+.kpmg-uploader--state-outline {
+  background-color: var(--color-uploader-bg-outline, #ffffff);
+  border: 1px solid var(--color-uploader-border-outline, #d5d5dc);
+}
+
+.kpmg-uploader--state-outline:hover:not(.kpmg-uploader--disabled) {
+  border-color: var(--color-uploader-text-link, #1e49e2);
+  box-shadow: 0 2px 8px rgba(30, 73, 226, 0.08);
+}
+
+/* Elevated State */
+.kpmg-uploader--state-elevated {
+  background-color: var(--color-uploader-bg-elevated, #f8f9fe);
+  border: 1px solid transparent;
+  box-shadow: var(--color-uploader-shadow-elevated, 0px 4px 16px rgba(0, 0, 0, 0.06));
+}
+
+.kpmg-uploader--state-elevated:hover:not(.kpmg-uploader--disabled) {
+  box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Filled State */
+.kpmg-uploader--state-filled {
+  background-color: var(--color-uploader-bg-filled, #e9eafc);
+  border: 1px solid transparent;
+}
+
+.kpmg-uploader--state-filled:hover:not(.kpmg-uploader--disabled) {
+  background-color: #d7d9fa;
+}
+
+/* Drag Active State */
+.kpmg-uploader--drag-over {
+  border: 2px dashed var(--color-uploader-drag-border, #1e49e2) !important;
+  background-color: var(--color-uploader-drag-bg, rgba(30, 73, 226, 0.06)) !important;
+}
+
+/* Focus Ring Accessibility */
+.kpmg-uploader:focus-visible {
+  outline: 2px solid var(--color-primary-action, #1e49e2);
+  outline-offset: 2px;
+}
+
+/* Icon Wrapper */
+.kpmg-uploader__icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.2s ease-in-out;
+}
+
+.kpmg-uploader:hover:not(.kpmg-uploader--disabled) .kpmg-uploader__icon-wrapper {
+  transform: translateY(-2px);
+}
+
+/* Text Content Prompt */
+.kpmg-uploader__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1, 4px);
+}
+
+.kpmg-uploader__prompt {
+  font-size: var(--font-size-body-md, 14px);
+  line-height: var(--line-height-body-md, 20px);
+}
+
+.kpmg-uploader__label-text {
+  color: var(--color-uploader-text-primary, #2f2f39);
+  font-weight: var(--font-weight-regular, 400);
+}
+
+.kpmg-uploader__link-text {
+  color: var(--color-uploader-text-link, #1e49e2);
+  font-weight: var(--font-weight-medium, 500);
+  margin-left: 4px;
+}
+
+.kpmg-uploader:hover:not(.kpmg-uploader--disabled) .kpmg-uploader__link-text {
+  text-decoration: underline;
+}
+
+.kpmg-uploader__subtext {
+  font-size: var(--font-size-body-sm, 12px);
+  color: var(--color-on-surface-light, #9090a2);
+}
+
+/* Disabled State */
+.kpmg-uploader--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.kpmg-uploader--disabled .kpmg-uploader__link-text {
+  color: var(--color-on-surface-light, #9090a2);
+}

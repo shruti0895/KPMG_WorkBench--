@@ -1,0 +1,335 @@
+/**
+ * KPMG WorkBench Design System - List & ListItem Styles
+ * 100% Token-Driven, Zero Hardcoded Values
+ */
+
+/* ==========================================================================
+   List Container
+   ========================================================================== */
+.kpmg-list {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  padding: var(--spacing-list-padding-y, var(--spacing-3, 10px)) var(--spacing-list-padding-x, var(--spacing-4, 12px));
+  border-radius: var(--radius-list, var(--radius-md, 12px));
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  gap: var(--spacing-list-gap, 0px);
+  list-style: none;
+  margin: 0;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+/* 1. Outlined Style */
+.kpmg-list--outlined {
+  background-color: var(--color-list-bg-default);
+  border: 1px solid var(--color-list-border-outlined);
+}
+
+/* 2. Elevated Style */
+.kpmg-list--elevated {
+  background-color: var(--color-list-bg-default);
+  border: none;
+  box-shadow: var(--color-list-elevated-shadow);
+}
+
+/* 3. Filled Style */
+.kpmg-list--filled {
+  background-color: var(--color-list-bg-filled);
+  border: none;
+}
+
+/* ==========================================================================
+   List Item Component
+   ========================================================================== */
+.kpmg-list-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: var(--spacing-list-item-padding-y, var(--spacing-2, 8px)) var(--spacing-list-item-padding-x, var(--spacing-4, 12px));
+  border-radius: var(--radius-list-item, var(--radius-sm, 8px));
+  background-color: var(--color-list-item-bg);
+  position: relative;
+  text-decoration: none;
+  color: inherit;
+  transition: background-color 0.15s ease, opacity 0.15s ease;
+  user-select: none;
+}
+
+/* Density Sizes */
+/* Small (1-line item: title only) */
+.kpmg-list-item--small {
+  min-height: var(--size-list-item-height-sm, 56px);
+}
+
+/* Medium (2-line item: title + supporting text) */
+.kpmg-list-item--medium {
+  min-height: var(--size-list-item-height-md, 68px);
+}
+
+/* Large (3-line item: title + 2 lines of supporting text) */
+.kpmg-list-item--large {
+  min-height: var(--size-list-item-height-lg, 88px);
+  align-items: flex-start;
+  padding-top: var(--spacing-3, 10px);
+  padding-bottom: var(--spacing-3, 10px);
+}
+
+/* Clickable / Interactive State */
+.kpmg-list-item--interactive {
+  cursor: pointer;
+}
+
+.kpmg-list-item--interactive:hover {
+  background-color: var(--color-list-item-hover-bg);
+}
+
+.kpmg-list-item--interactive:active {
+  background-color: var(--color-list-item-selected-bg);
+}
+
+.kpmg-list-item--interactive:focus-visible {
+  outline: 2px solid var(--color-primary-outline, #818aee);
+  outline-offset: -2px;
+}
+
+/* Selected State */
+.kpmg-list-item--selected {
+  background-color: var(--color-list-item-selected-bg);
+}
+
+/* Disabled State */
+.kpmg-list-item--disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Divided State */
+.kpmg-list--divided .kpmg-list-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: var(--spacing-list-item-padding-x, var(--spacing-4, 12px));
+  right: var(--spacing-list-item-padding-x, var(--spacing-4, 12px));
+  height: 1px;
+  background-color: var(--color-list-item-divider);
+}
+
+/* ==========================================================================
+   List Item Internal Layout
+   ========================================================================== */
+
+/* Main content wrapper (leading + text) */
+.kpmg-list-item__main {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-list-item-gap, var(--spacing-4, 12px));
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.kpmg-list-item--large .kpmg-list-item__main {
+  align-items: flex-start;
+}
+
+/* Leading Section */
+.kpmg-list-item__leading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.kpmg-list-item--large .kpmg-list-item__leading {
+  margin-top: 2px;
+}
+
+/* Avatar Leading Component */
+.kpmg-list-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-list-item-avatar, 40px);
+  height: var(--size-list-item-avatar, 40px);
+  border-radius: var(--radius-full, 1000px);
+  background: var(--color-list-avatar-bg);
+  color: var(--color-list-avatar-text);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 1;
+  overflow: hidden;
+  user-select: none;
+}
+
+.kpmg-list-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Image Thumbnail Leading Component */
+.kpmg-list-thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-list-item-image, 48px);
+  height: var(--size-list-item-image, 48px);
+  border-radius: var(--radius-list, var(--radius-md, 12px));
+  background: var(--color-list-thumbnail-bg);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.kpmg-list-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Icon Leading Component */
+.kpmg-list-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--size-list-item-icon, 24px);
+  height: var(--size-list-item-icon, 24px);
+  color: var(--color-list-item-icon);
+}
+
+/* Checkbox & Radio Controls */
+.kpmg-list-control {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.kpmg-list-radio-indicator {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full, 1000px);
+  border: 2px solid var(--color-primary-action, #1e49e2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.kpmg-list-radio-indicator--checked {
+  background-color: transparent;
+}
+
+.kpmg-list-radio-indicator--checked::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full, 1000px);
+  background-color: var(--color-primary-action, #1e49e2);
+}
+
+.kpmg-list-radio-indicator--unchecked {
+  border-color: var(--color-neutral-300, #b8b8c4);
+}
+
+/* Text Container */
+.kpmg-list-item__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.kpmg-list-item__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: var(--line-height-body-lg, 22px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-list-item-title);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpmg-list-item__supporting {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-md, 14px);
+  line-height: var(--line-height-body-md, 20px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-list-item-supporting);
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpmg-list-item--large .kpmg-list-item__supporting {
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.kpmg-list-item__secondary {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-sm, 12px);
+  line-height: var(--line-height-body-sm, 16px);
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-neutral-200, #9090a2);
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Trailing Section */
+.kpmg-list-item__trailing {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-2, 8px);
+  margin-left: var(--spacing-4, 12px);
+  flex-shrink: 0;
+  color: var(--color-list-item-arrow);
+}
+
+.kpmg-list-item--large .kpmg-list-item__trailing {
+  margin-top: 2px;
+}
+
+/* Circle Checkmark Icon */
+.kpmg-list-check-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius-full, 1000px);
+  background-color: var(--color-neutral-100, #454554);
+  color: var(--color-base-white, #ffffff);
+}
+
+.kpmg-list-check-circle svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Chevron Navigation Arrow */
+.kpmg-list-chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-list-item-arrow);
+  transition: transform 0.15s ease;
+}
+
+.kpmg-list-item--interactive:hover .kpmg-list-chevron {
+  transform: translateX(2px);
+}

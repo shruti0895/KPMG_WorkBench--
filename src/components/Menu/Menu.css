@@ -1,0 +1,1094 @@
+/**
+ * KPMG WorkBench Design System - Menu Component Styles
+ *
+ * Token-driven styling for all 4 canonical Menu types:
+ * 1. Dropdown Menu
+ * 2. Navigation Menu
+ * 3. Overflow Menu
+ * 4. Assistant Menu
+ */
+
+/* ==========================================================================
+   1. MENU ANCHOR & WRAPPER
+   ========================================================================== */
+.kpmg-menu-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.kpmg-menu-wrapper--block {
+  display: block;
+  width: 100%;
+}
+
+/* ==========================================================================
+   2. CORE MENU CONTAINER
+   ========================================================================== */
+.kpmg-menu {
+  box-sizing: border-box;
+  background-color: var(--color-menu-bg);
+  border: 1px solid var(--color-menu-border);
+  box-shadow: var(--color-menu-shadow);
+  border-radius: var(--radius-menu-card);
+  font-family: var(--font-family-base);
+  color: var(--color-menu-item-text);
+  padding: var(--spacing-menu-padding);
+  user-select: none;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  outline: none;
+  transition: opacity 160ms cubic-bezier(0.16, 1, 0.3, 1), transform 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Popover Placements */
+.kpmg-menu--popover {
+  position: absolute;
+}
+
+.kpmg-menu--placement-bottom-left {
+  top: calc(100% + var(--spacing-2));
+  left: 0;
+  transform-origin: top left;
+}
+
+.kpmg-menu--placement-bottom-right {
+  top: calc(100% + var(--spacing-2));
+  right: 0;
+  transform-origin: top right;
+}
+
+.kpmg-menu--placement-bottom-center {
+  top: calc(100% + var(--spacing-2));
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: top center;
+}
+
+.kpmg-menu--placement-top-left {
+  bottom: calc(100% + var(--spacing-2));
+  left: 0;
+  transform-origin: bottom left;
+}
+
+.kpmg-menu--placement-top-right {
+  bottom: calc(100% + var(--spacing-2));
+  right: 0;
+  transform-origin: bottom right;
+}
+
+.kpmg-menu--placement-top-center {
+  bottom: calc(100% + var(--spacing-2));
+  left: 50%;
+  transform: translateX(-50%);
+  transform-origin: bottom center;
+}
+
+/* Standalone / Inline Mode */
+.kpmg-menu--inline {
+  position: static;
+  box-shadow: var(--color-menu-shadow);
+}
+
+/* Non-elevated */
+.kpmg-menu--flat {
+  box-shadow: none;
+}
+
+/* ==========================================================================
+   3. MENU TYPE VARIANTS
+   ========================================================================== */
+
+/* Type 1: Dropdown Menu */
+.kpmg-menu--dropdown {
+  min-width: var(--width-menu-dropdown);
+  width: max-content;
+}
+
+.kpmg-menu--dropdown-card {
+  min-width: var(--width-menu-card-base, 450px);
+  width: var(--width-menu-card-base, 450px);
+  max-width: var(--width-menu-card-base, 450px);
+  border: none;
+  border-radius: var(--radius-sm, 8px);
+  padding: var(--spacing-4, 12px);
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.15);
+}
+
+.kpmg-menu--dropdown-card.kpmg-menu--placement-bottom-center,
+.kpmg-menu--dropdown-card.kpmg-menu--placement-bottom-left,
+.kpmg-menu--dropdown-card.kpmg-menu--placement-bottom-right {
+  top: 100%;
+}
+
+.kpmg-menu--dropdown-card.kpmg-menu--placement-top-center,
+.kpmg-menu--dropdown-card.kpmg-menu--placement-top-left,
+.kpmg-menu--dropdown-card.kpmg-menu--placement-top-right {
+  bottom: 100%;
+}
+
+.kpmg-menu--dropdown-card .kpmg-menu-item {
+  gap: var(--spacing-4, 12px);
+  font-size: var(--font-size-label-md, 12px);
+  line-height: var(--line-height-label-md, 16px);
+  color: var(--color-menu-item-text-secondary, #454554);
+}
+
+.kpmg-menu--dropdown-card .kpmg-menu-item__prefix,
+.kpmg-menu--dropdown-card .kpmg-menu-item__suffix {
+  color: var(--color-menu-item-text-secondary, #454554);
+}
+
+/* Type 2: Navigation Menu */
+.kpmg-menu--navigation {
+  width: var(--width-menu-nav);
+  border-radius: var(--radius-menu-nav);
+  padding: var(--spacing-menu-nav-padding);
+  gap: var(--spacing-menu-group-gap);
+}
+
+/* Type 3: Overflow Menu */
+.kpmg-menu--overflow {
+  box-sizing: border-box;
+  width: var(--width-menu-group, 220px);
+  min-width: var(--width-menu-group, 220px);
+  background-color: var(--color-menu-bg);
+  border: 1px solid var(--color-menu-border);
+  border-radius: var(--radius-menu-card);
+  box-shadow: var(--color-menu-shadow);
+  padding: var(--spacing-menu-padding) var(--spacing-menu-dropdown-px);
+  display: flex;
+  flex-direction: column;
+}
+
+.kpmg-menu--overflow .kpmg-menu-item {
+  width: var(--width-menu-item, 188px);
+}
+
+/* Type 4: Assistant Menu */
+.kpmg-menu--assistant {
+  box-sizing: border-box;
+  width: var(--width-menu-assistant, 400px);
+  min-width: var(--width-menu-assistant, 400px);
+  max-width: var(--width-menu-assistant, 400px);
+  border-radius: 18px;
+  padding: 18px 12px;
+  background-color: #ffffff;
+  border: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  gap: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.kpmg-menu--assistant.kpmg-menu--placement-bottom-right {
+  top: calc(100% + 8px);
+  right: 0;
+}
+
+.kpmg-menu--assistant.kpmg-menu--placement-bottom-left {
+  top: calc(100% + 8px);
+  left: 0;
+}
+
+/* ==========================================================================
+   4. MENU HEADER & TITLE
+   ========================================================================== */
+.kpmg-menu__header {
+  padding: var(--spacing-2) var(--spacing-3);
+  font-size: var(--font-size-title-sm);
+  line-height: var(--line-height-title-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-menu-item-text);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.kpmg-menu__group-header {
+  padding: var(--spacing-2) var(--spacing-4);
+  font-size: var(--font-size-label-sm);
+  line-height: var(--line-height-label-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-menu-item-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   5. MENU DIVIDER
+   ========================================================================== */
+.kpmg-menu-divider {
+  border: 0;
+  height: 1px;
+  background-color: var(--color-menu-divider);
+  margin: var(--spacing-menu-divider-my) 0;
+  width: 100%;
+}
+
+/* ==========================================================================
+   6. MENU ITEM (Core)
+   ========================================================================== */
+.kpmg-menu-item {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background-color: var(--color-menu-item-bg-default);
+  color: var(--color-menu-item-text);
+  font-family: var(--font-family-base);
+  border-radius: var(--radius-menu-item);
+  padding: 0 var(--spacing-menu-item-px);
+  gap: var(--spacing-menu-item-gap);
+  cursor: pointer;
+  text-align: left;
+  outline: none;
+  transition: background-color 140ms ease, color 140ms ease;
+  text-decoration: none;
+}
+
+/* Type widths for standalone checklist and icon items */
+.kpmg-menu-item--type-checklist,
+.kpmg-menu-item--type-icon {
+  width: var(--width-menu-item);
+}
+
+/* Items inside any menu container or group expand to full width */
+.kpmg-menu .kpmg-menu-item,
+.kpmg-menu-item-group .kpmg-menu-item,
+.kpmg-dropdown-item-group .kpmg-menu-item {
+  width: 100%;
+}
+
+/* Densities / Sizes */
+.kpmg-menu-item--small {
+  height: var(--size-menu-item-small);
+  font-size: var(--font-size-label-md);
+  line-height: var(--line-height-label-md);
+  padding: 0 var(--spacing-menu-item-px);
+}
+
+.kpmg-menu-item--medium {
+  height: var(--size-menu-item-medium);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body-md);
+  padding: 0 var(--spacing-menu-item-px);
+}
+
+.kpmg-menu-item--large {
+  height: var(--size-menu-item-large);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body-md);
+  padding: 0 var(--spacing-menu-item-px);
+}
+
+/* Navigation Item Size */
+.kpmg-menu-item--navigation {
+  height: var(--size-menu-item-nav);
+  font-size: var(--font-size-body-md);
+  line-height: var(--line-height-body-md);
+  padding: 0 var(--spacing-5);
+  font-weight: var(--font-weight-regular);
+}
+
+/* Focus Visible */
+.kpmg-menu-item:focus-visible {
+  outline: 2px solid var(--color-primary-outline);
+  outline-offset: -2px;
+}
+
+/* States: Hovered */
+.kpmg-menu-item:hover:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--hovered:not(:disabled):not(.kpmg-menu-item--disabled) {
+  background-color: var(--color-menu-item-bg-hover);
+}
+
+/* States: Pressed */
+.kpmg-menu-item:active:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--pressed:not(:disabled):not(.kpmg-menu-item--disabled) {
+  background-color: var(--color-menu-item-bg-pressed);
+}
+
+/* State: Selected (Background has to be only when hover!) */
+.kpmg-menu-item--selected {
+  background-color: var(--color-menu-item-bg-selected);
+  color: var(--color-menu-item-text);
+  font-weight: var(--font-weight-regular);
+}
+
+.kpmg-menu-item--selected:hover:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--selected.kpmg-menu-item--hovered:not(:disabled):not(.kpmg-menu-item--disabled) {
+  background-color: var(--color-menu-item-bg-selected-hover);
+}
+
+.kpmg-menu-item--selected:active:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--selected.kpmg-menu-item--pressed:not(:disabled):not(.kpmg-menu-item--disabled) {
+  background-color: var(--color-menu-item-bg-selected-pressed);
+}
+
+/* State: Error / Destructive */
+.kpmg-menu-item--error,
+.kpmg-menu-item--destructive {
+  color: var(--color-menu-item-text-error);
+  background-color: var(--color-menu-item-bg-error);
+}
+
+.kpmg-menu-item--error:hover:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--destructive:hover:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--error.kpmg-menu-item--hovered:not(:disabled):not(.kpmg-menu-item--disabled),
+.kpmg-menu-item--destructive.kpmg-menu-item--hovered:not(:disabled):not(.kpmg-menu-item--disabled) {
+  background-color: var(--color-menu-item-bg-error-hover);
+}
+
+/* State: Disabled */
+.kpmg-menu-item:disabled,
+.kpmg-menu-item--disabled {
+  color: var(--color-menu-item-text-disabled);
+  background-color: var(--color-menu-item-bg-disabled);
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   7. MENU ITEM SUB-ELEMENTS (Prefix, Content, Suffix)
+   ========================================================================== */
+.kpmg-menu-item__prefix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+}
+
+.kpmg-menu-item__content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kpmg-menu-item__label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpmg-menu-item__description {
+  font-size: var(--font-size-label-sm);
+  line-height: var(--line-height-label-sm);
+  color: var(--color-menu-item-text-muted);
+}
+
+.kpmg-menu-item__suffix {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-left: auto;
+  color: currentColor;
+}
+
+/* Checklist Indicator */
+.kpmg-menu-item__checkbox-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: currentColor;
+  line-height: 1;
+}
+
+/* Navigation Badge / Notification Counter */
+.kpmg-menu-item__badge {
+  font-size: var(--font-size-label-sm);
+  line-height: var(--line-height-label-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-menu-item-text-secondary);
+}
+
+/* Navigation Action Button */
+.kpmg-menu-item__action-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-1);
+  border-radius: 50%;
+  transition: background-color 120ms ease;
+}
+
+.kpmg-menu-item__action-btn:hover {
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* ==========================================================================
+   8. DROPDOWN BASE TRIGGERS (Canonical Variants)
+   ========================================================================== */
+.kpmg-dropdown-base {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-menu-base-gap, 8px);
+  font-family: var(--font-family-base);
+  cursor: pointer;
+  outline: none;
+  border: none;
+  background: transparent;
+  transition: all 140ms ease;
+  user-select: none;
+  white-space: nowrap;
+  width: fit-content;
+  max-width: fit-content;
+}
+
+.kpmg-dropdown-base:focus-visible {
+  outline: 2px solid var(--color-primary-outline);
+  outline-offset: 1px;
+}
+
+/* Base Style: Default Ghost (Background=False) */
+.kpmg-dropdown-base--default-ghost {
+  background: transparent;
+  border: none;
+  color: var(--color-menu-item-text);
+  padding: 0 var(--spacing-menu-base-px, 12px);
+}
+
+.kpmg-dropdown-base--default-ghost:hover:not(:disabled) {
+  background-color: var(--color-menu-base-ghost-hover-bg, rgba(0, 0, 0, 0.04));
+  border: none;
+}
+
+.kpmg-dropdown-base--default-ghost.kpmg-dropdown-base--open,
+.kpmg-dropdown-base--default-ghost.kpmg-dropdown-base--pressed {
+  background-color: var(--color-menu-base-ghost-pressed-bg, rgba(0, 0, 0, 0.08));
+  border: none;
+}
+
+/* Base Style: Default Pill (Background=True) */
+.kpmg-dropdown-base--default-pill {
+  background-color: var(--color-menu-base-pill-bg, rgba(255, 255, 255, 0.7));
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--color-menu-item-text);
+  padding: 0 var(--spacing-menu-base-px, 12px);
+  box-shadow: none;
+}
+
+.kpmg-dropdown-base--default-pill:hover:not(:disabled) {
+  background-color: var(--color-menu-base-pill-hover-bg, rgba(255, 255, 255, 0.85));
+  border: none;
+}
+
+.kpmg-dropdown-base--default-pill.kpmg-dropdown-base--open,
+.kpmg-dropdown-base--default-pill.kpmg-dropdown-base--pressed {
+  border: none;
+  background-color: var(--color-menu-base-pill-pressed-bg, var(--color-surface));
+  box-shadow: none;
+}
+
+/* Base Style: Gradient (Background=False) */
+.kpmg-dropdown-base--gradient {
+  background: transparent;
+  border: none;
+  color: var(--color-menu-base-gradient-text);
+  padding: 0 var(--spacing-menu-base-px, 12px);
+  font-weight: var(--font-weight-regular);
+}
+
+.kpmg-dropdown-base--gradient:hover:not(:disabled) {
+  opacity: 0.8;
+  border: none;
+}
+
+.kpmg-dropdown-base--gradient.kpmg-dropdown-base--open,
+.kpmg-dropdown-base--gradient.kpmg-dropdown-base--pressed {
+  border: none;
+  opacity: 0.9;
+}
+
+/* Base Style: Gradient Logo / Branded (Background=True, Size=Branded) */
+.kpmg-dropdown-base--branded {
+  width: fit-content;
+  min-width: 95px;
+  height: var(--size-menu-base-branded);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #131e90 0%, #2f3de3 100%);
+  color: var(--color-base-white);
+  border: none;
+  padding: 0 var(--spacing-4);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-label-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.kpmg-dropdown-base--branded:hover:not(:disabled) {
+  box-shadow: var(--shadow-200);
+  transform: translateY(-1px);
+  border: none;
+}
+
+.kpmg-dropdown-base--branded:active:not(:disabled) {
+  transform: translateY(0);
+  border: none;
+}
+
+/* Base Style: Card (Size=None, Background=True) */
+.kpmg-dropdown-base--card-outlined {
+  justify-content: space-between;
+  width: var(--width-menu-card-base, 450px);
+  min-width: var(--width-menu-card-base, 450px);
+  max-width: var(--width-menu-card-base, 450px);
+  height: var(--size-menu-base-card, 60px);
+  padding: 0 var(--spacing-5, 18px);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  border-radius: var(--radius-md, 12px);
+  background-color: var(--color-surface, #ffffff);
+  color: var(--color-neutral-000, #2f2f39);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md, 14px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-md, 20px);
+}
+
+.kpmg-dropdown-base--card-outlined:hover:not(:disabled) {
+  background-color: var(--color-surface-light);
+}
+
+.kpmg-dropdown-base--card-outlined.kpmg-dropdown-base--open,
+.kpmg-dropdown-base--card-outlined.kpmg-dropdown-base--pressed {
+  border-color: var(--color-neutral-outline);
+  background-color: var(--color-surface);
+}
+
+.kpmg-dropdown-base--card-filled {
+  justify-content: space-between;
+  width: var(--width-menu-card-base, 450px);
+  min-width: var(--width-menu-card-base, 450px);
+  max-width: var(--width-menu-card-base, 450px);
+  height: var(--size-menu-base-card, 60px);
+  padding: 0 var(--spacing-5, 18px);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md, 12px);
+  background-color: var(--color-menu-base-card-filled-bg);
+  color: var(--color-neutral-000, #2f2f39);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md, 14px);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--line-height-body-md, 20px);
+}
+
+.kpmg-dropdown-base--card-filled:hover:not(:disabled) {
+  filter: brightness(0.97);
+}
+
+.kpmg-dropdown-base--card-filled.kpmg-dropdown-base--open,
+.kpmg-dropdown-base--card-filled.kpmg-dropdown-base--pressed {
+  border-color: transparent;
+}
+
+/* Base Sizes */
+.kpmg-dropdown-base--size-small {
+  height: var(--size-menu-base-small);
+  font-size: var(--font-size-label-md);
+}
+
+.kpmg-dropdown-base--size-medium {
+  height: var(--size-menu-base-medium);
+  font-size: var(--font-size-body-md);
+}
+
+.kpmg-dropdown-base--size-large {
+  height: var(--size-menu-base-large);
+  font-size: var(--font-size-body-md);
+}
+
+/* Backward compatibility classes for existing trigger buttons */
+.kpmg-menu-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-menu-base-gap, 8px);
+  border: none;
+  background-color: var(--color-menu-base-pill-bg, rgba(255, 255, 255, 0.7));
+  color: var(--color-menu-item-text);
+  font-family: var(--font-family-base);
+  border-radius: var(--radius-full);
+  padding: 0 var(--spacing-menu-base-px, 12px);
+  cursor: pointer;
+  outline: none;
+  transition: all 140ms ease;
+  width: fit-content;
+}
+
+.kpmg-menu-trigger-btn--small {
+  height: var(--size-menu-base-small);
+  font-size: var(--font-size-label-md);
+}
+
+.kpmg-menu-trigger-btn--medium {
+  height: var(--size-menu-base-medium);
+  font-size: var(--font-size-body-md);
+}
+
+.kpmg-menu-trigger-btn--large {
+  height: var(--size-menu-base-large);
+  font-size: var(--font-size-body-md);
+}
+
+.kpmg-menu-trigger-btn:hover:not(:disabled) {
+  background-color: var(--color-menu-base-pill-hover-bg, rgba(255, 255, 255, 0.85));
+  border: none;
+}
+
+.kpmg-menu-trigger-btn:active:not(:disabled),
+.kpmg-menu-trigger-btn--open {
+  background-color: var(--color-menu-base-pill-pressed-bg, var(--color-surface));
+  border: none;
+}
+
+.kpmg-menu-trigger-btn:focus-visible {
+  outline: 2px solid var(--color-primary-outline);
+  outline-offset: 1px;
+}
+
+.kpmg-menu-trigger-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 60px;
+  padding: 0 var(--spacing-5);
+  border: 1px solid var(--color-neutral-outline);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-menu-item-text);
+  font-size: var(--font-size-body-lg);
+  font-weight: var(--font-weight-semibold);
+  cursor: pointer;
+  outline: none;
+  transition: all 140ms ease;
+}
+
+.kpmg-menu-trigger-card:hover {
+  background-color: var(--color-surface-light);
+}
+
+.kpmg-menu-trigger-card--open {
+  border-color: var(--color-primary-action);
+}
+
+/* ==========================================================================
+   DROPDOWN ITEM GROUPS (Canonical 6 Variants: 3 Densities x 2 Types)
+   ========================================================================== */
+.kpmg-dropdown-item-group {
+  box-sizing: border-box;
+  width: var(--width-menu-group); /* 220px */
+  background-color: var(--color-menu-bg);
+  border: 1px solid var(--color-menu-border);
+  border-radius: var(--radius-menu-card);
+  box-shadow: var(--color-menu-shadow);
+  padding: var(--spacing-menu-padding) var(--spacing-menu-dropdown-px);
+  display: flex;
+  flex-direction: column;
+}
+
+.kpmg-dropdown-item-group--small {
+  min-height: var(--height-menu-group-small); /* 250px */
+}
+
+.kpmg-dropdown-item-group--medium {
+  min-height: var(--height-menu-group-medium); /* 298px */
+}
+
+.kpmg-dropdown-item-group--large {
+  min-height: var(--height-menu-group-large); /* 322px */
+}
+
+.kpmg-dropdown-item-group .kpmg-menu-item {
+  width: var(--width-menu-item); /* 188px */
+}
+
+/* KPMG Branded Navigation Pill Trigger */
+.kpmg-nav-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3);
+  padding: var(--spacing-2) var(--spacing-5);
+  border-radius: var(--radius-full);
+  background: linear-gradient(90deg, #131e90 0%, #2f3de3 100%);
+  color: var(--color-base-white);
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-label-lg);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: 0.5px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 120ms ease, box-shadow 120ms ease;
+}
+
+.kpmg-nav-brand-pill:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-200);
+}
+
+.kpmg-nav-brand-pill:active {
+  transform: translateY(0);
+}
+
+.kpmg-nav-brand-pill:focus-visible {
+  outline: 2px solid var(--color-base-white);
+  outline-offset: 2px;
+}
+
+/* Overflow Menu Ellipsis Trigger */
+.kpmg-menu-overflow-trigger {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  color: var(--color-menu-trigger-icon);
+  cursor: pointer;
+  outline: none;
+  transition: all 140ms ease;
+  padding: 0;
+}
+
+.kpmg-menu-overflow-trigger--small {
+  width: var(--size-menu-overflow-trigger-sm);
+  height: var(--size-menu-overflow-trigger-sm);
+}
+
+.kpmg-menu-overflow-trigger--large {
+  width: var(--size-menu-overflow-trigger-lg);
+  height: var(--size-menu-overflow-trigger-lg);
+}
+
+.kpmg-menu-overflow-trigger:hover:not(:disabled) {
+  background-color: var(--color-menu-trigger-hover-bg);
+}
+
+.kpmg-menu-overflow-trigger:active:not(:disabled),
+.kpmg-menu-overflow-trigger--open {
+  background-color: var(--color-menu-trigger-active-bg);
+  color: var(--color-menu-trigger-icon-active);
+}
+
+.kpmg-menu-overflow-trigger:focus-visible {
+  outline: 2px solid var(--color-primary-outline);
+  outline-offset: 1px;
+}
+
+.kpmg-menu-overflow-trigger:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Overflow Menu Popover Container (anchors Dropdown Item Group) */
+.kpmg-menu-overflow-popover {
+  position: absolute;
+  z-index: 1000;
+}
+
+.kpmg-menu-overflow-popover.kpmg-menu--placement-bottom-left {
+  top: calc(100% + var(--spacing-2, 8px));
+  left: 0;
+}
+
+.kpmg-menu-overflow-popover.kpmg-menu--placement-bottom-right {
+  top: calc(100% + var(--spacing-2, 8px));
+  right: 0;
+}
+
+.kpmg-menu-overflow-popover.kpmg-menu--placement-top-left {
+  bottom: calc(100% + var(--spacing-2, 8px));
+  left: 0;
+}
+
+.kpmg-menu-overflow-popover.kpmg-menu--placement-top-right {
+  bottom: calc(100% + var(--spacing-2, 8px));
+  right: 0;
+}
+
+/* Assistant Menu Robot Trigger */
+.kpmg-menu-assistant-trigger {
+  width: 40px;
+  height: 40px;
+  border-radius: 1000px;
+  border: none;
+  background-color: #d7d9fa;
+  color: #454554;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  transition: all 140ms ease;
+  padding: 0;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.kpmg-menu-assistant-trigger:hover:not(:disabled) {
+  background-color: #c9ccfa;
+  color: #1a28c1;
+}
+
+.kpmg-menu-assistant-trigger:active:not(:disabled),
+.kpmg-menu-assistant-trigger--open {
+  background-color: #c0c4f8;
+  color: #1a28c1;
+}
+
+.kpmg-menu-assistant-trigger:focus-visible {
+  outline: 2px solid var(--color-primary-outline);
+  outline-offset: 2px;
+}
+
+/* Assistant Menu Anchor Container */
+.kpmg-assistant-menu-anchor {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: 400px;
+  min-height: 40px;
+}
+
+.kpmg-assistant-menu-anchor--open {
+  min-height: 840px;
+}
+
+.kpmg-assistant-menu-anchor--right {
+  align-items: flex-end;
+}
+
+.kpmg-assistant-menu-anchor--left {
+  align-items: flex-start;
+}
+
+/* ==========================================================================
+   9. ASSISTANT MENU RICH INTERNALS
+   ========================================================================== */
+
+/* Top Prompt Bar */
+.kpmg-assistant-menu__search-bar {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background-color: #d7d9fa;
+  border-radius: 1000px;
+  padding: 8px;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.kpmg-assistant-menu__search-icon-btn {
+  width: 24px;
+  height: 24px;
+  border-radius: 1000px;
+  border: none;
+  background-color: #e9eafc;
+  color: #1a28c1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  transition: opacity 120ms ease;
+}
+
+.kpmg-assistant-menu__search-icon-btn:hover {
+  opacity: 0.85;
+}
+
+.kpmg-assistant-menu__search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  line-height: 20px;
+  color: #1a28c1;
+  padding: 0 4px;
+}
+
+.kpmg-assistant-menu__search-input::placeholder {
+  color: #1a28c1;
+  opacity: 1;
+}
+
+.kpmg-assistant-menu__search-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.kpmg-assistant-menu__verification {
+  font-family: var(--font-family-base);
+  font-size: 11px;
+  line-height: 14px;
+  color: #9090a2;
+  text-align: center;
+  width: 100%;
+  padding-top: 4px;
+  padding-bottom: 0px;
+}
+
+.kpmg-assistant-menu__divider {
+  border: none;
+  height: 1px;
+  background-color: #d5d5dc;
+  width: 100%;
+  margin: 12px 0;
+}
+
+.kpmg-assistant-menu__section {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.kpmg-assistant-menu__section-title {
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #2f2f39;
+  padding: 4px 8px;
+}
+
+/* Assistant Rich Prompt Card Item */
+.kpmg-assistant-card {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  height: 80px;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #d5d5dc;
+  cursor: pointer;
+  transition: all 140ms ease;
+  width: 100%;
+  text-align: left;
+}
+
+.kpmg-assistant-card:hover {
+  background-color: #fbfbfd;
+  border-color: #b8b8c5;
+}
+
+.kpmg-assistant-card__thumbnail {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #d3b3fb 16%, #818aee 84%);
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.kpmg-assistant-card__info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.kpmg-assistant-card__title {
+  font-family: var(--font-family-base);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 400;
+  color: #2f2f39;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpmg-assistant-card__subtitle {
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: #454554;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpmg-assistant-card__action {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #454554;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 1000px;
+  flex-shrink: 0;
+  transition: all 120ms ease;
+  padding: 0;
+}
+
+.kpmg-assistant-card__action:hover {
+  color: #1a28c1;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Bottom Action Bar */
+.kpmg-assistant-menu__footer {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 12px;
+  width: 100%;
+}
+
+.kpmg-assistant-menu__cta-btn {
+  background-color: #1e49e2;
+  color: #ffffff;
+  border: none;
+  border-radius: 1000px;
+  height: 40px;
+  padding: 10px 24px;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  cursor: pointer;
+  transition: background-color 140ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpmg-assistant-menu__cta-btn:hover {
+  background-color: #153bc0;
+}
+
+.kpmg-assistant-menu__cta-btn:active {
+  background-color: #0f2c96;
+}

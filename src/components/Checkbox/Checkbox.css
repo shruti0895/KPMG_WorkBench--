@@ -1,0 +1,133 @@
+/**
+ * KPMG WorkBench Design System - Checkbox Component Styles
+ * Formatted directly to Figma Specs (Node 1384:63275).
+ * Supporting all 64 variants with token-driven design values.
+ */
+
+.kpmg-checkbox {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: var(--spacing-2, 8px);
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  vertical-align: middle;
+  transition: opacity 0.15s ease-in-out;
+}
+
+/* Hidden native input for accessible form behavior */
+.kpmg-checkbox__native-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Visual Touch Container Box */
+.kpmg-checkbox__box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-full, 1000px);
+  box-sizing: border-box;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease-in-out, transform 0.1s ease-in-out;
+}
+
+/* Large Size: 40px × 40px outer container */
+.kpmg-checkbox--large .kpmg-checkbox__box {
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+}
+
+/* Small Size: 24px × 24px outer container */
+.kpmg-checkbox--small .kpmg-checkbox__box {
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+}
+
+/* Hover State Layer Backgrounds */
+.kpmg-checkbox:hover:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-hovered:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box {
+  background-color: var(--color-checkbox-hover-layer, #e9eafc);
+}
+
+/* Hover state for Error variants */
+.kpmg-checkbox--type-error-checked:hover:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--type-error-checked-light:hover:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--type-error-indeterminate:hover:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--type-error-unchecked:hover:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-hovered.kpmg-checkbox--type-error-checked:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-hovered.kpmg-checkbox--type-error-checked-light:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-hovered.kpmg-checkbox--type-error-indeterminate:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-hovered.kpmg-checkbox--type-error-unchecked:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box {
+  background-color: var(--color-checkbox-error-hover-layer, #ffcedf);
+}
+
+/* Active / Pressed State Layer Backgrounds */
+.kpmg-checkbox:active:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-pressed:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box {
+  background-color: var(--color-checkbox-pressed-layer, #d7d9fa);
+  transform: scale(0.96);
+}
+
+/* Active / Pressed state for Error variants */
+.kpmg-checkbox--type-error-checked:active:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--type-error-checked-light:active:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--type-error-indeterminate:active:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--type-error-unchecked:active:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-pressed.kpmg-checkbox--type-error-checked:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-pressed.kpmg-checkbox--type-error-checked-light:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-pressed.kpmg-checkbox--type-error-indeterminate:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box,
+.kpmg-checkbox--state-pressed.kpmg-checkbox--type-error-unchecked:not(.kpmg-checkbox--disabled) .kpmg-checkbox__box {
+  background-color: var(--color-checkbox-error-pressed-layer, #feaac8);
+}
+
+/* Focus Visible Accessibility Ring */
+.kpmg-checkbox__native-input:focus-visible + .kpmg-checkbox__box {
+  outline: 2px solid var(--color-primary-action, #1e49e2);
+  outline-offset: 2px;
+}
+
+/* Disabled State */
+.kpmg-checkbox--disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.kpmg-checkbox--disabled .kpmg-checkbox__box {
+  background-color: transparent !important;
+  transform: none !important;
+}
+
+/* Label Container & Subtext Typography */
+.kpmg-checkbox__label-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 8px; /* Alignment centering with 40px large touch container */
+}
+
+.kpmg-checkbox--small .kpmg-checkbox__label-container {
+  padding-top: 2px; /* Alignment centering with 24px small touch container */
+}
+
+.kpmg-checkbox__label {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-md, 14px);
+  line-height: var(--line-height-body-md, 20px);
+  color: var(--color-on-surface, #2f2f39);
+  font-weight: var(--font-weight-regular, 400);
+}
+
+.kpmg-checkbox__subtext {
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-body-sm, 12px);
+  line-height: var(--line-height-body-sm, 16px);
+  color: var(--color-on-surface-light, #9090a2);
+  margin-top: 2px;
+}
