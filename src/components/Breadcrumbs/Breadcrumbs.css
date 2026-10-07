@@ -84,7 +84,14 @@
   justify-content: center;
   color: var(--color-on-surface-light);
   user-select: none;
-  padding: 0 2px;
+  padding: 0 1px;
+  line-height: 1;
+}
+
+.kpmg-breadcrumbs__slash-icon,
+.kpmg-breadcrumbs__chevron-icon {
+  display: block;
+  flex-shrink: 0;
 }
 
 /* ==========================================================================

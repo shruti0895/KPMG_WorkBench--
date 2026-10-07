@@ -1,0 +1,567 @@
+/* ==========================================================================
+   KPMG WORKBENCH DESIGN SYSTEM 2026 - SHEETS COMPONENT STYLES
+   (Floating Sheets Informational & Inputs + Side Sheets Basic & Special)
+   ========================================================================== */
+
+.kpmg-sheet {
+  box-sizing: border-box;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sheet-bg-default, #ffffff);
+  border: 1px solid var(--sheet-border-default, #d5d5dc);
+  border-radius: var(--sheet-radius, 12px);
+  padding: var(--sheet-padding, 18px);
+  color: var(--color-on-surface, #2f2f39);
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+/* --------------------------------------------------------------------------
+   Surface Variations
+   -------------------------------------------------------------------------- */
+.kpmg-sheet--outlined {
+  background-color: var(--sheet-bg-default, #ffffff);
+  border: 1px solid var(--sheet-border-default, #d5d5dc);
+}
+
+.kpmg-sheet--filled {
+  background-color: var(--tile-bg-filled, #f5f5fe);
+  border: 1px solid transparent;
+}
+
+/* --------------------------------------------------------------------------
+   Floating Sheets Layouts
+   -------------------------------------------------------------------------- */
+.kpmg-sheet--floating {
+  box-shadow: var(--sheet-shadow-floating, 2px 2px 12px 0px rgba(0, 0, 0, 0.15));
+}
+
+.kpmg-sheet--floating-compact {
+  width: var(--sheet-floating-width-compact, 400px);
+}
+
+.kpmg-sheet--floating-large {
+  width: var(--sheet-floating-width-large, 486px);
+}
+
+/* --------------------------------------------------------------------------
+   Side Sheets Layouts
+   -------------------------------------------------------------------------- */
+.kpmg-sheet--side {
+  box-shadow: var(--sheet-shadow-side, -4px 0px 24px rgba(0, 0, 0, 0.08));
+}
+
+.kpmg-sheet--side-small {
+  width: var(--sheet-side-width-small, 320px);
+}
+
+.kpmg-sheet--side-large {
+  width: var(--sheet-side-width-large, 360px);
+}
+
+/* Fluid full-width mode */
+.kpmg-sheet--fluid {
+  width: 100% !important;
+  max-width: 100%;
+}
+
+/* Drawer slide-out overlay mode */
+.kpmg-sheet-backdrop {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 15, 25, 0.45);
+  backdrop-filter: blur(2px);
+  z-index: 1000;
+  display: flex;
+  justify-content: flex-end;
+  animation: kpmg-sheet-fade-in 0.2s ease-out;
+}
+
+.kpmg-sheet-drawer-container {
+  height: 100%;
+  max-height: 100vh;
+  border-radius: 16px 0 0 16px;
+  animation: kpmg-sheet-slide-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes kpmg-sheet-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes kpmg-sheet-slide-in {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+/* --------------------------------------------------------------------------
+   Header Row
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 12px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--sheet-border-default, #d5d5dc);
+}
+
+.kpmg-sheet-header__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--tile-title-color, #2f2f39);
+  margin: 0;
+}
+
+.kpmg-sheet-header__action {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 1000px;
+  border: none;
+  background: transparent;
+  color: var(--color-on-surface, #454554);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.15s ease;
+}
+
+.kpmg-sheet-header__action:hover {
+  background-color: rgba(69, 69, 84, 0.08);
+}
+
+/* --------------------------------------------------------------------------
+   Section Pill Header (Collapsible Accordion / Header Pill)
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-pill-header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: var(--sheet-pill-height, 42px);
+  padding: 0 16px;
+  border-radius: var(--sheet-pill-radius, 1000px);
+  background-color: var(--sheet-pill-bg, #f5f5fe);
+  border: none;
+  color: var(--sheet-pill-color, #2f2f39);
+  margin: 8px 0;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.kpmg-sheet-pill-header:hover {
+  background-color: var(--sheet-pill-bg-hover, #e8ebfd);
+}
+
+.kpmg-sheet-pill-header__left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kpmg-sheet-pill-header__star {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #454554;
+}
+
+.kpmg-sheet-pill-header__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sheet-pill-color, #2f2f39);
+}
+
+.kpmg-sheet-pill-header__right {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #454554;
+}
+
+/* --------------------------------------------------------------------------
+   Task Card with ProgressIndicator (Top of Informational Sheet)
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-task-card {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--sheet-card-radius, 12px);
+  background-color: var(--sheet-card-bg, #ffffff);
+  border: 1px solid var(--sheet-card-border, #d5d5dc);
+  margin-bottom: 12px;
+}
+
+.kpmg-sheet-task-card__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpmg-sheet-task-card__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--sheet-card-title-color, #2f2f39);
+  margin: 0;
+}
+
+.kpmg-sheet-task-card__desc {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  color: var(--sheet-card-text-color, #454554);
+  margin: 2px 0 0 0;
+}
+
+.kpmg-sheet-task-card__progress {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --------------------------------------------------------------------------
+   Bot Message Question & Answer Module
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-qa-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px 4px;
+}
+
+.kpmg-sheet-qa-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kpmg-sheet-qa-question {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.kpmg-sheet-gradient-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 1000px;
+  background: linear-gradient(135deg, #7c22e4 0%, #1e49e2 100%);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.kpmg-sheet-qa-question__text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 15px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--color-on-surface, #2f2f39);
+}
+
+.kpmg-sheet-qa-question__subtext {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sheet-card-text-color, #454554);
+  margin-top: 2px;
+}
+
+.kpmg-sheet-qa-answer {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sheet-card-text-color, #454554);
+  padding-left: 24px;
+  padding-top: 4px;
+  border-top: 1px solid #f0f0f3;
+}
+
+/* --------------------------------------------------------------------------
+   Sub-cards inside Sheets
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 14px 18px;
+  border-radius: var(--sheet-card-radius, 12px);
+  background-color: var(--sheet-card-bg, #ffffff);
+  border: 1px solid var(--sheet-card-border, #d5d5dc);
+  margin: 6px 0;
+  transition: border-color 0.15s ease;
+}
+
+.kpmg-sheet-card:hover {
+  border-color: #818aee;
+}
+
+.kpmg-sheet-card__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--sheet-card-title-color, #2f2f39);
+  margin: 0;
+}
+
+.kpmg-sheet-card__desc {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--sheet-card-text-color, #454554);
+  margin: 4px 0 0 0;
+}
+
+.kpmg-sheet-score-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 38px;
+  border-radius: 8px;
+  background-color: #e3e3e8;
+  color: #454554;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 10px;
+}
+
+/* --------------------------------------------------------------------------
+   References Table (Reference | Page)
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-table-card {
+  box-sizing: border-box;
+  width: 100%;
+  border-radius: var(--sheet-card-radius, 12px);
+  background-color: var(--sheet-card-bg, #ffffff);
+  border: 1px solid var(--sheet-card-border, #d5d5dc);
+  padding: 14px 18px;
+  margin: 6px 0;
+}
+
+.kpmg-sheet-table-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #454554;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-on-surface, #2f2f39);
+}
+
+.kpmg-sheet-table-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #f0f0f3;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  color: var(--sheet-card-text-color, #454554);
+}
+
+.kpmg-sheet-table-row:last-child {
+  border-bottom: none;
+}
+
+/* --------------------------------------------------------------------------
+   Inputs Sheet Components
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-field-label {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sheet-card-subtext-color, #9090a2);
+  margin-bottom: 6px;
+  margin-top: 10px;
+}
+
+.kpmg-sheet-dropdown {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  border-radius: var(--sheet-card-radius, 12px);
+  border: 1px solid var(--sheet-card-border, #d5d5dc);
+  background-color: var(--sheet-card-bg, #ffffff);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 15px;
+  color: var(--sheet-card-title-color, #2f2f39);
+  cursor: pointer;
+  margin-bottom: 12px;
+}
+
+.kpmg-sheet-chip-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.kpmg-sheet-input-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border-radius: 1000px;
+  border: 1px solid #d5d5dc;
+  background-color: #ffffff;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 13px;
+  color: #454554;
+}
+
+.kpmg-sheet-chip-close {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: #9090a2;
+  display: inline-flex;
+  align-items: center;
+}
+
+.kpmg-sheet-chip-close:hover {
+  color: #2f2f39;
+}
+
+/* File Upload Dropzone */
+.kpmg-sheet-dropzone {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  height: 120px;
+  border-radius: var(--sheet-dropzone-radius, 12px);
+  border: 1px dashed var(--sheet-dropzone-border, #d5d5dc);
+  background-color: var(--sheet-dropzone-bg, #ffffff);
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+.kpmg-sheet-dropzone__text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  color: var(--sheet-card-text-color, #454554);
+}
+
+.kpmg-sheet-dropzone__link {
+  color: #1e49e2;
+  font-weight: 600;
+}
+
+/* Primary Action Button */
+.kpmg-sheet-action-row {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+  width: 100%;
+}
+
+.kpmg-sheet-primary-btn {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  height: 42px;
+  border-radius: 1000px;
+  border: none;
+  background-color: #1e49e2;
+  color: #ffffff;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+}
+
+.kpmg-sheet-primary-btn:hover {
+  background-color: #183bb5;
+}
+
+.kpmg-sheet-primary-btn:active {
+  transform: scale(0.98);
+}
+
+/* --------------------------------------------------------------------------
+   Collaborative Avatar Cluster (Side Sheet)
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-avatar-cluster {
+  display: flex;
+  align-items: center;
+  padding: 10px 0 16px 0;
+}
+
+.kpmg-sheet-avatar-cluster__item {
+  width: 32px;
+  height: 32px;
+  border-radius: 1000px;
+  border: 2px solid #ffffff;
+  margin-left: -8px;
+  background: linear-gradient(135deg, #7c22e4 0%, #1e49e2 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.kpmg-sheet-avatar-cluster__item:first-child {
+  margin-left: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Page Preview Cards (Side Sheet Special: File / Pages)
+   -------------------------------------------------------------------------- */
+.kpmg-sheet-page-preview {
+  box-sizing: border-box;
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #d4bbfd 0%, #7c83fd 100%);
+  position: relative;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.kpmg-sheet-page-preview:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.kpmg-sheet-page-badge {
+  padding: 4px 14px;
+  border-radius: 1000px;
+  background-color: rgba(30, 73, 226, 0.85);
+  color: #ffffff;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+}

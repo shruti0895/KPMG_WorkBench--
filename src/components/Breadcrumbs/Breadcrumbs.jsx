@@ -41,6 +41,44 @@ export const CheckmarkIconSvg = ({ size = 16, color = '#454554', ...props }) => 
   </svg>
 );
 
+/** Slash Forward Separator Icon (Exact SVG vector path from Figma) */
+export const SlashForwardIconSvg = ({ size = 20, className = '', ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 20 20"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`kpmg-breadcrumbs__slash-icon ${className}`}
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      d="M12.6581 2.02566C12.9201 2.11298 13.0617 2.39614 12.9743 2.65811L7.97434 17.6581C7.88702 17.9201 7.60386 18.0617 7.34189 17.9743C7.07991 17.887 6.93833 17.6039 7.02566 17.3419L12.0257 2.34189C12.113 2.07991 12.3961 1.93833 12.6581 2.02566Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
+/** Chevron Forward Separator Icon (Exact SVG vector path from Figma) */
+export const ChevronForwardIconSvg = ({ size = 20, className = '', ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`kpmg-breadcrumbs__chevron-icon ${className}`}
+    aria-hidden="true"
+    {...props}
+  >
+    <path
+      d="M13.2923 12L8.69225 7.4L9.4 6.69225L14.7078 12L9.4 17.3078L8.69225 16.6L13.2923 12Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 /**
  * Breadcrumbs Component - KPMG WorkBench Design System
  * Formatted directly to match the design card spec.
@@ -52,7 +90,7 @@ export const Breadcrumbs = ({
   maxItems,
   itemsBeforeCollapse,
   itemsAfterCollapse = 1,
-  separator = '/',
+  separator,
   size = 'md',
   overflowTrigger = 'click', // Default to onclick trigger
   circleCheckboxIcon,
@@ -60,17 +98,26 @@ export const Breadcrumbs = ({
   checkIcon,
   onRouteToggle,
   onBookmarkToggle,
+  onItemClick,
   className = '',
   ...props
 }) => {
+  const normalize = (list) => (list || []).map((item, idx) => {
+    if (typeof item === 'string') {
+      return { id: `item-${idx}`, label: item };
+    }
+    return item;
+  });
+
   const [isOverflowOpen, setIsOverflowOpen] = useState(false);
-  const [itemsState, setItemsState] = useState(items);
+  const [itemsState, setItemsState] = useState(() => normalize(items));
   const [toastMessage, setToastMessage] = useState(null);
   const overflowRef = useRef(null);
+  const activeSeparator = separator !== undefined ? separator : <SlashForwardIconSvg size={size === 'sm' ? 16 : 20} />;
 
   // Sync prop changes to local state for interactivity
   useEffect(() => {
-    setItemsState(items);
+    setItemsState(normalize(items));
   }, [items]);
 
   // Close overflow dropdown on click outside
@@ -146,12 +193,16 @@ export const Breadcrumbs = ({
 
   const renderSeparator = (key) => (
     <li className="kpmg-breadcrumbs__separator" aria-hidden="true" key={`sep-${key}`}>
-      {separator}
+      {activeSeparator}
     </li>
   );
 
   const renderItemLink = (item, isLast) => {
     const isCurrent = isLast || item.isCurrent;
+    const handleClick = (e) => {
+      if (item.onClick) item.onClick(e);
+      if (onItemClick) onItemClick(item, e);
+    };
 
     if (isCurrent) {
       return (
@@ -163,14 +214,14 @@ export const Breadcrumbs = ({
 
     if (item.href) {
       return (
-        <a href={item.href} onClick={item.onClick} className="kpmg-breadcrumbs__link">
+        <a href={item.href} onClick={handleClick} className="kpmg-breadcrumbs__link">
           {item.label}
         </a>
       );
     }
 
     return (
-      <button type="button" onClick={item.onClick} className="kpmg-breadcrumbs__link">
+      <button type="button" onClick={handleClick} className="kpmg-breadcrumbs__link">
         {item.label}
       </button>
     );
@@ -317,22 +368,25 @@ export const Breadcrumbs = ({
 };
 
 Breadcrumbs.propTypes = {
-  /** Array of breadcrumb item objects */
+  /** Array of breadcrumb items (strings or item objects) */
   items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-      label: PropTypes.node.isRequired,
-      href: PropTypes.string,
-      isCurrent: PropTypes.bool,
-      leadingIcon: PropTypes.node,
-      trailingIcon: PropTypes.node,
-      useCircleCheckbox: PropTypes.bool,
-      isCheckbox: PropTypes.bool,
-      isStar: PropTypes.bool,
-      isChecked: PropTypes.bool,
-      hasDivider: PropTypes.bool,
-      onClick: PropTypes.func,
-    })
+    PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+        label: PropTypes.node.isRequired,
+        href: PropTypes.string,
+        isCurrent: PropTypes.bool,
+        leadingIcon: PropTypes.node,
+        trailingIcon: PropTypes.node,
+        useCircleCheckbox: PropTypes.bool,
+        isCheckbox: PropTypes.bool,
+        isStar: PropTypes.bool,
+        isChecked: PropTypes.bool,
+        hasDivider: PropTypes.bool,
+        onClick: PropTypes.func,
+      }),
+    ])
   ).isRequired,
   /** Maximum number of visible items before collapsing into ... overflow */
   maxItems: PropTypes.number,
@@ -340,7 +394,7 @@ Breadcrumbs.propTypes = {
   itemsBeforeCollapse: PropTypes.number,
   /** Number of visible items after collapse point */
   itemsAfterCollapse: PropTypes.number,
-  /** Separator character or node (default '/') */
+  /** Separator character or node (default: exact Figma SlashForwardIconSvg) */
   separator: PropTypes.node,
   /** Size scale (sm: 12px, md: 14px) */
   size: PropTypes.oneOf(['sm', 'md']),
@@ -356,6 +410,8 @@ Breadcrumbs.propTypes = {
   onRouteToggle: PropTypes.func,
   /** Callback when bookmark star toggled */
   onBookmarkToggle: PropTypes.func,
+  /** Callback when item clicked */
+  onItemClick: PropTypes.func,
   /** Custom CSS class names */
   className: PropTypes.string,
 };
