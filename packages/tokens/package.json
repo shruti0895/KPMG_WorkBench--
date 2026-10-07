@@ -1,0 +1,15 @@
+{
+  "name": "@designkpmg/tokens",
+  "version": "0.1.0",
+  "description": "KPMG WorkBench — design tokens (CSS custom properties)",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./src/*": "./src/*"
+  },
+  "files": ["src", "dist"],
+  "scripts": {
+    "build": "node ./scripts/build-css.js"
+  }
+}
