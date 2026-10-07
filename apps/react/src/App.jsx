@@ -1,19 +1,19 @@
 import { useState } from 'react';
-import { Button } from './components/Button/Button';
-import { IconButton } from './components/IconButton/IconButton';
-import { Breadcrumbs } from './components/Breadcrumbs/Breadcrumbs';
-import { Checkbox } from './components/Checkbox/Checkbox';
-import { Slider } from './components/Slider/Slider';
-import { ProgressIndicator } from './components/ProgressIndicator/ProgressIndicator';
-import { FileUploader } from './components/FileUploader/FileUploader';
-import { Chip, ChipStarSvg, ChipBrandedDocSvg } from './components/Chip';
-import { Badge } from './components/Badge';
-import { Banner } from './components/Banner';
-import { List, ListItem } from './components/List';
-import { Tab, TabItem } from './components/Tab';
-import { Textarea } from './components/Textarea';
-import { Tooltip } from './components/Tooltip';
-import { Snackbar, SnackbarContainer } from './components/Snackbar';
+import { Button } from '@designkpmg/ui/components/Button/Button';
+import { IconButton } from '@designkpmg/ui/components/IconButton/IconButton';
+import { Breadcrumbs } from '@designkpmg/ui/components/Breadcrumbs/Breadcrumbs';
+import { Checkbox } from '@designkpmg/ui/components/Checkbox/Checkbox';
+import { Slider } from '@designkpmg/ui/components/Slider/Slider';
+import { ProgressIndicator } from '@designkpmg/ui/components/ProgressIndicator/ProgressIndicator';
+import { FileUploader } from '@designkpmg/ui/components/FileUploader/FileUploader';
+import { Chip, ChipStarSvg, ChipBrandedDocSvg } from '@designkpmg/ui/components/Chip';
+import { Badge } from '@designkpmg/ui/components/Badge';
+import { Banner } from '@designkpmg/ui/components/Banner';
+import { List, ListItem } from '@designkpmg/ui/components/List';
+import { Tab, TabItem } from '@designkpmg/ui/components/Tab';
+import { Textarea } from '@designkpmg/ui/components/Textarea';
+import { Tooltip } from '@designkpmg/ui/components/Tooltip';
+import { Snackbar, SnackbarContainer } from '@designkpmg/ui/components/Snackbar';
 import {
   Menu,
   MenuItem,
@@ -26,9 +26,9 @@ import {
   OverflowMenu,
   AssistantMenu,
   AssistantCard,
-} from './components/Menu';
-import { Switch } from './components/Switch';
-import { Dividers } from './components/Dividers';
+} from '@designkpmg/ui/components/Menu';
+import { Switch } from '@designkpmg/ui/components/Switch';
+import { Dividers } from '@designkpmg/ui/components/Dividers';
 
 const SettingsIcon = () => (
 
