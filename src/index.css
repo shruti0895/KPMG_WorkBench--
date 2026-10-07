@@ -1,4 +1,4 @@
-@import '@designkpmg/tokens/tokens.css';
+@import './styles/tokens.css';
 
 :root {
   --text: var(--color-on-surface);

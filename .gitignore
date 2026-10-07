@@ -25,7 +25,3 @@ dist-ssr
 
 *storybook.log
 storybook-static
-
-# Angular
-.angular/
-storybook-static-angular/
