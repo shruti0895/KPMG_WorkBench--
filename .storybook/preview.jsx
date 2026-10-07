@@ -1,4 +1,4 @@
-import '../packages/tokens/src/tokens.css';
+import '../src/styles/tokens.css';
 
 /** @type { import('@storybook/react-vite').Preview } */
 const preview = {
