@@ -1,0 +1,2032 @@
+/**
+ * KPMG WorkBench Design System - AppBars Component Styles
+ * Pixel-perfect alignment with Figma Tokens & Specifications
+ */
+
+/* ==========================================================================
+   1. BASE APPBAR CONTAINER
+   ========================================================================== */
+
+.kpmg-appbar {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  background-color: var(--appbar-bg-default, #ffffff);
+  color: var(--appbar-text-color, #2f2f39);
+  border-bottom: var(--appbar-border-width, 1px) solid var(--appbar-border-color, #d5d5dc);
+  position: relative;
+  transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpmg-appbar-icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   2. COMMON INTERACTIVE BUTTONS & ELEMENTS
+   ========================================================================== */
+
+/* Circular & Squircle Icon Buttons (40px x 40px) */
+.kpmg-appbar-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  background-color: transparent;
+  color: var(--color-neutral-100, #454554);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+  position: relative;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+}
+
+.kpmg-appbar-icon-btn:hover {
+  background-color: var(--color-neutral-700, #f1f1f3);
+  color: var(--color-neutral-000, #2f2f39);
+}
+
+.kpmg-appbar-icon-btn:active {
+  background-color: var(--color-neutral-600, #e3e3e8);
+  transform: scale(0.96);
+}
+
+.kpmg-appbar-icon-btn:focus-visible {
+  outline: 2px solid var(--color-primary-action, #1e49e2);
+  outline-offset: 2px;
+}
+
+.kpmg-appbar-icon-btn--sm {
+  width: 32px;
+  height: 32px;
+}
+
+.kpmg-appbar-icon-btn--assistant {
+  color: var(--color-primary-action, #1a28c1);
+  background-color: var(--color-primary-container-light, #f5f5fe);
+}
+
+.kpmg-appbar-icon-btn--assistant:hover {
+  background-color: var(--color-blue-800, #e9eafc);
+  color: var(--color-blue-200, #1a28c1);
+}
+
+.kpmg-appbar-icon-btn--avatar {
+  overflow: hidden;
+  background-color: var(--color-neutral-700, #f1f1f3);
+}
+
+.kpmg-appbar-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+/* KPMG Brand Pill Popover Trigger (100px x 36.4px) */
+.kpmg-appbar-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-2, 8px);
+  height: 36px;
+  padding: 0 var(--spacing-4, 12px);
+  border-radius: var(--radius-full, 1000px);
+  background: var(--appbar-brand-pill-bg, linear-gradient(180deg, #7213ea 36%, #1e49e2 73%, #00338d 90%));
+  color: var(--color-primary-on-action, #ffffff);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.1s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+}
+
+.kpmg-appbar-brand-pill:hover {
+  opacity: 0.95;
+  box-shadow: 0 2px 8px rgba(114, 19, 234, 0.35);
+  transform: translateY(-0.5px);
+}
+
+.kpmg-appbar-brand-pill:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.kpmg-appbar-brand-pill:focus-visible {
+  outline: 2px solid var(--color-primary-action, #1e49e2);
+  outline-offset: 2px;
+}
+
+.kpmg-appbar-brand-pill__chevron {
+  opacity: 0.9;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+/* Breadcrumbs Navigation Integration */
+.kpmg-appbar-breadcrumbs.kpmg-breadcrumbs {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--appbar-breadcrumb-height, 20px);
+  flex-wrap: nowrap;
+}
+
+.kpmg-appbar-breadcrumbs .kpmg-breadcrumbs__list {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--appbar-breadcrumb-item-gap, var(--spacing-1, 4px));
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.kpmg-appbar-breadcrumbs .kpmg-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.kpmg-appbar-breadcrumbs .kpmg-breadcrumbs__link {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  line-height: var(--line-height-label-lg, 20px);
+  font-weight: 400;
+  color: var(--color-on-surface-light, var(--color-neutral-200, #9090a2));
+  padding: 0 2px;
+}
+
+.kpmg-appbar-breadcrumbs .kpmg-breadcrumbs__link:hover:not(.kpmg-breadcrumbs__link--current) {
+  color: var(--color-primary-action, #1a28c1);
+  text-decoration: underline;
+}
+
+.kpmg-appbar-breadcrumbs .kpmg-breadcrumbs__link--current {
+  font-weight: 600;
+  color: var(--color-on-surface, var(--color-neutral-000, #2f2f39));
+}
+
+.kpmg-appbar-breadcrumbs .kpmg-breadcrumbs__separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--appbar-separator-color, var(--color-neutral-200, #9090a2));
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.kpmg-appbar-separator {
+  color: var(--appbar-separator-color, var(--color-neutral-200, #9090a2));
+  display: block;
+}
+
+/* Page Title with Chevron Forward (Single title mode from Figma spec) */
+.kpmg-appbar-full__title-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+}
+
+.kpmg-appbar-full__title-chevron {
+  color: var(--appbar-separator-color, var(--color-neutral-200, #9090a2));
+  flex-shrink: 0;
+}
+
+.kpmg-appbar-full__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-title-sm, 14px);
+  line-height: var(--line-height-title-sm, 20px);
+  font-weight: 600;
+  color: var(--color-on-surface, var(--color-neutral-000, #2f2f39));
+  white-space: nowrap;
+}
+
+/* Action Buttons (Save, Cancel) */
+.kpmg-appbar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  border-radius: var(--radius-sm, 8px);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  outline: none;
+}
+
+.kpmg-appbar-btn--primary {
+  background-color: var(--color-primary-action, #1a28c1);
+  color: #ffffff;
+  border: 1px solid var(--color-primary-action, #1a28c1);
+}
+
+.kpmg-appbar-btn--primary:hover {
+  background-color: #131e90;
+  border-color: #131e90;
+}
+
+.kpmg-appbar-btn--primary:active {
+  background-color: #0d145e;
+  transform: scale(0.98);
+}
+
+.kpmg-appbar-btn--secondary {
+  background-color: transparent;
+  color: var(--color-neutral-000, #2f2f39);
+  border: 1px solid var(--color-neutral-400, #c7c7d1);
+}
+
+.kpmg-appbar-btn--secondary:hover {
+  background-color: var(--color-neutral-700, #f1f1f3);
+  border-color: var(--color-neutral-300, #b8b8c4);
+}
+
+.kpmg-appbar-btn--secondary:active {
+  background-color: var(--color-neutral-600, #e3e3e8);
+  transform: scale(0.98);
+}
+
+.kpmg-appbar-btn:focus-visible {
+  outline: 2px solid var(--color-primary-action, #1e49e2);
+  outline-offset: 2px;
+}
+
+/* Filter Chips */
+.kpmg-appbar-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 1000px;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-md, 12px);
+  font-weight: 500;
+  background-color: transparent;
+  color: var(--color-neutral-100, #454554);
+  border: 1px solid var(--color-neutral-400, #c7c7d1);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.kpmg-appbar-chip:hover {
+  background-color: var(--color-neutral-700, #f1f1f3);
+  color: var(--color-neutral-000, #2f2f39);
+  border-color: var(--color-neutral-300, #b8b8c4);
+}
+
+.kpmg-appbar-chip--active {
+  background-color: var(--color-primary-action, #1a28c1);
+  color: #ffffff;
+  border-color: var(--color-primary-action, #1a28c1);
+  font-weight: 600;
+}
+
+.kpmg-appbar-chip--active:hover {
+  background-color: #131e90;
+  border-color: #131e90;
+}
+
+/* ==========================================================================
+   3. STATUS ITEM COMPONENT (Top app bar items)
+   ========================================================================== */
+
+.kpmg-appbar-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 20px;
+  padding: 0 4px;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  line-height: 20px;
+  color: var(--appbar-text-color, #2f2f39);
+}
+
+.kpmg-appbar-status__icon {
+  color: var(--color-primary-action, #1a28c1);
+  flex-shrink: 0;
+}
+
+.kpmg-appbar-status__label {
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.kpmg-appbar-status__percent {
+  font-weight: 600;
+  color: var(--appbar-text-muted, #9090a2);
+  min-width: 32px;
+}
+
+.kpmg-appbar-status__progress-track {
+  width: 140px;
+  height: var(--appbar-progress-height, 4px);
+  background-color: var(--appbar-progress-track-bg, #d5d5dc);
+  border-radius: var(--appbar-progress-radius, 2px);
+  overflow: hidden;
+  position: relative;
+}
+
+.kpmg-appbar-status__progress-fill {
+  height: 100%;
+  background-color: var(--appbar-progress-indicator-bg, #1a28c1);
+  border-radius: var(--appbar-progress-radius, 2px);
+  transition: width 0.3s ease;
+}
+
+.kpmg-appbar-status--completed .kpmg-appbar-status__icon {
+  color: #1a8754;
+}
+
+.kpmg-appbar-status--completed .kpmg-appbar-status__progress-fill {
+  background-color: #1a8754;
+}
+
+.kpmg-appbar-status--saved .kpmg-appbar-status__icon {
+  color: var(--color-primary-action, #1a28c1);
+}
+
+/* ==========================================================================
+   4. FULL APP BAR (64px / 128px)
+   ========================================================================== */
+
+.kpmg-appbar-full {
+  min-height: var(--appbar-height-full-default, 64px);
+}
+
+.kpmg-appbar-full--with-action {
+  min-height: var(--appbar-height-full-action, 128px);
+}
+
+.kpmg-appbar-full__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--appbar-height-full-default, 64px);
+  padding: 0 var(--appbar-padding-x, 18px);
+  gap: 16px;
+}
+
+.kpmg-appbar-full__left {
+  display: flex;
+  align-items: center;
+  gap: var(--appbar-brand-pill-gap, var(--spacing-5, 18px));
+  min-width: 0;
+  flex: 1;
+}
+
+.kpmg-appbar-full__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.kpmg-appbar-full__action-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 64px;
+  padding: 0 var(--appbar-padding-x, 18px);
+  background-color: var(--color-neutral-800, #f7f7f8);
+  border-top: 1px solid var(--appbar-border-color, #d5d5dc);
+}
+
+.kpmg-appbar-full__action-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   5. NESTED APP BAR (Small / Large)
+   ========================================================================== */
+
+.kpmg-appbar-nested {
+  background-color: var(--appbar-bg-default, #ffffff);
+}
+
+.kpmg-appbar-nested--state-filled {
+  background-color: var(--color-primary-container);
+}
+
+.kpmg-appbar-nested__top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--appbar-height-nested-small, 64px);
+  padding: 0 var(--appbar-padding-x, 18px);
+  gap: 16px;
+}
+
+.kpmg-appbar-nested__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.kpmg-appbar-nested__right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.kpmg-appbar-nested__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-title-sm, 14px);
+  font-weight: 600;
+  line-height: 20px;
+  color: var(--appbar-text-color, #2f2f39);
+  white-space: nowrap;
+}
+
+/* Large Hero Header Layout */
+.kpmg-appbar-nested__hero {
+  display: flex;
+  flex-direction: column;
+  padding: 24px var(--appbar-padding-x, 18px) 32px var(--appbar-padding-x, 18px);
+  gap: var(--appbar-nested-breadcrumb-gap, var(--spacing-5, 18px));
+}
+
+/* Nested App Bar Breadcrumbs (Hero section & Top bar) */
+.kpmg-appbar-nested__breadcrumbs-wrapper {
+  display: flex;
+  align-items: center;
+  min-height: var(--appbar-nested-breadcrumb-line-height, 20px);
+}
+
+.kpmg-appbar-nested__breadcrumbs.kpmg-breadcrumbs {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--appbar-nested-breadcrumb-line-height, 20px);
+  margin: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+}
+
+.kpmg-appbar-nested__breadcrumbs .kpmg-breadcrumbs__list {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--appbar-nested-breadcrumb-item-gap, var(--spacing-1, 4px));
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.kpmg-appbar-nested__breadcrumbs .kpmg-breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.kpmg-appbar-nested__breadcrumbs .kpmg-breadcrumbs__link {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--appbar-nested-breadcrumb-font-size, 14px);
+  line-height: var(--appbar-nested-breadcrumb-line-height, 20px);
+  font-weight: var(--appbar-nested-breadcrumb-font-weight, 400);
+  color: var(--appbar-nested-breadcrumb-color, var(--color-neutral-100, #454554));
+  padding: 0 2px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.kpmg-appbar-nested__breadcrumbs .kpmg-breadcrumbs__link:hover:not(.kpmg-breadcrumbs__link--current) {
+  color: var(--color-primary-action, #1a28c1);
+  text-decoration: underline;
+}
+
+.kpmg-appbar-nested__breadcrumbs .kpmg-breadcrumbs__link--current {
+  font-weight: var(--appbar-nested-breadcrumb-font-weight-current, 600);
+  color: var(--appbar-nested-breadcrumb-color-current, var(--color-neutral-000, #2f2f39));
+  cursor: default;
+}
+
+.kpmg-appbar-nested__breadcrumbs .kpmg-breadcrumbs__separator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--appbar-nested-breadcrumb-separator-color, var(--color-neutral-200, #9090a2));
+  padding: 0 2px;
+  line-height: 1;
+}
+
+.kpmg-appbar-nested__top-breadcrumbs.kpmg-breadcrumbs {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+}
+
+.kpmg-appbar-nested__subheader {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  font-weight: 500;
+  color: var(--appbar-text-muted, #9090a2);
+  letter-spacing: 0.5px;
+}
+
+.kpmg-appbar-nested__header {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-display-sm, 36px);
+  font-weight: 700;
+  line-height: var(--line-height-display-sm, 44px);
+  color: var(--appbar-text-color, #2f2f39);
+  margin: 0;
+}
+
+.kpmg-appbar-nested__chips {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.kpmg-appbar-nested__content {
+  background-color: inherit;
+  margin-top: 16px;
+}
+
+/* ==========================================================================
+   6. SPECIAL APP BAR (Dashboard & Search)
+   ========================================================================== */
+
+.kpmg-appbar-special {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  background: var(--appbar-special-gradient, linear-gradient(180deg, #7213ea 36%, #1e49e2 73%, #00338d 90%));
+  border-radius: var(--appbar-special-radius, 12px);
+  border: none;
+  border-bottom: none;
+  color: #ffffff;
+  position: relative;
+  overflow: visible;
+  transition: all 0.2s ease;
+}
+
+/* Extra small variant (Height: 64px, with search) */
+.kpmg-appbar-special--extra-small {
+  min-height: var(--appbar-height-special-xs, 64px);
+  height: 64px;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Small variant (Height: 88px, with search) */
+.kpmg-appbar-special--small {
+  min-height: var(--appbar-height-special-sm, 88px);
+  height: 88px;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Common top row for Extra small & Small */
+.kpmg-appbar-special__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 24px;
+}
+
+.kpmg-appbar-special__left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  flex: 1;
+}
+
+.kpmg-appbar-special__greeting {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-title-lg, 22px);
+  font-weight: 400;
+  line-height: var(--line-height-title-lg, 30px);
+  color: var(--appbar-special-text-greeting, #ffffff);
+  white-space: nowrap;
+}
+
+.kpmg-appbar-special__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+/* Large Hero View */
+.kpmg-appbar-special--large {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: var(--appbar-height-special-lg-no-search, 434px);
+  padding: 40px 24px;
+}
+
+/* Large with floating search needs extra bottom padding & margin for clearance */
+.kpmg-appbar-special--large.kpmg-appbar-special--with-search {
+  min-height: var(--appbar-height-special-lg-search, 466px);
+  padding: 40px 24px 72px 24px;
+  margin-bottom: 34px;
+}
+
+.kpmg-appbar-special__hero {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.kpmg-appbar-special__greeting-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.kpmg-appbar-special__welcome-title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 60px;
+  font-weight: 700;
+  line-height: 80px;
+  color: var(--appbar-special-text-welcome, #ffffff);
+  margin: 0 0 18px 0;
+  letter-spacing: -0.5px;
+}
+
+/* Filter Chips Row */
+.kpmg-appbar-special__chips {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.kpmg-appbar-special-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 12px;
+  border-radius: 1000px;
+  border: 1px solid var(--appbar-special-chip-border, rgba(255, 255, 255, 0.4));
+  background: var(--appbar-special-chip-bg, rgba(255, 255, 255, 0.12));
+  color: var(--appbar-special-chip-text, #ffffff);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  outline: none;
+}
+
+.kpmg-appbar-special-chip:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+
+.kpmg-appbar-special-chip--active {
+  background: rgba(255, 255, 255, 0.3);
+  border-color: #ffffff;
+  font-weight: 600;
+}
+
+/* Horizontal Glassmorphic Cards Row (4 cards in Figma) */
+.kpmg-appbar-special__cards-row {
+  display: flex;
+  align-items: stretch;
+  gap: 18px;
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.kpmg-appbar-special-card {
+  flex: 1 1 0;
+  min-width: 0;
+  height: 136px;
+  box-sizing: border-box;
+  background: var(--appbar-special-card-bg, rgba(255, 255, 255, 0.2));
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--appbar-special-card-border, rgba(255, 255, 255, 0.25));
+  border-radius: var(--corner-medium, 12px);
+  box-shadow: var(--appbar-special-card-shadow, 0 2px 6px rgba(0, 0, 0, 0.15));
+  padding: 12px 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background-color 0.15s ease;
+}
+
+.kpmg-appbar-special-card:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.kpmg-appbar-special-card__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+  gap: 8px;
+  min-width: 0;
+}
+
+.kpmg-appbar-special-card__header {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  color: var(--appbar-special-card-header, #ffffff);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.kpmg-appbar-special-card__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.kpmg-appbar-special-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.kpmg-appbar-special-card__text {
+  margin: 0;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  color: var(--appbar-special-card-subtext, rgba(255, 255, 255, 0.85));
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+.kpmg-appbar-special-card__progress-track {
+  width: 100%;
+  height: 4px;
+  background-color: var(--appbar-special-card-progress-track, #ffffff);
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 4px;
+}
+
+.kpmg-appbar-special-card__progress-fill {
+  height: 100%;
+  background-color: var(--appbar-special-card-progress-fill, #1e49e2);
+  border-radius: 8px;
+  transition: width 0.3s ease;
+}
+
+/* ==========================================================================
+   AI SEARCH PILL (Search text in Figma)
+   ========================================================================== */
+
+.kpmg-appbar-search-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  background-color: var(--appbar-special-search-bg, #d7d9fa);
+  border-radius: 1000px;
+  padding: 8px;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Small search pill (XS & Small App Bars, 400px x 40px) */
+.kpmg-appbar-search-pill--small {
+  width: 400px;
+  max-width: 100%;
+  height: 40px;
+}
+
+/* Large search pill (Large App Bar, 711px x 68px) */
+.kpmg-appbar-search-pill--large {
+  width: 711px;
+  max-width: calc(100% - 32px);
+  height: 68px;
+  box-shadow: var(--appbar-special-search-shadow, 0 4px 16px rgba(0, 0, 0, 0.18));
+}
+
+/* Floating centered anchor on Large App Bar */
+.kpmg-appbar-search-pill--floating {
+  position: absolute;
+  bottom: -34px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+.kpmg-appbar-search-pill__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1000px;
+  border: none;
+  background-color: var(--appbar-special-search-btn-bg, #e9eafc);
+  color: var(--appbar-special-search-btn-icon, #1a28c1);
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.kpmg-appbar-search-pill--small .kpmg-appbar-search-pill__btn {
+  width: 24px;
+  height: 24px;
+}
+
+.kpmg-appbar-search-pill--large .kpmg-appbar-search-pill__btn {
+  width: 52px;
+  height: 52px;
+}
+
+.kpmg-appbar-search-pill__btn:hover {
+  background-color: #ffffff;
+  transform: scale(1.05);
+}
+
+.kpmg-appbar-search-pill__btn:active {
+  transform: scale(0.95);
+}
+
+.kpmg-appbar-search-pill__input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  padding: 0 12px;
+  height: 100%;
+}
+
+.kpmg-appbar-search-pill__input {
+  width: 100%;
+  border: none;
+  background: none;
+  outline: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  color: var(--appbar-special-search-text, #1a28c1);
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.kpmg-appbar-search-pill--large .kpmg-appbar-search-pill__input {
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.kpmg-appbar-search-pill__input::placeholder {
+  color: var(--appbar-special-search-placeholder, #1a28c1);
+  opacity: 0.85;
+}
+
+.kpmg-appbar-search-pill__actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   8. DARK THEME SPECIFICATIONS
+   ========================================================================== */
+
+[data-theme="dark"] .kpmg-appbar {
+  background-color: var(--appbar-bg-default, #2f2f39);
+  color: var(--appbar-text-color, #f7f7f8);
+  border-bottom-color: var(--appbar-border-color, #454554);
+}
+
+[data-theme="dark"] .kpmg-appbar-full__action-row {
+  background-color: #232338;
+  border-top-color: var(--appbar-border-color, #454554);
+}
+
+[data-theme="dark"] .kpmg-appbar-nested--state-filled {
+  background-color: #232338;
+}
+
+[data-theme="dark"] .kpmg-appbar-icon-btn {
+  color: #c7c7d1;
+}
+
+[data-theme="dark"] .kpmg-appbar-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-appbar-icon-btn--assistant {
+  background-color: rgba(129, 138, 238, 0.15);
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-appbar-icon-btn--assistant:hover {
+  background-color: rgba(129, 138, 238, 0.25);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-appbar-breadcrumbs__item {
+  color: #9090a2;
+}
+
+[data-theme="dark"] .kpmg-appbar-breadcrumbs__item:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+[data-theme="dark"] .kpmg-appbar-breadcrumbs__item--active {
+  color: #ffffff;
+}
+
+/* ==========================================================================
+   APPBAR SEARCH PILL (Thin & Slim + 300px Expanded Modes)
+   ========================================================================== */
+.kpmg-appbar-search-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 711px;
+  background-color: var(--color-blue-700, #d7d9fa);
+  border-radius: var(--radius-full, 1000px);
+  padding: 8px;
+  box-sizing: border-box;
+  gap: 10px;
+  position: relative;
+  transition: height 0.28s cubic-bezier(0.4, 0, 0.2, 1), min-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpmg-appbar-search-pill--small {
+  height: 40px;
+  max-width: 400px;
+  padding: 4px 8px;
+}
+
+.kpmg-appbar-search-pill--large {
+  height: 52px;
+  max-width: 711px;
+  padding: 8px;
+}
+
+.kpmg-appbar-search-pill--floating {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  z-index: 20;
+  box-shadow: 0 4px 18px rgba(30, 73, 226, 0.25);
+}
+
+.kpmg-appbar-search-pill--expanded {
+  height: 300px !important;
+  min-height: 300px !important;
+  border-radius: var(--radius-lg, 16px) !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  padding: 12px 14px 10px 14px !important;
+  box-shadow: 0 8px 24px rgba(30, 73, 226, 0.2) !important;
+}
+
+.kpmg-appbar-search-pill__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-full, 1000px);
+  background-color: var(--color-blue-800, #e9eafc);
+  border: none;
+  color: var(--color-primary-action, #1a28c1);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.kpmg-appbar-search-pill--large .kpmg-appbar-search-pill__btn {
+  width: 40px;
+  height: 40px;
+}
+
+.kpmg-appbar-search-pill__btn:hover {
+  background-color: #d1d4f8;
+}
+
+.kpmg-appbar-search-pill__input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+  padding: 0 8px;
+}
+
+.kpmg-appbar-search-pill__input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: 22px;
+  color: var(--color-primary-action, #1a28c1);
+}
+
+.kpmg-appbar-search-pill__input::placeholder {
+  color: var(--color-primary-action, #1a28c1);
+  opacity: 0.85;
+}
+
+.kpmg-appbar-search-pill__textarea {
+  width: 100%;
+  flex: 1;
+  min-height: 180px;
+  max-height: 220px;
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: 24px;
+  color: var(--color-primary-action, #1a28c1);
+  padding: 4px 6px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.kpmg-appbar-search-pill__textarea::placeholder {
+  color: var(--color-primary-action, #1a28c1);
+  opacity: 0.85;
+}
+
+.kpmg-appbar-search-pill__expanded-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 8px;
+  border-top: 1px solid rgba(26, 40, 193, 0.14);
+}
+
+.kpmg-appbar-search-pill__actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-pill {
+  background-color: #2f2f39;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-pill__btn {
+  background-color: #3d405b;
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-pill__input,
+[data-theme="dark"] .kpmg-appbar-search-pill__textarea {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-pill__input::placeholder,
+[data-theme="dark"] .kpmg-appbar-search-pill__textarea::placeholder {
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-pill__expanded-footer {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+[data-theme="dark"] .kpmg-appbar-search-form,
+[data-theme="dark"] .kpmg-appbar-prominent-search {
+  background-color: #232338;
+  border-color: #454554;
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-form__input,
+[data-theme="dark"] .kpmg-appbar-prominent-search__input {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-appbar-search-form__input::placeholder,
+[data-theme="dark"] .kpmg-appbar-prominent-search__input::placeholder {
+  color: #9090a2;
+}
+
+[data-theme="dark"] .kpmg-appbar-chip {
+  border-color: #454554;
+  color: #c7c7d1;
+}
+
+[data-theme="dark"] .kpmg-appbar-chip:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-appbar-chip--active {
+  background-color: #1e49e2;
+  color: #ffffff;
+  border-color: #1e49e2;
+}
+
+
+[data-theme="dark"] .kpmg-appbar-chat__icon-badge {
+  background-color: rgba(129, 138, 238, 0.15);
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-appbar-btn--secondary {
+  color: #ffffff;
+  border-color: #555566;
+}
+
+[data-theme="dark"] .kpmg-appbar-btn--secondary:hover {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-color: #ffffff;
+}
+
+
+/* ==========================================================================
+   KPMG WORKBENCH DESIGN SYSTEM - BOTTOM APP BARS
+   Figma Reference: Node 964:15496 ("Bottom app bars")
+   All styling derived from KPMG 2026 design tokens.
+   ========================================================================== */
+
+/* Outer Bottom App Bar Container */
+.kpmg-bottom-appbar {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-5, 18px);
+  width: 450px;
+  max-width: 100%;
+  padding: var(--spacing-6, 24px);
+  background-color: var(--color-primary-surface, #f5f5fe);
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  box-sizing: border-box;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+/* Variant Heights matching Figma specifications */
+.kpmg-bottom-appbar--default {
+  min-height: 100px;
+}
+
+.kpmg-bottom-appbar--with-verification {
+  min-height: 126px;
+}
+
+.kpmg-bottom-appbar--with-project,
+.kpmg-bottom-appbar--with-button,
+.kpmg-bottom-appbar--with-project-and-button {
+  min-height: 176px;
+}
+
+.kpmg-bottom-appbar--with-prompts {
+  min-height: 226px;
+}
+
+.kpmg-bottom-appbar--voice {
+  min-height: 104px;
+}
+
+/* ==========================================================================
+   TOP AUXILIARY ROW: Project Dropdown & Action Button
+   ========================================================================== */
+.kpmg-bottom-appbar__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: var(--spacing-3, 10px);
+}
+
+.kpmg-bottom-appbar__header-row--center {
+  justify-content: center;
+}
+
+.kpmg-bottom-appbar__header-row--end {
+  justify-content: flex-end;
+}
+
+/* Project Dropdown */
+.kpmg-bottom-appbar__project-group {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.kpmg-bottom-appbar__project-label {
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-neutral-000, #2f2f39);
+  white-space: nowrap;
+}
+
+.kpmg-bottom-appbar__project-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-3, 10px);
+  height: 32px;
+  padding: 0 var(--spacing-3, 10px) 0 var(--spacing-4, 12px);
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid rgba(213, 213, 220, 0.6);
+  border-radius: var(--radius-full, 1000px);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+}
+
+.kpmg-bottom-appbar__project-pill:hover {
+  background: #ffffff;
+  border-color: var(--color-neutral-300, #b8b8c4);
+}
+
+.kpmg-bottom-appbar__project-pill-text {
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-neutral-000, #2f2f39);
+  white-space: nowrap;
+}
+
+.kpmg-bottom-appbar__project-chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--color-neutral-000, #2f2f39);
+  transition: transform 0.2s ease;
+}
+
+.kpmg-bottom-appbar__project-chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Project Dropdown Flyout (using canonical Dropdown Menu) */
+.kpmg-bottom-appbar__project-anchor {
+  position: relative;
+  display: inline-flex;
+}
+
+.kpmg-bottom-appbar__project-dropdown-container {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 1000;
+  animation: kpmgMenuFadeIn 160ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes kpmgMenuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Common Header Button (White Pill with checkmark) */
+.kpmg-bottom-appbar__action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  height: 32px;
+  padding: 0 var(--spacing-4, 12px);
+  background: #ffffff;
+  border: none;
+  border-radius: var(--radius-full, 1000px);
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  cursor: pointer;
+  transition: all 0.15s ease;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+}
+
+.kpmg-bottom-appbar__action-btn:hover {
+  filter: drop-shadow(2px 3px 6px rgba(0, 0, 0, 0.35));
+  transform: translateY(-0.5px);
+}
+
+.kpmg-bottom-appbar__action-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.kpmg-bottom-appbar__action-btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--color-neutral-100, #454554);
+}
+
+.kpmg-bottom-appbar__action-btn-text {
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-neutral-100, #454554);
+}
+
+/* ==========================================================================
+   PROMPT SUGGESTIONS ROW (State="With prompts")
+   ========================================================================== */
+.kpmg-bottom-appbar__prompts-row {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 10px);
+  width: 100%;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.kpmg-bottom-appbar__prompts-row::-webkit-scrollbar {
+  display: none;
+}
+
+.kpmg-bottom-appbar__suggestion-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-2, 8px) var(--spacing-4, 12px);
+  border-radius: var(--radius-full, 1000px);
+  border: 1px solid var(--color-neutral-100, #454554);
+  background: transparent;
+  color: var(--color-neutral-100, #454554);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.kpmg-bottom-appbar__suggestion-chip:hover {
+  background: var(--color-neutral-800, #f7f7f8);
+  border-color: var(--color-neutral-000, #2f2f39);
+  color: var(--color-neutral-000, #2f2f39);
+}
+
+.kpmg-bottom-appbar__suggestion-chip:active {
+  transform: scale(0.97);
+}
+
+/* ==========================================================================
+   ATTACHED FILES PREVIEW CHIPS
+   ========================================================================== */
+.kpmg-bottom-appbar__files-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.kpmg-bottom-appbar__file-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: var(--radius-full, 1000px);
+  background: var(--color-blue-800, #e9eafc);
+  border: 1px solid var(--color-primary-outline, #818aee);
+  color: var(--color-primary-action, #1a28c1);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.kpmg-bottom-appbar__file-chip-remove {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--color-primary-action, #1a28c1);
+  padding: 0;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  transition: background-color 0.15s ease;
+}
+
+.kpmg-bottom-appbar__file-chip-remove:hover {
+  background-color: var(--color-blue-700, #d7d9fa);
+}
+
+/* ==========================================================================
+   MAIN PILL SEARCH / INPUT BAR (SearchText component)
+   ========================================================================== */
+.kpmg-bottom-appbar__input-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 52px;
+  padding: var(--spacing-2, 8px);
+  background-color: var(--color-blue-700, #d7d9fa);
+  border-radius: var(--radius-full, 1000px);
+  box-sizing: border-box;
+  gap: var(--spacing-3, 10px);
+  position: relative;
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.kpmg-bottom-appbar__input-pill:focus-within {
+  filter: drop-shadow(0 2px 6px rgba(26, 40, 193, 0.25));
+}
+
+.kpmg-bottom-appbar__pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 1000px);
+  background-color: var(--color-blue-800, #e9eafc);
+  border: none;
+  color: var(--color-primary-action, #1a28c1);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.kpmg-bottom-appbar__pill-btn:hover {
+  background-color: #d1d4f8;
+}
+
+.kpmg-bottom-appbar__pill-btn:active {
+  transform: scale(0.95);
+}
+
+.kpmg-bottom-appbar__pill-input-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  min-width: 0;
+  padding: 0 var(--spacing-2, 8px);
+}
+
+.kpmg-bottom-appbar__pill-input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: 22px;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-primary-action, #1a28c1);
+}
+
+.kpmg-bottom-appbar__pill-input::placeholder {
+  color: var(--color-primary-action, #1a28c1);
+  opacity: 0.85;
+}
+
+.kpmg-bottom-appbar__pill-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 10px);
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   EXPANDED INPUT PILL (300px Height & Slim Toggle Mode)
+   Auto-expands when text exceeds input width, with toggle back to thin & slim.
+   ========================================================================== */
+.kpmg-bottom-appbar__input-pill {
+  transition: height 0.28s cubic-bezier(0.4, 0, 0.2, 1), min-height 0.28s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpmg-bottom-appbar__input-pill--expanded {
+  height: 300px !important;
+  min-height: 300px !important;
+  border-radius: var(--radius-lg, 16px) !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  padding: var(--spacing-4, 12px) var(--spacing-4, 12px) var(--spacing-3, 10px) var(--spacing-4, 12px) !important;
+  gap: var(--spacing-3, 10px) !important;
+  box-shadow: 0 4px 16px rgba(26, 40, 193, 0.12);
+}
+
+.kpmg-bottom-appbar__pill-textarea {
+  width: 100%;
+  flex: 1;
+  min-height: 180px;
+  max-height: 220px;
+  border: none;
+  background: transparent;
+  outline: none;
+  resize: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: 24px;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-primary-action, #1a28c1);
+  padding: var(--spacing-1, 4px) var(--spacing-2, 8px);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+.kpmg-bottom-appbar__pill-textarea::placeholder {
+  color: var(--color-primary-action, #1a28c1);
+  opacity: 0.85;
+}
+
+.kpmg-bottom-appbar__pill-expanded-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: var(--spacing-2, 8px);
+  border-top: 1px solid rgba(26, 40, 193, 0.14);
+}
+
+.kpmg-bottom-appbar__pill-expanded-left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+}
+
+.kpmg-bottom-appbar__pill-expanded-right {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-3, 10px);
+}
+
+/* ==========================================================================
+   VOICE MODE (BottomAppBarsVoice - Node 1883:52191)
+   Mute=False (Active) & Mute=True (Muted)
+   ========================================================================== */
+.kpmg-bottom-appbar__voice-pill {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 52px;
+  padding: var(--spacing-2, 8px);
+  background-color: var(--color-blue-700, #d7d9fa);
+  border-radius: var(--radius-full, 1000px);
+  box-sizing: border-box;
+  gap: var(--spacing-3, 10px);
+  box-shadow: none;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpmg-bottom-appbar__voice-pill--muted {
+  background-color: var(--color-blue-800, #e9eafc);
+}
+
+.kpmg-bottom-appbar__voice-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-full, 1000px);
+  background-color: var(--color-blue-800, #e9eafc);
+  border: none;
+  color: var(--color-primary-action, #1a28c1);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.kpmg-bottom-appbar__voice-btn:hover {
+  background-color: #d1d4f8;
+}
+
+.kpmg-bottom-appbar__voice-pill--muted .kpmg-bottom-appbar__voice-btn {
+  background-color: var(--color-blue-700, #d7d9fa);
+  color: var(--color-primary-action, #1a28c1);
+}
+
+.kpmg-bottom-appbar__voice-btn--pulse {
+  animation: kpmgVoicePulse 2s infinite;
+}
+
+@keyframes kpmgVoicePulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(26, 40, 193, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(26, 40, 193, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(26, 40, 193, 0);
+  }
+}
+
+.kpmg-bottom-appbar__voice-text-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: var(--color-primary-action, #1a28c1);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: 22px;
+  font-weight: var(--font-weight-regular, 400);
+  cursor: pointer;
+  text-align: center;
+  letter-spacing: 0.2px;
+}
+
+.kpmg-bottom-appbar__voice-text-btn:hover {
+  text-decoration: underline;
+}
+
+/* Verification Footnote */
+.kpmg-bottom-appbar__verification {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: var(--spacing-1, 4px);
+  font-size: var(--font-size-label-sm, 11px);
+  line-height: 14px;
+  color: var(--color-neutral-200, #9090a2);
+  user-select: none;
+}
+
+/* ==========================================================================
+   DOCKED EXPANDED CHAT & VOICE PANELS (Nodes 1324:157533 & 1451:12212)
+   ========================================================================== */
+.kpmg-bottom-docked-panel {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  max-width: 100%;
+  height: 640px;
+  background-color: var(--color-primary-surface, #f5f5fe);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+  overflow: hidden;
+  box-sizing: border-box;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  position: relative;
+  animation: kpmgDockedSlideUp 0.25s ease-out;
+}
+
+@keyframes kpmgDockedSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Docked Header (66px) */
+.kpmg-bottom-docked-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 66px;
+  padding: var(--spacing-4, 12px) var(--spacing-5, 18px);
+  background-color: var(--color-primary-surface, #f5f5fe);
+  border-bottom: 1px solid rgba(213, 213, 220, 0.5);
+  box-sizing: border-box;
+}
+
+.kpmg-bottom-docked-header__drag {
+  width: 36px;
+  height: 4px;
+  background: var(--color-neutral-300, #b8b8c4);
+  border-radius: 2px;
+  margin: 0 auto;
+}
+
+.kpmg-bottom-docked-header__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-neutral-000, #2f2f39);
+}
+
+.kpmg-bottom-docked-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Docked Body: Chat messages or Audio visualization */
+.kpmg-bottom-docked-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-4, 12px) var(--spacing-5, 18px);
+  overflow-y: auto;
+  gap: var(--spacing-3, 10px);
+}
+
+.kpmg-bottom-docked-body__empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--color-neutral-200, #9090a2);
+  text-align: center;
+  padding: 20px;
+}
+
+.kpmg-bottom-docked-message {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  max-width: 82%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md, 12px);
+  font-size: 13px;
+  line-height: 18px;
+}
+
+.kpmg-bottom-docked-message--user {
+  align-self: flex-end;
+  background-color: var(--color-primary-action, #1e49e2);
+  color: #ffffff;
+  border-bottom-right-radius: 2px;
+}
+
+.kpmg-bottom-docked-message--assistant {
+  align-self: flex-start;
+  background-color: #ffffff;
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  color: var(--color-neutral-000, #2f2f39);
+  border-bottom-left-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Audio wave visualizer container */
+.kpmg-bottom-docked-audio-visualizer {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: radial-gradient(circle at center, rgba(30, 73, 226, 0.15) 0%, rgba(245, 245, 254, 0) 70%);
+}
+
+.kpmg-bottom-docked-audio-bars {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 60px;
+}
+
+.kpmg-bottom-docked-audio-bar {
+  width: 4px;
+  background: var(--color-primary-action, #1e49e2);
+  border-radius: 2px;
+  animation: kpmgAudioWave 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes kpmgAudioWave {
+  from {
+    height: 12px;
+  }
+  to {
+    height: 48px;
+  }
+}
+
+/* Docked Footer enclosing the Bottom App Bar */
+.kpmg-bottom-docked-footer {
+  width: 100%;
+  background: transparent;
+}
+
+.kpmg-bottom-docked-footer .kpmg-bottom-appbar {
+  border: none;
+  border-top: 1px solid rgba(213, 213, 220, 0.6);
+  border-radius: 0;
+  width: 100%;
+}
+
+/* Voice Docked Panel Theme (Node 1451:12212) */
+.kpmg-bottom-docked-panel--voice {
+  background-color: var(--color-primary-on-container-dark, #131e90);
+  background-image: 
+    linear-gradient(180deg, #2f3de2 0%, rgba(29, 73, 225, 0) 100%),
+    radial-gradient(ellipse at 50% 30%, rgba(114, 19, 234, 0.3) 0%, transparent 70%);
+  color: #ffffff;
+}
+
+.kpmg-bottom-docked-panel--voice .kpmg-bottom-docked-header {
+  background: transparent;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.kpmg-bottom-docked-panel--voice .kpmg-bottom-docked-header__title,
+.kpmg-bottom-docked-panel--voice .kpmg-bottom-docked-header__actions button {
+  color: #ffffff;
+}
+
+.kpmg-bottom-docked-transcript {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-5, 18px);
+  gap: var(--spacing-4, 12px);
+  text-align: center;
+}
+
+.kpmg-bottom-docked-transcript__text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 22px;
+  line-height: 30px;
+  font-weight: 400;
+  color: #ffffff;
+  max-width: 382px;
+  margin: 0;
+  letter-spacing: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.kpmg-bottom-docked-panel--voice .kpmg-bottom-docked-footer .kpmg-bottom-appbar {
+  background: transparent;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+
+/* ==========================================================================
+   DARK THEME OVERRIDES (Frames 1427:11792 & 1451:10650)
+   ========================================================================== */
+[data-theme="dark"] .kpmg-bottom-appbar {
+  background-color: #232330;
+  border-color: #383844;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__project-label,
+[data-theme="dark"] .kpmg-bottom-appbar__project-pill-text {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__project-pill {
+  background: rgba(47, 47, 57, 0.8);
+  border-color: #454554;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__project-chevron {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__project-menu {
+  background: #2f2f39;
+  border-color: #454554;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__project-menu-item {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__project-menu-item:hover {
+  background-color: #3d405b;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__action-btn {
+  background: #2f2f39;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__action-btn-text,
+[data-theme="dark"] .kpmg-bottom-appbar__action-btn-icon {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__suggestion-chip {
+  border-color: #6d6d7e;
+  color: #d5d5dc;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__suggestion-chip:hover {
+  background: #383844;
+  color: #ffffff;
+  border-color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__input-pill {
+  background-color: #2f2f39;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-btn {
+  background-color: #3d405b;
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-btn:hover {
+  background-color: #4a4d6e;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-input {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-input::placeholder {
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-textarea {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-textarea::placeholder {
+  color: #aab0f4;
+}
+
+[data-theme="dark"] .kpmg-bottom-appbar__pill-expanded-footer {
+  border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+
+[data-theme="dark"] .kpmg-bottom-docked-panel {
+  background-color: #232330;
+  border-color: #383844;
+}
+
+[data-theme="dark"] .kpmg-bottom-docked-header {
+  background-color: #232330;
+  border-color: #383844;
+}
+
+[data-theme="dark"] .kpmg-bottom-docked-header__title {
+  color: #ffffff;
+}
+
+[data-theme="dark"] .kpmg-bottom-docked-message--assistant {
+  background-color: #2f2f39;
+  border-color: #454554;
+  color: #ffffff;
+}

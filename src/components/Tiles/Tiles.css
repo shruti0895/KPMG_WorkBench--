@@ -1,0 +1,707 @@
+/* ==========================================================================
+   KPMG WORKBENCH DESIGN SYSTEM 2026 - TILES COMPONENT STYLES
+   ========================================================================== */
+
+.kpmg-tile {
+  box-sizing: border-box;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  position: relative;
+  border-radius: var(--tile-radius, 12px);
+  display: flex;
+  flex-direction: column;
+  transition: all 0.2s cubic-bezier(0.2, 0, 0, 1);
+  overflow: hidden;
+  color: var(--color-on-surface, #2f2f39);
+}
+
+/* --------------------------------------------------------------------------
+   Surface Styles: Outlined, Elevated, Filled
+   -------------------------------------------------------------------------- */
+.kpmg-tile--outlined {
+  background-color: var(--tile-bg-outlined, #ffffff);
+  border: 1px solid var(--tile-border-outlined, #d5d5dc);
+  box-shadow: none;
+}
+
+.kpmg-tile--elevated {
+  background-color: var(--tile-bg-elevated, #ffffff);
+  border: 1px solid transparent;
+  box-shadow: var(--tile-shadow-elevated, 0px 4px 16px rgba(0, 0, 0, 0.08));
+}
+
+.kpmg-tile--filled {
+  background-color: var(--tile-bg-filled, #f5f5fe);
+  border: 1px solid var(--tile-border-filled, transparent);
+  box-shadow: none;
+}
+
+/* --------------------------------------------------------------------------
+   Dimensions & Variants
+   -------------------------------------------------------------------------- */
+.kpmg-tile--basic {
+  width: 420px;
+  height: 414px;
+  padding: var(--tile-padding, 18px);
+}
+
+.kpmg-tile--basic-full {
+  width: 420px;
+  height: 414px;
+  padding: 0;
+}
+
+.kpmg-tile--special-living-todo {
+  width: 380px;
+  height: 728px;
+  padding: var(--tile-padding, 18px);
+}
+
+.kpmg-tile--special-references {
+  width: 380px;
+  height: 678px;
+  padding: var(--tile-padding, 18px);
+}
+
+.kpmg-tile--special-learning-hub {
+  width: 700px;
+  height: 632px;
+  padding: var(--tile-padding, 18px);
+}
+
+.kpmg-tile--special-ai-forum {
+  width: 700px;
+  height: 606px;
+  padding: var(--tile-padding, 18px);
+}
+
+.kpmg-tile--special-project-tracker {
+  width: 700px;
+  height: 916px;
+  padding: var(--tile-padding, 18px);
+}
+
+.kpmg-tile--special-empty-state {
+  width: 700px;
+  height: 916px;
+  padding: var(--tile-padding, 18px);
+}
+
+/* Inline or fluid auto width mode */
+.kpmg-tile--fluid {
+  width: 100% !important;
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* --------------------------------------------------------------------------
+   Subcomponent: TileHeader
+   -------------------------------------------------------------------------- */
+.kpmg-tile-header {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+}
+
+.kpmg-tile-header--default {
+  height: var(--tile-header-height-default, 44px);
+  padding: 0 0 6px 0;
+  background-color: transparent;
+}
+
+.kpmg-tile-header--filled {
+  height: var(--tile-header-height-filled, 76px);
+  padding: 0 18px;
+  background-color: var(--tile-header-filled-bg, #f5f5fe);
+  border-bottom: 1px solid var(--tile-border-inner, #d5d5dc);
+}
+
+.kpmg-tile-header__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--tile-title-font-size, 20px);
+  line-height: var(--tile-title-line-height, 28px);
+  font-weight: var(--tile-title-font-weight, 600);
+  color: var(--tile-title-color, #2f2f39);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+
+.kpmg-tile-header__action {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 1000px;
+  border: none;
+  background: transparent;
+  color: var(--color-on-surface, #454554);
+  cursor: pointer;
+  padding: 0;
+  transition: background-color 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.kpmg-tile-header__action:hover {
+  background-color: rgba(69, 69, 84, 0.08);
+}
+
+.kpmg-tile-header__action:active {
+  transform: scale(0.96);
+  background-color: rgba(69, 69, 84, 0.14);
+}
+
+/* --------------------------------------------------------------------------
+   Alert Box (Empty with missing)
+   -------------------------------------------------------------------------- */
+.kpmg-tile-alert {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 16px;
+  background-color: var(--tile-alert-bg, #fffbe6);
+  border: 1px solid var(--tile-alert-border, #f5b742);
+  border-radius: 12px;
+  margin-top: 14px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.kpmg-tile-alert__text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--tile-alert-text, #2f2f39);
+}
+
+.kpmg-tile-alert__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--tile-alert-icon-color, #454554);
+}
+
+/* --------------------------------------------------------------------------
+   Inner Containers & Empty State
+   -------------------------------------------------------------------------- */
+.kpmg-tile__body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+  position: relative;
+}
+
+.kpmg-tile-inner-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  width: 100%;
+  border-radius: 12px;
+  background-color: var(--tile-bg-outlined, #ffffff);
+  border: 1px solid var(--tile-border-inner, #d5d5dc);
+  position: relative;
+}
+
+.kpmg-tile--filled .kpmg-tile-inner-card {
+  background-color: var(--tile-bg-filled, #f5f5fe);
+}
+
+.kpmg-tile-inner-card--borderless {
+  border: none;
+}
+
+/* Purple Gradient Thumbnail (92x92) */
+.kpmg-tile-thumb {
+  width: 92px;
+  height: 92px;
+  border-radius: var(--tile-thumb-radius, 16px);
+  background: var(--tile-thumb-gradient, linear-gradient(135deg, #d4bbfd 0%, #7c83fd 100%));
+  flex-shrink: 0;
+  margin-bottom: 16px;
+}
+
+.kpmg-tile-empty-text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: var(--tile-empty-text-color, #9090a2);
+  text-align: center;
+}
+
+/* Configuring State (Circular Progress) */
+.kpmg-tile-configuring {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+.kpmg-tile-configuring__label {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 500;
+  color: var(--tile-empty-text-color, #9090a2);
+  text-align: center;
+}
+
+.kpmg-tile-configuring__subtext {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+  color: var(--tile-empty-text-color, #9090a2);
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* Shimmer Skeleton (Loading & Loading full) */
+.kpmg-tile-shimmer {
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: linear-gradient(
+    90deg,
+    #aab4f8 0%,
+    #d1d7fc 50%,
+    #f2f4ff 100%
+  );
+  background-size: 200% 100%;
+  animation: kpmg-tile-shimmer-anim 2s infinite ease-in-out;
+}
+
+.kpmg-tile-shimmer--full {
+  border-radius: 0;
+}
+
+@keyframes kpmg-tile-shimmer-anim {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Special: Living To Do List
+   -------------------------------------------------------------------------- */
+.kpmg-tile-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+  margin-bottom: 14px;
+  flex-shrink: 0;
+}
+
+.kpmg-tile-tab-item {
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 1000px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-on-surface, #454554);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.kpmg-tile-tab-item:hover {
+  background-color: rgba(69, 69, 84, 0.08);
+}
+
+.kpmg-tile-tab-item--active {
+  background-color: #e8ebfd;
+  color: #1a28c1;
+}
+
+.kpmg-tile-tab-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 1000px;
+  background-color: #e3e3e8;
+  color: #454554;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.kpmg-tile-tab-item--active .kpmg-tile-tab-badge {
+  background-color: #1e49e2;
+  color: #ffffff;
+}
+
+.kpmg-tile-task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.kpmg-tile-task-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 136px;
+  padding: 16px 18px;
+  border-radius: var(--tile-card-radius, 12px);
+  background-color: var(--tile-card-bg, #ffffff);
+  border: 1px solid var(--tile-card-border, #d5d5dc);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpmg-tile-task-card:hover {
+  border-color: #818aee;
+}
+
+.kpmg-tile-task-card__header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.kpmg-tile-task-card__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--tile-card-title-color, #2f2f39);
+  margin: 0;
+}
+
+.kpmg-tile-task-card__checkbox {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #454554;
+  flex-shrink: 0;
+}
+
+.kpmg-tile-task-card__checkbox:hover {
+  opacity: 0.85;
+}
+
+.kpmg-tile-task-card__body {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--tile-card-desc-color, #454554);
+  margin: 4px 0 10px 0;
+}
+
+.kpmg-tile-task-card__progress {
+  width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   Special: References
+   -------------------------------------------------------------------------- */
+.kpmg-tile-ref-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.kpmg-tile-ref-card {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 136px;
+  padding: 18px;
+  border-radius: var(--tile-card-radius, 12px);
+  background-color: var(--tile-card-bg, #ffffff);
+  border: 1px solid var(--tile-card-border, #d5d5dc);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease;
+}
+
+.kpmg-tile-ref-card:hover {
+  border-color: #818aee;
+}
+
+.kpmg-tile-ref-card__thumb {
+  width: 100px;
+  height: 100px;
+  border-radius: 16px;
+  background: var(--tile-thumb-gradient, linear-gradient(135deg, #d4bbfd 0%, #7c83fd 100%));
+  flex-shrink: 0;
+}
+
+.kpmg-tile-ref-card__info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.kpmg-tile-ref-card__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: 600;
+  color: var(--tile-card-title-color, #2f2f39);
+  margin: 0 0 6px 0;
+}
+
+.kpmg-tile-ref-card__desc {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--tile-card-desc-color, #454554);
+  margin: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Special: 2-Column Stacked Cards (Learning Hub & AI Forum)
+   -------------------------------------------------------------------------- */
+.kpmg-tile-stacked-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+  flex: 1;
+  overflow-y: auto;
+}
+
+.kpmg-tile-stacked-card {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  border-radius: var(--tile-card-radius, 12px);
+  background-color: var(--tile-card-bg, #ffffff);
+  border: 1px solid var(--tile-card-border, #d5d5dc);
+  overflow: hidden;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.kpmg-tile-stacked-card:hover {
+  border-color: #818aee;
+}
+
+.kpmg-tile-stacked-card__author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.kpmg-tile-stacked-card__author-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.kpmg-tile-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 1000px;
+  background: linear-gradient(135deg, #a7b5ff 0%, #7687f8 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.kpmg-tile-stacked-card__author-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.kpmg-tile-stacked-card__author-name {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tile-card-title-color, #2f2f39);
+  line-height: 22px;
+}
+
+.kpmg-tile-stacked-card__author-sub {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  color: var(--tile-card-desc-color, #454554);
+  line-height: 20px;
+}
+
+/* Banner media */
+.kpmg-tile-stacked-card__banner {
+  width: 100%;
+  height: 190px;
+  border-radius: 12px;
+  background: linear-gradient(180deg, #d4bbfd 0%, #7c83fd 100%);
+  position: relative;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.kpmg-tile-stacked-card__badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+}
+
+.kpmg-tile-stacked-card__content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.kpmg-tile-stacked-card__title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--tile-card-title-color, #2f2f39);
+  line-height: 22px;
+  margin: 0;
+}
+
+.kpmg-tile-stacked-card__subhead {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  color: var(--tile-card-desc-color, #454554);
+  line-height: 20px;
+  margin: 2px 0 8px 0;
+}
+
+.kpmg-tile-stacked-card__desc {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--tile-card-desc-color, #454554);
+  margin: 0 0 12px 0;
+}
+
+/* Tags */
+.kpmg-tile-tags-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.kpmg-tile-tag-pill {
+  padding: 4px 14px;
+  border-radius: 1000px;
+  border: 1px solid var(--tile-border-inner, #d5d5dc);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  color: var(--color-on-surface, #454554);
+  background: transparent;
+}
+
+/* Reactions row (Learning Hub) */
+.kpmg-tile-reactions-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.kpmg-tile-reaction-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  color: var(--tile-card-desc-color, #454554);
+}
+
+/* Avatar Group (AI Forum) */
+.kpmg-tile-avatar-group {
+  display: flex;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.kpmg-tile-avatar-group__item {
+  width: 32px;
+  height: 32px;
+  border-radius: 1000px;
+  border: 2px solid #ffffff;
+  margin-left: -8px;
+  background: linear-gradient(135deg, #7c22e4 0%, #1e49e2 100%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.kpmg-tile-avatar-group__item:first-child {
+  margin-left: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Special: Project Tracker & Empty State (2 Large Panels)
+   -------------------------------------------------------------------------- */
+.kpmg-tile-panels-col {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.kpmg-tile-panel {
+  box-sizing: border-box;
+  height: 400px;
+  border-radius: var(--tile-card-radius, 12px);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.kpmg-tile-panel--gradient {
+  background: linear-gradient(180deg, #8798f8 0%, #d4bbfd 100%);
+}
+
+.kpmg-tile-panel--empty {
+  background-color: var(--tile-bg-outlined, #ffffff);
+  border: 1px solid var(--tile-border-inner, #d5d5dc);
+}
+
+.kpmg-tile--filled .kpmg-tile-panel--empty {
+  background-color: var(--tile-bg-filled, #f5f5fe);
+}
