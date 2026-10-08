@@ -1,0 +1,45 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "packages",
+  "projects": {
+    "kpmg-angular": {
+      "projectType": "library",
+      "root": "packages/angular",
+      "sourceRoot": "packages/angular/src",
+      "prefix": "kpmg",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "packages/angular/ng-package.json",
+            "tsConfig": "packages/angular/tsconfig.lib.json"
+          },
+          "configurations": {
+            "storybook": {
+              "tsConfig": "packages/angular/tsconfig.storybook.json"
+            }
+          }
+        },
+        "storybook": {
+          "builder": "@storybook/angular:start-storybook",
+          "options": {
+            "configDir": ".storybook-angular",
+            "browserTarget": "kpmg-angular:build:storybook",
+            "compodoc": false,
+            "port": 6007
+          }
+        },
+        "build-storybook": {
+          "builder": "@storybook/angular:build-storybook",
+          "options": {
+            "configDir": ".storybook-angular",
+            "browserTarget": "kpmg-angular:build:storybook",
+            "compodoc": false,
+            "outputDir": "storybook-static-angular"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "@designkpmg/styles",
+  "version": "0.1.0",
+  "description": "Framework-agnostic CSS for KPMG WorkBench — design tokens + component styles",
+  "type": "module",
+  "private": true,
+  "exports": {
+    "./tokens.css": "./dist/tokens.css",
+    "./components.css": "./dist/components.css",
+    "./index.css": "./dist/index.css"
+  },
+  "files": ["dist"],
+  "scripts": {
+    "build": "node ./scripts/build.mjs"
+  }
+}

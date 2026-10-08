@@ -1,0 +1,22 @@
+{
+  "name": "@designkpmg/storybook-angular",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Dependency manifest only \u2014 declares the Angular/webpack Storybook toolchain as its own npm workspace member so its versions resolve and upgrade independently of the React app's tooling. The actual config (angular.json, .storybook-angular/) stays at the repo root and is run via the root package.json scripts (npm run storybook:angular / build-storybook:angular, both `ng run kpmg-angular:...`) \u2014 @storybook/angular's webpack preset resolves paths relative to cwd inconsistently with Angular's own workspace-relative conventions, so invoking from anywhere but the repo root breaks it. No scripts here.",
+  "devDependencies": {
+    "@angular-devkit/build-angular": "^20.1.0",
+    "@angular/cli": "^20.1.0",
+    "@angular/common": "^20.1.0",
+    "@angular/compiler": "^20.1.0",
+    "@angular/compiler-cli": "^20.1.0",
+    "@angular/core": "^20.1.0",
+    "@angular/platform-browser": "^20.1.0",
+    "@angular/platform-browser-dynamic": "^20.1.0",
+    "@storybook/angular": "^10.6.0",
+    "@types/node": "^22.0.0",
+    "ng-packagr": "^20.1.0",
+    "rxjs": "^7.8.0",
+    "tslib": "^2.6.0",
+    "zone.js": "^0.15.0"
+  }
+}
