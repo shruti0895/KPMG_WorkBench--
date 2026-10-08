@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { SnackbarComponent, SnackbarContainerComponent, SnackbarOutletComponent } from './snackbar.component';
+import { ButtonComponent } from '../button/button.component';
 
 const LOREM = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
@@ -8,7 +9,8 @@ const meta: Meta<SnackbarComponent> = {
   title: 'Components/Snackbar',
   component: SnackbarComponent,
   tags: ['autodocs'],
-  decorators: [moduleMetadata({ imports: [SnackbarComponent, SnackbarContainerComponent, SnackbarOutletComponent] })],
+  parameters: { layout: 'padded' },
+  decorators: [moduleMetadata({ imports: [SnackbarComponent, SnackbarContainerComponent, SnackbarOutletComponent, ButtonComponent] })],
   args: { size: 'single-line', outlined: false, message: 'Snackbar text goes here', actionLabel: 'Action', closeable: true },
   argTypes: {
     size: { control: 'select', options: ['single-line', 'two-line', 'extended', 'extended-header', 'extended-media'] },
@@ -68,15 +70,36 @@ export const ExtendedWithMediaOutlined: Story = {
 export const All10VariantsMatrix: Story = {
   name: 'Comprehensive 10-Variant Matrix',
   render: () => ({
+    props: {
+      cells: [
+        { l: '01. Single-Line', size: 'single-line', o: false, m: 'Snackbar text goes here', a: 'Action' },
+        { l: '02. Single-Line', size: 'single-line', o: true, m: 'Snackbar text goes here', a: 'Action' },
+        { l: '03. Two-Line', size: 'two-line', o: false, m: 'Snackbar text goes here', a: 'Action' },
+        { l: '04. Two-Line', size: 'two-line', o: true, m: 'Snackbar text goes here', a: 'Action' },
+        { l: '05. Extended', size: 'extended', o: false, d: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', a: 'Longer action' },
+        { l: '06. Extended', size: 'extended', o: true, d: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', a: 'Longer action' },
+        { l: '07. Extended Header', size: 'extended-header', o: false, h: 'Header', d: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', a: 'Longer action' },
+        { l: '08. Extended Header', size: 'extended-header', o: true, h: 'Header', d: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', a: 'Longer action' },
+        { l: '09. Extended Media', size: 'extended-media', o: false, h: 'Header', d: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', a: 'Longer action' },
+        { l: '10. Extended Media', size: 'extended-media', o: true, h: 'Header', d: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', a: 'Longer action' },
+      ],
+    },
     template: `
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; max-width: 800px; padding: 32px; background: var(--color-surface)">
-        @for (o of [false, true]; track o) {
-          <kpmg-snackbar size="single-line" [outlined]="o" message="Snackbar text goes here" actionLabel="Action" />
-          <kpmg-snackbar size="two-line" [outlined]="o" message="Snackbar text goes here" actionLabel="Action" />
-          <kpmg-snackbar size="extended" [outlined]="o" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit." actionLabel="Longer action" />
-          <kpmg-snackbar size="extended-header" [outlined]="o" header="Header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit." actionLabel="Longer action" />
-          <kpmg-snackbar size="extended-media" [outlined]="o" header="Header" description="Lorem ipsum dolor sit amet, consectetur adipiscing elit." actionLabel="Longer action" />
-        }
+      <div style="display:flex;flex-direction:column;gap:32px;padding:32px;background:var(--color-surface)">
+        <div>
+          <h3 style="font-size:18px;font-weight:600;margin-bottom:8px;color:var(--color-on-surface)">Canonical 10-Variant Matrix</h3>
+          <p style="font-size:13px;color:var(--color-neutral-200);margin-bottom:24px">5 layout sizes across Elevated (Resting shadow) and Outlined (Border stroke) treatments.</p>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));gap:24px;max-width:800px">
+            @for (c of cells; track c.l + c.o) {
+              <div>
+                <span style="font-size:12px;font-weight:600;text-transform:uppercase;color:var(--color-neutral-200)">{{ c.l }} &bull; {{ c.o ? 'Outlined' : 'Elevated' }}</span>
+                <div style="margin-top:8px">
+                  <kpmg-snackbar [size]="$any(c.size)" [outlined]="c.o" [message]="c.m" [header]="c.h" [description]="c.d" [actionLabel]="c.a" />
+                </div>
+              </div>
+            }
+          </div>
+        </div>
       </div>`,
   }),
 };
@@ -95,16 +118,19 @@ export const InteractiveToastDemo: Story = {
     },
     template: `
       <div style="padding: 32px; background: var(--color-surface); min-height: 300px">
+        <p style="font-size: 14px; color: var(--color-neutral-100); margin-bottom: 16px">
+          Click below to trigger fixed viewport toast snackbars at the <strong>bottom-left</strong> of the page:
+        </p>
         <div style="display: flex; gap: 12px; flex-wrap: wrap">
-          <button type="button" (click)="spawn('single-line', false)">Spawn Single-Line</button>
-          <button type="button" (click)="spawn('single-line', true)">Spawn Outlined</button>
-          <button type="button" (click)="spawn('extended-header', false)">Spawn Extended Header</button>
-          <button type="button" (click)="spawn('extended-media', true)">Spawn Media Snackbar</button>
+          <kpmg-button variant="primary" (click)="spawn('single-line', false)">Spawn Single-Line</kpmg-button>
+          <kpmg-button variant="outline" (click)="spawn('single-line', true)">Spawn Outlined</kpmg-button>
+          <kpmg-button variant="secondary" (click)="spawn('extended-header', false)">Spawn Extended Header</kpmg-button>
+          <kpmg-button variant="outline" (click)="spawn('extended-media', true)">Spawn Media Snackbar</kpmg-button>
         </div>
         <kpmg-snackbar-container position="bottom-left">
           @for (t of toasts; track t.id) {
             <kpmg-snackbar [size]="$any(t.size)" [outlined]="t.outlined"
-              [header]="t.size === 'single-line' ? undefined : 'Sources'"
+              [header]="t.size.includes('header') || t.size.includes('media') ? 'Sources' : undefined"
               message="Client sample request updated successfully."
               description="New audit documentation was parsed and added to review index."
               actionLabel="Modify" [autoHideDuration]="6000" (closed)="remove(t.id)" />

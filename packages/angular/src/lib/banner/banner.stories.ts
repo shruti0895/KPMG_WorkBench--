@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { BannerComponent } from './banner.component';
+import { ButtonComponent } from '../button/button.component';
 
 const meta: Meta<BannerComponent> = {
   title: 'Components/Banner',
   component: BannerComponent,
   tags: ['autodocs'],
-  decorators: [moduleMetadata({ imports: [BannerComponent] })],
+  parameters: { layout: 'padded' },
+  decorators: [moduleMetadata({ imports: [BannerComponent, ButtonComponent] })],
   args: {
     state: 'default',
     variant: 'primary',
@@ -38,12 +40,12 @@ export const Default: Story = {};
 export const AnimatedState: Story = { args: { state: 'animated' } };
 
 const variants = [
-  { key: 'primary', title: 'Configuring system models', detail: '30%', progress: 30 },
-  { key: 'neutral', title: 'Indexing document workspace', detail: '45%', progress: 45 },
-  { key: 'info', title: 'Synchronizing KPMG Workbench data', detail: '60%', progress: 60 },
-  { key: 'success', title: 'Transformation completed successfully', detail: '100%', progress: 100 },
-  { key: 'warning', title: 'Resource allocation near threshold', detail: '85%', progress: 85 },
-  { key: 'critical', title: 'Pipeline validation error detected', detail: 'Error', progress: 100 },
+  { key: 'primary', label: 'Primary (Canonical)', title: 'Configuring system models', detail: '30%', progress: 30 },
+  { key: 'neutral', label: 'Neutral', title: 'Indexing document workspace', detail: '45%', progress: 45 },
+  { key: 'info', label: 'Info', title: 'Synchronizing KPMG Workbench data', detail: '60%', progress: 60 },
+  { key: 'success', label: 'Success', title: 'Transformation completed successfully', detail: '100%', progress: 100 },
+  { key: 'warning', label: 'Warning', title: 'Resource allocation near threshold', detail: '85%', progress: 85 },
+  { key: 'critical', label: 'Critical', title: 'Pipeline validation error detected', detail: 'Error', progress: 100 },
 ];
 
 export const Complete12VariantsMatrix: Story = {
@@ -51,12 +53,15 @@ export const Complete12VariantsMatrix: Story = {
     props: { variants },
     template: `
       <div style="display:flex;flex-direction:column;gap:32px;max-width:1000px">
-        @for (s of ['default', 'animated']; track s) {
+        @for (s of [{k:'default',h:'State: Default (Static Surface) — 6 Semantic Variants',n:'Default'}, {k:'animated',h:'State: Animated (Dynamic Ambient Gradient) — 6 Semantic Variants',n:'Animated'}]; track s.k) {
           <div>
-            <h3 style="margin:0 0 16px;font-size:18px;font-weight:600">State: {{ s }} — 6 Semantic Variants</h3>
+            <h3 style="margin:0 0 16px 0;font-size:18px;font-weight:600">{{ s.h }}</h3>
             <div style="display:flex;flex-direction:column;gap:12px">
               @for (v of variants; track v.key) {
-                <kpmg-banner [state]="s" [variant]="v.key" [title]="v.title" [detail]="v.detail" [progress]="v.progress" />
+                <div>
+                  <div style="font-size:12px;color:var(--color-on-surface-light, #9090a2);margin-bottom:4px">Variant: <strong>{{ v.label }}</strong> ({{ s.n }} State)</div>
+                  <kpmg-banner [state]="s.k" [variant]="v.key" [title]="v.title" [detail]="v.detail" [progress]="v.progress" />
+                </div>
               }
             </div>
           </div>
@@ -84,12 +89,12 @@ export const LiveProgressSimulation: Story = {
         <kpmg-banner [state]="running ? 'animated' : 'default'" variant="primary"
           [title]="progress === 100 ? 'Configuring complete' : 'Configuring'"
           [detail]="progress + '%'" [progress]="progress" [hasAction]="true">
-          <button bannerAction type="button" (click)="running = !running">{{ running ? 'Pause' : 'Resume' }}</button>
+          <kpmg-button bannerAction [size]="$any('small')" variant="text" (click)="running = !running">{{ running ? 'Pause' : 'Resume' }}</kpmg-button>
         </kpmg-banner>
         <div style="display:flex;gap:10px;align-items:center">
-          <button type="button" (click)="running = !running">{{ running ? 'Pause Simulation' : 'Resume Simulation' }}</button>
-          <button type="button" (click)="progress = 0">Reset</button>
-          <span style="font-size:14px">Current progress: {{ progress }}%</span>
+          <kpmg-button [size]="$any('small')" (click)="running = !running">{{ running ? 'Pause Simulation' : 'Resume Simulation' }}</kpmg-button>
+          <kpmg-button [size]="$any('small')" variant="outline" (click)="progress = 0">Reset</kpmg-button>
+          <span style="font-size:14px;color:var(--color-on-surface-light, #9090a2)">Current progress: {{ progress }}%</span>
         </div>
       </div>`,
   }),
@@ -114,11 +119,11 @@ export const DismissibleWithActions: Story = {
         <div style="max-width:1000px">
           <kpmg-banner state="default" variant="info" title="Workspace synchronization requested"
             detail="5.2 MB / 8.0 MB" [progress]="65" [dismissible]="true" [hasAction]="true" (bannerClose)="visible = false">
-            <button bannerAction type="button">View Details</button>
+            <kpmg-button bannerAction [size]="$any('small')" variant="text">View Details</kpmg-button>
           </kpmg-banner>
         </div>
       } @else {
-        <button type="button" (click)="visible = true">Re-open Banner</button>
+        <div style="padding:20px"><kpmg-button [size]="$any('small')" (click)="visible = true">Re-open Banner</kpmg-button></div>
       }`,
   }),
 };

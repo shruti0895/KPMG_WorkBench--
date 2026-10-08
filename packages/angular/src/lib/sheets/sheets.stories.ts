@@ -1,12 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/angular';
 import { argsToTemplate, moduleMetadata } from '@storybook/angular';
 import { SheetsComponent } from './sheets.component';
+import { ButtonComponent } from '../button/button.component';
 
 const meta: Meta<SheetsComponent> = {
   title: 'Components/Sheets',
   component: SheetsComponent,
   tags: ['autodocs'],
-  decorators: [moduleMetadata({ imports: [SheetsComponent] })],
+  decorators: [moduleMetadata({ imports: [SheetsComponent, ButtonComponent] })],
   parameters: { layout: 'padded' },
   args: {
     variant: 'floating',
@@ -71,7 +72,7 @@ export const InteractiveDrawerDemo: Story = {
     template: `
       <div style="padding: 24px; text-align: center">
         <p style="margin-bottom: 16px; color: #454554">Click the button below to toggle the side sheet companion drawer overlay.</p>
-        <button type="button" (click)="open = true">Open Side Sheet Drawer</button>
+        <kpmg-button (click)="open = true">Open Side Sheet Drawer</kpmg-button>
         <kpmg-sheets variant="side" type="assistant" size="large" [isDrawer]="true" [isOpen]="open" (sheetClose)="open = false" />
       </div>`,
   }),

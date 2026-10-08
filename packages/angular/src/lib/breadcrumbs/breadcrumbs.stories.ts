@@ -107,15 +107,15 @@ export const AllVariantsMatrix: Story = {
     template: `
       <div style="display:flex;flex-direction:column;gap:36px;max-width:750px;width:100%">
         <div>
-          <h4 style="margin-bottom:12px">Standard 3-Level Breadcrumbs</h4>
+          <h4 style="margin-bottom:12px;font-family:'Open Sans'">Standard 3-Level Breadcrumbs</h4>
           <kpmg-breadcrumbs separator="/" [items]="[{ label: 'Home', href: '/' }, { label: 'Components', href: '/components' }, { label: 'Breadcrumbs', isCurrent: true }]" />
         </div>
         <div style="min-height:600px;padding:24px;border-radius:8px">
-          <h4 style="margin-bottom:12px">Dropdown Card Spec 1: Circle Checkbox Options List (Click ...)</h4>
+          <h4 style="margin-bottom:12px;font-family:'Open Sans'">Dropdown Card Spec 1: Circle Checkbox Options List (Click ...)</h4>
           <kpmg-breadcrumbs [items]="circleCheckboxItems" [maxItems]="4" [itemsAfterCollapse]="1" separator="/" overflowTrigger="click" />
         </div>
         <div style="min-height:600px;padding:24px;border-radius:8px">
-          <h4 style="margin-bottom:12px">Dropdown Card Spec 2: Star Bookmark + Trailing Checkmark Options List</h4>
+          <h4 style="margin-bottom:12px;font-family:'Open Sans'">Dropdown Card Spec 2: Star Bookmark + Trailing Checkmark Options List (Click ... - Stars trigger toast popup)</h4>
           <kpmg-breadcrumbs [items]="starBookmarkItems" [maxItems]="4" [itemsAfterCollapse]="1" separator="/" overflowTrigger="click" />
         </div>
       </div>`,
