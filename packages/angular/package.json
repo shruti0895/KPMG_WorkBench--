@@ -1,0 +1,17 @@
+{
+  "name": "@designkpmg/angular",
+  "version": "0.1.0",
+  "description": "KPMG WorkBench — Angular component library",
+  "private": true,
+  "sideEffects": false,
+  "peerDependencies": {
+    "@angular/common": "^20.0.0",
+    "@angular/core": "^20.0.0"
+  },
+  "dependencies": {
+    "tslib": "^2.6.0"
+  },
+  "scripts": {
+    "build": "ng-packagr -p ng-package.json -c tsconfig.lib.json"
+  }
+}
