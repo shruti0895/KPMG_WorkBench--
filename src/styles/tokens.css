@@ -566,19 +566,39 @@
    --color-textarea-count-disabled: var(--color-neutral-400);
 
    /* ==========================================================================
-      Tooltip Component Tokens
+      Tooltip Component Tokens - KPMG WorkBench Design System 2026 (Figma 1359:5192)
       ========================================================================== */
    /* Geometry & Radii */
-   --radius-tooltip-sm: var(--radius-sm); /* 8px */
-   --radius-tooltip-md: var(--radius-md); /* 12px */
-   --radius-tooltip-lg: 18px;             /* 18px from Figma specification */
-   --spacing-tooltip-px: 12px;
-   --spacing-tooltip-py-sm: 8px;
-   --spacing-tooltip-py-md: 12px;
-   --spacing-tooltip-pt-rich: 24px;
-   --spacing-tooltip-pb-rich: 18px;
+   --radius-tooltip-base-sm: var(--radius-sm, 8px);     /* 8px for Base small */
+   --radius-tooltip-base-lg: var(--radius-sm, 8px);     /* 8px for Base large */
+   --radius-tooltip-rich: 18px;                         /* 18px for Rich from Figma */
+   --radius-tooltip-menu: 18px;                         /* 18px for Menu from Figma */
+   --radius-tooltip-sm: var(--radius-sm, 8px);
+   --radius-tooltip-md: var(--radius-md, 12px);
+   --radius-tooltip-lg: 18px;
+
+   /* Container Dimensions (Canonical Figma 1359:5192) */
+   --width-tooltip-base-sm: 107px;
+   --width-tooltip-base-lg: 200px;
+   --width-tooltip-rich: 300px;
+   --width-tooltip-menu: 220px;
+
+   --height-tooltip-base-sm: 32px;
+   --height-tooltip-base-lg: 96px;
+   --height-tooltip-rich: 166px;
+   --height-tooltip-menu: 250px;
+
+   /* Spacings & Paddings */
+   --spacing-tooltip-base-sm-px: 10px;
+   --spacing-tooltip-base-sm-py: 8px;
+   --spacing-tooltip-base-lg-px: 10px;
+   --spacing-tooltip-base-lg-py: 8px;
+   --spacing-tooltip-rich-px: 12px;
+   --spacing-tooltip-rich-py: 18px;
+   --spacing-tooltip-menu-p: 12px;
+   --spacing-tooltip-caret-inset-h: 20px;
+   --spacing-tooltip-caret-inset-v: 20px;
    --spacing-tooltip-gap: 12px;
-   --spacing-tooltip-caret-inset: 12px;
 
    /* Caret Dimensions */
    --size-tooltip-caret-sm-w: 12px;
@@ -588,32 +608,34 @@
    --size-tooltip-caret-lg-w: 24px;
    --size-tooltip-caret-lg-h: 12px;
 
-   /* Container Widths */
-   --width-tooltip-single-line: auto;
-   --width-tooltip-multi-line: 300px;
-   --width-tooltip-rich: 300px;
-   --width-tooltip-menu: 220px;
+   /* Legacy width aliases for backward compatibility */
+   --width-tooltip-single-line: var(--width-tooltip-base-sm);
+   --width-tooltip-multi-line: var(--width-tooltip-base-lg);
 
    /* Elevated Theme (Light Mode) */
-   --color-tooltip-elevated-bg: var(--color-surface);
-   --color-tooltip-elevated-text: var(--color-neutral-000);
-   --color-tooltip-elevated-text-secondary: var(--color-neutral-100);
-   --color-tooltip-elevated-text-muted: var(--color-neutral-200);
-   --color-tooltip-elevated-border: rgba(0, 0, 0, 0.08);
-   --color-tooltip-elevated-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+   --color-tooltip-elevated-bg: #ffffff;
+   --color-tooltip-elevated-text: var(--color-neutral-000, #2f2f39);
+   --color-tooltip-elevated-text-secondary: var(--color-neutral-100, #454554);
+   --color-tooltip-elevated-text-muted: var(--color-neutral-200, #9090a2);
+   --color-tooltip-elevated-border: transparent;
+   --color-tooltip-elevated-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
 
    /* Filled Theme (Light Mode) */
-   --color-tooltip-filled-bg: var(--color-primary-container);
-   --color-tooltip-filled-text: var(--color-neutral-000);
-   --color-tooltip-filled-text-secondary: var(--color-neutral-100);
-   --color-tooltip-filled-text-muted: var(--color-blue-400);
+   --color-tooltip-filled-bg: var(--color-primary-container, #f5f5fe);
+   --color-tooltip-filled-text: var(--color-neutral-000, #2f2f39);
+   --color-tooltip-filled-text-secondary: var(--color-neutral-100, #454554);
+   --color-tooltip-filled-text-muted: var(--color-blue-400, #5965e9);
    --color-tooltip-filled-border: transparent;
-   --color-tooltip-filled-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+   --color-tooltip-filled-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+
+   /* Unified Drop Shadow Filter */
+   --shadow-tooltip-drop: 2px 2px 8px rgba(0, 0, 0, 0.15);
 
    /* Nested Item Tokens */
-   --color-tooltip-item-bg: var(--color-surface);
-   --color-tooltip-item-border: var(--color-neutral-600);
-   --color-tooltip-item-hover: var(--color-neutral-800);
+   --color-tooltip-divider: var(--color-neutral-500, #d5d5dc);
+   --color-tooltip-item-hover: rgba(69, 69, 84, 0.08);
+   --color-tooltip-item-bg: var(--color-surface, #ffffff);
+   --color-tooltip-item-border: var(--color-neutral-600, #e3e3e8);
 
    /* ==========================================================================
       Snackbar Component Tokens
@@ -1735,8 +1757,196 @@
    --message-audio-border-light: #454554;
    --message-audio-text-light: #f7f7f8;
    --message-audio-pill-bg-light: #2f2f39;
-   --message-audio-pill-text-light: #aab0f4;
+   /* ==========================================================================
+      HORIZONTAL CARD DESIGN TOKENS (Figma Node 1652:2701)
+      ========================================================================== */
+   --card-width: 340px;
+   --card-radius: var(--radius-md, 8px);
+   --card-padding-sm: 12px;
+   --card-padding-lg: 18px;
+   --card-gap: 12px;
+
+   /* Surfaces & Styles */
+   --card-bg-outlined: var(--color-surface, #ffffff);
+   --card-border-outlined: 1px solid var(--color-neutral-500, #d5d5dc);
+
+   --card-bg-elevated: var(--color-surface, #ffffff);
+   --card-border-elevated: 1px solid transparent;
+   --card-shadow-elevated: 0px 4px 12px rgba(47, 47, 57, 0.08);
+
+   --card-bg-filled: var(--color-blue-900, #f5f5fe);
+   --card-border-filled: 1px solid transparent;
+
+   --card-bg-warning: #fffbeb;
+   --card-border-warning: 1px solid #fde68a;
+
+   /* Thumbnail Media */
+   --card-thumb-radius-sm: var(--radius-sm, 6px);
+   --card-thumb-radius-lg: var(--radius-md, 8px);
+   --card-thumb-gradient: linear-gradient(135deg, #aab0f4 0%, #5965e9 100%);
+
+   /* Typography */
+   --card-title-color: var(--color-on-surface, #2f2f39);
+   --card-title-font-size: 14px;
+   --card-title-font-weight: 600;
+   --card-title-line-height: 22px;
+
+   --card-subtext-color: var(--color-neutral-200, #9090a2);
+   --card-subtext-font-size: 12px;
+   --card-subtext-font-weight: 400;
+   --card-subtext-line-height: 18px;
+
+   --card-body-color: var(--color-neutral-200, #9090a2);
+   --card-body-font-size: 11px;
+   --card-body-line-height: 16px;
+
+   --card-divider-color: var(--color-neutral-600, #e3e3e8);
+
+   /* Status Pill & Progress */
+   --card-status-chip-bg: var(--color-primary-surface, #f5f5fe);
+   --card-status-chip-border: 1px solid var(--color-primary-outline, #818aee);
+   --card-status-chip-color: var(--color-primary-action, #1e49e2);
+   --card-progress-track: var(--color-neutral-600, #e3e3e8);
+   --card-progress-fill: var(--color-primary-action, #1e49e2);
+
+   /* Interactive Elements */
+   --card-action-color: var(--color-neutral-200, #9090a2);
+   --card-action-hover-color: var(--color-primary-action, #1e49e2);
+   --card-action-hover-bg: var(--color-primary-surface, #f5f5fe);
+   --card-checkbox-border: var(--color-neutral-400, #c7c7d1);
+   --card-checkbox-checked-bg: var(--color-primary-action, #1e49e2);
+
+   /* ==========================================================================
+      HORIZONTAL CARDS RICH DESIGN TOKENS (Figma Node 1673:12549)
+      ========================================================================== */
+   --card-rich-width: 376px;
+   --card-rich-radius: var(--radius-lg, 12px);
+   --card-rich-padding: 18px;
+   --card-rich-gap: 12px;
+
+   /* Surfaces & Styles */
+   --card-rich-bg-outlined: var(--color-surface, #ffffff);
+   --card-rich-border-outlined: 1px solid var(--color-neutral-500, #d5d5dc);
+
+   --card-rich-bg-elevated: var(--color-surface, #ffffff);
+   --card-rich-border-elevated: 1px solid transparent;
+   --card-rich-shadow-elevated: 0px 6px 16px rgba(47, 47, 57, 0.08);
+
+   --card-rich-bg-filled: var(--color-blue-900, #f5f5fe);
+   --card-rich-border-filled: 1px solid transparent;
+
+   /* Header Typography */
+   --card-rich-header-title-font-size: 16px;
+   --card-rich-header-title-font-weight: 600;
+   --card-rich-header-title-line-height: 24px;
+   --card-rich-header-title-color: var(--color-on-surface, #2f2f39);
+
+   --card-rich-header-subhead-font-size: 12px;
+   --card-rich-header-subhead-font-weight: 400;
+   --card-rich-header-subhead-line-height: 20px;
+   --card-rich-header-subhead-color: var(--color-neutral-200, #9090a2);
+
+   /* Section Header */
+   --card-rich-section-title-font-size: 14px;
+   --card-rich-section-title-font-weight: 600;
+   --card-rich-section-title-line-height: 20px;
+   --card-rich-section-title-color: var(--color-on-surface, #2f2f39);
+   --card-rich-section-icon-color: var(--color-neutral-300, #454554);
+   --card-rich-section-icon-hover-bg: var(--color-primary-surface, #f5f5fe);
+
+   /* Dividers */
+   --card-rich-divider-color: var(--color-neutral-600, #e3e3e8);
+
+   /* ==========================================================================
+      SPECIAL CARDS DESIGN TOKENS (Figma Node 1652:22307)
+      ========================================================================== */
+   --card-special-radius: var(--radius-lg, 12px);
+   --card-special-padding: 18px;
+   --card-special-slider-width: 340px;
+   --card-special-chips-width: 428px;
+   --card-special-references-width: 435px;
+   --card-special-code-width: 435px;
+   --card-special-loading-width: 414px;
+   --card-special-rich-width: 376px;
+
+   /* ==========================================================================
+      DATA TABLE DESIGN TOKENS
+      ========================================================================== */
+   --data-table-width: 100%;
+   --data-table-height: 100%;
+   --data-table-col-width: 168px;
+   --data-table-col-min-width: 80px;
+   --data-table-col-gap: 8px;
+   --data-table-row-gap: 8px;
+   --data-table-header-height: 48px;
+   --data-table-header-min-height: 48px;
+   --data-table-header-margin-bottom: 12px;
+   --data-table-cell-height-default: 88px;
+   --data-table-cell-height-chip: 52px;
+   --data-table-cell-height-compact: 48px;
+   --data-table-cell-min-height: 48px;
+   --data-table-cell-radius: 8px;
+   --data-table-cell-padding: 12px;
+   --data-table-chip-cell-padding: 10px;
+   --data-table-header-padding: 12px;
+
+   /* Typography */
+   --data-table-header-font-size: 16px;
+   --data-table-header-line-height: 22px;
+   --data-table-header-font-weight: 400;
+   --data-table-header-color: #454554;
+   --data-table-cell-font-size: 12px;
+   --data-table-cell-line-height: 16px;
+   --data-table-cell-font-weight: 400;
+   --data-table-cell-color: #454554;
+
+   /* Header Button & Action */
+   --data-table-header-btn-size: 24px;
+   --data-table-header-btn-radius: 1000px;
+   --data-table-header-btn-enabled-bg: transparent;
+   --data-table-header-btn-enabled-color: #454554;
+   --data-table-header-btn-pressed-bg: #1e49e2;
+   --data-table-header-btn-pressed-color: #ffffff;
+
+   /* Cell States & Surfaces */
+   --data-table-cell-bg-default: #ffffff;
+   --data-table-cell-border-default: transparent;
+   --data-table-cell-bg-hovered: #f7f7f8;
+   --data-table-cell-border-hovered: transparent;
+   --data-table-cell-bg-pressed: #f5f5fe;
+   --data-table-cell-border-pressed: #818aee;
+   --data-table-cell-bg-error: #fff6fa;
+   --data-table-cell-border-error: #fc659b;
+   --data-table-cell-text-error: #c00f48;
+   --data-table-cell-bg-missing: #fefae5;
+   --data-table-cell-border-missing: #f4d533;
+   --data-table-cell-text-missing: #454554;
+
+   /* Chips inside Data Table */
+   --data-table-chip-font-size: 12px;
+   --data-table-chip-line-height: 16px;
+   --data-table-chip-color: #454554;
+   --data-table-chip-border: #9090a2;
+   --data-table-chip-radius: 1000px;
+   --data-table-chip-padding: 8px 12px;
+   --data-table-chip-error-bg: #ffcedf;
+   --data-table-chip-error-border: #fc659b;
+
+   /* Shimmer Loader Gradient */
+   --data-table-shimmer-color-1: #818aee;
+   --data-table-shimmer-color-2: #d1d1f9;
+   --data-table-shimmer-color-3: #f8f3fe;
+
+   /* Tooltip Popover */
+   --data-table-tooltip-width: 300px;
+   --data-table-tooltip-radius: 18px;
+   --data-table-tooltip-bg: #ffffff;
+   --data-table-tooltip-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+   --data-table-tooltip-title-color: #2f2f39;
+   --data-table-tooltip-subtext-color: #454554;
+   --data-table-tooltip-divider: #d5d5dc;
 }
+
 
 
 

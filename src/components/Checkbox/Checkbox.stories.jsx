@@ -33,7 +33,7 @@ export default {
     docs: {
       description: {
         component:
-          'Checkbox component formatted to match Figma Node 1384:63275. Complete matrix of 64 variants (8 Types × 4 States × 2 Sizes) with token-driven styles, SVG export props, and interactive accessibility support.',
+          'Checkbox complete matrix of 64 variants (8 Types × 4 States × 2 Sizes) with token-driven styles, SVG export props, and interactive accessibility support.',
       },
     },
   },
@@ -42,7 +42,7 @@ export default {
     size: {
       control: 'select',
       options: ['large', 'small'],
-      description: 'Size scale (Large: 40px touch container / Small: 24px touch container)',
+      description: 'Size scale (Large:  touch container / Small: touch container)',
     },
     type: {
       control: 'select',
@@ -84,7 +84,7 @@ export const InteractiveControlled = {
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', maxWidth: '400px' }}>
         <h4 style={{ fontFamily: 'Open Sans', margin: 0 }}>Interactive Checkbox Demo</h4>
-        
+
         <Checkbox
           size="large"
           checked={checked}
@@ -166,7 +166,7 @@ export const All64VariantsMatrix = {
       {ALL_SIZES.map((sizeScale) => (
         <div key={sizeScale} style={{ backgroundColor: '#FAFAFD', padding: '24px', borderRadius: '12px', border: '1px solid #E3E3E8' }}>
           <h4 style={{ fontFamily: 'Open Sans', marginBottom: '20px', textTransform: 'capitalize' }}>
-            Size: {sizeScale} ({sizeScale === 'large' ? '40px Outer Container' : '24px Outer Container'})
+            Size: {sizeScale}
           </h4>
 
           <div style={{ overflowX: 'auto' }}>

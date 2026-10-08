@@ -27,7 +27,7 @@ export default {
 ### KPMG WorkBench Design System - Modal Component Family
 
 The **Modal** component family provides structured modal dialogs and configuration panels across WorkBench applications.
-Designed according to canonical KPMG WorkBench Design System 2026 specifications:
+Designed according to canonical KPMG WorkBench Design System specifications:
 
 - **Header & Navigation**: Title display  with a circular dismiss action button.
 - **Linear Progress Indicator**: Integrated linear progress bar track for multi-step assistant wizard flows.

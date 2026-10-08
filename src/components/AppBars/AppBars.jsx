@@ -2119,10 +2119,10 @@ export const BottomAppBarsText = forwardRef(function BottomAppBarsText(
       {(hasProject || hasButton) && (
         <div
           className={`kpmg-bottom-appbar__header-row ${hasProject && hasButton
+            ? ''
+            : hasProject
               ? ''
-              : hasProject
-                ? ''
-                : 'kpmg-bottom-appbar__header-row--end'
+              : 'kpmg-bottom-appbar__header-row--end'
             }`}
         >
           {/* Project Dropdown */}
@@ -2598,7 +2598,7 @@ export const ChatDockedUI = forwardRef(function ChatDockedUI(
     initialMessages = [
       { id: 1, sender: 'assistant', text: 'Hello! I am your KPMG Workbench AI Assistant. How can I help you today?' },
       { id: 2, sender: 'user', text: 'Can you summarize the recent audit compliance requirements?' },
-      { id: 3, sender: 'assistant', text: 'Certainly! According to the 2026 guidelines, compliance requires automated trail auditing and end-to-end data encryption.' },
+      { id: 3, sender: 'assistant', text: 'Certainly! According to the guidelines, compliance requires automated trail auditing and end-to-end data encryption.' },
     ],
     className = '',
     style = {},
@@ -2699,8 +2699,8 @@ export const ChatDockedUI = forwardRef(function ChatDockedUI(
             <div
               key={m.id}
               className={`kpmg-bottom-docked-message ${m.sender === 'user'
-                  ? 'kpmg-bottom-docked-message--user'
-                  : 'kpmg-bottom-docked-message--assistant'
+                ? 'kpmg-bottom-docked-message--user'
+                : 'kpmg-bottom-docked-message--assistant'
                 }`}
             >
               {m.text}

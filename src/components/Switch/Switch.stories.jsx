@@ -8,13 +8,12 @@ export default {
     docs: {
       description: {
         component: `
-# Switch Component
 
-The KPMG WorkBench Switch is an accessible, token-driven toggle control adhering strictly to the KPMG WorkBench Design System specification.
 
+The KPMG WorkBench Switch is an accessible, token-driven toggle control adhering strictly to the KPMG WorkBench Design System specification. 
 ### Key Capabilities
 - **16 Canonical Variants**: Full coverage of all 16 Figma states across selection states, icon configurations, and interaction states.
-- **Micro-Interactions**: Features an expanding thumb (24px default → 28px in pressed/active state) matching the Figma physics model.
+- **Micro-Interactions**: Features an expanding thumb in pressed/active state) matching the Figma physics model.
 - **Fluent Vector Icons**: Integrated 16×16 Fluent Checkmark (when checked) and Dismiss/X (when unchecked) SVG icons with adaptive color tokens.
 - **WCAG AA Accessibility**: Standard \`role="switch"\`, \`aria-checked\`, full keyboard navigation (Space / Enter), and focus-visible rings.
 - **Form Ergonomics**: Optional label, helper text, and flexible label positioning (\`start\` or \`end\`).

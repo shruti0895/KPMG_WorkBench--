@@ -23,7 +23,7 @@ export default {
 ### KPMG WorkBench Design System - App Bars Component Family
 
 The **AppBars** component family provides header navigation, search bars, contextual actions, and bottom search/voice bars across all WorkBench workspaces.
-Designed according to canonical KPMG Design System 2026 specifications:
+Designed according to canonical KPMG Design System specifications:
 
 - **Top App Bars Full**:
   - \`Default\` : Brand pill popover trigger, breadcrumbs navigation, assistant robot, notification bell, overflow menu, and avatar.
@@ -368,7 +368,7 @@ export const AllVariantsGallery = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <span style={{ display: 'block', marginBottom: '8px', fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100, #454554)' }}>
-              Variant: Full - Default with Reused Breadcrumbs & Figma Slash Forward
+              Variant: Full - Default with Reused Breadcrumbs & Slash Forward
             </span>
             <AppBarFull
               brandLabel="KPMG"
@@ -452,9 +452,6 @@ export const AllVariantsGallery = () => {
           </div>
 
           <div>
-            <span style={{ display: 'block', marginBottom: '8px', fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-100, #454554)' }}>
-              Variant: Nested Large - Default State with Reused Breadcrumbs & Figma SVGs
-            </span>
             <AppBarNested
               size="large"
               state="default"
@@ -575,7 +572,7 @@ export const FullDefault = () => (
     onOverflowClick={() => alert('Overflow menu clicked')}
   />
 );
-FullDefault.storyName = 'Full - Default (64px)';
+FullDefault.storyName = 'Full ';
 
 export const FullWithAction = () => (
   <AppBarFull
@@ -588,7 +585,7 @@ export const FullWithAction = () => (
     onSecondaryActionClick={() => alert('Action cancelled')}
   />
 );
-FullWithAction.storyName = 'Full - With Action (128px)';
+FullWithAction.storyName = 'Full - With Action ';
 
 export const FullWithCollapsibleBreadcrumbs = () => {
   const items = [
@@ -669,7 +666,7 @@ export const NestedLargeDefault = () => (
     <SampleCardsRow />
   </AppBarNested>
 );
-NestedLargeDefault.storyName = 'Nested - Large Default (472px with Breadcrumbs)';
+NestedLargeDefault.storyName = 'Nested - Large Default';
 
 export const NestedLargeFilled = () => (
   <AppBarNested
@@ -682,7 +679,7 @@ export const NestedLargeFilled = () => (
     <SampleCardsRow />
   </AppBarNested>
 );
-NestedLargeFilled.storyName = 'Nested - Large Filled (472px)';
+NestedLargeFilled.storyName = 'Nested - Large Filled';
 
 export const NestedWithBreadcrumbs = () => {
   const items = [

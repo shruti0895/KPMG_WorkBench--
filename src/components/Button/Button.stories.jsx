@@ -27,7 +27,7 @@ export default {
     docs: {
       description: {
         component:
-          'Primary Button component for KPMG WorkBench Design System. Supports all Figma variants: Primary/Filled, Tonal (#E9EAFC), Secondary, Outline, Text, and Elevated, as well as SVG icon props and proper disabled gray borders.',
+          'Primary Button component for KPMG WorkBench Design System. Supports all Figma variants: Primary/Filled, Tonal, Secondary, Outline, Text, and Elevated, as well as SVG icon props and proper disabled gray borders.',
       },
     },
   },

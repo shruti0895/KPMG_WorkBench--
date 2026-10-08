@@ -1,15 +1,6 @@
-import React from 'react';
 import {
   Tiles,
   TileHeader,
-  TileTaskCard,
-  TileReferenceCard,
-  TileStackedCard,
-  TileAlertCircleIcon,
-  TileArrowRightIcon,
-  TileMoreVerticalIcon,
-  TileCheckboxIcon,
-  TileWordDocIcon,
 } from './Tiles';
 
 export default {
@@ -23,9 +14,9 @@ export default {
 ### KPMG WorkBench Design System - Tiles Component Family
 
 The **Tiles** component family provides modular surface containers for dashboard cards, interactive widgets, task workflows, and content discovery panels.
-Architected in accordance with KPMG WorkBench Design System 2026 specifications:
+Architected in accordance with KPMG WorkBench Design System specifications:
 
-- **Surface Styles**: Outlined (1px border), Elevated (card drop shadow), and Filled (tinted container background).
+- **Surface Styles**: Outlined, Elevated (card drop shadow), and Filled (tinted container background).
 - **Basic Tiles**:
   - **Empty with missing**: Header, alert box notification, gradient thumbnail, and empty state message.
   - **Empty**: Header, inner card container with gradient thumbnail, and empty state message.
@@ -40,7 +31,7 @@ Architected in accordance with KPMG WorkBench Design System 2026 specifications:
   - **AI Forum**: Header, 2-column discussion cards with author avatar, media banner, and collaborative avatar cluster.
   - **Project Tracker**: Header with navigation action, high-impact gradient milestone status panels.
   - **Empty State**: Header with navigation action, dual large empty state panels.
-- **Header Subcomponent**: Default (44px) and Filled (76px) header bars supporting overflow menus and arrow action triggers.
+- **Header Subcomponent**: Default and Filled header bars supporting overflow menus and arrow action triggers.
         `,
       },
     },
@@ -159,6 +150,30 @@ Architected in accordance with KPMG WorkBench Design System 2026 specifications:
       name: 'onAction',
       description: 'Callback fired when header action button is clicked',
       action: 'onAction',
+      table: {
+        type: { summary: 'function' },
+      },
+    },
+    onLoveToggle: {
+      name: 'onLoveToggle',
+      description: 'Callback fired when love (heart) reaction is clicked/unclicked',
+      action: 'onLoveToggle',
+      table: {
+        type: { summary: 'function' },
+      },
+    },
+    onWishlistToggle: {
+      name: 'onWishlistToggle',
+      description: 'Callback fired when wishlist (bookmark) reaction is clicked/unclicked',
+      action: 'onWishlistToggle',
+      table: {
+        type: { summary: 'function' },
+      },
+    },
+    onShareToggle: {
+      name: 'onShareToggle',
+      description: 'Callback fired when share reaction is clicked/unclicked',
+      action: 'onShareToggle',
       table: {
         type: { summary: 'function' },
       },

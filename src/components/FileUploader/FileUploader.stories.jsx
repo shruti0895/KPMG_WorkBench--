@@ -13,7 +13,7 @@ export default {
     docs: {
       description: {
         component:
-          'FileUploader component formatted to match Figma Node 1003:54273. Complete 9 variant matrix (3 Sizes: Small, Medium, Large × 3 Surface States: Outline, Elevated, Filled) with drag and drop file handling, custom SVG props, and token-driven design.',
+          'FileUploader component complete 9 variant matrix (3 Sizes: Small, Medium, Large × 3 Surface States: Outline, Elevated, Filled) with drag and drop file handling, custom SVG props, and token-driven design.',
       },
     },
   },
@@ -22,7 +22,7 @@ export default {
     size: {
       control: 'select',
       options: ['small', 'medium', 'large'],
-      description: 'Uploader height scale (Small 128px, Medium 128px, Large 202px)',
+      description: 'Uploader height scale (Small, Medium, Large)',
     },
     state: {
       control: 'select',
@@ -118,9 +118,9 @@ export const InteractiveFileSelection = {
 export const All9FigmaVariantsMatrix = {
   render: () => {
     const SIZES = [
-      { id: 'small', name: 'Small (128px Height)' },
-      { id: 'medium', name: 'Medium (128px Height)' },
-      { id: 'large', name: 'Large (202px Height with Card Illustration)' },
+      { id: 'small', name: 'Small ' },
+      { id: 'medium', name: 'Medium ' },
+      { id: 'large', name: 'Large (with Card Illustration)' },
     ];
 
     const STATES = [

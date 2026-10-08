@@ -316,6 +316,16 @@
   overflow: visible;
 }
 
+/* Ensure media cards in a gallery flex seamlessly to fit enclosed card borders */
+.kpmg-message__media-gallery .kpmg-message__media-card {
+  flex: 1 1 0;
+  min-width: 0;
+  max-width: var(--message-media-size, 171.5px);
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
 .kpmg-message__media-card:hover {
   transform: translateY(-2px);
   border-color: var(--message-media-border-hover, #9090a2);
@@ -353,9 +363,11 @@
 
 .kpmg-message__media-popover--left {
   left: 0;
+  right: auto;
 }
 
 .kpmg-message__media-popover--right {
+  left: auto;
   right: 0;
 }
 

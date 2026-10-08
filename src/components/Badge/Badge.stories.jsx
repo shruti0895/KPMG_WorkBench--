@@ -26,7 +26,7 @@ export default {
 
 The Badge component provides compact visual feedback, notification indicators, and numeric count tags.
 Supports all 12 design system variants:
-- **3 Sizes**: Small (6px dot), Medium (16px compact count), Large (24px prominent count)
+- **3 Sizes**: Small, Medium, Large
 - **2 Color Styles**: Primary (brand blue), Neutral (grayscale)
 - **2 States / Intensities**: Quiet (subtle container fill), Loud (high contrast fill)
         `,
