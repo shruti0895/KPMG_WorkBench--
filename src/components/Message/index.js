@@ -25,6 +25,5 @@ export {
   MessageReorderIcon,
   MessageAttachIcon,
   MessageMicIcon,
+  Message as default,
 } from './Message';
-
-export default Message;

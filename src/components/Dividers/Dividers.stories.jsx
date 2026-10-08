@@ -14,7 +14,7 @@ The KPMG WorkBench Divider is an accessible, token-driven separator component ad
 
 ### Key Capabilities
 - **18 Canonical Figma Variants**: Full coverage of all 18 variants across 2 themes (Light, Dark), 2 orientations (Horizontal, Vertical), and 6 inset width configurations.
-- **Concentric & Calibrated Insets**: Pixel-precise alignment for Full, Inset (16px), Inset middle small (8px), Inset middle medium (10px), and Inset middle large (18px).
+- **Concentric & Calibrated Insets**: Pixel-precise alignment for Full, Inset , Inset middle small , Inset middle medium , and Inset middle large .
 - **Subheader Typography**: Integrated title/small subheader text configuration (14px font, 20px line height, regular weight).
 - **Flexible Vertical Mode**: Calibrated 17px container with centered 1px line supporting Full, Inset (top), and Inset Middle (top & bottom).
 - **WCAG Accessibility**: Standard \`role="separator"\`, \`aria-orientation\`, and semantic token contrast.

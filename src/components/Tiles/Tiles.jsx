@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from 'react';
+import { useState, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { ProgressIndicator } from '../ProgressIndicator/ProgressIndicator';
 import './Tiles.css';
@@ -322,81 +322,142 @@ export const TileStackedCard = ({
   showTags = false,
   showReactions = false,
   showAvatarGroup = false,
+  initialLoved = false,
+  initialWishlisted = false,
+  initialShared = false,
+  isLoved: controlledLoved,
+  isWishlisted: controlledWishlisted,
+  isShared: controlledShared,
+  onLoveToggle,
+  onWishlistToggle,
+  onShareToggle,
+  loveCount = '2.4K',
+  wishlistCount = '2.4K',
+  shareCount = '2.4K',
   className = '',
-}) => (
-  <div className={`kpmg-tile-stacked-card ${className}`}>
-    {/* Author Row */}
-    <div className="kpmg-tile-stacked-card__author">
-      <div className="kpmg-tile-stacked-card__author-info">
-        <div className="kpmg-tile-avatar">{authorInitials}</div>
-        <div className="kpmg-tile-stacked-card__author-text">
-          <span className="kpmg-tile-stacked-card__author-name">{authorName}</span>
-          <span className="kpmg-tile-stacked-card__author-sub">{authorSubhead}</span>
+}) => {
+  const [internalLoved, setInternalLoved] = useState(initialLoved);
+  const [internalWishlisted, setInternalWishlisted] = useState(initialWishlisted);
+  const [internalShared, setInternalShared] = useState(initialShared);
+
+  const isLoved = controlledLoved !== undefined ? controlledLoved : internalLoved;
+  const isWishlisted = controlledWishlisted !== undefined ? controlledWishlisted : internalWishlisted;
+  const isShared = controlledShared !== undefined ? controlledShared : internalShared;
+
+  const handleLoveClick = (e) => {
+    e.stopPropagation();
+    const nextVal = !isLoved;
+    if (controlledLoved === undefined) setInternalLoved(nextVal);
+    if (onLoveToggle) onLoveToggle(nextVal);
+  };
+
+  const handleWishlistClick = (e) => {
+    e.stopPropagation();
+    const nextVal = !isWishlisted;
+    if (controlledWishlisted === undefined) setInternalWishlisted(nextVal);
+    if (onWishlistToggle) onWishlistToggle(nextVal);
+  };
+
+  const handleShareClick = (e) => {
+    e.stopPropagation();
+    const nextVal = !isShared;
+    if (controlledShared === undefined) setInternalShared(nextVal);
+    if (onShareToggle) onShareToggle(nextVal);
+  };
+
+  return (
+    <div className={`kpmg-tile-stacked-card ${className}`}>
+      {/* Author Row */}
+      <div className="kpmg-tile-stacked-card__author">
+        <div className="kpmg-tile-stacked-card__author-info">
+          <div className="kpmg-tile-avatar">{authorInitials}</div>
+          <div className="kpmg-tile-stacked-card__author-text">
+            <span className="kpmg-tile-stacked-card__author-name">{authorName}</span>
+            <span className="kpmg-tile-stacked-card__author-sub">{authorSubhead}</span>
+          </div>
         </div>
+        <button
+          type="button"
+          className="kpmg-tile-header__action"
+          aria-label="Post options"
+        >
+          <TileMoreVerticalIcon size={20} color="var(--color-on-surface, #454554)" />
+        </button>
       </div>
-      <button
-        type="button"
-        className="kpmg-tile-header__action"
-        aria-label="Post options"
-      >
-        <TileMoreVerticalIcon size={20} color="var(--color-on-surface, #454554)" />
-      </button>
-    </div>
 
-    {/* Media Banner */}
-    <div className="kpmg-tile-stacked-card__banner">
-      {hasWordBadge && (
-        <div className="kpmg-tile-stacked-card__badge">
-          <TileWordDocIcon size={28} />
-        </div>
-      )}
-    </div>
-
-    {/* Content */}
-    <div className="kpmg-tile-stacked-card__content">
-      <h4 className="kpmg-tile-stacked-card__title">{title}</h4>
-      <div className="kpmg-tile-stacked-card__subhead">{subtitle}</div>
-      <p className="kpmg-tile-stacked-card__desc">{desc}</p>
-
-      {/* Optional Tags */}
-      {showTags && (
-        <div className="kpmg-tile-tags-row">
-          <span className="kpmg-tile-tag-pill">Optional tag</span>
-          <span className="kpmg-tile-tag-pill">Optional tag</span>
-        </div>
-      )}
-
-      {/* Reactions Row (Learning Hub) */}
-      {showReactions && (
-        <div className="kpmg-tile-reactions-row">
-          <div className="kpmg-tile-reaction-item">
-            <TileHeartIcon size={20} />
-            <span>2.4K</span>
+      {/* Media Banner */}
+      <div className="kpmg-tile-stacked-card__banner">
+        {hasWordBadge && (
+          <div className="kpmg-tile-stacked-card__badge">
+            <TileWordDocIcon size={28} />
           </div>
-          <div className="kpmg-tile-reaction-item">
-            <TileBookmarkIcon size={20} />
-            <span>2.4K</span>
-          </div>
-          <div className="kpmg-tile-reaction-item">
-            <TileShareIcon size={20} />
-            <span>2.4K</span>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
 
-      {/* Avatar Group Cluster (AI Forum) */}
-      {showAvatarGroup && (
-        <div className="kpmg-tile-avatar-group">
-          {['AZ', 'AZ', 'AZ', 'AZ', 'AZ'].map((initials, idx) => (
-            <div key={idx} className="kpmg-tile-avatar-group__item">
-              {initials}
-            </div>
-          ))}
-        </div>
-      )}
+      {/* Content */}
+      <div className="kpmg-tile-stacked-card__content">
+        <h4 className="kpmg-tile-stacked-card__title">{title}</h4>
+        <div className="kpmg-tile-stacked-card__subhead">{subtitle}</div>
+        <p className="kpmg-tile-stacked-card__desc">{desc}</p>
+
+        {/* Optional Tags */}
+        {showTags && (
+          <div className="kpmg-tile-tags-row">
+            <span className="kpmg-tile-tag-pill">Optional tag</span>
+            <span className="kpmg-tile-tag-pill">Optional tag</span>
+          </div>
+        )}
+
+        {/* Reactions Row (Learning Hub) */}
+        {showReactions && (
+          <div className="kpmg-tile-reactions-row" role="group" aria-label="Social reactions">
+            <button
+              type="button"
+              className={`kpmg-tile-reaction-item ${isLoved ? 'kpmg-tile-reaction-item--active kpmg-tile-reaction-item--loved' : ''}`}
+              onClick={handleLoveClick}
+              aria-label={isLoved ? 'Unlike' : 'Like'}
+              aria-pressed={isLoved}
+            >
+              <TileHeartIcon size={20} color={isLoved ? '#CF0E54' : '#9090a2'} />
+              <span>{loveCount}</span>
+            </button>
+            <button
+              type="button"
+              className={`kpmg-tile-reaction-item ${isWishlisted ? 'kpmg-tile-reaction-item--active kpmg-tile-reaction-item--wishlisted' : ''}`}
+              onClick={handleWishlistClick}
+              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+              aria-pressed={isWishlisted}
+            >
+              <TileBookmarkIcon size={20} color={isWishlisted ? '#F4D533' : '#9090a2'} />
+              <span>{wishlistCount}</span>
+            </button>
+            <button
+              type="button"
+              className={`kpmg-tile-reaction-item ${isShared ? 'kpmg-tile-reaction-item--active kpmg-tile-reaction-item--shared' : ''}`}
+              onClick={handleShareClick}
+              aria-label={isShared ? 'Unshare' : 'Share'}
+              aria-pressed={isShared}
+            >
+              <TileShareIcon size={20} color={isShared ? '#1A28C1' : '#9090a2'} />
+              <span>{shareCount}</span>
+            </button>
+          </div>
+        )}
+
+        {/* Avatar Group Cluster (AI Forum) */}
+        {showAvatarGroup && (
+          <div className="kpmg-tile-avatar-group">
+            {['AZ', 'AZ', 'AZ', 'AZ', 'AZ'].map((initials, idx) => (
+              <div key={idx} className="kpmg-tile-avatar-group__item">
+                {initials}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 TileStackedCard.propTypes = {
   authorInitials: PropTypes.string,
@@ -409,6 +470,18 @@ TileStackedCard.propTypes = {
   showTags: PropTypes.bool,
   showReactions: PropTypes.bool,
   showAvatarGroup: PropTypes.bool,
+  initialLoved: PropTypes.bool,
+  initialWishlisted: PropTypes.bool,
+  initialShared: PropTypes.bool,
+  isLoved: PropTypes.bool,
+  isWishlisted: PropTypes.bool,
+  isShared: PropTypes.bool,
+  onLoveToggle: PropTypes.func,
+  onWishlistToggle: PropTypes.func,
+  onShareToggle: PropTypes.func,
+  loveCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  wishlistCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  shareCount: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   className: PropTypes.string,
 };
 
@@ -448,6 +521,12 @@ export const Tiles = forwardRef(({
   emptyMessage = 'Empty state message',
   fluid = false,
   onAction,
+  initialLoved,
+  initialWishlisted,
+  initialShared,
+  onLoveToggle,
+  onWishlistToggle,
+  onShareToggle,
   children,
   className = '',
   ...props
@@ -631,6 +710,12 @@ export const Tiles = forwardRef(({
                 hasWordBadge={true}
                 showTags={true}
                 showReactions={true}
+                initialLoved={initialLoved}
+                initialWishlisted={initialWishlisted}
+                initialShared={initialShared}
+                onLoveToggle={onLoveToggle}
+                onWishlistToggle={onWishlistToggle}
+                onShareToggle={onShareToggle}
               />
               <TileStackedCard
                 authorInitials="AZ"
@@ -642,6 +727,12 @@ export const Tiles = forwardRef(({
                 hasWordBadge={true}
                 showTags={true}
                 showReactions={true}
+                initialLoved={initialLoved}
+                initialWishlisted={initialWishlisted}
+                initialShared={initialShared}
+                onLoveToggle={onLoveToggle}
+                onWishlistToggle={onWishlistToggle}
+                onShareToggle={onShareToggle}
               />
             </div>
           )}
@@ -726,6 +817,12 @@ Tiles.propTypes = {
   emptyMessage: PropTypes.string,
   fluid: PropTypes.bool,
   onAction: PropTypes.func,
+  initialLoved: PropTypes.bool,
+  initialWishlisted: PropTypes.bool,
+  initialShared: PropTypes.bool,
+  onLoveToggle: PropTypes.func,
+  onWishlistToggle: PropTypes.func,
+  onShareToggle: PropTypes.func,
   children: PropTypes.node,
   className: PropTypes.string,
 };

@@ -13,10 +13,9 @@ export default {
 The **Tab** (Tabs / Tab Bar) component organizes and facilitates navigation between groups of related content that exist at the same level of hierarchy. It helps users switch between different sections or views quickly and efficiently without leaving the current page context.
 
 #### Key Architectural Highlights & 12 Production Variants:
-- **100% Token-Driven Architecture**: Fully linked to KPMG WorkBench CSS design tokens (\`--color-tab-*\`, \`--size-tab-*\`, \`--spacing-tab-*\`, \`--radius-tab-*\`) with zero hardcoded visual styles. Supports both Light and Dark themes natively.
 - **2 Canonical Sizes**:
-  - \`small\`: Compact 41px height with pill-shaped tabs, designed for inline card navigation, modal dialogs, and dashboard tiles.
-  - \`large\`: Full-width 65px application top bar with border divider, left-aligned tab navigation, and right-aligned trailing actions.
+  - \`small\`: Compact height with pill-shaped tabs, designed for inline card navigation, modal dialogs, and dashboard tiles.
+  - \`large\`: Full-width application top bar with border divider, left-aligned tab navigation, and right-aligned trailing actions.
 - **2 Tab Content Types**:
   - \`default\`: Standard clean text label with optimal internal padding.
   - \`with-badge\`: Text label paired with a circular count badge showing live notifications or item totals.

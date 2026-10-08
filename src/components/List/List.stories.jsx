@@ -28,9 +28,9 @@ Lists organize related items in a vertical format. They provide a consistent lay
   **4 Leading Types × 3 Container Styles = 12 Production Variants**
 
 #### 3 Density Sizes:
-- **Small** (1-line item, 56px height): Title only
-- **Medium** (2-line item, 68px height): Title + Supporting description
-- **Large** (3-line item, 88px height): Title + Extended description + Secondary metadata
+- **Small** (1-line item): Title only
+- **Medium** (2-line item): Title + Supporting description
+- **Large** (3-line item): Title + Extended description + Secondary metadata
         `,
       },
     },
@@ -186,7 +186,7 @@ export const DensitySizes = () => (
   >
     {/* Small (1-Line) */}
     <div>
-      <h4 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>Small (1-Line: 56px height)</h4>
+      <h4 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>Small (1-Line)</h4>
       <List styleType="outlined" size="small">
         <ListItem title="First item headline" leading="avatar" leadingProps={{ initials: 'JD' }} trailing="arrow" />
         <ListItem title="Second item headline" leading="avatar" leadingProps={{ initials: 'MK' }} trailing="arrow" />
@@ -196,7 +196,7 @@ export const DensitySizes = () => (
 
     {/* Medium (2-Line) */}
     <div>
-      <h4 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>Medium (2-Line: 68px height)</h4>
+      <h4 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>Medium (2-Line)</h4>
       <List styleType="outlined" size="medium">
         <ListItem
           title="Account Security"
@@ -224,7 +224,7 @@ export const DensitySizes = () => (
 
     {/* Large (3-Line) */}
     <div>
-      <h4 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>Large (3-Line: 88px height)</h4>
+      <h4 style={{ margin: '0 0 12px 0', fontSize: '15px' }}>Large (3-Line)</h4>
       <List styleType="outlined" size="large">
         <ListItem
           title="Audit Workpaper FY2026"

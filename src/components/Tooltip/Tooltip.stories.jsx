@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Tooltip } from './Tooltip';
 import { Button } from '../Button/Button';
 import { IconButton } from '../IconButton/IconButton';
@@ -10,384 +10,794 @@ export default {
     docs: {
       description: {
         component: `
-### KPMG WorkBench Design System - Tooltip Component
+### KPMG WorkBench Design System - Tooltip Component Family
 
-The **Tooltip** component provides supplementary contextual feedback, explanatory descriptions, interactive options, or rich previews anchored to interactive triggers. Designed according to KPMG WorkBench 2026 specifications, it features a 100% token-driven architecture supporting both high-contrast light and dark themes.
+The **Tooltip** component family provides modular contextual descriptions, interactive option dropdowns, and rich preview overlays anchored to UI triggers.
+Architected in accordance with KPMG WorkBench Design System canonical specifications (Figma Component Set):
 
-#### Key Architectural Highlights & Canonical Variants:
-- **100% Token-Driven Architecture**: Mapped to design tokens (\`--color-tooltip-*\`, \`--radius-tooltip-*\`, \`--spacing-tooltip-*\`, \`--size-tooltip-caret-*\`) with zero hardcoded visual styles.
-- **2 Visual Themes**:
-  - \`elevated\`: Crisp white card background (\`--color-surface\`), delicate neutral border stroke, and refined elevation drop shadow.
-  - \`filled\`: Lavender tinted background (\`--color-primary-container\`), borderless resting elevation, and high-contrast text.
-- **8 Content Variants**:
-  - \`single-line\`: Compact 32px height pill for button labels, icons, or concise hints (8px radius, small 12x6 caret).
-  - \`multi-line\`: 300px width multi-line body text container for extended guidance (12px radius, medium 18x9 caret).
-  - \`rich-action\`: Title, descriptive body, and paired action buttons (18px radius, large 24x12 caret).
-  - \`rich-source\`: Title, body, and interactive citation/source checklist.
-  - \`rich-alert-small\`: Title, body, secondary label, and single card item with thumbnail, title, and action.
-  - \`rich-alert-large\`: Title, body, secondary label, and dual card items with thumbnails and subtitle lines.
-  - \`menu-list\`: Action dropdown menu with options, dividers, and circular check indicators.
-  - \`menu-icon\`: Dropdown menu with star bookmark icons, option labels, and checkmarks.
-- **3 Caret Sizes & 12 Positional Alignments**:
-  - Carets: Small (\`12×6px\`), Medium (\`18×9px\`), and Large (\`24×12px\`).
-  - Placements: \`top\`, \`bottom\`, \`left\` (Side L), \`right\` (Side R).
-  - Alignments: \`left\`, \`center\`, \`right\` for top/bottom; \`top\`, \`middle\`, \`bottom\` for side placements.
-- **Interaction Modes**: Supports \`hover\` (with configurable enter/leave delays), \`click\` (for menus/rich cards), and controlled \`manual\` display.
+- **4 Core Variant Types**:
+  - **Base Small**: Single-line compact label container with centered or offset caret.
+  - **Base Large**: Multi-line description container supporting 4-directional carets (Top, Bottom, Side Left, Side Right).
+  - **Rich**: High-density informative card featuring Title, Descriptive body, and paired Action buttons.
+  - **Menu**: Action dropdown list featuring interactive checkboxes, options, and dividers.
+- **Surface Themes**:
+  - **Elevated**: Crisp surface container with soft drop shadow.
+  - **Filled**: Tinted container with soft drop shadow.
+- **Directional Positions & Alignments**:
+  - **Top & Bottom**: Left, Center, Right alignments.
+  - **Side Left & Side Right**: Top, Middle, Bottom alignments.
+- **Token-Driven Architecture**: All widths, heights, radii, paddings, and colors are bound to design system CSS tokens.
         `,
       },
     },
   },
   tags: ['autodocs'],
   argTypes: {
+    type: {
+      name: 'type',
+      description: 'Canonical tooltip variant type',
+      control: 'select',
+      options: ['base-small', 'base-large', 'rich', 'menu'],
+      table: {
+        type: { summary: "'base-small' | 'base-large' | 'rich' | 'menu'" },
+        defaultValue: { summary: "'base-small'" },
+      },
+    },
+    position: {
+      name: 'position',
+      description: 'Caret edge position on the tooltip container',
+      control: 'select',
+      options: ['top', 'bottom', 'side-l', 'side-r'],
+      table: {
+        type: { summary: "'top' | 'bottom' | 'side-l' | 'side-r'" },
+        defaultValue: { summary: "'top'" },
+      },
+    },
+    alignment: {
+      name: 'alignment',
+      description: 'Caret alignment along the container edge',
+      control: 'select',
+      options: ['left', 'center', 'right', 'top', 'middle', 'bottom'],
+      table: {
+        type: { summary: "'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom'" },
+        defaultValue: { summary: "'center'" },
+      },
+    },
     theme: {
+      name: 'theme',
+      description: 'Surface styling treatment: elevated (white card) or filled (tinted card)',
       control: 'select',
       options: ['elevated', 'filled'],
-      description: 'Color theme: elevated (white card) or filled (lavender tint)',
-    },
-    variant: {
-      control: 'select',
-      options: [
-        'single-line',
-        'multi-line',
-        'rich-action',
-        'rich-source',
-        'rich-alert-small',
-        'rich-alert-large',
-        'menu-list',
-        'menu-icon',
-      ],
-      description: 'Structural format of the tooltip content',
-    },
-    placement: {
-      control: 'select',
-      options: ['top', 'bottom', 'left', 'right'],
-      description: 'Position relative to the target anchor',
-    },
-    align: {
-      control: 'select',
-      options: ['center', 'left', 'right', 'middle', 'top', 'bottom'],
-      description: 'Alignment along the placement axis',
+      table: {
+        type: { summary: "'elevated' | 'filled'" },
+        defaultValue: { summary: "'elevated'" },
+      },
     },
     caret: {
+      name: 'caret',
+      description: 'Whether to display the directional arrow caret',
       control: 'boolean',
-      description: 'Whether to show the pointer arrow caret',
+      table: {
+        type: { summary: 'boolean' },
+        defaultValue: { summary: 'true' },
+      },
+    },
+    title: {
+      name: 'title',
+      description: 'Header title text for Rich variant',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    description: {
+      name: 'description',
+      description: 'Body description text for Rich or Base Large variants',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+      },
+    },
+    text: {
+      name: 'text',
+      description: 'Label text for Base Small variant',
+      control: 'text',
+      table: {
+        type: { summary: 'string' },
+      },
     },
     trigger: {
+      name: 'trigger',
+      description: 'Interactive mode for trigger anchor: hover, click, or manual',
       control: 'select',
       options: ['hover', 'click', 'manual'],
-      description: 'Trigger mechanism to display tooltip',
+      table: {
+        type: { summary: "'hover' | 'click' | 'manual'" },
+        defaultValue: { summary: "'hover'" },
+      },
     },
   },
 };
 
 const StaticWrapper = ({ children }) => (
-  <div style={{ padding: '36px', background: 'var(--color-surface)', display: 'inline-flex' }}>
+  <div style={{ padding: '40px', background: 'var(--color-surface, #ffffff)', display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
     {children}
   </div>
 );
 
-// ============================================================================
-// 1. Plain Tooltips (Single Line & Multi Line)
-// ============================================================================
+/* ==========================================================================
+   PRIMARY INTERACTIVE PLAYGROUND STORY (AUTODOCS TOP)
+   ========================================================================== */
 
-export const SingleLineElevated = {
-  name: '01. Single-Line - Elevated',
+export const DefaultPlayground = {
+  args: {
+    type: 'base-small',
+    position: 'top',
+    alignment: 'center',
+    theme: 'elevated',
+    text: 'Tooltip text',
+    static: true,
+  },
+  render: (args) => (
+    <StaticWrapper>
+      <Tooltip {...args} />
+    </StaticWrapper>
+  ),
+};
+
+/* ==========================================================================
+   SECTION 1: BASE SMALL CANONICAL VARIANTS (6 VARIANTS)
+   ========================================================================== */
+
+export const BaseSmallTopLeft = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="base-small" position="top" alignment="left" text="Tooltip text" />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseSmallTopCenter = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="base-small" position="top" alignment="center" text="Tooltip text" />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseSmallTopRight = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="base-small" position="top" alignment="right" text="Tooltip text" />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseSmallBottomLeft = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="base-small" position="bottom" alignment="left" text="Tooltip text" />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseSmallBottomCenter = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="base-small" position="bottom" alignment="center" text="Tooltip text" />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseSmallBottomRight = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="base-small" position="bottom" alignment="right" text="Tooltip text" />
+    </StaticWrapper>
+  ),
+};
+
+/* ==========================================================================
+   SECTION 2: BASE LARGE CANONICAL VARIANTS (12 VARIANTS)
+   ========================================================================== */
+
+export const BaseLargeTopLeft = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="single-line"
-        placement="top"
-        content="Supporting text"
+        type="base-large"
+        position="top"
+        alignment="left"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const SingleLineFilled = {
-  name: '02. Single-Line - Filled',
+export const BaseLargeTopCenter = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="filled"
-        variant="single-line"
-        placement="top"
-        content="Supporting text"
+        type="base-large"
+        position="top"
+        alignment="center"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const MultiLineElevated = {
-  name: '03. Multi-Line - Elevated',
+export const BaseLargeTopRight = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="multi-line"
-        placement="top"
-        content="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt."
+        type="base-large"
+        position="top"
+        alignment="right"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const MultiLineFilled = {
-  name: '04. Multi-Line - Filled',
+export const BaseLargeBottomLeft = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="filled"
-        variant="multi-line"
-        placement="top"
-        content="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt."
+        type="base-large"
+        position="bottom"
+        alignment="left"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-// ============================================================================
-// 2. Rich Tooltips (Action & Source)
-// ============================================================================
-
-export const RichActionElevated = {
-  name: '05. Rich Action - Elevated',
+export const BaseLargeBottomCenter = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="rich-action"
-        placement="top"
+        type="base-large"
+        position="bottom"
+        alignment="center"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeBottomRight = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="bottom"
+        alignment="right"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeSideLeftTop = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="side-l"
+        alignment="top"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeSideLeftMiddle = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="side-l"
+        alignment="middle"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeSideLeftBottom = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="side-l"
+        alignment="bottom"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeSideRightTop = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="side-r"
+        alignment="top"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeSideRightMiddle = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="side-r"
+        alignment="middle"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const BaseLargeSideRightBottom = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="base-large"
+        position="side-r"
+        alignment="bottom"
+        description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+/* ==========================================================================
+   SECTION 3: RICH CANONICAL VARIANTS (12 VARIANTS)
+   ========================================================================== */
+
+export const RichTopLeft = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="rich"
+        position="top"
+        alignment="left"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const RichActionFilled = {
-  name: '06. Rich Action - Filled',
+export const RichTopCenter = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="filled"
-        variant="rich-action"
-        placement="top"
+        type="rich"
+        position="top"
+        alignment="center"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const RichSourceElevated = {
-  name: '07. Rich Source - Elevated',
+export const RichTopRight = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="rich-source"
-        placement="top"
+        type="rich"
+        position="top"
+        alignment="right"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const RichSourceFilled = {
-  name: '08. Rich Source - Filled',
+export const RichBottomLeft = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="filled"
-        variant="rich-source"
-        placement="top"
+        type="rich"
+        position="bottom"
+        alignment="left"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-// ============================================================================
-// 3. Rich Alert Card Tooltips (Small & Large)
-// ============================================================================
-
-export const RichAlertSmallElevated = {
-  name: '09. Rich Alert Small - Elevated',
+export const RichBottomCenter = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="rich-alert-small"
-        placement="top"
+        type="rich"
+        position="bottom"
+        alignment="center"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        sectionLabel="Secondary text"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const RichAlertLargeElevated = {
-  name: '10. Rich Alert Large - Elevated',
+export const RichBottomRight = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="rich-alert-large"
-        placement="top"
+        type="rich"
+        position="bottom"
+        alignment="right"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        sectionLabel="Secondary text"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const RichAlertLargeFilled = {
-  name: '11. Rich Alert Large - Filled',
+export const RichSideLeftTop = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="filled"
-        variant="rich-alert-large"
-        placement="top"
+        type="rich"
+        position="side-l"
+        alignment="top"
         title="Title"
-        content="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-        sectionLabel="Secondary text"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-// ============================================================================
-// 4. Menu Tooltips (List & Icon)
-// ============================================================================
-
-export const MenuListElevated = {
-  name: '12. Menu List - Elevated',
+export const RichSideLeftMiddle = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="menu-list"
-        placement="top"
+        type="rich"
+        position="side-l"
+        alignment="middle"
+        title="Title"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-export const MenuIconElevated = {
-  name: '13. Menu Icon - Elevated',
+export const RichSideLeftBottom = {
   render: () => (
     <StaticWrapper>
       <Tooltip
         static
-        theme="elevated"
-        variant="menu-icon"
-        placement="top"
+        type="rich"
+        position="side-l"
+        alignment="bottom"
+        title="Title"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
       />
     </StaticWrapper>
   ),
 };
 
-// ============================================================================
-// 5. Placements & Caret Alignments Matrix
-// ============================================================================
+export const RichSideRightTop = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="rich"
+        position="side-r"
+        alignment="top"
+        title="Title"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
 
-export const PlacementsMatrix = {
-  name: '14. Placements & Caret Alignments Matrix',
+export const RichSideRightMiddle = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="rich"
+        position="side-r"
+        alignment="middle"
+        title="Title"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+export const RichSideRightBottom = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip
+        static
+        type="rich"
+        position="side-r"
+        alignment="bottom"
+        title="Title"
+        description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+    </StaticWrapper>
+  ),
+};
+
+/* ==========================================================================
+   SECTION 4: MENU CANONICAL VARIANTS (6 VARIANTS)
+   ========================================================================== */
+
+export const MenuTopLeft = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="menu" position="top" alignment="left" />
+    </StaticWrapper>
+  ),
+};
+
+export const MenuTopCenter = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="menu" position="top" alignment="center" />
+    </StaticWrapper>
+  ),
+};
+
+export const MenuTopRight = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="menu" position="top" alignment="right" />
+    </StaticWrapper>
+  ),
+};
+
+export const MenuBottomLeft = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="menu" position="bottom" alignment="left" />
+    </StaticWrapper>
+  ),
+};
+
+export const MenuBottomCenter = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="menu" position="bottom" alignment="center" />
+    </StaticWrapper>
+  ),
+};
+
+export const MenuBottomRight = {
+  render: () => (
+    <StaticWrapper>
+      <Tooltip static type="menu" position="bottom" alignment="right" />
+    </StaticWrapper>
+  ),
+};
+
+/* ==========================================================================
+   SECTION 5: THEME COMPARISONS (Elevated vs Filled)
+   ========================================================================== */
+
+export const ThemeComparison = {
+  render: () => (
+    <div style={{ display: 'flex', gap: '32px', padding: '32px', background: '#fafafb', alignItems: 'flex-start' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+        <span style={{ fontSize: '13px', fontWeight: '600', color: '#68687a' }}>Elevated Surface</span>
+        <Tooltip static theme="elevated" type="rich" position="top" alignment="center" title="Elevated Theme" description="Crisp white surface container with soft drop shadow." />
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
+        <span style={{ fontSize: '13px', fontWeight: '600', color: '#68687a' }}>Filled Surface</span>
+        <Tooltip static theme="filled" type="rich" position="top" alignment="center" title="Filled Theme" description="Tinted lavender surface container with soft drop shadow." />
+      </div>
+    </div>
+  ),
+};
+
+/* ==========================================================================
+   SECTION 6: INTERACTIVE TRIGGER STORIES
+   ========================================================================== */
+
+export const InteractiveHoverTrigger = {
+  render: () => (
+    <div style={{ padding: '80px 40px', display: 'flex', justifyContent: 'center' }}>
+      <Tooltip
+        type="base-small"
+        placement="top"
+        text="Interactive button tooltip"
+        trigger="hover"
+      >
+        <Button variant="primary">Hover Over Me</Button>
+      </Tooltip>
+    </div>
+  ),
+};
+
+export const InteractiveClickMenuTrigger = {
   render: () => {
+    const [selectedId, setSelectedId] = useState('1');
+    const menuItems = [
+      { id: '1', label: 'Option 1', checked: selectedId === '1' },
+      { id: 'div-1', divider: true },
+      { id: '2', label: 'Option 2', checked: selectedId === '2' },
+      { id: '3', label: 'Option 3', checked: selectedId === '3' },
+      { id: '4', label: 'Option 4', checked: selectedId === '4' },
+      { id: 'div-2', divider: true },
+      { id: '5', label: 'Option 5', checked: selectedId === '5' },
+    ];
+
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', padding: '32px', background: 'var(--color-surface)' }}>
-        <div>
-          <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px' }}>Top Placements (Left, Center, Right)</h3>
-          <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-            <Tooltip static theme="elevated" variant="single-line" placement="top" align="left" content="Top Left Caret" />
-            <Tooltip static theme="elevated" variant="single-line" placement="top" align="center" content="Top Center Caret" />
-            <Tooltip static theme="elevated" variant="single-line" placement="top" align="right" content="Top Right Caret" />
-          </div>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px' }}>Bottom Placements (Left, Center, Right)</h3>
-          <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
-            <Tooltip static theme="elevated" variant="single-line" placement="bottom" align="left" content="Bottom Left Caret" />
-            <Tooltip static theme="elevated" variant="single-line" placement="bottom" align="center" content="Bottom Center Caret" />
-            <Tooltip static theme="elevated" variant="single-line" placement="bottom" align="right" content="Bottom Right Caret" />
-          </div>
-        </div>
-
-        <div>
-          <h3 style={{ fontSize: '16px', fontWeight: '600', marginBottom: '16px' }}>Side Placements (Left & Right with Middle Caret)</h3>
-          <div style={{ display: 'flex', gap: '32px', flexWrap: 'wrap' }}>
-            <Tooltip static theme="elevated" variant="multi-line" placement="left" align="middle" content="Side Left Tooltip with Caret pointing right." />
-            <Tooltip static theme="elevated" variant="multi-line" placement="right" align="middle" content="Side Right Tooltip with Caret pointing left." />
-          </div>
-        </div>
+      <div style={{ padding: '40px', display: 'flex', justifyContent: 'center' }}>
+        <Tooltip
+          type="menu"
+          placement="bottom"
+          trigger="click"
+          items={menuItems}
+          onItemClick={(it) => setSelectedId(it.id)}
+        >
+          <Button variant="outline">Click To Open Menu</Button>
+        </Tooltip>
       </div>
     );
   },
 };
 
-// ============================================================================
-// 6. Interactive Live Trigger Demonstration
-// ============================================================================
+export const InteractiveRichTrigger = {
+  render: () => (
+    <div style={{ padding: '80px 40px', display: 'flex', justifyContent: 'center' }}>
+      <Tooltip
+        type="rich"
+        placement="bottom"
+        trigger="click"
+        title="Project Configuration"
+        description="Review all settings before applying adjustments to your environment."
+        actions={[
+          { label: 'Confirm', variant: 'primary', onClick: () => alert('Confirmed!') },
+          { label: 'Dismiss', variant: 'outline', onClick: () => alert('Dismissed') },
+        ]}
+      >
+        <IconButton aria-label="Project Information" icon="ℹ️" />
+      </Tooltip>
+    </div>
+  ),
+};
 
-export const InteractiveDemo = {
-  name: '15. Interactive Trigger Demo (Hover & Click)',
-  render: () => {
-    return (
-      <div style={{ display: 'flex', gap: '32px', alignItems: 'center', padding: '64px 32px', background: 'var(--color-surface)', flexWrap: 'wrap' }}>
-        {/* Hover Single Line */}
-        <Tooltip content="Hover tooltip hint" placement="top">
-          <Button variant="outline">Hover over me</Button>
-        </Tooltip>
+/* ==========================================================================
+   SECTION 7: COMPLETE CANONICAL VARIANTS GALLERY
+   ========================================================================== */
 
-        {/* Hover Multi-Line Filled */}
-        <Tooltip
-          theme="filled"
-          variant="multi-line"
-          placement="bottom"
-          content="This filled multi-line tooltip automatically appears on hover and focus."
-        >
-          <Button variant="primary">Hover for Filled</Button>
-        </Tooltip>
+export const AllCanonicalVariantsGallery = {
+  render: () => (
+    <div style={{ padding: '32px', display: 'flex', flexDirection: 'column', gap: '48px', background: '#f8f8fa' }}>
+      {/* 1. Base Small Gallery */}
+      <section>
+        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#2f2f39', marginBottom: '16px' }}>Base Small Variants</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start' }}>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Left</span>
+            <Tooltip static type="base-small" position="top" alignment="left" text="Tooltip text" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Center</span>
+            <Tooltip static type="base-small" position="top" alignment="center" text="Tooltip text" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Right</span>
+            <Tooltip static type="base-small" position="top" alignment="right" text="Tooltip text" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Left</span>
+            <Tooltip static type="base-small" position="bottom" alignment="left" text="Tooltip text" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Center</span>
+            <Tooltip static type="base-small" position="bottom" alignment="center" text="Tooltip text" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Right</span>
+            <Tooltip static type="base-small" position="bottom" alignment="right" text="Tooltip text" />
+          </div>
+        </div>
+      </section>
 
-        {/* Click Rich Action */}
-        <Tooltip
-          trigger="click"
-          variant="rich-action"
-          placement="top"
-          title="Project Methodology"
-          content="Select an action to proceed with the audit workflow."
-        >
-          <Button variant="secondary">Click for Rich Action</Button>
-        </Tooltip>
+      {/* 2. Base Large Gallery */}
+      <section>
+        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#2f2f39', marginBottom: '16px' }}>Base Large Variants</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start' }}>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Center</span>
+            <Tooltip static type="base-large" position="top" alignment="center" description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Center</span>
+            <Tooltip static type="base-large" position="bottom" alignment="center" description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Side Left Middle</span>
+            <Tooltip static type="base-large" position="side-l" alignment="middle" description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Side Right Middle</span>
+            <Tooltip static type="base-large" position="side-r" alignment="middle" description="Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+        </div>
+      </section>
 
-        {/* Click Menu List */}
-        <Tooltip
-          trigger="click"
-          variant="menu-list"
-          placement="bottom"
-        >
-          <Button variant="outline">Click for Menu</Button>
-        </Tooltip>
-      </div>
-    );
-  },
+      {/* 3. Rich Gallery */}
+      <section>
+        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#2f2f39', marginBottom: '16px' }}>Rich Variants</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start' }}>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Center</span>
+            <Tooltip static type="rich" position="top" alignment="center" title="Title" description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Center</span>
+            <Tooltip static type="rich" position="bottom" alignment="center" title="Title" description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Side Left Middle</span>
+            <Tooltip static type="rich" position="side-l" alignment="middle" title="Title" description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Side Right Middle</span>
+            <Tooltip static type="rich" position="side-r" alignment="middle" title="Title" description="Supporting text. Lorem ipsum dolor sit amet, consectetur elit." />
+          </div>
+        </div>
+      </section>
+
+      {/* 4. Menu Gallery */}
+      <section>
+        <h3 style={{ fontSize: '18px', fontWeight: '700', color: '#2f2f39', marginBottom: '16px' }}>Menu Variants</h3>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '24px', alignItems: 'flex-start' }}>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Center</span>
+            <Tooltip static type="menu" position="top" alignment="center" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Center</span>
+            <Tooltip static type="menu" position="bottom" alignment="center" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Top Left</span>
+            <Tooltip static type="menu" position="top" alignment="left" />
+          </div>
+          <div>
+            <span style={{ fontSize: '12px', color: '#68687a', display: 'block', marginBottom: '8px' }}>Bottom Right</span>
+            <Tooltip static type="menu" position="bottom" alignment="right" />
+          </div>
+        </div>
+      </section>
+    </div>
+  ),
 };

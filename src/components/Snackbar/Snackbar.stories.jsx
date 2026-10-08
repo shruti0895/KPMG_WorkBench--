@@ -11,16 +11,15 @@ export default {
         component: `
 ### KPMG WorkBench Design System - Snackbar Component
 
-The **Snackbar** component provides brief, temporary notifications or contextual status updates anchored to the interface without disrupting current user workflows. Designed in compliance with KPMG WorkBench 2026 specifications, it features a 100% token-driven architecture supporting both high-contrast light and dark themes.
+The **Snackbar** component provides brief, temporary notifications or contextual status updates anchored to the interface without disrupting current user workflows. Designed in compliance with KPMG WorkBench specifications.
 
 #### Key Architectural Highlights & 10 Canonical Variants:
-- **100% Token-Driven Architecture**: Fully tied to KPMG WorkBench design tokens (\`--color-snackbar-*\`, \`--radius-snackbar\`, \`--spacing-snackbar-*\`, \`--width-snackbar\`) with zero hardcoded hex colors or arbitrary pixel values.
 - **5 Form Factor Sizes**:
-  - \`Single-line\` (64px min-height): Compact text message paired with an action button and close dismiss control.
-  - \`Two-line\` (76px min-height): Accommodates two lines of descriptive message before actions.
-  - \`Extended\` (154px min-height): Multi-line body text container with right-justified action buttons at bottom.
-  - \`Extended with header\` (194px min-height): Adds an overarching header title above the descriptive text body.
-  - \`Extended with media\` (464px min-height): Features a header, description, and up to 3 interactive media card items with thumbnails and overflow menus.
+  - \`Single-line\`: Compact text message paired with an action button and close dismiss control.
+  - \`Two-line\`: Accommodates two lines of descriptive message before actions.
+  - \`Extended\`: Multi-line body text container with right-justified action buttons at bottom.
+  - \`Extended with header\`: Adds an overarching header title above the descriptive text body.
+  - \`Extended with media\`: Features a header, description, and up to 3 interactive media card items with thumbnails and overflow menus.
 - **2 Container Outline Treatments**:
   - \`Elevated\` (\`outlined={false}\`): Clean surface with delicate resting drop shadow (\`--shadow-300\`).
   - \`Outlined\` (\`outlined={true}\`): Structural container with border stroke (\`--color-neutral-outline\`).

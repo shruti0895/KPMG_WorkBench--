@@ -231,10 +231,9 @@ export function FigmaWorkbenchExample({ className = '', onSearchSubmit }) {
   return (
     <div className={`kpmg-figma-example-container ${className}`}>
       {/* Top Demo Helper Toolbar for Quick Interactivity & State Toggles */}
-      <div className="kpmg-figma-example-toolbar" role="region" aria-label="Demo controls">
+      {/* <div className="kpmg-figma-example-toolbar" role="region" aria-label="Demo controls">
         <div className="kpmg-figma-example-toolbar__info">
-          <span className="kpmg-figma-example-toolbar__badge">Figma Reference (1537:6788)</span>
-          <span>Full Workbench Layout with Live Overlay Menus</span>
+
         </div>
         <div className="kpmg-figma-example-toolbar__actions">
           <button
@@ -261,7 +260,7 @@ export function FigmaWorkbenchExample({ className = '', onSearchSubmit }) {
             Reset to Figma Defaults
           </button>
         </div>
-      </div>
+      </div> */}
 
       {activeNotification && (
         <div style={{

@@ -9,7 +9,7 @@ export default {
     docs: {
       description: {
         component:
-          'ProgressIndicator component formatted to match Figma Node 964:63787. Features Linear and Circular forms, Determinate and Indeterminate types, 33 exact Figma variants, token-driven styles, and custom SVG helpers.',
+          'ProgressIndicator component features Linear and Circular forms, Determinate and Indeterminate types, 33 exact Figma variants, token-driven styles, and custom SVG helpers.',
       },
     },
   },
@@ -194,9 +194,7 @@ export const All33FigmaVariantsMatrix = {
           <h3 style={{ fontFamily: 'Open Sans', marginBottom: '8px' }}>
             Progress Indicators Figma Specs: Complete 33 Variants Matrix
           </h3>
-          <p style={{ fontFamily: 'Open Sans', color: '#5D5D6A', fontSize: '14px' }}>
-            Figma Node 964:63787 (10 Linear Variants + 23 Circular Variants)
-          </p>
+
         </header>
 
         {/* 1. Linear Progress Bar (10 Variants) */}

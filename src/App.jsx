@@ -271,7 +271,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven menu system. Implements all 4 canonical paradigms from the KPMG WorkBench design system: Dropdown menus (with Checklist &amp; Icon list items across 3 densities, 24 base variants, and 6 canonical item group assemblies), Navigation menus (with KPMG brand pill trigger, 52px pill items, notification badges, and section dividers), Overflow menus (compact 3-dots action menus), and Assistant menus (KPMG Trusted AI conversational search, verified badge, and rich prompt cards).
+            Implements all 4 canonical paradigms from the KPMG WorkBench design system: Dropdown menus (with Checklist &amp; Icon list items across 3 densities, 24 base variants, and 6 canonical item group assemblies), Navigation menus (with KPMG brand pill trigger, 52px pill items, notification badges, and section dividers), Overflow menus (compact 3-dots action menus), and Assistant menus (KPMG Trusted AI conversational search, verified badge, and rich prompt cards).
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -393,15 +393,15 @@ function App() {
                           triggerLabel={dropdownBaseStyle.startsWith('card') ? 'Header' : (dropdownBaseStyle === 'branded' ? 'KPMG' : 'Options')}
                           baseStyle={
                             dropdownBaseStyle === 'gradient' ? 'gradient' :
-                            dropdownBaseStyle === 'branded' ? 'branded' :
-                            dropdownBaseStyle.startsWith('card') ? 'card' : 'default'
+                              dropdownBaseStyle === 'branded' ? 'branded' :
+                                dropdownBaseStyle.startsWith('card') ? 'card' : 'default'
                           }
                           baseBackground={
                             dropdownBaseStyle === 'default-pill' || dropdownBaseStyle === 'branded' || dropdownBaseStyle === 'card-filled'
                           }
                           baseSize={
                             dropdownBaseStyle === 'branded' ? 'branded' :
-                            dropdownBaseStyle.startsWith('card') ? 'none' : dropdownBaseSize
+                              dropdownBaseStyle.startsWith('card') ? 'none' : dropdownBaseSize
                           }
                           orientation={dropdownOrientation}
                           alignment={dropdownAlignment}
@@ -680,7 +680,7 @@ function App() {
                     <Menu inline type="assistant" width={380}>
                       <div className="kpmg-assistant-menu__search-bar">
                         <span className="kpmg-assistant-menu__search-icon">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></svg>
                         </span>
                         <input
                           type="text"
@@ -789,7 +789,7 @@ function App() {
                     <Menu inline type="assistant" width="100%">
                       <div className="kpmg-assistant-menu__search-bar">
                         <span className="kpmg-assistant-menu__search-icon">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></svg>
                         </span>
                         <input
                           type="text"
@@ -871,7 +871,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven feedback notifications. Standard 340px width, 8px border radius, 18px padding, primary action buttons, dismissible close icons, and up to 3 interactive media card items. Includes bottom-left viewport toast support.
+            Standard width, border radius, padding, primary action buttons, dismissible close icons, and up to 3 interactive media card items. Includes bottom-left viewport toast support.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1062,7 +1062,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven contextual feedback system. Features 2 color themes (Elevated white &amp; Filled lavender), 3 caret dimensions (Small 12&times;6, Medium 18&times;9, Large 24&times;12), 12 orientation alignments, interactive hover/click triggers, and full WAI-ARIA compliance.
+            Features 2 color themes (Elevated white &amp; Filled lavender), 3 caret dimensions (Small 12&times;6, Medium 18&times;9, Large 24&times;12), 12 orientation alignments, interactive hover/click triggers, and full WAI-ARIA compliance.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1245,7 +1245,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven multi-line input field. Supports Outlined and Filled visual styles, live character count (0/100), trailing speech-to-text action button, and full WAI-ARIA form validation.
+            Supports Outlined and Filled visual styles, live character count (0/100), trailing speech-to-text action button, and full WAI-ARIA form validation.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1280,7 +1280,7 @@ function App() {
               <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '12px', color: 'var(--color-on-surface)' }}>
                 Canonical 20-Variant Overview Matrix
               </h3>
-              
+
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
                 {/* 1. Outlined Without Header */}
                 <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
@@ -1507,7 +1507,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven architecture: Compact 41px height for widgets/tiles and 65px Top App Bar with trailing action controls. Features full WAI-ARIA tablist accessibility, keyboard navigation, and complete Light &amp; Dark theme token support.
+            Compact height for widgets/tiles and 65px Top App Bar with trailing action controls. Features full WAI-ARIA tablist accessibility, keyboard navigation, and complete Light &amp; Dark theme token support.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1713,7 +1713,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven: Vertical collection layout with Outlined, Elevated, and Filled container treatments. Supports Avatar, Image Thumbnail, Checkbox, and Radio button rows in Small (1-line), Medium (2-line), and Large (3-line) densities.
+            Vertical collection layout with Outlined, Elevated, and Filled container treatments. Supports Avatar, Image Thumbnail, Checkbox, and Radio button rows in Small (1-line), Medium (2-line), and Large (3-line) densities.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1911,7 +1911,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven: High-level window status banner featuring robot AI leading icon, label typography, status percentages, and linear progress indicators.
+            High-level window status banner featuring robot AI leading icon, label typography, status percentages, and linear progress indicators.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -2048,7 +2048,7 @@ function App() {
             Badge Component (12 Variants: 3 Sizes &times; 2 Styles &times; 2 Intensities)
           </h2>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven: Small (6px dot), Medium (16px count pill), Large (24px count pill) across Primary and Neutral palettes in Quiet and Loud states.
+            Small, Medium, Large  across Primary and Neutral palettes in Quiet and Loud states.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -2502,7 +2502,7 @@ function App() {
             {/* Card 1: Horizontal Dividers */}
             <div style={{ padding: 'var(--spacing-5)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-3)' }}>
               <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>Horizontal Insets & Subheaders</span>
-              
+
               <div>
                 <span style={{ fontSize: '11px', color: 'var(--color-neutral-100)' }}>Full Width</span>
                 <Dividers width="Full" />
@@ -2527,7 +2527,7 @@ function App() {
             {/* Card 2: Vertical Dividers & Toolbar Integration */}
             <div style={{ padding: 'var(--spacing-5)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
               <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>Vertical Dividers (Toolbar Layout)</span>
-              
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: 'var(--spacing-3)', backgroundColor: 'var(--color-surface-light)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)' }}>
                 <Button size="small" variant="standard">Dashboard</Button>
                 <Dividers state="Vertical" width="Full" style={{ height: '32px', minHeight: '32px' }} />
@@ -2550,7 +2550,7 @@ function App() {
           <div>
             <h2 style={{ fontSize: 'var(--font-size-headline-sm)', marginBottom: 'var(--spacing-2)' }}>AppBars Component Suite</h2>
             <p style={{ color: 'var(--color-neutral-100)', fontSize: 'var(--font-size-body-sm)', margin: 0 }}>
-              100% token-driven application header system matching Figma 2026 specifications. Covers Full AppBars (Default &amp; With Action), Nested AppBars (Small &amp; Large in Default/Filled states with Status Badges), Special Search AppBars (Extra-Small, Small, &amp; Large), and Chat/Voice Header Panels.
+              Covers Full AppBars (Default &amp; With Action), Nested AppBars (Small &amp; Large in Default/Filled states with Status Badges), Special Search AppBars (Extra-Small, Small, &amp; Large), and Chat/Voice Header Panels.
             </p>
           </div>
 
@@ -2776,16 +2776,16 @@ function App() {
               </span>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
                 <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
-                  
+
                 </div>
                 <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
-                  
+
                 </div>
                 <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
-                  
+
                 </div>
                 <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
-                  
+
                 </div>
               </div>
             </div>
@@ -2810,7 +2810,7 @@ function App() {
           </h2>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
             Pixel-faithful composition of AppBarFull, NavigationMenu (inline sidebar), AppBarSearchPill (floating AI search),
-            OverflowMenu (action dropdown), and content cards — assembled exactly as specified in the KPMG Design System 2026 Figma screen.
+            OverflowMenu (action dropdown), and content cards — assembled exactly as specified in the KPMG Design System.
           </p>
 
           <FigmaWorkbenchExample />
@@ -2834,7 +2834,7 @@ function App() {
                 Bottom App Bars — All Variants (Figma Node 964:15496)
               </h2>
               <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', margin: 0 }}>
-                100% token-driven KPMG WorkBench 2026 Bottom App Bars featuring interactive filepicker, mic on/off (mute toggle), project selector, prompt suggestions, and expandable docked chat/voice UI.
+                Bottom App Bars featuring interactive filepicker, mic on/off (mute toggle), project selector, prompt suggestions, and expandable docked chat/voice UI.
               </p>
             </div>
 
@@ -3593,22 +3593,22 @@ function App() {
                   statusCard={
                     messageSender === 'bot'
                       ? {
-                          title: 'Status',
-                          header: 'Header',
-                          subhead: 'Subhead',
-                          progress: 30,
-                          steps: [
-                            { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'completed' },
-                            { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'completed' },
-                            { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'pending' },
-                            { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'in-progress' },
-                          ],
-                          code: 'Some code',
-                          sources: [
-                            { header: 'Header', subhead: 'Supporting line text lorem ipsum dolor sit' },
-                            { header: 'Header', subhead: 'Supporting line text lorem ipsum dolor sit' },
-                          ],
-                        }
+                        title: 'Status',
+                        header: 'Header',
+                        subhead: 'Subhead',
+                        progress: 30,
+                        steps: [
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'completed' },
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'completed' },
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'pending' },
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'in-progress' },
+                        ],
+                        code: 'Some code',
+                        sources: [
+                          { header: 'Header', subhead: 'Supporting line text lorem ipsum dolor sit' },
+                          { header: 'Header', subhead: 'Supporting line text lorem ipsum dolor sit' },
+                        ],
+                      }
                       : null
                   }
                   showActions={messageSender === 'bot'}

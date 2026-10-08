@@ -1,4 +1,4 @@
-import React, { useState, useEffect, forwardRef } from 'react';
+import { useState, useEffect, useRef, forwardRef } from 'react';
 import PropTypes from 'prop-types';
 import { ProgressIndicator } from '../ProgressIndicator/ProgressIndicator';
 import './Message.css';
@@ -426,26 +426,42 @@ MessageAttachmentCard.propTypes = {
 /** Interactive Media Card with Popover Menu */
 export const MessageMediaCard = ({
   state = 'enabled',
-  open = false,
+  open,
   orientation = 'left',
   onClick,
   options = ['Option', 'Option', 'Option', 'Option', 'Option', 'Option'],
 }) => {
-  const [isOpen, setIsOpen] = useState(open);
+  const isControlled = open !== undefined;
+  const [internalOpen, setInternalOpen] = useState(false);
+  const cardRef = useRef(null);
 
   useEffect(() => {
-    setIsOpen(open);
-  }, [open]);
+    if (isControlled || !internalOpen) return;
+    const handleOutsideClick = (e) => {
+      if (cardRef.current && !cardRef.current.contains(e.target)) {
+        setInternalOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [isControlled, internalOpen]);
+
+  const isOpen = isControlled ? open : internalOpen;
 
   const handleClick = (e) => {
     if (state === 'disabled') return;
     const nextOpen = !isOpen;
-    setIsOpen(nextOpen);
+    if (!isControlled) {
+      setInternalOpen(nextOpen);
+    }
     onClick && onClick(nextOpen, e);
   };
 
   return (
     <div
+      ref={cardRef}
       className={`kpmg-message__media-card ${state === 'disabled' ? 'kpmg-message__media-card--disabled' : ''} ${state === 'pressed' ? 'kpmg-message__media-card--pressed' : ''}`}
       onClick={handleClick}
       role="button"
@@ -487,23 +503,63 @@ MessageMediaCard.propTypes = {
   options: PropTypes.arrayOf(PropTypes.string),
 };
 
-/** Media Gallery Container */
+/** Media Gallery Container - coordinates single-open dropdown at a time */
 export const MessageMediaGallery = ({
   cards = [
     { state: 'enabled' },
     { state: 'enabled' },
     { state: 'enabled' },
   ],
-}) => (
-  <div className="kpmg-message__media-gallery">
-    {cards.map((c, idx) => (
-      <MessageMediaCard key={idx} {...c} />
-    ))}
-  </div>
-);
+  onCardClick,
+}) => {
+  const [openIndex, setOpenIndex] = useState(() => {
+    const initialIndex = cards.findIndex((c) => c && c.open);
+    return initialIndex !== -1 ? initialIndex : null;
+  });
+  const galleryRef = useRef(null);
+
+  // Outside click listener to dismiss any open popover in this gallery
+  useEffect(() => {
+    if (openIndex === null) return;
+    const handleOutsideClick = (e) => {
+      if (galleryRef.current && !galleryRef.current.contains(e.target)) {
+        setOpenIndex(null);
+      }
+    };
+    document.addEventListener('mousedown', handleOutsideClick);
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, [openIndex]);
+
+  const handleCardToggle = (idx, nextOpen, e, originalOnClick) => {
+    setOpenIndex((prev) => (prev === idx ? null : idx));
+    originalOnClick && originalOnClick(nextOpen, e);
+    onCardClick && onCardClick(idx, nextOpen, e);
+  };
+
+  return (
+    <div ref={galleryRef} className="kpmg-message__media-gallery">
+      {cards.map((c, idx) => {
+        const isCardOpen = openIndex === idx;
+        const defaultOrientation = idx > 0 && idx === cards.length - 1 ? 'right' : 'left';
+        return (
+          <MessageMediaCard
+            key={idx}
+            {...c}
+            orientation={c.orientation || defaultOrientation}
+            open={isCardOpen}
+            onClick={(nextOpen, e) => handleCardToggle(idx, nextOpen, e, c.onClick)}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 MessageMediaGallery.propTypes = {
   cards: PropTypes.arrayOf(PropTypes.object),
+  onCardClick: PropTypes.func,
 };
 
 /** Workflow Status Card (Task cards rich) */
@@ -825,15 +881,19 @@ export const Message = forwardRef(({
   const isReply = type ? type === 'Message reply' : sender !== 'user';
   const isCard = layout === 'card';
   const normalizedState = (state || 'minimized').toLowerCase();
-  const [isExpanded, setIsExpanded] = useState(normalizedState === 'expanded');
+  const [userExpanded, setUserExpanded] = useState(null);
+  const [prevNormalizedState, setPrevNormalizedState] = useState(normalizedState);
 
-  useEffect(() => {
-    setIsExpanded(normalizedState === 'expanded');
-  }, [normalizedState]);
+  if (normalizedState !== prevNormalizedState) {
+    setPrevNormalizedState(normalizedState);
+    setUserExpanded(null);
+  }
+
+  const isExpanded = userExpanded !== null ? userExpanded : normalizedState === 'expanded';
 
   // Toggle handler
   const handleToggle = () => {
-    setIsExpanded(!isExpanded);
+    setUserExpanded(!isExpanded);
   };
 
   // Determine active headline

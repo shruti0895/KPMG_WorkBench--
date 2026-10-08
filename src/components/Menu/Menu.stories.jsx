@@ -30,12 +30,11 @@ export default {
 # KPMG WorkBench Menu Component System
 
 A scalable, principal-engineered menu system implementing all **4 canonical types of menus**:
-1. **Dropdown Menu**: Options lists triggered by action buttons or cards, supporting densities (Small 32px, Medium 40px, Large 48px), Checklist and Icon lists, and full state matrices (Enabled, Hovered, Pressed, Selected, Disabled, Error).
-2. **Navigation Menu**: Vertical panel navigation triggered by the KPMG brand pill or rendered inline, featuring 52px pill navigation items with notification counters and action buttons.
-3. **Overflow Menu**: Contextual action menus triggered by vertical ellipsis (\`⋮\`) in Small (24px) and Large (40px) sizes with non-destructive and destructive actions.
+1. **Dropdown Menu**: Options lists triggered by action buttons or cards, supporting densities (Small, Medium, Large), Checklist and Icon lists, and full state matrices (Enabled, Hovered, Pressed, Selected, Disabled, Error).
+2. **Navigation Menu**: Vertical panel navigation triggered by the KPMG brand pill or rendered inline, featuring pill navigation items with notification counters and action buttons.
+3. **Overflow Menu**: Contextual action menus triggered by vertical ellipsis (\`⋮\`) in Small and Large sizes with non-destructive and destructive actions.
 4. **Assistant Menu**: KPMG Trusted AI assistant menu featuring an AI prompt search bar, verification badge, rich assistant cards with purple-blue gradient thumbnails, and primary CTA actions.
 
-100% token-driven with zero hardcoded values, supporting Light and Dark modes with full WAI-ARIA accessibility.
         `,
       },
     },
@@ -186,7 +185,7 @@ export const DropdownBases = () => {
           Dropdown Bases — All 24 Canonical Variants
         </h3>
         <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: 'var(--color-neutral-100)' }}>
-          4 Styles (Default Ghost/Pill, Gradient, Branded Pill, Card Outlined/Filled) &times; 3 Sizes (Small 32px, Medium 36px, Large 40px, Branded 40px, Card 60px) &times; Open States (False / True).
+          4 Styles (Default Ghost/Pill, Gradient, Branded Pill, Card Outlined/Filled) &times; 3 Sizes (Small, Medium, Large, Branded, Card) &times; Open States (False / True).
         </p>
       </div>
 
@@ -195,15 +194,15 @@ export const DropdownBases = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h4 style={{ margin: 0, fontSize: '13px', color: 'var(--color-neutral-100)' }}>1. Default Ghost (Background=False)</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Small (32px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Small </div>
             <DropdownBase styleType="default" size="small" background={false} open={false} label="Options" />
             <DropdownBase styleType="default" size="small" background={false} open={true} label="Options" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Medium (36px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Medium </div>
             <DropdownBase styleType="default" size="medium" background={false} open={false} label="Options" />
             <DropdownBase styleType="default" size="medium" background={false} open={true} label="Options" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Large (40px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Large </div>
             <DropdownBase styleType="default" size="large" background={false} open={false} label="Options" />
             <DropdownBase styleType="default" size="large" background={false} open={true} label="Options" />
           </div>
@@ -213,15 +212,15 @@ export const DropdownBases = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h4 style={{ margin: 0, fontSize: '13px', color: 'var(--color-neutral-100)' }}>2. Default Pill (Background=True)</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Small (32px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Small </div>
             <DropdownBase styleType="default" size="small" background={true} open={false} label="Options" />
             <DropdownBase styleType="default" size="small" background={true} open={true} state="pressed" label="Options" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Medium (36px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Medium </div>
             <DropdownBase styleType="default" size="medium" background={true} open={false} label="Options" />
             <DropdownBase styleType="default" size="medium" background={true} open={true} state="pressed" label="Options" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Large (40px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Large </div>
             <DropdownBase styleType="default" size="large" background={true} open={false} label="Options" />
             <DropdownBase styleType="default" size="large" background={true} open={true} state="pressed" label="Options" />
           </div>
@@ -231,15 +230,15 @@ export const DropdownBases = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h4 style={{ margin: 0, fontSize: '13px', color: 'var(--color-neutral-100)' }}>3. Gradient Blue (Background=False)</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Small (32px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Small </div>
             <DropdownBase styleType="gradient" size="small" background={false} open={false} label="Options" />
             <DropdownBase styleType="gradient" size="small" background={false} open={true} label="Options" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Medium (36px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Medium </div>
             <DropdownBase styleType="gradient" size="medium" background={false} open={false} label="Options" />
             <DropdownBase styleType="gradient" size="medium" background={false} open={true} label="Options" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Large (40px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Large </div>
             <DropdownBase styleType="gradient" size="large" background={false} open={false} label="Options" />
             <DropdownBase styleType="gradient" size="large" background={false} open={true} label="Options" />
           </div>
@@ -249,15 +248,15 @@ export const DropdownBases = () => {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <h4 style={{ margin: 0, fontSize: '13px', color: 'var(--color-neutral-100)' }}>4. Branded Pill &amp; Card Bases</h4>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Branded Logo Pill (100x40px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)' }}>Branded Logo Pill </div>
             <DropdownBase styleType="branded" size="branded" open={false} label="KPMG" />
             <DropdownBase styleType="branded" size="branded" open={true} label="KPMG" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Card Outlined (450x60px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Card Outlined </div>
             <DropdownBase styleType="card" state="enabled" open={false} label="Header" />
             <DropdownBase styleType="card" state="enabled" open={true} label="Header" />
 
-            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Card Filled (450x60px)</div>
+            <div style={{ fontSize: '11px', color: 'var(--color-neutral-200)', marginTop: '8px' }}>Card Filled </div>
             <DropdownBase styleType="card" state="filled" open={false} label="Header" />
             <DropdownBase styleType="card" state="filled" open={true} label="Header" />
           </div>
@@ -333,7 +332,7 @@ export const DropdownMenuInteractive = () => {
           Dropdown Menu — Interactive Orientations &amp; Alignments
         </h3>
         <p style={{ margin: '4px 0 0 0', fontSize: '13px', color: 'var(--color-neutral-100)' }}>
-          Testing Popover Placements from Figma: Alignment (Left, Right, Center) &times; Orientation (Bottom, Top) &times; Card Base (450&times;60px).
+          Testing Popover Placements from Figma: Alignment (Left, Right, Center) &times; Orientation (Bottom, Top) &times; Card Base.
         </p>
       </div>
 
@@ -393,10 +392,10 @@ export const DropdownMenuInteractive = () => {
       {/* Card Base Trigger Section matching Figma specifications (450px wide) */}
       <div>
         <h4 style={{ margin: '16px 0 8px 0', fontSize: '15px', color: 'var(--color-neutral-000)' }}>
-          Card Base Trigger Variants (450&times;60px)
+          Card Base Trigger Variants
         </h4>
         <p style={{ margin: '0 0 24px 0', fontSize: '13px', color: 'var(--color-neutral-100)' }}>
-          Figma Canonical Card Base Trigger (450px &times; 60px) with 6 items (Star + Option + Checkmark) and 2 dividers.
+          Canonical Card Base Trigger with 6 items (Star + Option + Checkmark) and 2 dividers.
         </p>
 
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '48px', alignItems: 'flex-start' }}>
@@ -586,7 +585,7 @@ export const NavigationMenuStory = () => {
             Stationary Sidebar Navigation Panel (Inline)
           </h5>
           <p style={{ margin: '0 0 16px 0', fontSize: '12px', color: 'var(--color-neutral-100)' }}>
-            Static sidebar layout rendered inline with 52px navigation items and action buttons.
+            Static sidebar layout rendered inline with navigation items and action buttons.
           </p>
           <NavigationMenu
             inline

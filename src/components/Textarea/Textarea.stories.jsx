@@ -10,10 +10,9 @@ export default {
         component: `
 ### KPMG WorkBench Design System - Textarea Component
 
-The **Textarea** component is a robust, multi-line text input field crafted for forms, commentary fields, conversational prompts, and data entry workflows. It integrates seamlessly into the KPMG WorkBench token architecture, supporting both high-contrast light and dark themes.
+The **Textarea** component is a robust, multi-line text input field crafted for forms, commentary fields, conversational prompts, and data entry workflows. It integrates seamlessly into the KPMG WorkBench.
 
 #### Key Architectural Highlights & 20 Production Variants:
-- **100% Token-Driven Architecture**: Fully tied to KPMG WorkBench CSS design tokens (\`--color-textarea-*\`, \`--size-textarea-*\`, \`--spacing-textarea-*\`, \`--radius-textarea\`) with zero hardcoded hex colors or arbitrary pixel values.
 - **2 Container Visual Variants**:
   - \`outlined\`: Clean white card surface with structural border strokes (\`--color-textarea-outlined-*\`).
   - \`filled\`: Subtle tinted container surface without resting borders (\`--color-textarea-filled-*\`).

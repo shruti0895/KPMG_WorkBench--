@@ -20,7 +20,7 @@ export default {
 ### KPMG WorkBench Design System - Sheets Component Family
 
 The **Sheets** component family provides structured overlay and companion panels across WorkBench applications.
-Designed in accordance with KPMG WorkBench Design System 2026 specifications:
+Designed in accordance with KPMG WorkBench Design System specifications:
 
 - **Floating Sheets**:
   - **Informational**: Header task status card with circular progress tracking, Q&A message items with gradient dots, compliance status card, code score badge, and reference citation table.
