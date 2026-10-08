@@ -1,10 +1,13 @@
-import React, { useState, useRef, useEffect, useId, forwardRef } from 'react';
+import { useState, useRef, useEffect, useId, useCallback, forwardRef } from 'react';
 import PropTypes from 'prop-types';
+import { DropdownItemGroup } from '../Menu/Menu';
 import './Tooltip.css';
 
-/**
- * Icons used within Tooltip variants
- */
+/* ==========================================================================
+   ICONS
+   ========================================================================== */
+
+/** Check Icon (16x16) */
 export const TooltipCheckIcon = ({ size = 16, className = '', ...props }) => (
   <svg
     width={size}
@@ -23,6 +26,7 @@ export const TooltipCheckIcon = ({ size = 16, className = '', ...props }) => (
   </svg>
 );
 
+/** Circle Check Icon (16x16) */
 export const TooltipCircleCheckIcon = ({ size = 16, className = '', ...props }) => (
   <svg
     width={size}
@@ -42,6 +46,7 @@ export const TooltipCircleCheckIcon = ({ size = 16, className = '', ...props }) 
   </svg>
 );
 
+/** Star Icon (16x16) */
 export const TooltipStarIcon = ({ size = 16, className = '', filled = false, ...props }) => (
   <svg
     width={size}
@@ -60,6 +65,7 @@ export const TooltipStarIcon = ({ size = 16, className = '', filled = false, ...
   </svg>
 );
 
+/** More Vertical Icon (16x16) */
 export const TooltipMoreIcon = ({ size = 16, className = '', ...props }) => (
   <svg
     width={size}
@@ -80,37 +86,136 @@ export const TooltipMoreIcon = ({ size = 16, className = '', ...props }) => (
   </svg>
 );
 
-/**
- * KPMG WorkBench Tooltip Component
- *
- * Highly scalable, token-driven tooltip system supporting:
- * - 2 Themes: Elevated (White surface + Elevation shadow) and Filled (Lavender tinted + Shadow)
- * - Content Variants: Single-line, Multi-line, Rich Action, Rich Source, Rich Alert (Small/Large), Menu List, Menu Icon
- * - 3 Caret Dimensions: Small (12x6), Medium (18x9), Large (24x12)
- * - 12 Positional Alignments: Top (L/C/R), Bottom (L/C/R), Left (T/M/B), Right (T/M/B)
- * - Interactive Triggers: Hover, Click, and Manual/Controlled modes
- * - Full WAI-ARIA accessibility compliance
- */
+/** Dropdown Checkbox Icon (20x20) matching Figma 1539:60254 */
+export const TooltipCheckboxIcon = ({ checked = false, size = 20, className = '', ...props }) => (
+  <svg
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    className={`kpmg-tooltip-checkbox-icon ${className}`}
+    aria-hidden="true"
+    {...props}
+  >
+    {checked ? (
+      <>
+        <rect x="2" y="2" width="20" height="20" rx="4" fill="var(--color-primary-action, #1e49e2)" />
+        <path d="M7 12.5L10.5 16L17 9.5" stroke="#ffffff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+      </>
+    ) : (
+      <rect x="2.5" y="2.5" width="19" height="19" rx="3.5" stroke="var(--color-neutral-300, #b8b8c4)" strokeWidth="1.5" fill="none" />
+    )}
+  </svg>
+);
+
+/* ==========================================================================
+   CARET ARROW COMPONENT (Vector 292 from Figma 1536:6318 / 1536:6315 / 1536:6311)
+   ========================================================================== */
+
+export const TooltipCaret = ({
+  position = 'top',
+  size = 'md',
+  alignment = 'center',
+  color = 'var(--color-tooltip-elevated-bg, #ffffff)',
+  className = '',
+}) => {
+  const isSide = position === 'side-l' || position === 'side-r';
+
+  let w = 18;
+  let h = 9;
+  if (size === 'sm') {
+    w = 12;
+    h = 6;
+  } else if (size === 'lg') {
+    w = 24;
+    h = 12;
+  }
+
+  const svgWidth = isSide ? h : w;
+  const svgHeight = isSide ? w : h;
+
+  let pathD = '';
+  if (position === 'top') {
+    // Caret at top of tooltip, pointing UP
+    pathD = `M0 ${h} L${w / 2} 0 L${w} ${h} Z`;
+  } else if (position === 'bottom') {
+    // Caret at bottom of tooltip, pointing DOWN
+    pathD = `M0 0 L${w / 2} ${h} L${w} 0 Z`;
+  } else if (position === 'side-l') {
+    // Caret on left of tooltip, pointing LEFT
+    pathD = `M${h} 0 L0 ${w / 2} L${h} ${w} Z`;
+  } else if (position === 'side-r') {
+    // Caret on right of tooltip, pointing RIGHT
+    pathD = `M0 0 L${h} ${w / 2} L0 ${w} Z`;
+  }
+
+  return (
+    <div
+      className={`kpmg-tooltip__caret-slot kpmg-tooltip__caret-slot--${position} kpmg-tooltip__caret-slot--align-${alignment} ${className}`}
+      aria-hidden="true"
+    >
+      <svg
+        width={svgWidth}
+        height={svgHeight}
+        viewBox={`0 0 ${svgWidth} ${svgHeight}`}
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        className="kpmg-tooltip__caret-svg"
+      >
+        <path d={pathD} fill={color} />
+      </svg>
+    </div>
+  );
+};
+
+TooltipCaret.propTypes = {
+  position: PropTypes.oneOf(['top', 'bottom', 'side-l', 'side-r']),
+  size: PropTypes.oneOf(['sm', 'md', 'lg']),
+  alignment: PropTypes.oneOf(['left', 'center', 'right', 'top', 'middle', 'bottom']),
+  color: PropTypes.string,
+  className: PropTypes.string,
+};
+
+/* ==========================================================================
+   TOOLTIP COMPONENT - KPMG WorkBench Design System 2026 (Figma 1359:5192)
+   ========================================================================== */
+
 export const Tooltip = forwardRef(({
   children,
-  title,
-  content,
-  theme = 'elevated',
-  variant = 'single-line',
-  placement = 'top',
+  type,
+  variant,
+  position,
+  placement,
+  alignment,
   align,
+  theme = 'elevated',
   caret = true,
   caretSize,
+  title,
+  description,
+  content,
+  text,
+  secondaryText,
+  actions,
+  items,
+  onItemClick,
+  menuDensity = 'small',
+  menuType = 'checklist',
+  selectedValues,
+  defaultSelectedValues,
+  onSelect,
+  menuProps = {},
   trigger = 'hover',
   open: controlledOpen,
   defaultOpen = false,
   onOpenChange,
   delay = 150,
   closeDelay = 150,
-  actions,
-  items,
-  sectionLabel,
   static: isStatic = false,
+  width,
+  minWidth,
+  maxWidth,
   className = '',
   style = {},
   id: explicitId,
@@ -119,7 +224,7 @@ export const Tooltip = forwardRef(({
   const generatedId = useId();
   const tooltipId = explicitId || `kpmg-tooltip-${generatedId}`;
 
-  // Internal open state for uncontrolled usage
+  // Internal open state for uncontrolled trigger mode
   const [uncontrolledOpen, setUncontrolledOpen] = useState(defaultOpen);
   const isControlled = controlledOpen !== undefined;
   const isOpen = isControlled ? controlledOpen : uncontrolledOpen;
@@ -127,14 +232,17 @@ export const Tooltip = forwardRef(({
   const timerRef = useRef(null);
   const wrapperRef = useRef(null);
 
-  const setOpenState = (nextOpen) => {
-    if (!isControlled) {
-      setUncontrolledOpen(nextOpen);
-    }
-    if (onOpenChange) {
-      onOpenChange(nextOpen);
-    }
-  };
+  const setOpenState = useCallback(
+    (nextOpen) => {
+      if (!isControlled) {
+        setUncontrolledOpen(nextOpen);
+      }
+      if (onOpenChange) {
+        onOpenChange(nextOpen);
+      }
+    },
+    [isControlled, onOpenChange]
+  );
 
   const handleMouseEnter = () => {
     if (trigger !== 'hover' || isStatic) return;
@@ -184,288 +292,296 @@ export const Tooltip = forwardRef(({
     return () => {
       document.removeEventListener('mousedown', handleOutsideClick);
     };
-  }, [trigger, isOpen, isStatic]);
+  }, [trigger, isOpen, isStatic, setOpenState]);
 
-  // Cleanup timer
   useEffect(() => {
     return () => clearTimeout(timerRef.current);
   }, []);
 
-  // Determine caret size based on variant if not explicitly provided
+  // 1. Resolve canonical Type ('base-small' | 'base-large' | 'rich' | 'menu')
+  const rawType = (type || variant || 'base-small').toLowerCase();
+  let resolvedType = 'base-small';
+  if (rawType === 'base-large' || rawType === 'multi-line') {
+    resolvedType = 'base-large';
+  } else if (
+    rawType === 'rich' ||
+    rawType === 'rich-action' ||
+    rawType === 'rich-source' ||
+    rawType === 'rich-alert-small' ||
+    rawType === 'rich-alert-large'
+  ) {
+    resolvedType = 'rich';
+  } else if (rawType === 'menu' || rawType === 'menu-list' || rawType === 'menu-icon') {
+    resolvedType = 'menu';
+  }
+
+  // 2. Resolve canonical Position ('top' | 'bottom' | 'side-l' | 'side-r')
+  let resolvedPosition = 'top';
+  if (position) {
+    const normPos = position.toLowerCase();
+    if (normPos === 'bottom') resolvedPosition = 'bottom';
+    else if (normPos === 'side-l' || normPos === 'left') resolvedPosition = 'side-l';
+    else if (normPos === 'side-r' || normPos === 'right') resolvedPosition = 'side-r';
+    else resolvedPosition = 'top';
+  } else if (placement) {
+    // Invert placement to caret edge position for anchored trigger mode
+    const normPlacement = placement.toLowerCase();
+    if (normPlacement === 'top') resolvedPosition = 'bottom';
+    else if (normPlacement === 'bottom') resolvedPosition = 'top';
+    else if (normPlacement === 'left') resolvedPosition = 'side-r';
+    else if (normPlacement === 'right') resolvedPosition = 'side-l';
+  }
+
+  // 3. Resolve canonical Alignment ('left' | 'center' | 'right' | 'top' | 'middle' | 'bottom')
+  const rawAlign = (alignment || align || '').toLowerCase();
+  const isSide = resolvedPosition === 'side-l' || resolvedPosition === 'side-r';
+  let resolvedAlignment;
+
+  if (isSide) {
+    if (rawAlign === 'top') resolvedAlignment = 'top';
+    else if (rawAlign === 'bottom') resolvedAlignment = 'bottom';
+    else resolvedAlignment = 'middle';
+  } else {
+    if (rawAlign === 'left') resolvedAlignment = 'left';
+    else if (rawAlign === 'right') resolvedAlignment = 'right';
+    else resolvedAlignment = 'center';
+  }
+
+  // 4. Resolve Caret Size ('sm' | 'md' | 'lg')
   const resolvedCaretSize = caretSize || (
-    variant === 'single-line' ? 'sm' :
-    variant === 'multi-line' ? 'md' : 'lg'
+    resolvedType === 'base-small' ? 'sm' :
+    resolvedType === 'rich' ? 'lg' : 'md'
   );
 
-  // Default alignment per placement
-  const effectiveAlign = align || (
-    ['top', 'bottom'].includes(placement) ? 'center' : 'middle'
-  );
+  // 5. Caret Fill Color based on theme
+  const caretColor = theme === 'filled'
+    ? 'var(--color-tooltip-filled-bg, #f5f5fe)'
+    : 'var(--color-tooltip-elevated-bg, #ffffff)';
 
-  // Normalize placement name
-  const normalizedPlacement = placement === 'side-l' ? 'left' : placement === 'side-r' ? 'right' : placement;
-
-  // Determine category for styling
-  const isRichVariant = ['rich-action', 'rich-source', 'rich-alert-small', 'rich-alert-large'].includes(variant);
-  const isMenuVariant = ['menu-list', 'menu-icon'].includes(variant);
-  const baseCategory = isRichVariant ? 'rich' : isMenuVariant ? 'menu' : variant;
+  // 6. Interactive Anchor Placement Class for absolute positioning
+  const interactivePlacementClass = !isStatic && children
+    ? (placement ? `kpmg-tooltip--placement-${placement}` : `kpmg-tooltip--anchor-for-${resolvedPosition}`)
+    : '';
 
   const tooltipClasses = [
     'kpmg-tooltip',
-    `kpmg-tooltip--${theme}`,
-    `kpmg-tooltip--${baseCategory}`,
-    !isStatic ? `kpmg-tooltip--placement-${normalizedPlacement}` : '',
-    !isStatic ? `kpmg-tooltip--align-${effectiveAlign}` : '',
-    (isOpen || isStatic) ? 'kpmg-tooltip--visible' : '',
-    isStatic ? 'kpmg-tooltip--static' : '',
+    `kpmg-tooltip--${resolvedType}`,
+    `kpmg-tooltip--pos-${resolvedPosition}`,
+    `kpmg-tooltip--align-${resolvedAlignment}`,
+    `kpmg-tooltip--theme-${theme}`,
+    (isOpen || isStatic || !children) ? 'kpmg-tooltip--visible' : '',
+    (isStatic || !children) ? 'kpmg-tooltip--static' : '',
+    interactivePlacementClass,
     className,
   ].filter(Boolean).join(' ');
 
-  // Render tooltip inner contents based on variant
-  const renderContent = () => {
-    if (content && typeof content !== 'string') {
-      return content;
-    }
+  const combinedStyles = {
+    ...(width ? { width, maxWidth: width } : {}),
+    ...(minWidth ? { minWidth } : {}),
+    ...(maxWidth ? { maxWidth } : {}),
+    ...style,
+  };
 
-    switch (variant) {
-      case 'rich-action':
+  // 7. Render Body Content according to canonical Figma specs
+  const renderBody = () => {
+    switch (resolvedType) {
+      /* ===================================================================
+         TYPE 1: BASE SMALL (Single-line compact label, Figma 1359:5193)
+         =================================================================== */
+      case 'base-small': {
+        const displayText = content || text || description || title || 'Tooltip text';
         return (
-          <>
-            <div className="kpmg-tooltip__header">
-              {title && <h4 className="kpmg-tooltip__title">{title}</h4>}
-              {content && <p className="kpmg-tooltip__body">{content}</p>}
+          <div className="kpmg-tooltip__base-small">
+            <span className="kpmg-tooltip__base-small-text">{displayText}</span>
+          </div>
+        );
+      }
+
+      /* ===================================================================
+         TYPE 2: BASE LARGE (Multi-line description, Figma 1359:12283)
+         =================================================================== */
+      case 'base-large': {
+        const displayText = content || description || text || (
+          'Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        );
+        return (
+          <div className="kpmg-tooltip__base-large">
+            <p className="kpmg-tooltip__base-large-text">{displayText}</p>
+          </div>
+        );
+      }
+
+      /* ===================================================================
+         TYPE 3: RICH (Title, description, actions, Figma 1359:5195)
+         =================================================================== */
+      case 'rich': {
+        const displayTitle = title !== undefined ? title : 'Title';
+        const displayDesc = description || content || (
+          'Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.'
+        );
+
+        const defaultActions = [
+          { label: 'Label', variant: 'primary' },
+          { label: 'Label', variant: 'outline' },
+        ];
+        const actionItems = actions !== undefined ? actions : defaultActions;
+
+        return (
+          <div className="kpmg-tooltip__rich">
+            <div className="kpmg-tooltip__rich-header">
+              {displayTitle && <h4 className="kpmg-tooltip__rich-title">{displayTitle}</h4>}
+              {displayDesc && <p className="kpmg-tooltip__rich-desc">{displayDesc}</p>}
             </div>
-            <div className="kpmg-tooltip__actions">
-              {actions ? (
-                Array.isArray(actions) ? (
-                  actions.map((act, i) => (
+
+            {secondaryText && (
+              <>
+                <div className="kpmg-tooltip__divider" />
+                <p className="kpmg-tooltip__rich-secondary">{secondaryText}</p>
+              </>
+            )}
+
+            {actionItems && (
+              <div className="kpmg-tooltip__rich-actions">
+                {Array.isArray(actionItems) ? (
+                  actionItems.map((act, idx) => (
                     <button
-                      key={i}
+                      key={idx}
                       type="button"
                       onClick={act.onClick}
-                      style={{
-                        padding: '6px 14px',
-                        borderRadius: '1000px',
-                        fontSize: '12px',
-                        fontWeight: '500',
-                        cursor: 'pointer',
-                        border: act.variant === 'outline' ? '1px solid var(--color-blue-200)' : 'none',
-                        background: act.variant === 'outline' ? 'transparent' : 'var(--color-primary-action)',
-                        color: act.variant === 'outline' ? 'var(--color-blue-200)' : '#ffffff',
-                      }}
+                      className={`kpmg-tooltip__rich-btn kpmg-tooltip__rich-btn--${act.variant || 'primary'}`}
                     >
-                      {act.label}
+                      {act.label || 'Label'}
                     </button>
                   ))
                 ) : (
-                  actions
-                )
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    style={{
-                      padding: '6px 16px',
-                      borderRadius: '1000px',
-                      fontSize: '12px',
-                      fontWeight: '500',
-                      border: 'none',
-                      background: 'var(--color-primary-action)',
-                      color: '#ffffff',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Label
-                  </button>
-                  <button
-                    type="button"
-                    style={{
-                      padding: '6px 16px',
-                      borderRadius: '1000px',
-                      fontSize: '12px',
-                      fontWeight: '500',
-                      border: '1px solid var(--color-blue-200)',
-                      background: 'transparent',
-                      color: 'var(--color-blue-200)',
-                      cursor: 'pointer',
-                    }}
-                  >
-                    Label
-                  </button>
-                </>
-              )}
-            </div>
-          </>
-        );
-
-      case 'rich-source':
-        return (
-          <>
-            <div className="kpmg-tooltip__header">
-              {title && <h4 className="kpmg-tooltip__title">{title}</h4>}
-              {content && <p className="kpmg-tooltip__body">{content}</p>}
-            </div>
-            <div className="kpmg-tooltip__card-list">
-              {(items || [
-                { id: '1', label: 'Option', checked: true, isStar: true },
-                { id: '2', label: 'Option', checked: true, isStar: true },
-                { id: '3', label: 'Option', checked: true, isStar: true },
-                { id: '4', label: 'Option', checked: true, isStar: true },
-              ]).map((it, idx) => (
-                <div
-                  key={it.id || idx}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    padding: '6px 8px',
-                    fontSize: '13px',
-                    borderBottom: idx < 3 ? '1px solid var(--color-neutral-600)' : 'none',
-                  }}
-                >
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <TooltipStarIcon size={14} />
-                    <span>{it.label}</span>
-                  </div>
-                  {it.checked && <TooltipCheckIcon size={14} style={{ color: 'var(--color-neutral-200)' }} />}
-                </div>
-              ))}
-            </div>
-          </>
-        );
-
-      case 'rich-alert-small':
-      case 'rich-alert-large': {
-        const defaultAlertItems = variant === 'rich-alert-large'
-          ? [
-              { id: '1', title: 'Header', subtitle: 'Supporting line...' },
-              { id: '2', title: 'Header', subtitle: 'Supporting line...' },
-            ]
-          : [
-              { id: '1', title: 'Header', subtitle: 'Supporting line...' },
-            ];
-        const cardItems = items || defaultAlertItems;
-
-        return (
-          <>
-            <div className="kpmg-tooltip__header">
-              {title && <h4 className="kpmg-tooltip__title">{title}</h4>}
-              {content && <p className="kpmg-tooltip__body">{content}</p>}
-            </div>
-            {sectionLabel && <div className="kpmg-tooltip__section-label">{sectionLabel}</div>}
-            <div className="kpmg-tooltip__card-list">
-              {cardItems.map((item, idx) => (
-                <div key={item.id || idx} className="kpmg-tooltip__card-item">
-                  <div className="kpmg-tooltip__card-thumb" />
-                  <div className="kpmg-tooltip__card-info">
-                    <span className="kpmg-tooltip__card-title">{item.title}</span>
-                    {item.subtitle && <span className="kpmg-tooltip__card-subtitle">{item.subtitle}</span>}
-                  </div>
-                  <button type="button" className="kpmg-tooltip__card-action" aria-label="More options">
-                    <TooltipMoreIcon size={16} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </>
-        );
-      }
-
-      case 'menu-list': {
-        const menuItems = items || [
-          { id: '1', label: 'Option', checked: true },
-          { id: '2', label: 'Option', checked: true, divider: true },
-          { id: '3', label: 'Option', checked: true },
-          { id: '4', label: 'Option', checked: true },
-          { id: '5', label: 'Option', checked: true, divider: true },
-          { id: '6', label: 'Option', checked: true },
-        ];
-
-        return (
-          <ul className="kpmg-tooltip__menu-list" role="menu">
-            {menuItems.map((item, idx) => (
-              <React.Fragment key={item.id || idx}>
-                <li className="kpmg-tooltip__menu-item" role="menuitem">
-                  <div className="kpmg-tooltip__menu-left">
-                    <TooltipCircleCheckIcon size={16} style={{ color: 'var(--color-neutral-000)' }} />
-                    <span>{item.label}</span>
-                  </div>
-                </li>
-                {item.divider && <li className="kpmg-tooltip__menu-divider" role="separator" />}
-              </React.Fragment>
-            ))}
-          </ul>
-        );
-      }
-
-      case 'menu-icon': {
-        const iconItems = items || [
-          { id: '1', label: 'Option', checked: true },
-          { id: '2', label: 'Option', checked: true, divider: true },
-          { id: '3', label: 'Option', checked: true },
-          { id: '4', label: 'Option', checked: true },
-          { id: '5', label: 'Option', checked: true, divider: true },
-          { id: '6', label: 'Option', checked: true },
-        ];
-
-        return (
-          <ul className="kpmg-tooltip__menu-list" role="menu">
-            {iconItems.map((item, idx) => (
-              <React.Fragment key={item.id || idx}>
-                <li className="kpmg-tooltip__menu-item" role="menuitem">
-                  <div className="kpmg-tooltip__menu-left">
-                    <TooltipStarIcon size={16} style={{ color: 'var(--color-neutral-200)' }} />
-                    <span>{item.label}</span>
-                  </div>
-                  {item.checked && <TooltipCheckIcon size={14} style={{ color: 'var(--color-neutral-200)' }} />}
-                </li>
-                {item.divider && <li className="kpmg-tooltip__menu-divider" role="separator" />}
-              </React.Fragment>
-            ))}
-          </ul>
-        );
-      }
-
-      case 'multi-line':
-        return (
-          <div className="kpmg-tooltip__body">
-            {content || 'Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt.'}
+                  actionItems
+                )}
+              </div>
+            )}
           </div>
         );
+      }
 
-      case 'single-line':
+      /* ===================================================================
+         TYPE 4: MENU (Dropdown item groups, checkmarks, Figma 1359:5186)
+         =================================================================== */
+      case 'menu': {
+        const defaultMenuItems = [
+          { label: 'Option', value: 'Option 1', selected: true },
+          { type: 'divider' },
+          { label: 'Option', value: 'Option 2', selected: true },
+          { label: 'Option', value: 'Option 3', selected: true },
+          { label: 'Option', value: 'Option 4', selected: true },
+          { label: 'Option', value: 'Option 5', selected: true },
+          { type: 'divider' },
+          { label: 'Option', value: 'Option 6', selected: true },
+        ];
+
+        // Normalize items so either legacy or DropdownItemGroup format works seamlessly
+        const normalizedItems = items
+          ? items.map((item, idx) => {
+              if (item.type === 'divider' || item.divider) {
+                return { type: 'divider' };
+              }
+              const itemVal = item.value || item.id || `opt-${idx}`;
+              const isSelected = item.selected !== undefined ? item.selected : (item.checked ?? true);
+              return {
+                label: item.label || 'Option',
+                value: itemVal,
+                selected: isSelected,
+                disabled: item.disabled,
+                onClick: item.onClick,
+              };
+            })
+          : defaultMenuItems;
+
+        return (
+          <div className="kpmg-tooltip__menu" role="menu">
+            <DropdownItemGroup
+              density={menuDensity}
+              type={menuType}
+              items={normalizedItems}
+              selectedValues={selectedValues}
+              defaultSelectedValues={defaultSelectedValues}
+              onSelect={(val, nextSelected, item, e) => {
+                if (onItemClick) onItemClick(item, e);
+                if (onSelect) onSelect(val, nextSelected, item, e);
+              }}
+              {...menuProps}
+            />
+          </div>
+        );
+      }
+
       default:
-        return <span>{content || title || 'Supporting text'}</span>;
+        return null;
     }
   };
 
+  // 8. Render Complete Tooltip (Caret + Body container with unified drop shadow)
   const tooltipNode = (
     <div
       ref={ref}
       id={tooltipId}
-      role={isMenuVariant ? 'menu' : 'tooltip'}
-      aria-hidden={!isOpen && !isStatic}
+      role={resolvedType === 'menu' ? 'menu' : 'tooltip'}
+      aria-hidden={!isOpen && !isStatic && Boolean(children)}
       className={tooltipClasses}
-      style={style}
+      style={combinedStyles}
       {...restProps}
     >
-      {renderContent()}
+      {/* Position Top: Caret at top pointing up */}
+      {caret && resolvedPosition === 'top' && (
+        <TooltipCaret
+          position="top"
+          size={resolvedCaretSize}
+          alignment={resolvedAlignment}
+          color={caretColor}
+        />
+      )}
 
-      {caret && (
-        <span
-          className={`kpmg-tooltip__caret kpmg-tooltip__caret--${resolvedCaretSize}`}
-          aria-hidden="true"
+      {/* Position Side L: Caret at left pointing left */}
+      {caret && resolvedPosition === 'side-l' && (
+        <TooltipCaret
+          position="side-l"
+          size={resolvedCaretSize}
+          alignment={resolvedAlignment}
+          color={caretColor}
+        />
+      )}
+
+      {/* Body Frame */}
+      <div className="kpmg-tooltip__body-wrap">
+        {renderBody()}
+      </div>
+
+      {/* Position Bottom: Caret at bottom pointing down */}
+      {caret && resolvedPosition === 'bottom' && (
+        <TooltipCaret
+          position="bottom"
+          size={resolvedCaretSize}
+          alignment={resolvedAlignment}
+          color={caretColor}
+        />
+      )}
+
+      {/* Position Side R: Caret at right pointing right */}
+      {caret && resolvedPosition === 'side-r' && (
+        <TooltipCaret
+          position="side-r"
+          size={resolvedCaretSize}
+          alignment={resolvedAlignment}
+          color={caretColor}
         />
       )}
     </div>
   );
 
-  // If used as a static standalone component (e.g. documentation, stories, preview cards)
+  // If standalone static usage (e.g. story preview, documentation)
   if (isStatic || !children) {
     return tooltipNode;
   }
 
-  // Wrapped around an anchor trigger element
+  // Wrapped around an anchor trigger element (interactive hover/click trigger)
   return (
     <div
       ref={wrapperRef}
@@ -478,9 +594,9 @@ export const Tooltip = forwardRef(({
       <div
         className="kpmg-tooltip-target"
         onClick={handleClick}
-        aria-describedby={!isMenuVariant ? tooltipId : undefined}
-        aria-haspopup={isMenuVariant ? 'true' : undefined}
-        aria-expanded={isMenuVariant ? (isOpen ? 'true' : 'false') : undefined}
+        aria-describedby={resolvedType !== 'menu' ? tooltipId : undefined}
+        aria-haspopup={resolvedType === 'menu' ? 'true' : undefined}
+        aria-expanded={resolvedType === 'menu' ? (isOpen ? 'true' : 'false') : undefined}
       >
         {children}
       </div>
@@ -495,33 +611,53 @@ Tooltip.displayName = 'Tooltip';
 Tooltip.propTypes = {
   /** The anchor trigger element that invokes the tooltip */
   children: PropTypes.node,
-  /** Header title displayed inside rich tooltips */
-  title: PropTypes.node,
-  /** Text content or custom React node inside the tooltip */
-  content: PropTypes.node,
-  /** Surface color treatment: elevated (white + shadow) or filled (lavender tint + shadow) */
+  /** Canonical Figma variant type: 'base-small' | 'base-large' | 'rich' | 'menu' */
+  type: PropTypes.oneOf(['base-small', 'base-large', 'rich', 'menu']),
+  /** Backward-compatible alias for type */
+  variant: PropTypes.string,
+  /** Edge of tooltip where caret is positioned: 'top' | 'bottom' | 'side-l' | 'side-r' */
+  position: PropTypes.oneOf(['top', 'bottom', 'side-l', 'side-r']),
+  /** Placement relative to target trigger element in interactive mode: 'top' | 'bottom' | 'left' | 'right' */
+  placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right']),
+  /** Alignment of caret along the edge: 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom' */
+  alignment: PropTypes.oneOf(['left', 'center', 'right', 'top', 'middle', 'bottom']),
+  /** Backward-compatible alias for alignment */
+  align: PropTypes.oneOf(['left', 'center', 'right', 'top', 'middle', 'bottom']),
+  /** Surface color theme: 'elevated' (pure white) or 'filled' (lavender container) */
   theme: PropTypes.oneOf(['elevated', 'filled']),
-  /** Structural format of tooltip content */
-  variant: PropTypes.oneOf([
-    'single-line',
-    'multi-line',
-    'rich-action',
-    'rich-source',
-    'rich-alert-small',
-    'rich-alert-large',
-    'menu-list',
-    'menu-icon',
-    'custom',
-  ]),
-  /** Placement direction relative to target element */
-  placement: PropTypes.oneOf(['top', 'bottom', 'left', 'right', 'side-l', 'side-r']),
-  /** Alignment of tooltip along the placement axis */
-  align: PropTypes.oneOf(['center', 'left', 'right', 'middle', 'top', 'bottom']),
   /** Whether to render the directional caret arrow */
   caret: PropTypes.bool,
-  /** Size of caret arrow: sm (12x6), md (18x9), lg (24x12). Auto-derived if omitted */
+  /** Size of caret arrow: sm (12x6), md (18x9), lg (24x12) */
   caretSize: PropTypes.oneOf(['sm', 'md', 'lg']),
-  /** Interaction mode to trigger tooltip visibility */
+  /** Title text for rich tooltips */
+  title: PropTypes.node,
+  /** Description text for rich or base-large tooltips */
+  description: PropTypes.node,
+  /** Content text or node for tooltips */
+  content: PropTypes.node,
+  /** Shorthand text string for tooltips */
+  text: PropTypes.node,
+  /** Secondary section text for rich tooltips */
+  secondaryText: PropTypes.node,
+  /** Action buttons array or custom node for rich tooltips */
+  actions: PropTypes.oneOfType([PropTypes.array, PropTypes.node]),
+  /** Items list array for menu tooltips */
+  items: PropTypes.arrayOf(PropTypes.object),
+  /** Callback fired when a menu item is clicked */
+  onItemClick: PropTypes.func,
+  /** Menu density for menu tooltip variant ('small' | 'medium' | 'large') */
+  menuDensity: PropTypes.oneOf(['small', 'medium', 'large']),
+  /** Menu type for menu tooltip variant ('checklist' | 'item-list') */
+  menuType: PropTypes.oneOf(['checklist', 'item-list']),
+  /** Selected values array for menu tooltip */
+  selectedValues: PropTypes.arrayOf(PropTypes.string),
+  /** Default selected values array for menu tooltip */
+  defaultSelectedValues: PropTypes.arrayOf(PropTypes.string),
+  /** Callback fired when a menu item selection changes */
+  onSelect: PropTypes.func,
+  /** Additional props passed to DropdownItemGroup */
+  menuProps: PropTypes.object,
+  /** Interaction mode to trigger tooltip visibility: 'hover' | 'click' | 'manual' */
   trigger: PropTypes.oneOf(['hover', 'click', 'manual']),
   /** Controlled open state */
   open: PropTypes.bool,
@@ -533,14 +669,14 @@ Tooltip.propTypes = {
   delay: PropTypes.number,
   /** Milliseconds delay before closing on mouseleave */
   closeDelay: PropTypes.number,
-  /** Action buttons array or custom node for rich-action variant */
-  actions: PropTypes.oneOfType([PropTypes.array, PropTypes.node]),
-  /** Items array for menu or alert card variants */
-  items: PropTypes.array,
-  /** Section heading label for rich alerts (e.g. 'Secondary text') */
-  sectionLabel: PropTypes.string,
   /** Render as a static inline element without target wrapper */
   static: PropTypes.bool,
+  /** Explicit container width override */
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Explicit container min-width override */
+  minWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** Explicit container max-width override */
+  maxWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** Additional CSS class */
   className: PropTypes.string,
   /** Inline style overrides */

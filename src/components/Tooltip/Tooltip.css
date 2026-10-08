@@ -1,10 +1,10 @@
 /**
  * KPMG WorkBench Design System - Tooltip Component
- * 100% Token-Driven Styles
+ * 100% Token-Driven Styles matching Figma 1359:5192 specification
  */
 
 /* ==========================================================================
-   Root Tooltip Container
+   1. ROOT TOOLTIP CONTAINER & ANCHOR WRAPPER
    ========================================================================== */
 .kpmg-tooltip-wrapper {
   position: relative;
@@ -21,14 +21,12 @@
   z-index: 1000;
   box-sizing: border-box;
   display: flex;
-  flex-direction: column;
-  font-family: var(--font-family-base);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  filter: drop-shadow(var(--shadow-tooltip-drop, 2px 2px 8px rgba(0, 0, 0, 0.15)));
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
-  transition: opacity var(--transition-fast, 150ms ease),
-              transform var(--transition-fast, 150ms ease),
-              visibility var(--transition-fast, 150ms ease);
+  transition: opacity 150ms ease, transform 150ms ease, visibility 150ms ease;
 }
 
 .kpmg-tooltip--visible {
@@ -45,454 +43,390 @@
   z-index: 1;
 }
 
-/* ==========================================================================
-   Theme Treatments (Elevated & Filled)
-   ========================================================================== */
-.kpmg-tooltip--elevated {
-  background-color: var(--color-tooltip-elevated-bg);
-  color: var(--color-tooltip-elevated-text);
-  border: 1px solid var(--color-tooltip-elevated-border);
-  box-shadow: var(--color-tooltip-elevated-shadow);
-  --caret-color: var(--color-tooltip-elevated-bg);
+/* Flex Orientations based on Caret Position */
+.kpmg-tooltip--pos-top,
+.kpmg-tooltip--pos-bottom {
+  flex-direction: column;
 }
 
-.kpmg-tooltip--filled {
-  background-color: var(--color-tooltip-filled-bg);
-  color: var(--color-tooltip-filled-text);
-  border: 1px solid var(--color-tooltip-filled-border);
-  box-shadow: var(--color-tooltip-filled-shadow);
-  --caret-color: var(--color-tooltip-filled-bg);
+.kpmg-tooltip--pos-side-l,
+.kpmg-tooltip--pos-side-r {
+  flex-direction: row;
 }
 
 /* ==========================================================================
-   Size & Content Formats
+   2. BODY CONTAINER FRAME
    ========================================================================== */
-/* 1. Single-line (Compact Label) */
-.kpmg-tooltip--single-line {
-  border-radius: var(--radius-tooltip-sm);
-  padding: var(--spacing-tooltip-py-sm) var(--spacing-tooltip-px);
-  font-size: var(--font-size-body-sm);
-  line-height: var(--line-height-body-sm);
-  font-weight: var(--font-weight-regular);
-  white-space: nowrap;
-  min-height: 32px;
-  justify-content: center;
-  align-items: center;
-  width: max-content;
-  max-width: 260px;
+.kpmg-tooltip__body-wrap {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
-/* 2. Multi-line (Plain Description) */
-.kpmg-tooltip--multi-line {
-  border-radius: var(--radius-tooltip-md);
-  padding: var(--spacing-tooltip-py-md) var(--spacing-tooltip-px);
-  font-size: var(--font-size-body-sm);
-  line-height: var(--line-height-body-sm);
-  font-weight: var(--font-weight-regular);
-  width: var(--width-tooltip-multi-line);
-  max-width: var(--width-tooltip-multi-line);
+/* Theme Treatments */
+.kpmg-tooltip--theme-elevated .kpmg-tooltip__body-wrap {
+  background-color: var(--color-tooltip-elevated-bg, #ffffff);
+  color: var(--color-tooltip-elevated-text, #2f2f39);
 }
 
-/* 3. Rich Base (Action, Source, Alert Small, Alert Large) */
+.kpmg-tooltip--theme-filled .kpmg-tooltip__body-wrap {
+  background-color: var(--color-tooltip-filled-bg, #f5f5fe);
+  color: var(--color-tooltip-filled-text, #2f2f39);
+}
+
+/* Type Dimension & Radii */
+.kpmg-tooltip--base-small {
+  width: var(--width-tooltip-base-sm, 107px);
+  min-width: var(--width-tooltip-base-sm, 107px);
+}
+.kpmg-tooltip--base-small .kpmg-tooltip__body-wrap {
+  border-radius: var(--radius-tooltip-base-sm, 8px);
+}
+
+.kpmg-tooltip--base-large {
+  width: var(--width-tooltip-base-lg, 200px);
+}
+.kpmg-tooltip--base-large .kpmg-tooltip__body-wrap {
+  border-radius: var(--radius-tooltip-base-lg, 8px);
+}
+
 .kpmg-tooltip--rich {
-  border-radius: var(--radius-tooltip-lg);
-  padding: var(--spacing-tooltip-pt-rich) var(--spacing-tooltip-px) var(--spacing-tooltip-pb-rich) var(--spacing-tooltip-px);
-  width: var(--width-tooltip-rich);
-  max-width: var(--width-tooltip-rich);
-  gap: var(--spacing-tooltip-gap);
+  width: var(--width-tooltip-rich, 300px);
+}
+.kpmg-tooltip--rich .kpmg-tooltip__body-wrap {
+  border-radius: var(--radius-tooltip-rich, 18px);
 }
 
-/* 4. Menu Base (List Menu & Icon Menu) */
 .kpmg-tooltip--menu {
-  border-radius: var(--radius-tooltip-md);
-  padding: var(--spacing-2) 0;
-  width: var(--width-tooltip-menu);
-  max-width: var(--width-tooltip-menu);
+  width: var(--width-tooltip-menu, 220px);
+}
+.kpmg-tooltip--menu .kpmg-tooltip__body-wrap {
+  border-radius: var(--radius-tooltip-menu, 18px);
 }
 
 /* ==========================================================================
-   Placements & Offsets
+   3. CARET ARROW SLOTS (Figma Vector 292 alignments)
    ========================================================================== */
-/* Top Placements */
-.kpmg-tooltip--placement-top {
-  bottom: calc(100% + 8px);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-center {
-  left: 50%;
-  transform: translateX(-50%) translateY(4px);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-left {
-  left: 0;
-  transform: translateY(4px);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-right {
-  right: 0;
-  transform: translateY(4px);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--visible {
-  transform: translateX(-50%) translateY(0);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-left.kpmg-tooltip--visible {
-  transform: translateY(0);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-right.kpmg-tooltip--visible {
-  transform: translateY(0);
+.kpmg-tooltip__caret-slot {
+  display: flex;
+  flex-shrink: 0;
+  box-sizing: border-box;
 }
 
-/* Bottom Placements */
-.kpmg-tooltip--placement-bottom {
-  top: calc(100% + 8px);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-center {
-  left: 50%;
-  transform: translateX(-50%) translateY(-4px);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-left {
-  left: 0;
-  transform: translateY(-4px);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-right {
-  right: 0;
-  transform: translateY(-4px);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--visible {
-  transform: translateX(-50%) translateY(0);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-left.kpmg-tooltip--visible {
-  transform: translateY(0);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-right.kpmg-tooltip--visible {
-  transform: translateY(0);
+.kpmg-tooltip__caret-svg {
+  display: block;
 }
 
-/* Left (Side L) Placements */
-.kpmg-tooltip--placement-left {
-  right: calc(100% + 8px);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-middle {
-  top: 50%;
-  transform: translateY(-50%) translateX(4px);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-top {
-  top: 0;
-  transform: translateX(4px);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-bottom {
-  bottom: 0;
-  transform: translateX(4px);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--visible {
-  transform: translateY(-50%) translateX(0);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-top.kpmg-tooltip--visible {
-  transform: translateX(0);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-bottom.kpmg-tooltip--visible {
-  transform: translateX(0);
+/* Top & Bottom Caret Slots */
+.kpmg-tooltip__caret-slot--top,
+.kpmg-tooltip__caret-slot--bottom {
+  width: 100%;
 }
 
-/* Right (Side R) Placements */
-.kpmg-tooltip--placement-right {
-  left: calc(100% + 8px);
+.kpmg-tooltip__caret-slot--top.kpmg-tooltip__caret-slot--align-center,
+.kpmg-tooltip__caret-slot--bottom.kpmg-tooltip__caret-slot--align-center {
+  justify-content: center;
 }
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-middle {
-  top: 50%;
-  transform: translateY(-50%) translateX(-4px);
+
+.kpmg-tooltip__caret-slot--top.kpmg-tooltip__caret-slot--align-left,
+.kpmg-tooltip__caret-slot--bottom.kpmg-tooltip__caret-slot--align-left {
+  justify-content: flex-start;
+  padding-left: var(--spacing-tooltip-caret-inset-h, 20px);
 }
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-top {
-  top: 0;
-  transform: translateX(-4px);
+
+.kpmg-tooltip__caret-slot--top.kpmg-tooltip__caret-slot--align-right,
+.kpmg-tooltip__caret-slot--bottom.kpmg-tooltip__caret-slot--align-right {
+  justify-content: flex-end;
+  padding-right: var(--spacing-tooltip-caret-inset-h, 20px);
 }
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-bottom {
-  bottom: 0;
-  transform: translateX(-4px);
+
+/* Side L & Side R Caret Slots */
+.kpmg-tooltip__caret-slot--side-l,
+.kpmg-tooltip__caret-slot--side-r {
+  height: 100%;
 }
-.kpmg-tooltip--placement-right.kpmg-tooltip--visible {
-  transform: translateY(-50%) translateX(0);
+
+.kpmg-tooltip__caret-slot--side-l.kpmg-tooltip__caret-slot--align-middle,
+.kpmg-tooltip__caret-slot--side-r.kpmg-tooltip__caret-slot--align-middle {
+  align-items: center;
 }
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-top.kpmg-tooltip--visible {
-  transform: translateX(0);
+
+.kpmg-tooltip__caret-slot--side-l.kpmg-tooltip__caret-slot--align-top,
+.kpmg-tooltip__caret-slot--side-r.kpmg-tooltip__caret-slot--align-top {
+  align-items: flex-start;
+  padding-top: var(--spacing-tooltip-caret-inset-v, 20px);
 }
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-bottom.kpmg-tooltip--visible {
-  transform: translateX(0);
+
+.kpmg-tooltip__caret-slot--side-l.kpmg-tooltip__caret-slot--align-bottom,
+.kpmg-tooltip__caret-slot--side-r.kpmg-tooltip__caret-slot--align-bottom {
+  align-items: flex-end;
+  padding-bottom: var(--spacing-tooltip-caret-inset-v, 20px);
 }
 
 /* ==========================================================================
-   Carets / Pointer Arrows (Small, Medium, Large)
+   4. CONTENT TYPE 1: BASE SMALL (Figma 1359:5193)
    ========================================================================== */
-.kpmg-tooltip__caret {
-  position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-  pointer-events: none;
+.kpmg-tooltip__base-small {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--height-tooltip-base-sm, 32px);
+  padding: var(--spacing-tooltip-base-sm-py, 8px) var(--spacing-tooltip-base-sm-px, 10px);
+  box-sizing: border-box;
 }
 
-/* Caret on Bottom (pointing DOWN when tooltip is on Top) */
-.kpmg-tooltip--placement-top .kpmg-tooltip__caret--sm {
-  bottom: -6px;
-  border-width: var(--size-tooltip-caret-sm-h) calc(var(--size-tooltip-caret-sm-w) / 2) 0 calc(var(--size-tooltip-caret-sm-w) / 2);
-  border-color: var(--caret-color) transparent transparent transparent;
-}
-.kpmg-tooltip--placement-top .kpmg-tooltip__caret--md {
-  bottom: -9px;
-  border-width: var(--size-tooltip-caret-md-h) calc(var(--size-tooltip-caret-md-w) / 2) 0 calc(var(--size-tooltip-caret-md-w) / 2);
-  border-color: var(--caret-color) transparent transparent transparent;
-}
-.kpmg-tooltip--placement-top .kpmg-tooltip__caret--lg {
-  bottom: -12px;
-  border-width: var(--size-tooltip-caret-lg-h) calc(var(--size-tooltip-caret-lg-w) / 2) 0 calc(var(--size-tooltip-caret-lg-w) / 2);
-  border-color: var(--caret-color) transparent transparent transparent;
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-center .kpmg-tooltip__caret {
-  left: 50%;
-  transform: translateX(-50%);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-left .kpmg-tooltip__caret {
-  left: var(--spacing-tooltip-caret-inset);
-}
-.kpmg-tooltip--placement-top.kpmg-tooltip--align-right .kpmg-tooltip__caret {
-  right: var(--spacing-tooltip-caret-inset);
-}
-
-/* Caret on Top (pointing UP when tooltip is on Bottom) */
-.kpmg-tooltip--placement-bottom .kpmg-tooltip__caret--sm {
-  top: -6px;
-  border-width: 0 calc(var(--size-tooltip-caret-sm-w) / 2) var(--size-tooltip-caret-sm-h) calc(var(--size-tooltip-caret-sm-w) / 2);
-  border-color: transparent transparent var(--caret-color) transparent;
-}
-.kpmg-tooltip--placement-bottom .kpmg-tooltip__caret--md {
-  top: -9px;
-  border-width: 0 calc(var(--size-tooltip-caret-md-w) / 2) var(--size-tooltip-caret-md-h) calc(var(--size-tooltip-caret-md-w) / 2);
-  border-color: transparent transparent var(--caret-color) transparent;
-}
-.kpmg-tooltip--placement-bottom .kpmg-tooltip__caret--lg {
-  top: -12px;
-  border-width: 0 calc(var(--size-tooltip-caret-lg-w) / 2) var(--size-tooltip-caret-lg-h) calc(var(--size-tooltip-caret-lg-w) / 2);
-  border-color: transparent transparent var(--caret-color) transparent;
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-center .kpmg-tooltip__caret {
-  left: 50%;
-  transform: translateX(-50%);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-left .kpmg-tooltip__caret {
-  left: var(--spacing-tooltip-caret-inset);
-}
-.kpmg-tooltip--placement-bottom.kpmg-tooltip--align-right .kpmg-tooltip__caret {
-  right: var(--spacing-tooltip-caret-inset);
-}
-
-/* Caret on Right (pointing RIGHT when tooltip is on Left) */
-.kpmg-tooltip--placement-left .kpmg-tooltip__caret--sm {
-  right: -6px;
-  border-width: calc(var(--size-tooltip-caret-sm-w) / 2) 0 calc(var(--size-tooltip-caret-sm-w) / 2) var(--size-tooltip-caret-sm-h);
-  border-color: transparent transparent transparent var(--caret-color);
-}
-.kpmg-tooltip--placement-left .kpmg-tooltip__caret--md {
-  right: -9px;
-  border-width: calc(var(--size-tooltip-caret-md-w) / 2) 0 calc(var(--size-tooltip-caret-md-w) / 2) var(--size-tooltip-caret-md-h);
-  border-color: transparent transparent transparent var(--caret-color);
-}
-.kpmg-tooltip--placement-left .kpmg-tooltip__caret--lg {
-  right: -12px;
-  border-width: calc(var(--size-tooltip-caret-lg-w) / 2) 0 calc(var(--size-tooltip-caret-lg-w) / 2) var(--size-tooltip-caret-lg-h);
-  border-color: transparent transparent transparent var(--caret-color);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-middle .kpmg-tooltip__caret {
-  top: 50%;
-  transform: translateY(-50%);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-top .kpmg-tooltip__caret {
-  top: var(--spacing-tooltip-caret-inset);
-}
-.kpmg-tooltip--placement-left.kpmg-tooltip--align-bottom .kpmg-tooltip__caret {
-  bottom: var(--spacing-tooltip-caret-inset);
-}
-
-/* Caret on Left (pointing LEFT when tooltip is on Right) */
-.kpmg-tooltip--placement-right .kpmg-tooltip__caret--sm {
-  left: -6px;
-  border-width: calc(var(--size-tooltip-caret-sm-w) / 2) var(--size-tooltip-caret-sm-h) calc(var(--size-tooltip-caret-sm-w) / 2) 0;
-  border-color: transparent var(--caret-color) transparent transparent;
-}
-.kpmg-tooltip--placement-right .kpmg-tooltip__caret--md {
-  left: -9px;
-  border-width: calc(var(--size-tooltip-caret-md-w) / 2) var(--size-tooltip-caret-md-h) calc(var(--size-tooltip-caret-md-w) / 2) 0;
-  border-color: transparent var(--caret-color) transparent transparent;
-}
-.kpmg-tooltip--placement-right .kpmg-tooltip__caret--lg {
-  left: -12px;
-  border-width: calc(var(--size-tooltip-caret-lg-w) / 2) var(--size-tooltip-caret-lg-h) calc(var(--size-tooltip-caret-lg-w) / 2) 0;
-  border-color: transparent var(--caret-color) transparent transparent;
-}
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-middle .kpmg-tooltip__caret {
-  top: 50%;
-  transform: translateY(-50%);
-}
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-top .kpmg-tooltip__caret {
-  top: var(--spacing-tooltip-caret-inset);
-}
-.kpmg-tooltip--placement-right.kpmg-tooltip--align-bottom .kpmg-tooltip__caret {
-  bottom: var(--spacing-tooltip-caret-inset);
+.kpmg-tooltip__base-small-text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--color-tooltip-elevated-text, #2f2f39);
+  text-align: center;
+  white-space: nowrap;
 }
 
 /* ==========================================================================
-   Rich Content Structure (Typography & Slots)
+   5. CONTENT TYPE 2: BASE LARGE (Figma 1359:12283)
    ========================================================================== */
-.kpmg-tooltip__header {
+.kpmg-tooltip__base-large {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-tooltip-base-lg-py, 8px) var(--spacing-tooltip-base-lg-px, 10px);
+  box-sizing: border-box;
+}
+
+.kpmg-tooltip__base-large-text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--color-tooltip-elevated-text, #2f2f39);
+  margin: 0;
+  word-break: break-word;
+}
+
+/* ==========================================================================
+   6. CONTENT TYPE 3: RICH (Figma 1359:5195)
+   ========================================================================== */
+.kpmg-tooltip__rich {
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-tooltip-rich-py, 18px) var(--spacing-tooltip-rich-px, 12px);
+  box-sizing: border-box;
+}
+
+.kpmg-tooltip__rich-header {
   display: flex;
   flex-direction: column;
   gap: 4px;
 }
 
-.kpmg-tooltip__title {
-  font-size: var(--font-size-title-sm, 14px);
-  line-height: var(--line-height-title-sm, 20px);
+.kpmg-tooltip__rich-title {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 16px;
+  line-height: 22px;
   font-weight: 600;
-  color: inherit;
+  color: var(--color-tooltip-elevated-text, #2f2f39);
   margin: 0;
 }
 
-.kpmg-tooltip__body {
-  font-size: var(--font-size-body-sm, 12px);
-  line-height: var(--line-height-body-sm, 16px);
-  color: var(--color-tooltip-elevated-text-secondary);
+.kpmg-tooltip__rich-desc {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--color-tooltip-elevated-text, #2f2f39);
+  margin: 0;
+  word-break: break-word;
+}
+
+.kpmg-tooltip__divider {
+  width: 100%;
+  height: 1px;
+  background-color: var(--color-tooltip-divider, #d5d5dc);
+  margin: 12px 0 8px 0;
+}
+
+.kpmg-tooltip__rich-secondary {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 400;
+  color: var(--color-tooltip-elevated-text, #2f2f39);
   margin: 0;
 }
 
-.kpmg-tooltip--filled .kpmg-tooltip__body {
-  color: var(--color-tooltip-filled-text-secondary);
-}
-
-.kpmg-tooltip__section-label {
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--color-tooltip-elevated-text-muted);
-  margin-top: 4px;
-}
-
-.kpmg-tooltip--filled .kpmg-tooltip__section-label {
-  color: var(--color-tooltip-filled-text-muted);
-}
-
-/* Actions Row */
-.kpmg-tooltip__actions {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 4px;
-}
-
-/* Preview Card Item (Alert Small & Large) */
-.kpmg-tooltip__card-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.kpmg-tooltip__card-item {
+.kpmg-tooltip__rich-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background-color: var(--color-tooltip-item-bg);
-  border: 1px solid var(--color-tooltip-item-border);
-  transition: background-color var(--transition-fast, 150ms ease);
+  margin-top: 14px;
 }
 
-.kpmg-tooltip__card-item:hover {
-  background-color: var(--color-tooltip-item-hover);
-}
-
-.kpmg-tooltip__card-thumb {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, #7213ea 0%, #aab0f4 100%);
-  flex-shrink: 0;
-}
-
-.kpmg-tooltip__card-info {
-  display: flex;
-  flex-direction: column;
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.kpmg-tooltip__card-title {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--color-on-surface);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.kpmg-tooltip__card-subtitle {
-  font-size: 11px;
-  color: var(--color-neutral-100);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.kpmg-tooltip__card-action {
-  background: transparent;
-  border: none;
-  color: var(--color-neutral-200);
-  cursor: pointer;
-  padding: 4px;
+.kpmg-tooltip__rich-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 4px;
+  height: 32px;
+  min-width: 55px;
+  padding: 6px 16px;
+  border-radius: 1000px;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+  transition: transform 0.1s ease, background-color 0.15s ease, opacity 0.15s ease;
 }
 
-.kpmg-tooltip__card-action:hover {
-  color: var(--color-neutral-000);
-  background: rgba(0, 0, 0, 0.04);
+.kpmg-tooltip__rich-btn:active {
+  transform: scale(0.96);
 }
 
-/* Menu List Items */
-.kpmg-tooltip__menu-list {
+.kpmg-tooltip__rich-btn--primary {
+  background-color: var(--color-primary-action, #1e49e2);
+  color: #ffffff;
+  border: none;
+}
+.kpmg-tooltip__rich-btn--primary:hover {
+  background-color: #1a28c1;
+}
+
+.kpmg-tooltip__rich-btn--outline {
+  background-color: transparent;
+  color: var(--color-primary-action, #1e49e2);
+  border: 1px solid var(--color-primary-action, #1e49e2);
+}
+.kpmg-tooltip__rich-btn--outline:hover {
+  background-color: rgba(30, 73, 226, 0.08);
+}
+
+/* ==========================================================================
+   7. CONTENT TYPE 4: MENU (Figma 1359:5186 & 1539:67127)
+   Reuses Dropdown Item Groups from Menu Component
+   ========================================================================== */
+.kpmg-tooltip__menu {
   display: flex;
   flex-direction: column;
-  list-style: none;
-  padding: 0;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+/* Seamlessly adapt DropdownItemGroup to fit Tooltip body wrap */
+.kpmg-tooltip__menu .kpmg-dropdown-item-group {
+  width: 100%;
+  min-height: var(--height-tooltip-menu, 250px);
+  background: transparent;
+  border: none;
+  border-radius: inherit;
+  box-shadow: none;
+  padding: var(--spacing-menu-padding, 8px) var(--spacing-menu-dropdown-px, 16px);
   margin: 0;
+}
+
+.kpmg-tooltip--theme-filled .kpmg-tooltip__menu .kpmg-menu-item {
+  color: var(--color-tooltip-filled-text, #ffffff);
+}
+
+.kpmg-tooltip--theme-filled .kpmg-tooltip__menu .kpmg-menu-item:hover:not(.kpmg-menu-item--disabled) {
+  background-color: rgba(255, 255, 255, 0.12);
+}
+
+.kpmg-tooltip--theme-filled .kpmg-tooltip__menu .kpmg-menu-divider {
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .kpmg-tooltip__menu-item {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 8px 16px;
-  font-size: 13px;
-  color: inherit;
+  gap: 8px;
+  width: 100%;
+  height: 32px;
+  padding: 4px 12px;
+  border: none;
+  background: transparent;
+  border-radius: 6px;
   cursor: pointer;
-  transition: background-color var(--transition-fast, 150ms ease);
+  text-align: left;
   user-select: none;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
 }
 
 .kpmg-tooltip__menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--color-tooltip-item-hover, rgba(69, 69, 84, 0.08));
 }
 
-.kpmg-tooltip--filled .kpmg-tooltip__menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.06);
-}
-
-.kpmg-tooltip__menu-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+.kpmg-tooltip__menu-item-text {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: 14px;
+  line-height: 24px;
+  color: var(--color-tooltip-elevated-text, #2f2f39);
+  flex: 1;
 }
 
 .kpmg-tooltip__menu-divider {
+  width: 100%;
   height: 1px;
-  background-color: var(--color-tooltip-item-border);
-  margin: 6px 0;
+  background-color: var(--color-tooltip-divider, #d5d5dc);
+  margin: 8px 0;
+}
+
+.kpmg-tooltip-checkbox-icon {
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   8. INTERACTIVE ANCHORED POSITIONING (When Tooltip has Children)
+   ========================================================================== */
+/* Tooltip Placed on TOP of Anchor (Caret pointing DOWN) */
+.kpmg-tooltip--placement-top,
+.kpmg-tooltip--anchor-for-bottom {
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+}
+.kpmg-tooltip--placement-top.kpmg-tooltip--visible,
+.kpmg-tooltip--anchor-for-bottom.kpmg-tooltip--visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip Placed on BOTTOM of Anchor (Caret pointing UP) */
+.kpmg-tooltip--placement-bottom,
+.kpmg-tooltip--anchor-for-top {
+  top: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-4px);
+}
+.kpmg-tooltip--placement-bottom.kpmg-tooltip--visible,
+.kpmg-tooltip--anchor-for-top.kpmg-tooltip--visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tooltip Placed on LEFT of Anchor (Caret pointing RIGHT) */
+.kpmg-tooltip--placement-left,
+.kpmg-tooltip--anchor-for-side-r {
+  right: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(4px);
+}
+.kpmg-tooltip--placement-left.kpmg-tooltip--visible,
+.kpmg-tooltip--anchor-for-side-r.kpmg-tooltip--visible {
+  transform: translateY(-50%) translateX(0);
+}
+
+/* Tooltip Placed on RIGHT of Anchor (Caret pointing LEFT) */
+.kpmg-tooltip--placement-right,
+.kpmg-tooltip--anchor-for-side-l {
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-4px);
+}
+.kpmg-tooltip--placement-right.kpmg-tooltip--visible,
+.kpmg-tooltip--anchor-for-side-l.kpmg-tooltip--visible {
+  transform: translateY(-50%) translateX(0);
 }

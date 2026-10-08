@@ -29,6 +29,31 @@ import {
 } from './components/Menu';
 import { Switch } from './components/Switch';
 import { Dividers } from './components/Dividers';
+import {
+  AppBars,
+  AppBarFull,
+  AppBarNested,
+  AppBarSpecial,
+  AppBarStatusItem,
+  AppBarSearchPill,
+  FigmaWorkbenchExample,
+  BottomAppBar,
+  BottomAppBarsText,
+  BottomAppBarsVoice,
+  ChatDockedUI,
+} from './components/AppBars';
+import { Modal, ModalItem } from './components/Modal';
+import { Tiles, TileHeader, TileTaskCard } from './components/Tiles';
+import { Sheets } from './components/Sheets';
+import {
+  Message,
+  MessageThread,
+  MessageStatusCard,
+  MessageAudioRich,
+  MessageActionIconBar,
+} from './components/Message';
+
+
 
 const SettingsIcon = () => (
 
@@ -110,6 +135,32 @@ function App() {
 
   const [appSwitchChecked, setAppSwitchChecked] = useState(true);
   const [appSwitchWithIcon, setAppSwitchWithIcon] = useState(true);
+  const [appBarDemoTab, setAppBarDemoTab] = useState('full');
+  const [bottomAppBarState, setBottomAppBarState] = useState('with-prompts');
+  const [bottomAppBarMode, setBottomAppBarMode] = useState('text');
+  const [bottomAppBarMute, setBottomAppBarMute] = useState(false);
+  const [bottomAppExpandedPanel, setBottomAppExpandedPanel] = useState(false);
+  const [bottomAppBarEnableMic, setBottomAppBarEnableMic] = useState(true);
+  const [bottomAppBarEnableAttach, setBottomAppBarEnableAttach] = useState(true);
+  const [bottomAppBarEnableSend, setBottomAppBarEnableSend] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [modalDemoVariant, setModalDemoVariant] = useState('compact');
+  const [tileVariant, setTileVariant] = useState('basic');
+  const [tileStyle, setTileStyle] = useState('outlined');
+  const [tileType, setTileType] = useState('empty-with-missing');
+  const [sheetVariant, setSheetVariant] = useState('floating');
+  const [sheetType, setSheetType] = useState('informational');
+  const [sheetSize, setSheetSize] = useState('large');
+  const [sheetStyle, setSheetStyle] = useState('outlined');
+  const [sheetDrawerOpen, setSheetDrawerOpen] = useState(false);
+  const [messageDemoView, setMessageDemoView] = useState('bubble'); // 'bubble' | 'thread' | 'audio'
+  const [messageSender, setMessageSender] = useState('bot');
+  const [messageLayout, setMessageLayout] = useState('default');
+  const [messageState, setMessageState] = useState('minimized');
+  const [messageThreadType, setMessageThreadType] = useState('default-bot-first');
+  const [messageAudioMode, setMessageAudioMode] = useState('light');
+  const [messageAudioDropdown, setMessageAudioDropdown] = useState(true);
+
 
   const spawnAppToast = (size, outlined) => {
     const id = Date.now().toString();
@@ -220,7 +271,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven menu system. Implements all 4 canonical paradigms from the KPMG WorkBench design system: Dropdown menus (with Checklist &amp; Icon list items across 3 densities, 24 base variants, and 6 canonical item group assemblies), Navigation menus (with KPMG brand pill trigger, 52px pill items, notification badges, and section dividers), Overflow menus (compact 3-dots action menus), and Assistant menus (KPMG Trusted AI conversational search, verified badge, and rich prompt cards).
+            Implements all 4 canonical paradigms from the KPMG WorkBench design system: Dropdown menus (with Checklist &amp; Icon list items across 3 densities, 24 base variants, and 6 canonical item group assemblies), Navigation menus (with KPMG brand pill trigger, 52px pill items, notification badges, and section dividers), Overflow menus (compact 3-dots action menus), and Assistant menus (KPMG Trusted AI conversational search, verified badge, and rich prompt cards).
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -342,15 +393,15 @@ function App() {
                           triggerLabel={dropdownBaseStyle.startsWith('card') ? 'Header' : (dropdownBaseStyle === 'branded' ? 'KPMG' : 'Options')}
                           baseStyle={
                             dropdownBaseStyle === 'gradient' ? 'gradient' :
-                            dropdownBaseStyle === 'branded' ? 'branded' :
-                            dropdownBaseStyle.startsWith('card') ? 'card' : 'default'
+                              dropdownBaseStyle === 'branded' ? 'branded' :
+                                dropdownBaseStyle.startsWith('card') ? 'card' : 'default'
                           }
                           baseBackground={
                             dropdownBaseStyle === 'default-pill' || dropdownBaseStyle === 'branded' || dropdownBaseStyle === 'card-filled'
                           }
                           baseSize={
                             dropdownBaseStyle === 'branded' ? 'branded' :
-                            dropdownBaseStyle.startsWith('card') ? 'none' : dropdownBaseSize
+                              dropdownBaseStyle.startsWith('card') ? 'none' : dropdownBaseSize
                           }
                           orientation={dropdownOrientation}
                           alignment={dropdownAlignment}
@@ -629,7 +680,7 @@ function App() {
                     <Menu inline type="assistant" width={380}>
                       <div className="kpmg-assistant-menu__search-bar">
                         <span className="kpmg-assistant-menu__search-icon">
-                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></svg>
                         </span>
                         <input
                           type="text"
@@ -738,7 +789,7 @@ function App() {
                     <Menu inline type="assistant" width="100%">
                       <div className="kpmg-assistant-menu__search-bar">
                         <span className="kpmg-assistant-menu__search-icon">
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></svg>
                         </span>
                         <input
                           type="text"
@@ -820,7 +871,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven feedback notifications. Standard 340px width, 8px border radius, 18px padding, primary action buttons, dismissible close icons, and up to 3 interactive media card items. Includes bottom-left viewport toast support.
+            Standard width, border radius, padding, primary action buttons, dismissible close icons, and up to 3 interactive media card items. Includes bottom-left viewport toast support.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1011,7 +1062,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven contextual feedback system. Features 2 color themes (Elevated white &amp; Filled lavender), 3 caret dimensions (Small 12&times;6, Medium 18&times;9, Large 24&times;12), 12 orientation alignments, interactive hover/click triggers, and full WAI-ARIA compliance.
+            Features 2 color themes (Elevated white &amp; Filled lavender), 3 caret dimensions (Small 12&times;6, Medium 18&times;9, Large 24&times;12), 12 orientation alignments, interactive hover/click triggers, and full WAI-ARIA compliance.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1194,7 +1245,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven multi-line input field. Supports Outlined and Filled visual styles, live character count (0/100), trailing speech-to-text action button, and full WAI-ARIA form validation.
+            Supports Outlined and Filled visual styles, live character count (0/100), trailing speech-to-text action button, and full WAI-ARIA form validation.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1229,7 +1280,7 @@ function App() {
               <h3 style={{ fontSize: '15px', fontWeight: '600', marginBottom: '12px', color: 'var(--color-on-surface)' }}>
                 Canonical 20-Variant Overview Matrix
               </h3>
-              
+
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '16px' }}>
                 {/* 1. Outlined Without Header */}
                 <div style={{ padding: '16px', borderRadius: '8px', border: '1px solid var(--color-neutral-500)', backgroundColor: 'var(--color-surface)' }}>
@@ -1456,7 +1507,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven architecture: Compact 41px height for widgets/tiles and 65px Top App Bar with trailing action controls. Features full WAI-ARIA tablist accessibility, keyboard navigation, and complete Light &amp; Dark theme token support.
+            Compact height for widgets/tiles and 65px Top App Bar with trailing action controls. Features full WAI-ARIA tablist accessibility, keyboard navigation, and complete Light &amp; Dark theme token support.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1662,7 +1713,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven: Vertical collection layout with Outlined, Elevated, and Filled container treatments. Supports Avatar, Image Thumbnail, Checkbox, and Radio button rows in Small (1-line), Medium (2-line), and Large (3-line) densities.
+            Vertical collection layout with Outlined, Elevated, and Filled container treatments. Supports Avatar, Image Thumbnail, Checkbox, and Radio button rows in Small (1-line), Medium (2-line), and Large (3-line) densities.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1860,7 +1911,7 @@ function App() {
             </div>
           </div>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven: High-level window status banner featuring robot AI leading icon, label typography, status percentages, and linear progress indicators.
+            High-level window status banner featuring robot AI leading icon, label typography, status percentages, and linear progress indicators.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -1997,7 +2048,7 @@ function App() {
             Badge Component (12 Variants: 3 Sizes &times; 2 Styles &times; 2 Intensities)
           </h2>
           <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
-            100% token-driven: Small (6px dot), Medium (16px count pill), Large (24px count pill) across Primary and Neutral palettes in Quiet and Loud states.
+            Small, Medium, Large  across Primary and Neutral palettes in Quiet and Loud states.
           </p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-6)' }}>
@@ -2451,7 +2502,7 @@ function App() {
             {/* Card 1: Horizontal Dividers */}
             <div style={{ padding: 'var(--spacing-5)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-3)' }}>
               <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>Horizontal Insets & Subheaders</span>
-              
+
               <div>
                 <span style={{ fontSize: '11px', color: 'var(--color-neutral-100)' }}>Full Width</span>
                 <Dividers width="Full" />
@@ -2476,7 +2527,7 @@ function App() {
             {/* Card 2: Vertical Dividers & Toolbar Integration */}
             <div style={{ padding: 'var(--spacing-5)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)', backgroundColor: 'var(--color-surface)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
               <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>Vertical Dividers (Toolbar Layout)</span>
-              
+
               <div style={{ display: 'flex', alignItems: 'center', gap: '12px', padding: 'var(--spacing-3)', backgroundColor: 'var(--color-surface-light)', borderRadius: 'var(--radius-sm)', border: '1px solid var(--color-neutral-outline)' }}>
                 <Button size="small" variant="standard">Dashboard</Button>
                 <Dividers state="Vertical" width="Full" style={{ height: '32px', minHeight: '32px' }} />
@@ -2493,7 +2544,1121 @@ function App() {
             </div>
           </div>
         </section>
+
+        {/* AppBars Component - Comprehensive Figma Suite */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)', display: 'flex', flexDirection: 'column', gap: 'var(--spacing-4)' }}>
+          <div>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', marginBottom: 'var(--spacing-2)' }}>AppBars Component Suite</h2>
+            <p style={{ color: 'var(--color-neutral-100)', fontSize: 'var(--font-size-body-sm)', margin: 0 }}>
+              Covers Full AppBars (Default &amp; With Action), Nested AppBars (Small &amp; Large in Default/Filled states with Status Badges), Special Search AppBars (Extra-Small, Small, &amp; Large), and Chat/Voice Header Panels.
+            </p>
+          </div>
+
+          {/* Interactive Variant Tabs */}
+          <div style={{ display: 'flex', gap: '8px', borderBottom: '1px solid var(--color-neutral-outline)', paddingBottom: '12px', flexWrap: 'wrap' }}>
+            {[
+              { id: 'full', label: 'Full App Bars' },
+              { id: 'nested', label: 'Nested App Bars' },
+              { id: 'special', label: 'Special (Search & Dashboard)' },
+              { id: 'chat', label: 'Chat & Voice Panels' },
+            ].map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                onClick={() => setAppBarDemoTab(tab.id)}
+                style={{
+                  padding: '8px 16px',
+                  borderRadius: '6px',
+                  border: 'none',
+                  backgroundColor: appBarDemoTab === tab.id ? 'var(--color-primary-action, #1a28c1)' : 'var(--color-surface)',
+                  color: appBarDemoTab === tab.id ? '#ffffff' : 'var(--color-neutral-000)',
+                  fontWeight: 600,
+                  fontSize: '13px',
+                  cursor: 'pointer',
+                  transition: 'all 0.15s ease',
+                  border: appBarDemoTab === tab.id ? 'none' : '1px solid var(--color-neutral-400, #c7c7d1)',
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {/* Tab 1: Full App Bars */}
+          {appBarDemoTab === 'full' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Full App Bar - Default with Reused Breadcrumbs &amp; Figma Slash Forward (Height: 64px)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarFull
+                    brandLabel="KPMG"
+                    breadcrumbs={['WorkBench', 'Audit & Assurance', 'Global Risk 2026']}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Full App Bar - Collapsible Multi-Level Breadcrumbs (Click ... for Dropdown Menu)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarFull
+                    brandLabel="KPMG"
+                    breadcrumbs={[
+                      { id: '1', label: 'WorkBench', href: '#' },
+                      { id: '2', label: 'Advisory Practice', href: '#', useCircleCheckbox: true, isChecked: true },
+                      { id: '3', label: 'Risk Governance', href: '#', isStar: true },
+                      { id: '4', label: 'Audit Analytics 2026', isCurrent: true },
+                    ]}
+                    breadcrumbProps={{ maxItems: 3 }}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Full App Bar - Single Page Title Mode with Chevron Forward Separator (Height: 64px)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarFull
+                    brandLabel="KPMG"
+                    showBreadcrumbs={false}
+                    pageTitle="Workbench"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Full App Bar - With Action Secondary Bar (Height: 128px)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarFull
+                    type="with-action"
+                    brandLabel="KPMG"
+                    breadcrumbs={['WorkBench', 'Model Parameters', 'Version 3.4.1']}
+                    actionButtonSecondary="Discard Draft"
+                    actionButtonLabel="Deploy to Production"
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 2: Nested App Bars */}
+          {appBarDemoTab === 'nested' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Nested App Bar - Small Default with Configuring Status Badge (Height: 64px)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarNested
+                    size="small"
+                    state="default"
+                    title="Audit_Pipeline_v2.0"
+                    statusType="configuring"
+                    statusProgress={40}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Nested App Bar - Small Filled with Completed Status (Height: 64px)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarNested
+                    size="small"
+                    state="filled"
+                    title="Tax_Compliance_Report_Q4"
+                    statusType="completed"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Nested App Bar - Large Hero Header with Reused Breadcrumbs &amp; Figma Action Icons (Height: 472px)
+                </span>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '8px', overflow: 'hidden' }}>
+                  <AppBarNested
+                    size="large"
+                    state="default"
+                    breadcrumbs={['Subheader', 'Subheader']}
+                    title="Header"
+                    filterChips={['All Controls', 'Active Audits', 'Exceptions', 'Documentation']}
+                  >
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '14px', marginTop: '8px' }}>
+                      {['Access Governance', 'Encryption Protocols', 'Vulnerability Assessment', 'Audit Trail Analysis'].map((item, idx) => (
+                        <div key={idx} style={{ padding: '14px', borderRadius: '8px', border: '1px solid var(--color-neutral-400)', backgroundColor: 'var(--color-surface)' }}>
+                          <span style={{ fontSize: '11px', textTransform: 'uppercase', color: 'var(--color-neutral-200)', fontWeight: 600 }}>Policy {idx + 1}</span>
+                          <h4 style={{ margin: '4px 0 6px 0', fontSize: '14px', color: 'var(--color-neutral-000)' }}>{item}</h4>
+                          <span style={{ fontSize: '12px', color: '#1a8754', fontWeight: 600 }}>98.6% Compliant</span>
+                        </div>
+                      ))}
+                    </div>
+                  </AppBarNested>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 3: Special App Bars (4 Canonical Variants) */}
+          {appBarDemoTab === 'special' && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Variant 1: Size=Extra small, With search=Default (Height: 64px)
+                </span>
+                <div style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                  <AppBarSpecial
+                    size="extra-small"
+                    greeting="Greeting, name"
+                    searchPlaceholder="Ask me anything"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Variant 2: Size=Small, With search=Default (Height: 88px)
+                </span>
+                <div style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                  <AppBarSpecial
+                    size="small"
+                    greeting="Greeting, name"
+                    searchPlaceholder="Ask me anything"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Variant 3: Size=Large, With search=False (Height: 434px)
+                </span>
+                <div style={{ borderRadius: '12px', overflow: 'hidden' }}>
+                  <AppBarSpecial
+                    size="large"
+                    withSearch={false}
+                    greeting="Greeting, name"
+                    welcomeHeader="Welcome"
+                    filterChips={['Project tag', 'Project tag', 'Project tag']}
+                  />
+                </div>
+              </div>
+
+              <div>
+                <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '8px' }}>
+                  Variant 4: Size=Large, With search=True (Height: 466px + 711px Floating AI Search Bar)
+                </span>
+                <div style={{ borderRadius: '12px' }}>
+                  <AppBarSpecial
+                    size="large"
+                    withSearch={true}
+                    greeting="Greeting, name"
+                    welcomeHeader="Welcome"
+                    searchPlaceholder="Ask me anything"
+                    filterChips={['Project tag', 'Project tag', 'Project tag']}
+                  />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Tab 4: Chat & Voice Panels */}
+          {appBarDemoTab === 'chat' && (
+            <div>
+              <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--color-neutral-000)', display: 'block', marginBottom: '12px' }}>
+                Chat &amp; Voice Header Panels (Width: 450px, Height: 66px, Default &amp; With Drag Handle)
+              </span>
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '20px' }}>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
+
+                </div>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
+
+                </div>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
+
+                </div>
+                <div style={{ border: '1px solid var(--color-neutral-outline)', borderRadius: '12px 12px 0 0', overflow: 'hidden', maxWidth: '450px' }}>
+
+                </div>
+              </div>
+            </div>
+          )}
+        </section>
+
+        {/* ================================================================
+            FIGMA FULL LAYOUT EXAMPLE (Node 1537-6788)
+            A combined usage demo matching the Figma reference screen exactly,
+            composing AppBarFull, NavigationMenu (inline), AppBarSearchPill,
+            OverflowMenu, and content cards using all design tokens.
+        ================================================================ */}
+        <section style={{
+          backgroundColor: 'var(--color-surface-light)',
+          padding: 'var(--spacing-6)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid var(--color-neutral-outline)',
+          marginTop: 'var(--spacing-8)',
+        }}>
+          <h2 style={{ fontSize: 'var(--font-size-headline-sm)', marginBottom: 'var(--spacing-2)' }}>
+            Figma Reference Layout — Full Workbench Example
+          </h2>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            Pixel-faithful composition of AppBarFull, NavigationMenu (inline sidebar), AppBarSearchPill (floating AI search),
+            OverflowMenu (action dropdown), and content cards — assembled exactly as specified in the KPMG Design System.
+          </p>
+
+          <FigmaWorkbenchExample />
+        </section>
+
+        {/* ================================================================
+            FIGMA BOTTOM APP BARS SECTION (Node 964:15496)
+            All 6 text variants, voice modes with mute on/off, filepicker,
+            suggestion chips, project dropdown, and expand docked chat UI.
+        ================================================================ */}
+        <section style={{
+          backgroundColor: 'var(--color-surface-light)',
+          padding: 'var(--spacing-6)',
+          borderRadius: 'var(--radius-md)',
+          border: '1px solid var(--color-neutral-outline)',
+          marginTop: 'var(--spacing-8)',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '16px', marginBottom: 'var(--spacing-4)' }}>
+            <div>
+              <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: '0 0 6px 0' }}>
+                Bottom App Bars — All Variants (Figma Node 964:15496)
+              </h2>
+              <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', margin: 0 }}>
+                Bottom App Bars featuring interactive filepicker, mic on/off (mute toggle), project selector, prompt suggestions, and expandable docked chat/voice UI.
+              </p>
+            </div>
+
+            {/* Interactive Mode & Panel Controls */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
+              <Button
+                variant={bottomAppBarMode === 'text' ? 'primary' : 'outlined'}
+                size="small"
+                onClick={() => setBottomAppBarMode('text')}
+              >
+                Text Mode
+              </Button>
+              <Button
+                variant={bottomAppBarMode === 'voice' ? 'primary' : 'outlined'}
+                size="small"
+                onClick={() => setBottomAppBarMode('voice')}
+              >
+                Voice Mode
+              </Button>
+              {bottomAppBarMode === 'voice' && (
+                <Button
+                  variant={bottomAppBarMute ? 'critical' : 'secondary'}
+                  size="small"
+                  onClick={() => setBottomAppBarMute(!bottomAppBarMute)}
+                >
+                  {bottomAppBarMute ? 'Unmute' : 'Mute Mic'}
+                </Button>
+              )}
+              <Button
+                variant={bottomAppExpandedPanel ? 'primary' : 'tonal'}
+                size="small"
+                onClick={() => setBottomAppExpandedPanel(!bottomAppExpandedPanel)}
+              >
+                {bottomAppExpandedPanel ? 'Collapse Chat UI' : 'Expand Chat UI'}
+              </Button>
+            </div>
+          </div>
+
+          {/* Interactive Live Playground */}
+          <div style={{
+            padding: '24px',
+            backgroundColor: '#ffffff',
+            borderRadius: '12px',
+            border: '1px solid var(--color-neutral-400)',
+            marginBottom: '32px',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '20px',
+          }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', maxWidth: '450px', flexWrap: 'wrap', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-000)' }}>
+                Live Interactive Component:
+              </span>
+              {bottomAppBarMode === 'text' && (
+                <select
+                  value={bottomAppBarState}
+                  onChange={(e) => setBottomAppBarState(e.target.value)}
+                  style={{
+                    padding: '4px 10px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--color-neutral-outline)',
+                    fontSize: '12px',
+                    color: 'var(--color-neutral-000)',
+                    background: '#ffffff',
+                    cursor: 'pointer',
+                  }}
+                >
+                  <option value="default">State: Default (100px)</option>
+                  <option value="with-verification">State: With verification (126px)</option>
+                  <option value="with-project">State: With project (176px)</option>
+                  <option value="with-button">State: With button (176px)</option>
+                  <option value="with-project-and-button">State: With project & button (176px)</option>
+                  <option value="with-prompts">State: With prompts (226px)</option>
+                </select>
+              )}
+            </div>
+
+            {/* Prop Configuration Toggles */}
+            {bottomAppBarMode === 'text' && (
+              <div style={{ display: 'flex', gap: '14px', alignItems: 'center', flexWrap: 'wrap', width: '100%', maxWidth: '450px', padding: '6px 12px', backgroundColor: 'var(--color-surface-light)', borderRadius: '8px', border: '1px solid var(--color-neutral-outline)' }}>
+                <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--color-neutral-100)' }}>Configurable Props:</span>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={bottomAppBarEnableMic}
+                    onChange={(e) => setBottomAppBarEnableMic(e.target.checked)}
+                  />
+                  <span>Mic</span>
+                </label>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={bottomAppBarEnableAttach}
+                    onChange={(e) => setBottomAppBarEnableAttach(e.target.checked)}
+                  />
+                  <span>Attach</span>
+                </label>
+                <label style={{ display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '12px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    checked={bottomAppBarEnableSend}
+                    onChange={(e) => setBottomAppBarEnableSend(e.target.checked)}
+                  />
+                  <span>Send</span>
+                </label>
+              </div>
+            )}
+
+            <div style={{ maxWidth: '450px', width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+              <span style={{ fontSize: '11px', color: '#6d6d7e', background: 'var(--color-blue-800, #e9eafc)', padding: '4px 10px', borderRadius: '6px' }}>
+                💡 <strong>Expand Visibility</strong>: Expand button is hidden until text overflows the first line! Clicking any prompt suggestion sends payload immediately.
+              </span>
+            </div>
+
+            {/* Render Live Expanded Docked Panel or Standalone Bottom App Bar */}
+            {bottomAppExpandedPanel ? (
+              <ChatDockedUI
+                mode={bottomAppBarMode}
+                onClose={() => setBottomAppExpandedPanel(false)}
+                onModeToggle={(m) => setBottomAppBarMode(m)}
+              />
+            ) : (
+              <BottomAppBar
+                mode={bottomAppBarMode}
+                state={bottomAppBarState}
+                mute={bottomAppBarMute}
+                enableMic={bottomAppBarEnableMic}
+                enableAttachment={bottomAppBarEnableAttach}
+                enableSend={bottomAppBarEnableSend}
+                prompts={['Prompt suggestion', 'Prompt suggestion', 'Prompt']}
+                onToggleMute={() => setBottomAppBarMute(!bottomAppBarMute)}
+                onModeChange={(m) => setBottomAppBarMode(m)}
+                onExpandClick={() => setBottomAppExpandedPanel(true)}
+                onSend={(msg, files) => {
+                  spawnAppToast('single-line', false);
+                  alert(`Sent prompt: "${msg}" with ${files ? files.length : 0} file(s) attached.`);
+                }}
+              />
+            )}
+          </div>
+
+          {/* Section: All Canonical Text Variants Side-by-Side */}
+          <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '16px', color: 'var(--color-neutral-000)' }}>
+            Canonical Text Variants (Figma Node 1380:6133)
+          </h3>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+            gap: '24px',
+            marginBottom: '36px',
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                Default (100px min-height)
+              </span>
+              <BottomAppBarsText state="default" placeholder="Ask me anything" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                With verification (126px min-height)
+              </span>
+              <BottomAppBarsText state="with-verification" placeholder="Ask me anything" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                With project (176px min-height)
+              </span>
+              <BottomAppBarsText state="with-project" placeholder="Ask me anything" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                With button (176px min-height)
+              </span>
+              <BottomAppBarsText state="with-button" placeholder="Ask me anything" buttonLabel="Save Draft" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                With project &amp; button (176px min-height)
+              </span>
+              <BottomAppBarsText state="with-project-and-button" placeholder="Ask me anything" buttonLabel="Review" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                With prompts (226px min-height)
+              </span>
+              <BottomAppBarsText
+                state="with-prompts"
+                placeholder="Ask me anything"
+                prompts={['Prompt suggestion', 'Prompt suggestion', 'Prompt']}
+                onSend={(msg) => alert(`Immediate prompt triggered: "${msg}"`)}
+              />
+            </div>
+          </div>
+
+          {/* Section: Voice Variants & Docked Panels */}
+          <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '16px', color: 'var(--color-neutral-000)' }}>
+            Voice Modes &amp; Docked Panels (Figma Nodes 1883:52191, 1324:157533, 1451:12212)
+          </h3>
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))',
+            gap: '24px',
+          }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+              <div>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)', display: 'block', marginBottom: '8px' }}>
+                  Voice Bar: Active / Pulsing (Mute=False)
+                </span>
+                <BottomAppBarsVoice mute={false} />
+              </div>
+              <div>
+                <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)', display: 'block', marginBottom: '8px' }}>
+                  Voice Bar: Muted (Mute=True)
+                </span>
+                <BottomAppBarsVoice mute={true} />
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                Docked Chat UI (Node 1324:157533)
+              </span>
+              <ChatDockedUI mode="text" />
+            </div>
+
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+              <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--color-neutral-200)' }}>
+                Docked Voice UI (Node 1451:12212)
+              </span>
+              <ChatDockedUI mode="voice" />
+            </div>
+          </div>
+        </section>
+
+        {/* Modal Component Showcase */}
+        <section style={{ backgroundColor: 'var(--color-surface-light)', padding: 'var(--spacing-6)', borderRadius: 'var(--radius-md)', border: '1px solid var(--color-neutral-outline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Modal Component Family (Progress &amp; Non-Progress Variants)
+            </h2>
+            <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', alignItems: 'center' }}>
+              <span style={{ fontSize: '13px', fontWeight: '600', color: 'var(--color-neutral-100)' }}>Variant:</span>
+              {[
+                { id: 'compact', label: 'Compact Input' },
+                { id: 'template', label: 'Template Config' },
+                { id: 'step1', label: 'Step 1 Profile (Progress)' },
+                { id: 'multistep', label: 'Multi-Step (Progress)' },
+                { id: 'master', label: 'Complete Master' },
+              ].map((v) => (
+                <Button
+                  key={v.id}
+                  size="small"
+                  variant={modalDemoVariant === v.id ? 'primary' : 'outline'}
+                  onClick={() => setModalDemoVariant(v.id)}
+                >
+                  {v.label}
+                </Button>
+              ))}
+
+              <Button
+                size="small"
+                variant="primary"
+                onClick={() => setModalOpen(true)}
+                style={{ marginLeft: '12px' }}
+              >
+                Open in Overlay Dialog
+              </Button>
+            </div>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            700px canonical dialog system matching KPMG Design System 2026. Supports linear progress indicators, avatar preview cards, pill headers, multi-line textareas with voice dictation, drag-and-drop file uploaders, 2x2 model selection grids, and 2x2 voice selection grids.
+          </p>
+
+          {/* Inline Preview of the Selected Modal Variant */}
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '16px 0' }}>
+            {modalDemoVariant === 'compact' && (
+              <Modal
+                inline
+                title="Create an assistant"
+                withProgress={false}
+                inputModule2={true}
+              />
+            )}
+            {modalDemoVariant === 'template' && (
+              <Modal
+                inline
+                title="Create an assistant"
+                withProgress={false}
+                inputModule1={true}
+                inputModule3={true}
+              />
+            )}
+            {modalDemoVariant === 'step1' && (
+              <Modal
+                inline
+                title="Create an assistant"
+                withProgress={true}
+                progress={30}
+                agentModule={true}
+                inputModule1={true}
+                inputModule2={true}
+              />
+            )}
+            {modalDemoVariant === 'multistep' && (
+              <Modal
+                inline
+                title="Create an assistant"
+                withProgress={true}
+                progress={80}
+                agentModule={true}
+                inputModule1={true}
+                inputModule2={true}
+                fileUploaderModule={true}
+                inputModule3={true}
+              />
+            )}
+            {modalDemoVariant === 'master' && (
+              <Modal
+                inline
+                title="Create an assistant"
+                withProgress={true}
+                progress={100}
+                agentModule={true}
+                inputModule1={true}
+                inputModule2={true}
+                fileUploaderModule={true}
+                inputModule3={true}
+                cardModule1={true}
+                cardModule2={true}
+              />
+            )}
+          </div>
+        </section>
+
+        {/* 19. Tiles Showcase */}
+        <section className="component-section" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div>
+            <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Tiles Component Family</h2>
+            <p style={{ color: 'var(--color-on-surface, #454554)', fontSize: '15px' }}>
+              Modular surface containers across Basic (420px) and Special (380px - 700px) layouts, supporting Outlined, Elevated, and Filled styles with progress tracking.
+            </p>
+          </div>
+
+          {/* Interactive Controls Bar */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', padding: '16px', background: 'rgba(0,0,0,0.03)', borderRadius: '12px' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Family:</span>
+              <Button
+                variant={tileVariant === 'basic' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => {
+                  setTileVariant('basic');
+                  setTileType('empty-with-missing');
+                }}
+              >
+                Basic Tiles
+              </Button>
+              <Button
+                variant={tileVariant === 'special' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => {
+                  setTileVariant('special');
+                  setTileType('living-todo-list');
+                }}
+              >
+                Special Tiles
+              </Button>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Surface:</span>
+              {['outlined', 'elevated', 'filled'].map((s) => (
+                <Button
+                  key={s}
+                  variant={tileStyle === s ? 'filled' : 'outlined'}
+                  size="small"
+                  onClick={() => setTileStyle(s)}
+                >
+                  {s.charAt(0).toUpperCase() + s.slice(1)}
+                </Button>
+              ))}
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Type:</span>
+              <select
+                value={tileType}
+                onChange={(e) => setTileType(e.target.value)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #d5d5dc',
+                  fontSize: '14px',
+                  fontFamily: 'Open Sans, sans-serif',
+                }}
+              >
+                {tileVariant === 'basic' ? (
+                  <>
+                    <option value="empty-with-missing">Empty with missing</option>
+                    <option value="empty">Empty</option>
+                    <option value="empty-full">Empty Full Bleed</option>
+                    <option value="configuring">Configuring (Progress)</option>
+                    <option value="loading">Loading Shimmer</option>
+                    <option value="loading-full">Loading Full Bleed</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="living-todo-list">Living To Do List</option>
+                    <option value="references">References</option>
+                    <option value="learning-hub">Learning Hub</option>
+                    <option value="ai-forum">AI Forum</option>
+                    <option value="project-tracker">Project Tracker</option>
+                    <option value="empty-state">Empty State</option>
+                  </>
+                )}
+              </select>
+            </div>
+          </div>
+
+          {/* Render Tile Container */}
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
+            <Tiles
+              variant={tileVariant}
+              style={tileStyle}
+              type={tileType}
+              progress={80}
+            />
+          </div>
+        </section>
+
+        {/* 20. Sheets Showcase */}
+        <section className="component-section" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          <div>
+            <h2 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>Sheets Component Family</h2>
+            <p style={{ color: 'var(--color-on-surface, #454554)', fontSize: '15px' }}>
+              Companion surfaces across Floating Sheets (Informational & Inputs) and Side Sheets (Basic, Project, File/Pages, Assistant) with drawer overlay capability.
+            </p>
+          </div>
+
+          {/* Interactive Controls Bar */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', padding: '16px', background: 'rgba(0,0,0,0.03)', borderRadius: '12px' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Variant:</span>
+              <Button
+                variant={sheetVariant === 'floating' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => {
+                  setSheetVariant('floating');
+                  setSheetType('informational');
+                  setSheetSize('large');
+                }}
+              >
+                Floating Sheets
+              </Button>
+              <Button
+                variant={sheetVariant === 'side' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => {
+                  setSheetVariant('side');
+                  setSheetType('basic');
+                  setSheetSize('large');
+                }}
+              >
+                Side Sheets
+              </Button>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Type:</span>
+              <select
+                value={sheetType}
+                onChange={(e) => setSheetType(e.target.value)}
+                style={{
+                  padding: '6px 12px',
+                  borderRadius: '8px',
+                  border: '1px solid #d5d5dc',
+                  fontSize: '14px',
+                  fontFamily: 'Open Sans, sans-serif',
+                }}
+              >
+                {sheetVariant === 'floating' ? (
+                  <>
+                    <option value="informational">Informational</option>
+                    <option value="inputs">Inputs & Controls</option>
+                  </>
+                ) : (
+                  <>
+                    <option value="basic">Basic (Items List)</option>
+                    <option value="project">Project Details</option>
+                    <option value="pages">Pages / File</option>
+                    <option value="assistant">Assistant Config</option>
+                  </>
+                )}
+              </select>
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Size:</span>
+              {sheetVariant === 'floating' ? (
+                <>
+                  <Button
+                    variant={sheetSize === 'compact' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setSheetSize('compact')}
+                  >
+                    Compact (400px)
+                  </Button>
+                  <Button
+                    variant={sheetSize === 'large' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setSheetSize('large')}
+                  >
+                    Large (486px)
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant={sheetSize === 'small' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setSheetSize('small')}
+                  >
+                    Small (320px)
+                  </Button>
+                  <Button
+                    variant={sheetSize === 'large' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setSheetSize('large')}
+                  >
+                    Large (360px)
+                  </Button>
+                </>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>Surface:</span>
+              {['outlined', 'filled'].map((s) => (
+                <Button
+                  key={s}
+                  variant={sheetStyle === s ? 'filled' : 'outlined'}
+                  size="small"
+                  onClick={() => setSheetStyle(s)}
+                >
+                  {s.charAt(0).toUpperCase() + s.slice(1)}
+                </Button>
+              ))}
+            </div>
+
+            <Button
+              variant="tonal"
+              size="small"
+              onClick={() => setSheetDrawerOpen(true)}
+            >
+              Open as Drawer
+            </Button>
+          </div>
+
+          {/* Render Sheet Preview */}
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
+            <Sheets
+              variant={sheetVariant}
+              type={sheetType}
+              size={sheetSize}
+              style={sheetStyle}
+              progress={80}
+            />
+          </div>
+
+          {/* Drawer Mode Instance */}
+          <Sheets
+            variant={sheetVariant}
+            type={sheetType}
+            size={sheetSize}
+            style={sheetStyle}
+            isDrawer={true}
+            isOpen={sheetDrawerOpen}
+            onClose={() => setSheetDrawerOpen(false)}
+          />
+        </section>
+
+        {/* Message Component Showcase */}
+        <section className="component-card">
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--spacing-2)', flexWrap: 'wrap', gap: '12px' }}>
+            <h2 style={{ fontSize: 'var(--font-size-headline-sm)', margin: 0 }}>
+              Message Component (Assistant Reply, Human Sent, Audio Transcripts &amp; Conversation Threads)
+            </h2>
+          </div>
+          <p style={{ fontSize: 'var(--font-size-body-sm)', color: 'var(--color-on-surface-light)', marginBottom: 'var(--spacing-6)' }}>
+            Canonical Figma Node 1364:49461 specification. 100% token-driven message system supporting bot assistant replies with avatar gradient dots, user sent lavender bubbles, citations, collapsible secondary text, attachments, 3-image media galleries with popovers, integrated workflow status tracking reusing ProgressIndicator, bottom action icon bars, and multi-turn conversational streams.
+          </p>
+
+          {/* Interactive Controls Bar */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', alignItems: 'center', marginBottom: '24px', padding: '16px', borderRadius: '8px', backgroundColor: 'var(--color-surface-light)', border: '1px solid var(--color-neutral-outline)' }}>
+            <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <span style={{ fontWeight: 600, fontSize: '14px' }}>View:</span>
+              <Button
+                variant={messageDemoView === 'bubble' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => setMessageDemoView('bubble')}
+              >
+                Individual Bubble
+              </Button>
+              <Button
+                variant={messageDemoView === 'thread' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => setMessageDemoView('thread')}
+              >
+                Conversation Stream
+              </Button>
+              <Button
+                variant={messageDemoView === 'audio' ? 'filled' : 'outlined'}
+                size="small"
+                onClick={() => setMessageDemoView('audio')}
+              >
+                Audio Message
+              </Button>
+            </div>
+
+            {messageDemoView === 'bubble' && (
+              <>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600, fontSize: '14px' }}>Sender:</span>
+                  <Button
+                    variant={messageSender === 'bot' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageSender('bot')}
+                  >
+                    Assistant (Bot)
+                  </Button>
+                  <Button
+                    variant={messageSender === 'user' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageSender('user')}
+                  >
+                    Human (User)
+                  </Button>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600, fontSize: '14px' }}>Layout:</span>
+                  <Button
+                    variant={messageLayout === 'default' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageLayout('default')}
+                  >
+                    Default
+                  </Button>
+                  <Button
+                    variant={messageLayout === 'card' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageLayout('card')}
+                  >
+                    Card
+                  </Button>
+                </div>
+
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600, fontSize: '14px' }}>State:</span>
+                  <Button
+                    variant={messageState === 'minimized' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageState('minimized')}
+                  >
+                    Minimized
+                  </Button>
+                  <Button
+                    variant={messageState === 'expanded' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageState('expanded')}
+                  >
+                    Expanded
+                  </Button>
+                </div>
+              </>
+            )}
+
+            {messageDemoView === 'thread' && (
+              <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                <span style={{ fontWeight: 600, fontSize: '14px' }}>Stream Type:</span>
+                <select
+                  value={messageThreadType}
+                  onChange={(e) => setMessageThreadType(e.target.value)}
+                  style={{
+                    padding: '6px 12px',
+                    borderRadius: '8px',
+                    border: '1px solid var(--color-neutral-outline)',
+                    fontSize: '14px',
+                    fontFamily: 'Open Sans, sans-serif',
+                  }}
+                >
+                  <option value="default-bot-first">Default Bot First</option>
+                  <option value="card-bot-first">Card Bot First</option>
+                  <option value="default-human-first">Default Human First</option>
+                  <option value="card-human-first">Card Human First</option>
+                </select>
+              </div>
+            )}
+
+            {messageDemoView === 'audio' && (
+              <>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <span style={{ fontWeight: 600, fontSize: '14px' }}>Mode:</span>
+                  <Button
+                    variant={messageAudioMode === 'light' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageAudioMode('light')}
+                  >
+                    Light
+                  </Button>
+                  <Button
+                    variant={messageAudioMode === 'dark' ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageAudioMode('dark')}
+                  >
+                    Dark
+                  </Button>
+                </div>
+                <div style={{ display: 'flex', gap: '8px', alignItems: 'center' }}>
+                  <Button
+                    variant={messageAudioDropdown ? 'filled' : 'outlined'}
+                    size="small"
+                    onClick={() => setMessageAudioDropdown(!messageAudioDropdown)}
+                  >
+                    {messageAudioDropdown ? 'Hide Project Dropdown' : 'Show Project Dropdown'}
+                  </Button>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* Render Active View */}
+          <div style={{ display: 'flex', justifyContent: 'center', padding: '24px 0' }}>
+            {messageDemoView === 'bubble' && (
+              <div style={{ width: '100%', maxWidth: '600px' }}>
+                <Message
+                  sender={messageSender}
+                  layout={messageLayout}
+                  state={messageState}
+                  headline="This headline text"
+                  body="More than single line chat message. Lorem ipsum dolor sit amet, labore consectetur."
+                  secondaryText={
+                    messageSender === 'user'
+                      ? '"Secondary text. Lorem ipsum dolor sit amet, labore consectetur adipiscing elit, sit amet, consectetur adipiscing elit."'
+                      : 'More than single line chat message. Lorem ipsum dolor sit amet, labore consectetur adipiscing elit. Lorem ipsum dolor sit amet, labore consectetur adipiscing elit.'
+                  }
+                  citations={messageSender === 'bot' ? ['2', '2', '2', '2'] : []}
+                  attachments={['Attachment']}
+                  mediaCards={[{ state: 'enabled' }, { state: 'enabled' }, { state: 'enabled' }]}
+                  statusCard={
+                    messageSender === 'bot'
+                      ? {
+                        title: 'Status',
+                        header: 'Header',
+                        subhead: 'Subhead',
+                        progress: 30,
+                        steps: [
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'completed' },
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'completed' },
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'pending' },
+                          { name: 'Item', desc: 'Supporting line text lorem ipsum', status: 'in-progress' },
+                        ],
+                        code: 'Some code',
+                        sources: [
+                          { header: 'Header', subhead: 'Supporting line text lorem ipsum dolor sit' },
+                          { header: 'Header', subhead: 'Supporting line text lorem ipsum dolor sit' },
+                        ],
+                      }
+                      : null
+                  }
+                  showActions={messageSender === 'bot'}
+                />
+              </div>
+            )}
+
+            {messageDemoView === 'thread' && (
+              <div style={{ width: '100%', maxWidth: '680px' }}>
+                <MessageThread type={messageThreadType} />
+              </div>
+            )}
+
+            {messageDemoView === 'audio' && (
+              <div style={{ width: '100%', maxWidth: '486px' }}>
+                <MessageAudioRich
+                  mode={messageAudioMode}
+                  withProjectDropdown={messageAudioDropdown}
+                  projectHeadline="Project headline"
+                />
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* Live Modal Dialog Popup */}
+        <Modal
+          isOpen={modalOpen}
+          inline={false}
+          title="Create an assistant"
+          withProgress={modalDemoVariant === 'step1' || modalDemoVariant === 'multistep' || modalDemoVariant === 'master'}
+          progress={modalDemoVariant === 'step1' ? 30 : modalDemoVariant === 'multistep' ? 80 : 100}
+          agentModule={modalDemoVariant !== 'compact' && modalDemoVariant !== 'template'}
+          inputModule1={modalDemoVariant !== 'compact'}
+          inputModule2={modalDemoVariant !== 'template'}
+          fileUploaderModule={modalDemoVariant === 'multistep' || modalDemoVariant === 'master'}
+          inputModule3={modalDemoVariant === 'template' || modalDemoVariant === 'multistep' || modalDemoVariant === 'master'}
+          cardModule1={modalDemoVariant === 'master'}
+          cardModule2={modalDemoVariant === 'master'}
+          onClose={() => setModalOpen(false)}
+          onBack={() => setModalOpen(false)}
+          onNext={() => {
+            alert('Next step clicked!');
+            setModalOpen(false);
+          }}
+        />
+
       </main>
+
+
 
       {/* Viewport Toast Notifications Container */}
       <SnackbarContainer position="bottom-left">
@@ -2511,3 +3676,6 @@ function App() {
 }
 
 export default App;
+
+
+

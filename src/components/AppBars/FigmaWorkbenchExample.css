@@ -1,0 +1,563 @@
+/* ==========================================================================
+   FIGMA WORKBENCH FULL LAYOUT EXAMPLE CSS
+   Reference Figma Node: 1537:6788 (Full)
+   Design System: KPMG WorkBench 2026
+   All styles use token variables from src/styles/tokens.css
+   ========================================================================== */
+
+.kpmg-figma-example-container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4, 12px);
+  width: 100%;
+}
+
+.kpmg-figma-example-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-3, 10px);
+  padding: var(--spacing-3, 10px) var(--spacing-4, 12px);
+  background: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  border-radius: var(--radius-md, 12px);
+  box-shadow: var(--shadow-sm, 0 1px 3px rgba(0,0,0,0.08));
+}
+
+.kpmg-figma-example-toolbar__info {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-md, 12px);
+  color: var(--color-neutral-100, #454554);
+}
+
+.kpmg-figma-example-toolbar__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: var(--radius-full, 1000px);
+  background: var(--color-blue-800, #e9eafc);
+  color: var(--color-primary-action, #1a28c1);
+  font-weight: var(--font-weight-semibold, 600);
+  font-size: 11px;
+}
+
+.kpmg-figma-example-toolbar__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+}
+
+.kpmg-figma-example-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-full, 1000px);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  background: var(--color-surface, #ffffff);
+  color: var(--color-neutral-000, #2f2f39);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-sm, 11px);
+  font-weight: var(--font-weight-medium, 500);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.kpmg-figma-example-toolbar__btn:hover {
+  background: var(--color-neutral-800, #f7f7f8);
+  border-color: var(--color-neutral-300, #b8b8c4);
+}
+
+.kpmg-figma-example-toolbar__btn--active {
+  background: var(--color-blue-800, #e9eafc);
+  border-color: var(--color-primary-outline, #818aee);
+  color: var(--color-primary-action, #1a28c1);
+  font-weight: var(--font-weight-semibold, 600);
+}
+
+/* ==========================================================================
+   Canonical Figma Frame (Node 1537:6788 - "Full")
+   Exact geometry: width 1372px canvas, 16px corner radius, 2XL shadow
+   ========================================================================== */
+.kpmg-figma-frame-full {
+  position: relative;
+  width: 100%;
+  max-width: 1372px;
+  margin: 0 auto;
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 0px 25px 50px -12px rgba(16, 24, 40, 0.25);
+  overflow: visible;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  box-sizing: border-box;
+}
+
+/* Top App Bar Full */
+.kpmg-figma-appbar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 64px;
+  padding: var(--spacing-4, 12px) var(--spacing-5, 18px);
+  background-color: var(--color-surface, #ffffff);
+  border-bottom: 1px solid var(--color-neutral-outline, #d5d5dc);
+  border-top-left-radius: var(--radius-lg, 16px);
+  border-top-right-radius: var(--radius-lg, 16px);
+  box-sizing: border-box;
+  z-index: 30;
+}
+
+.kpmg-figma-appbar__left {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-5, 18px);
+}
+
+/* Brand Navigation Pill with 3-stop Gradient */
+.kpmg-figma-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  height: 36.4px;
+  padding: 0 var(--spacing-4, 12px);
+  border-radius: var(--radius-full, 1000px);
+  background: linear-gradient(180deg, #7213ea 36%, #1e49e2 73%, #00338d 90%);
+  color: var(--color-primary-on-action, #ffffff);
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  flex-shrink: 0;
+}
+
+.kpmg-figma-brand-pill:hover {
+  opacity: 0.95;
+  box-shadow: 0 2px 8px rgba(114, 19, 234, 0.35);
+}
+
+.kpmg-figma-brand-pill__logo {
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-lg, 14px);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  user-select: none;
+}
+
+.kpmg-figma-brand-pill__chevron {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: #ffffff;
+  transition: transform 0.2s ease;
+}
+
+.kpmg-figma-brand-pill__chevron--open {
+  transform: rotate(180deg);
+}
+
+/* Breadcrumbs Section */
+.kpmg-figma-breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.kpmg-figma-breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+  font-size: var(--font-size-label-lg, 14px);
+  color: var(--color-neutral-100, #454554);
+  font-weight: var(--font-weight-regular, 400);
+}
+
+.kpmg-figma-breadcrumb-link {
+  color: var(--color-neutral-100, #454554);
+  text-decoration: none;
+  padding: 2px 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.kpmg-figma-breadcrumb-link:hover {
+  color: var(--color-primary-action, #1e49e2);
+}
+
+.kpmg-figma-breadcrumb-slash {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--color-neutral-100, #454554);
+  opacity: 0.7;
+  user-select: none;
+}
+
+/* Right Header Action Icons */
+.kpmg-figma-appbar__right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--spacing-4, 12px);
+}
+
+.kpmg-figma-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  width: 40px;
+  padding: 0;
+  border-radius: var(--radius-full, 1000px);
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-100, #454554);
+  cursor: pointer;
+  transition: background-color 0.15s ease, color 0.15s ease;
+  position: relative;
+}
+
+.kpmg-figma-icon-btn:hover {
+  background-color: var(--color-neutral-800, #f7f7f8);
+  color: var(--color-neutral-000, #2f2f39);
+}
+
+.kpmg-figma-icon-btn--overflow-active {
+  background-color: var(--color-blue-700, #d7d9fa) !important;
+  color: var(--color-primary-action, #1a28c1);
+}
+
+/* ==========================================================================
+   Left Flyout Navigation Menu (Node 1663:37112)
+   width: 263px, padding: 12px, border-radius: 16px, drop-shadow
+   ========================================================================== */
+.kpmg-figma-nav-flyout {
+  position: absolute;
+  top: 56px;
+  left: 18px;
+  width: 263px;
+  max-height: calc(100% - 76px);
+  background-color: var(--color-surface, #ffffff);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  border-radius: var(--radius-lg, 16px);
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+  padding: var(--spacing-4, 12px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  animation: kpmgNavFlyoutFadeIn 0.18s ease-out;
+  overflow-y: auto;
+}
+
+@keyframes kpmgNavFlyoutFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kpmg-figma-nav-header {
+  padding: 18px 24px 18px 18px;
+  font-size: var(--font-size-label-md, 12px);
+  font-weight: var(--font-weight-regular, 400);
+  line-height: 16px;
+  color: var(--color-neutral-000, #2f2f39);
+  user-select: none;
+}
+
+.kpmg-figma-nav-divider {
+  height: 1px;
+  background-color: var(--color-neutral-100, #454554);
+  margin: var(--spacing-2, 8px) 0;
+  width: 100%;
+}
+
+.kpmg-figma-nav-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  width: 100%;
+  padding: 18px 24px 18px 18px;
+  border-radius: var(--radius-full, 1000px);
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-000, #2f2f39);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  font-weight: var(--font-weight-regular, 400);
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.kpmg-figma-nav-item:hover {
+  background-color: var(--color-neutral-700, #f1f1f3);
+}
+
+.kpmg-figma-nav-item--active {
+  background-color: var(--color-neutral-800, #f7f7f8);
+}
+
+.kpmg-figma-nav-item__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--color-neutral-000, #2f2f39);
+}
+
+.kpmg-figma-nav-item__label {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpmg-figma-nav-item__badge {
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  color: var(--color-neutral-000, #2f2f39);
+  margin-left: auto;
+  font-weight: var(--font-weight-regular, 400);
+}
+
+.kpmg-figma-nav-group-title {
+  padding: 18px 24px 18px 18px;
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  color: var(--color-neutral-000, #2f2f39);
+  user-select: none;
+  font-weight: var(--font-weight-regular, 400);
+}
+
+/* ==========================================================================
+   Right Flyout Overflow Menu (Node 1663:37850)
+   width: 220px, padding: 12px, border-radius: 8px, shadow
+   ========================================================================== */
+.kpmg-figma-overflow-flyout {
+  position: absolute;
+  top: 56px;
+  right: 56px;
+  width: 220px;
+  background-color: var(--color-surface, #ffffff);
+  border-radius: var(--radius-sm, 8px);
+  box-shadow: 2px 2px 8px 0px rgba(0, 0, 0, 0.15);
+  padding: var(--spacing-4, 12px);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  box-sizing: border-box;
+  animation: kpmgOverflowFlyoutFadeIn 0.18s ease-out;
+}
+
+@keyframes kpmgOverflowFlyoutFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.kpmg-figma-overflow-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2, 8px);
+  width: 100%;
+  height: 32px;
+  padding: var(--spacing-1, 4px) var(--spacing-4, 12px);
+  border-radius: var(--radius-full, 1000px);
+  border: none;
+  background: transparent;
+  color: var(--color-neutral-100, #454554);
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-label-md, 12px);
+  line-height: 16px;
+  cursor: pointer;
+  text-align: left;
+  transition: background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.kpmg-figma-overflow-item:hover {
+  background-color: var(--color-neutral-800, #f7f7f8);
+}
+
+.kpmg-figma-overflow-circle-cb {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid var(--color-neutral-300, #b8b8c4);
+  background: transparent;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.kpmg-figma-overflow-circle-cb--checked {
+  border-color: var(--color-primary-action, #1a28c1);
+  background-color: var(--color-primary-action, #1a28c1);
+}
+
+.kpmg-figma-overflow-divider {
+  height: 1px;
+  background-color: var(--color-neutral-outline, #d5d5dc);
+  margin: var(--spacing-2, 8px) var(--spacing-3, 10px);
+  width: calc(100% - 20px);
+}
+
+/* ==========================================================================
+   Main Canvas Content Area (Node 1537:6789 - Frame 2018777618)
+   gap: 20px, items-center, centered cards
+   ========================================================================== */
+.kpmg-figma-content-canvas {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 1332px;
+  margin: 0 auto;
+  padding: 12px 20px 32px 20px;
+  box-sizing: border-box;
+}
+
+/* Hero Section (Node 1537:6790) */
+.kpmg-figma-hero-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+}
+
+.kpmg-figma-hero-banner {
+  width: 100%;
+  height: 171px;
+  background-color: var(--color-primary-surface, #f5f5fe);
+  border-radius: var(--radius-md, 12px);
+  margin-bottom: -34px;
+  box-sizing: border-box;
+}
+
+/* Floating AI Search Text Pill (Node 1537:6795) */
+.kpmg-figma-search-pill {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 711px;
+  max-width: 100%;
+  height: 68px;
+  padding: var(--spacing-2, 8px);
+  background-color: var(--color-blue-700, #d7d9fa);
+  border-radius: var(--radius-full, 1000px);
+  filter: drop-shadow(2px 2px 6px rgba(0, 0, 0, 0.15));
+  box-sizing: border-box;
+  transition: box-shadow 0.2s ease, filter 0.2s ease;
+}
+
+.kpmg-figma-search-pill:focus-within {
+  filter: drop-shadow(2px 4px 10px rgba(26, 40, 193, 0.25));
+}
+
+.kpmg-figma-search-pill__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full, 1000px);
+  background-color: var(--color-blue-800, #e9eafc);
+  border: none;
+  color: var(--color-primary-action, #1a28c1);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background-color 0.15s ease, transform 0.1s ease;
+}
+
+.kpmg-figma-search-pill__btn:hover {
+  background-color: var(--color-blue-700, #d7d9fa);
+}
+
+.kpmg-figma-search-pill__btn:active {
+  transform: scale(0.96);
+}
+
+.kpmg-figma-search-pill__input-wrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 var(--spacing-4, 12px);
+  min-width: 0;
+}
+
+.kpmg-figma-search-pill__input {
+  width: 100%;
+  border: none;
+  background: transparent;
+  outline: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-lg, 16px);
+  line-height: 22px;
+  font-weight: var(--font-weight-regular, 400);
+  color: var(--color-primary-action, #1a28c1);
+}
+
+.kpmg-figma-search-pill__input::placeholder {
+  color: var(--color-primary-action, #1a28c1);
+  opacity: 0.85;
+}
+
+.kpmg-figma-search-pill__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4, 12px);
+  flex-shrink: 0;
+}
+
+/* Secondary Content Cards (Nodes 1537:6796 & 1537:6797) */
+.kpmg-figma-content-card {
+  width: 711px;
+  max-width: 100%;
+  height: 238px;
+  background-color: var(--color-neutral-800, #f7f7f8);
+  border-radius: var(--radius-md, 12px);
+  border: 1px solid var(--color-neutral-outline, #d5d5dc);
+  box-sizing: border-box;
+  transition: border-color 0.15s ease;
+}
+
+.kpmg-figma-content-card:hover {
+  border-color: var(--color-neutral-300, #b8b8c4);
+}

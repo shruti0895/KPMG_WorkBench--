@@ -566,19 +566,39 @@
    --color-textarea-count-disabled: var(--color-neutral-400);
 
    /* ==========================================================================
-      Tooltip Component Tokens
+      Tooltip Component Tokens - KPMG WorkBench Design System 2026 (Figma 1359:5192)
       ========================================================================== */
    /* Geometry & Radii */
-   --radius-tooltip-sm: var(--radius-sm); /* 8px */
-   --radius-tooltip-md: var(--radius-md); /* 12px */
-   --radius-tooltip-lg: 18px;             /* 18px from Figma specification */
-   --spacing-tooltip-px: 12px;
-   --spacing-tooltip-py-sm: 8px;
-   --spacing-tooltip-py-md: 12px;
-   --spacing-tooltip-pt-rich: 24px;
-   --spacing-tooltip-pb-rich: 18px;
+   --radius-tooltip-base-sm: var(--radius-sm, 8px);     /* 8px for Base small */
+   --radius-tooltip-base-lg: var(--radius-sm, 8px);     /* 8px for Base large */
+   --radius-tooltip-rich: 18px;                         /* 18px for Rich from Figma */
+   --radius-tooltip-menu: 18px;                         /* 18px for Menu from Figma */
+   --radius-tooltip-sm: var(--radius-sm, 8px);
+   --radius-tooltip-md: var(--radius-md, 12px);
+   --radius-tooltip-lg: 18px;
+
+   /* Container Dimensions (Canonical Figma 1359:5192) */
+   --width-tooltip-base-sm: 107px;
+   --width-tooltip-base-lg: 200px;
+   --width-tooltip-rich: 300px;
+   --width-tooltip-menu: 220px;
+
+   --height-tooltip-base-sm: 32px;
+   --height-tooltip-base-lg: 96px;
+   --height-tooltip-rich: 166px;
+   --height-tooltip-menu: 250px;
+
+   /* Spacings & Paddings */
+   --spacing-tooltip-base-sm-px: 10px;
+   --spacing-tooltip-base-sm-py: 8px;
+   --spacing-tooltip-base-lg-px: 10px;
+   --spacing-tooltip-base-lg-py: 8px;
+   --spacing-tooltip-rich-px: 12px;
+   --spacing-tooltip-rich-py: 18px;
+   --spacing-tooltip-menu-p: 12px;
+   --spacing-tooltip-caret-inset-h: 20px;
+   --spacing-tooltip-caret-inset-v: 20px;
    --spacing-tooltip-gap: 12px;
-   --spacing-tooltip-caret-inset: 12px;
 
    /* Caret Dimensions */
    --size-tooltip-caret-sm-w: 12px;
@@ -588,32 +608,34 @@
    --size-tooltip-caret-lg-w: 24px;
    --size-tooltip-caret-lg-h: 12px;
 
-   /* Container Widths */
-   --width-tooltip-single-line: auto;
-   --width-tooltip-multi-line: 300px;
-   --width-tooltip-rich: 300px;
-   --width-tooltip-menu: 220px;
+   /* Legacy width aliases for backward compatibility */
+   --width-tooltip-single-line: var(--width-tooltip-base-sm);
+   --width-tooltip-multi-line: var(--width-tooltip-base-lg);
 
    /* Elevated Theme (Light Mode) */
-   --color-tooltip-elevated-bg: var(--color-surface);
-   --color-tooltip-elevated-text: var(--color-neutral-000);
-   --color-tooltip-elevated-text-secondary: var(--color-neutral-100);
-   --color-tooltip-elevated-text-muted: var(--color-neutral-200);
-   --color-tooltip-elevated-border: rgba(0, 0, 0, 0.08);
-   --color-tooltip-elevated-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+   --color-tooltip-elevated-bg: #ffffff;
+   --color-tooltip-elevated-text: var(--color-neutral-000, #2f2f39);
+   --color-tooltip-elevated-text-secondary: var(--color-neutral-100, #454554);
+   --color-tooltip-elevated-text-muted: var(--color-neutral-200, #9090a2);
+   --color-tooltip-elevated-border: transparent;
+   --color-tooltip-elevated-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
 
    /* Filled Theme (Light Mode) */
-   --color-tooltip-filled-bg: var(--color-primary-container);
-   --color-tooltip-filled-text: var(--color-neutral-000);
-   --color-tooltip-filled-text-secondary: var(--color-neutral-100);
-   --color-tooltip-filled-text-muted: var(--color-blue-400);
+   --color-tooltip-filled-bg: var(--color-primary-container, #f5f5fe);
+   --color-tooltip-filled-text: var(--color-neutral-000, #2f2f39);
+   --color-tooltip-filled-text-secondary: var(--color-neutral-100, #454554);
+   --color-tooltip-filled-text-muted: var(--color-blue-400, #5965e9);
    --color-tooltip-filled-border: transparent;
-   --color-tooltip-filled-shadow: 0 4px 16px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
+   --color-tooltip-filled-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+
+   /* Unified Drop Shadow Filter */
+   --shadow-tooltip-drop: 2px 2px 8px rgba(0, 0, 0, 0.15);
 
    /* Nested Item Tokens */
-   --color-tooltip-item-bg: var(--color-surface);
-   --color-tooltip-item-border: var(--color-neutral-600);
-   --color-tooltip-item-hover: var(--color-neutral-800);
+   --color-tooltip-divider: var(--color-neutral-500, #d5d5dc);
+   --color-tooltip-item-hover: rgba(69, 69, 84, 0.08);
+   --color-tooltip-item-bg: var(--color-surface, #ffffff);
+   --color-tooltip-item-border: var(--color-neutral-600, #e3e3e8);
 
    /* ==========================================================================
       Snackbar Component Tokens
@@ -948,7 +970,345 @@
    --font-size-divider-text: var(--font-size-title-sm, 14px);
    --line-height-divider-text: 20px;
    --font-weight-divider-text: var(--font-weight-regular, 400);
+
+   /* ==========================================================================
+      9. APPBAR COMPONENT TOKENS (Top App Bars Specification)
+      ========================================================================== */
+   --appbar-height-full-default: 64px;
+   --appbar-height-full-action: 128px;
+   --appbar-height-nested-small: 64px;
+   --appbar-height-nested-large: 472px;
+   --appbar-height-special-xs: 64px;
+   --appbar-height-special-sm: 88px;
+   --appbar-height-special-lg-no-search: 434px;
+   --appbar-height-special-lg-search: 466px;
+   
+   --appbar-padding-x: 18px;
+   --appbar-padding-y: 12px;
+   --appbar-padding-special-x: 20px;
+   
+   --appbar-border-width: 1px;
+   --appbar-border-color: var(--color-neutral-outline, #d5d5dc);
+   --appbar-bg-default: var(--color-surface, #ffffff);
+   --appbar-bg-filled: var(--color-neutral-700, #f7f7f8);
+   --appbar-text-color: var(--color-neutral-000, #2f2f39);
+   --appbar-text-muted: var(--color-neutral-200, #9090a2);
+   
+   /* Brand Pill & Top App Bars Breadcrumbs */
+   --appbar-brand-pill-bg: linear-gradient(180deg, #7213ea 36%, #1e49e2 73%, #00338d 90%);
+   --appbar-brand-pill-gap: var(--spacing-5, 18px);
+   --appbar-breadcrumb-gap: var(--spacing-5, 18px);
+   --appbar-breadcrumb-item-gap: var(--spacing-1, 4px);
+   --appbar-breadcrumb-height: 20px;
+   --appbar-separator-color: var(--color-neutral-200, #9090a2);
+
+   /* Top App Bars Nested Breadcrumbs */
+   --appbar-nested-breadcrumb-color: var(--color-neutral-100, #454554);
+   --appbar-nested-breadcrumb-color-current: var(--color-neutral-000, #2f2f39);
+   --appbar-nested-breadcrumb-separator-color: var(--color-neutral-200, #9090a2);
+   --appbar-nested-breadcrumb-gap: var(--spacing-5, 18px);
+   --appbar-nested-breadcrumb-item-gap: var(--spacing-1, 4px);
+   --appbar-nested-breadcrumb-font-size: var(--font-size-label-lg, 14px);
+   --appbar-nested-breadcrumb-line-height: var(--line-height-label-lg, 20px);
+   --appbar-nested-breadcrumb-font-weight: var(--font-weight-regular, 400);
+   --appbar-nested-breadcrumb-font-weight-current: var(--font-weight-semibold, 600);
+
+   /* Top App Bars Special Specification Tokens */
+   --appbar-special-gradient: linear-gradient(180deg, #7213ea 36%, #1e49e2 73%, #00338d 90%);
+   --appbar-special-radius: var(--corner-medium, 12px);
+   --appbar-special-text-greeting: #ffffff;
+   --appbar-special-text-welcome: #ffffff;
+   --appbar-special-chip-bg: rgba(255, 255, 255, 0.12);
+   --appbar-special-chip-border: rgba(255, 255, 255, 0.4);
+   --appbar-special-chip-text: #ffffff;
+   --appbar-special-card-bg: rgba(255, 255, 255, 0.2);
+   --appbar-special-card-border: rgba(255, 255, 255, 0.25);
+   --appbar-special-card-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+   --appbar-special-card-header: #ffffff;
+   --appbar-special-card-subtext: rgba(255, 255, 255, 0.85);
+   --appbar-special-card-progress-track: #ffffff;
+   --appbar-special-card-progress-fill: #1e49e2;
+   --appbar-special-search-bg: #d7d9fa;
+   --appbar-special-search-btn-bg: #e9eafc;
+   --appbar-special-search-btn-icon: #1a28c1;
+   --appbar-special-search-text: #1a28c1;
+   --appbar-special-search-placeholder: #1a28c1;
+   --appbar-special-search-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+
+   /* ==========================================================================
+      MODAL COMPONENT TOKENS (Figma Canonical Specifications)
+      ========================================================================== */
+   --modal-bg: #ffffff;
+   --modal-border: #d5d5dc;
+   --modal-border-subtle: #9090a2;
+   --modal-radius: 12px;
+   --modal-width: 700px;
+   --modal-shadow: 2px 2px 12px 0px rgba(0, 0, 0, 0.15);
+   --modal-overlay-bg: rgba(47, 47, 57, 0.5);
+   --modal-padding: 24px;
+   --modal-header-gap: 12px;
+   --modal-title-color: #2f2f39;
+   --modal-title-font-size: 22px;
+   --modal-title-line-height: 30px;
+   --modal-title-font-weight: 600;
+   --modal-close-size: 40px;
+   --modal-close-icon-color: #454554;
+   --modal-divider-color: #d5d5dc;
+
+   /* Modal Items (Pill Headers) */
+   --modal-item-bg: #f5f5fe;
+   --modal-item-bg-hover: #eceeff;
+   --modal-item-bg-pressed: #e2e5fd;
+   --modal-item-radius: 1000px;
+   --modal-item-height-sm: 42px;
+   --modal-item-height-lg: 52px;
+   --modal-item-text-color: #2f2f39;
+   --modal-item-font-size: 14px;
+   --modal-item-line-height: 20px;
+   --modal-item-icon-color: #454554;
+
+   /* Modal Stacked Preview Card */
+   --modal-card-bg: rgba(255, 255, 255, 0.8);
+   --modal-card-border: #d5d5dc;
+   --modal-card-radius: 12px;
+   --modal-card-title-color: #2f2f39;
+   --modal-card-subhead-color: #454554;
+   --modal-card-stat-color: #454554;
+   --modal-avatar-size: 48px;
+   --modal-avatar-bg: #1e49e2;
+   --modal-avatar-color: #ffffff;
+
+   /* Modal Footer Buttons */
+   --modal-footer-gap: 18px;
+   --modal-btn-height: 40px;
+   --modal-btn-radius: 1000px;
+   --modal-btn-padding: 10px 24px;
+   --modal-btn-back-border: #1a28c1;
+   --modal-btn-back-text: #1a28c1;
+   --modal-btn-back-hover-bg: #f5f5fe;
+   --modal-btn-next-bg: #1e49e2;
+   --modal-btn-next-text: #ffffff;
+   --modal-btn-next-hover-bg: #183bb5;
+
+   /* ==========================================================================
+      TILES COMPONENT TOKENS (Figma Canonical Specifications)
+      ========================================================================== */
+   --tile-radius: 12px;
+   --tile-padding: 18px;
+   
+   /* Surfaces & Styles */
+   --tile-bg-outlined: #ffffff;
+   --tile-border-outlined: #d5d5dc;
+   --tile-border-inner: #d5d5dc;
+   --tile-bg-elevated: #ffffff;
+   --tile-shadow-elevated: 0px 4px 16px rgba(0, 0, 0, 0.08);
+   --tile-bg-filled: #f5f5fe;
+   --tile-border-filled: transparent;
+
+   /* Header */
+   --tile-title-color: #2f2f39;
+   --tile-title-font-size: 20px;
+   --tile-title-line-height: 28px;
+   --tile-title-font-weight: 600;
+   --tile-header-height-default: 44px;
+   --tile-header-height-filled: 76px;
+   --tile-header-filled-bg: #f5f5fe;
+
+   /* Alert Box */
+   --tile-alert-bg: #fffbe6;
+   --tile-alert-border: #f5b742;
+   --tile-alert-text: #2f2f39;
+   --tile-alert-icon-color: #454554;
+
+   /* Thumbnail & Empty State */
+   --tile-thumb-gradient: linear-gradient(135deg, #d4bbfd 0%, #7c83fd 100%);
+   --tile-thumb-radius: 16px;
+   --tile-empty-text-color: #9090a2;
+
+   /* Cards inside Tiles */
+   --tile-card-bg: #ffffff;
+   --tile-card-border: #d5d5dc;
+   --tile-card-radius: 12px;
+   --tile-card-title-color: #2f2f39;
+   --tile-card-desc-color: #454554;
+   --tile-card-subtext-color: #9090a2;
+
+   /* ==========================================================================
+      SHEETS COMPONENT TOKENS (Floating Sheets & Side Sheets Specification)
+      ========================================================================== */
+   --sheet-radius: 12px;
+   --sheet-padding: 18px;
+   --sheet-bg-default: #ffffff;
+   --sheet-border-default: #d5d5dc;
+   --sheet-shadow-floating: 2px 2px 12px 0px rgba(0, 0, 0, 0.15);
+   --sheet-shadow-side: -4px 0px 24px rgba(0, 0, 0, 0.12);
+   
+   /* Side Sheet dimensions */
+   --sheet-side-width-small: 320px;
+   --sheet-side-width-large: 360px;
+   
+   /* Floating Sheet dimensions */
+   --sheet-floating-width-compact: 400px;
+   --sheet-floating-width-large: 486px;
+
+   /* Pill Header */
+   --sheet-pill-bg: #f5f5fe;
+   --sheet-pill-bg-hover: #e8ebfd;
+   --sheet-pill-height: 42px;
+   --sheet-pill-radius: 1000px;
+   --sheet-pill-color: #2f2f39;
+
+   /* Sub-cards inside sheets */
+   --sheet-card-bg: #ffffff;
+   --sheet-card-border: #d5d5dc;
+   --sheet-card-radius: 12px;
+   --sheet-card-title-color: #2f2f39;
+   --sheet-card-text-color: #454554;
+   --sheet-card-subtext-color: #9090a2;
+   
+   /* Dropzone */
+   --sheet-dropzone-bg: #ffffff;
+   --sheet-dropzone-border: #d5d5dc;
+   --sheet-dropzone-radius: 12px;
+   
+   /* ==========================================================================
+      MESSAGES COMPONENT TOKENS (KPMG WorkBench Messages Family Specification)
+      ========================================================================== */
+   --message-font-family: var(--font-family-base, 'Open Sans', sans-serif);
+   --message-radius: var(--radius-lg, 16px);
+   --message-radius-card: var(--radius-lg, 16px);
+   --message-radius-bubble: var(--radius-lg, 16px);
+   --message-radius-attachment: var(--radius-md, 12px);
+   --message-radius-media: var(--radius-md, 12px);
+   --message-radius-step: var(--radius-md, 12px);
+   --message-radius-code: var(--radius-sm, 8px);
+   --message-radius-pill: var(--radius-full, 1000px);
+   --message-radius-toggle-btn: var(--radius-full, 1000px);
+   --message-radius-action-btn: var(--radius-full, 1000px);
+
+   /* Spacing Scale */
+   --message-spacing-none: 0px;
+   --message-spacing-xs: var(--spacing-1, 4px);
+   --message-spacing-sm: var(--spacing-2, 8px);
+   --message-spacing-md: var(--spacing-4, 12px);
+   --message-spacing-lg: var(--spacing-5, 18px);
+   --message-spacing-xl: var(--spacing-6, 24px);
+   --message-padding-bubble: var(--spacing-4, 12px) var(--spacing-5, 18px);
+   --message-padding-card: var(--spacing-5, 18px);
+   --message-padding-attachment: var(--spacing-4, 12px) var(--spacing-4, 12px);
+   --message-padding-step: var(--spacing-4, 12px) var(--spacing-5, 18px);
+   --message-padding-code: var(--spacing-6, 24px) var(--spacing-5, 18px);
+
+   /* Typography Scale */
+   --message-font-size-headline: var(--font-size-body-lg, 16px);
+   --message-line-height-headline: 22px;
+   --message-font-weight-headline: var(--font-weight-semibold, 600);
+   --message-font-size-body: var(--font-size-body-md, 14px);
+   --message-line-height-body: 22px;
+   --message-font-weight-body: var(--font-weight-regular, 400);
+   --message-font-size-secondary: var(--font-size-body-md, 14px);
+   --message-line-height-secondary: 22px;
+   --message-font-size-subhead: var(--font-size-label-md, 12px);
+   --message-line-height-subhead: 16px;
+   --message-font-size-citation: 10px;
+   --message-font-size-transcript: 15px;
+   --message-font-size-meta: var(--font-size-label-large, 13px);
+
+   /* Reply (Bot / Assistant) Tokens */
+   --message-reply-bg: transparent;
+   --message-reply-card-bg: var(--color-surface, #ffffff);
+   --message-reply-card-border: var(--color-neutral-outline, #d5d5dc);
+   --message-reply-headline-color: var(--color-on-surface, #2f2f39);
+   --message-reply-text-color: var(--color-neutral-100, #454554);
+   --message-reply-secondary-color: var(--color-neutral-100, #454554);
+   --message-reply-avatar-gradient: linear-gradient(180deg, #7213ea 0%, #1e49e2 100%);
+   --message-reply-avatar-shadow: 0 1px 3px rgba(114, 19, 234, 0.3);
+
+   /* Sent (Human User) Tokens */
+   --message-sent-bg: #d7d9fa;
+   --message-sent-border: transparent;
+   --message-sent-radius: var(--radius-lg, 16px) var(--radius-lg, 16px) 0px var(--radius-lg, 16px);
+   --message-sent-headline-color: var(--color-on-surface, #2f2f39);
+   --message-sent-text-color: var(--color-neutral-100, #454554);
+   --message-sent-secondary-color: var(--color-neutral-100, #454554);
+
+   /* Divider & Outlines */
+   --message-divider-color: var(--color-neutral-outline, #d5d5dc);
+   --message-border-color: var(--color-neutral-outline, #d5d5dc);
+
+   /* Citations / Footnote Badges */
+   --message-citation-bg: var(--color-neutral-action, #e3e3e8);
+   --message-citation-text: var(--color-neutral-100, #454554);
+   --message-citation-border: transparent;
+   --message-citation-bg-hover: var(--color-primary-container, #e9eafc);
+   --message-citation-text-hover: var(--color-primary-action, #1e49e2);
+   --message-citation-size: 15px;
+
+   /* Attachment & Source Horizontal Cards */
+   --message-card-bg: var(--color-blend-surface-dark, rgba(255, 255, 255, 0.8));
+   --message-card-border: var(--color-neutral-outline, #d5d5dc);
+   --message-card-border-hover: var(--color-primary-container-darkest, #aab0f4);
+   --message-card-radius: var(--radius-md, 12px);
+   --message-card-title-color: var(--color-on-surface, #2f2f39);
+   --message-card-subtext-color: var(--color-neutral-200, #9090a2);
+   --message-card-thumb-gradient: linear-gradient(135deg, #d4bbfd 0%, #7c83fd 100%);
+   --message-card-thumb-size: 48px;
+
+   /* Media Cards */
+   --message-media-size: 171.5px;
+   --message-media-radius: var(--radius-md, 12px);
+   --message-media-bg: linear-gradient(180deg, #d4bbfd 0%, #7c83fd 100%);
+   --message-media-border: rgba(0, 0, 0, 0.05);
+   --message-media-border-hover: var(--color-neutral-outline-light, #9090a2);
+   --message-media-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.1);
+   --message-media-shadow-pressed: 0 10px 30px rgba(0, 0, 0, 0.15);
+
+   /* Media Popover Menu */
+   --message-popover-bg: var(--color-surface, #ffffff);
+   --message-popover-border: var(--color-neutral-outline, #d5d5dc);
+   --message-popover-radius: var(--radius-lg, 16px);
+   --message-popover-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+   --message-popover-item-hover-bg: var(--color-primary-surface, #f5f5fe);
+   --message-popover-width: 280px;
+
+   /* Workflow Status / Task Cards Rich */
+   --message-status-bg: var(--color-blend-surface-dark, rgba(255, 255, 255, 0.8));
+   --message-status-border: var(--color-neutral-outline, #d5d5dc);
+   --message-status-radius: var(--radius-md, 12px);
+   --message-status-title-color: var(--color-on-surface, #2f2f39);
+   --message-status-subhead-color: var(--color-neutral-200, #9090a2);
+   --message-status-btn-size: 28px;
+   --message-step-bg: var(--color-surface, #ffffff);
+   --message-step-border: var(--color-neutral-outline, #d5d5dc);
+   --message-step-radius: var(--radius-md, 12px);
+   --message-step-circle-size: 18px;
+   --message-code-bg: var(--color-neutral-container-dark, #e3e3e8);
+   --message-code-text: var(--color-neutral-100, #454554);
+
+   /* Action Bar (Thumbs, Speaker, Copy, Regenerate) */
+   --message-action-btn-size: 40px;
+   --message-action-icon-size: 24px;
+   --message-action-icon-color: var(--color-neutral-100, #454554);
+   --message-action-btn-hover-bg: var(--color-neutral-container, #f1f1f3);
+   --message-action-btn-pressed-bg: var(--color-neutral-action, #e3e3e8);
+
+   /* Toggle Expand/Minimize Button */
+   --message-toggle-btn-width: 136px;
+   --message-toggle-btn-height: 40px;
+
+   /* Audio / Voice Message */
+   --message-audio-bg-light: var(--color-surface, #ffffff);
+   --message-audio-border-light: var(--color-neutral-outline, #d5d5dc);
+   --message-audio-text-light: var(--color-on-surface, #2f2f39);
+   --message-audio-pill-bg-light: var(--color-primary-surface, #f5f5fe);
+   --message-audio-pill-text-light: var(--color-primary-action, #1e49e2);
+   --message-audio-bg-dark: #9daaf5;
+   --message-audio-border-dark: rgba(255, 255, 255, 0.2);
+   --message-audio-text-dark: #ffffff;
+   --message-audio-pill-bg-dark: rgba(255, 255, 255, 0.2);
+   --message-audio-pill-text-dark: #ffffff;
 }
+
 
 
 
@@ -1251,7 +1611,343 @@
    --color-divider-line: #454554;
    --color-divider-line-dark: #d5d5dc;
    --color-divider-text: #f5f5f7;
+
+   /* AppBars Dark Mode Overrides */
+   --appbar-border-color: #454554;
+   --appbar-bg-default: #2f2f39;
+   --appbar-bg-filled: #232338;
+   --appbar-text-color: #f7f7f8;
+   --appbar-text-muted: #b8b8c4;
+   --appbar-brand-pill-bg: linear-gradient(180deg, #7213ea 36%, #1e49e2 73%, #00338d 90%);
+   --appbar-separator-color: #b8b8c4;
+   --appbar-nested-breadcrumb-color: #d5d5dc;
+   --appbar-nested-breadcrumb-color-current: #ffffff;
+   --appbar-nested-breadcrumb-separator-color: #b8b8c4;
+
+   /* Special AppBars Dark Mode Overrides */
+   --appbar-special-gradient: linear-gradient(180deg, #5910b8 36%, #183bb5 73%, #002260 90%);
+   --appbar-special-card-bg: rgba(255, 255, 255, 0.12);
+   --appbar-special-card-border: rgba(255, 255, 255, 0.18);
+   --appbar-special-search-bg: #2d3561;
+   --appbar-special-search-btn-bg: #3d4a82;
+   --appbar-special-search-btn-icon: #aab0f4;
+   --appbar-special-search-text: #ffffff;
+   --appbar-special-search-placeholder: #aab0f4;
+
+   /* Modal Dark Mode Overrides */
+   --modal-bg: #232338;
+   --modal-border: #454554;
+   --modal-border-subtle: #555566;
+   --modal-shadow: 0px 8px 32px rgba(0, 0, 0, 0.45);
+   --modal-overlay-bg: rgba(15, 15, 25, 0.7);
+   --modal-title-color: #f7f7f8;
+   --modal-close-icon-color: #b8b8c4;
+   --modal-divider-color: #454554;
+   --modal-item-bg: #2d3561;
+   --modal-item-bg-hover: #384279;
+   --modal-item-bg-pressed: #455294;
+   --modal-item-text-color: #f7f7f8;
+   --modal-item-icon-color: #d5d5dc;
+   --modal-card-bg: rgba(47, 47, 57, 0.7);
+   --modal-card-border: #454554;
+   --modal-card-title-color: #f7f7f8;
+   --modal-card-subhead-color: #b8b8c4;
+   --modal-card-stat-color: #b8b8c4;
+   --modal-btn-back-border: #818aee;
+   --modal-btn-back-text: #818aee;
+   --modal-btn-back-hover-bg: rgba(129, 138, 238, 0.12);
+   --modal-btn-next-bg: #3d4a82;
+   --modal-btn-next-text: #ffffff;
+   --modal-btn-next-hover-bg: #4a5a9c;
+
+   /* Tiles Dark Mode Overrides */
+   --tile-bg-outlined: #2f2f39;
+   --tile-border-outlined: #454554;
+   --tile-border-inner: #454554;
+   --tile-bg-elevated: #2f2f39;
+   --tile-shadow-elevated: 0px 4px 16px rgba(0, 0, 0, 0.45);
+   --tile-bg-filled: #232338;
+   --tile-border-filled: transparent;
+
+   --tile-title-color: #f7f7f8;
+   --tile-header-filled-bg: #232338;
+
+   --tile-alert-bg: #332712;
+   --tile-alert-border: #f5b742;
+   --tile-alert-text: #fcd37e;
+   --tile-alert-icon-color: #f5b742;
+
+   --tile-empty-text-color: #b8b8c4;
+
+   --tile-card-bg: #232338;
+   --tile-card-border: #454554;
+   --tile-card-title-color: #f7f7f8;
+   --tile-card-desc-color: #d5d5dc;
+   --tile-card-subtext-color: #9090a2;
+
+   /* Sheets Dark Mode Overrides */
+   --sheet-bg-default: #232338;
+   --sheet-border-default: #454554;
+   --sheet-shadow-floating: 2px 2px 16px 0px rgba(0, 0, 0, 0.45);
+   --sheet-shadow-side: -4px 0px 24px rgba(0, 0, 0, 0.5);
+
+   --sheet-pill-bg: #2d3561;
+   --sheet-pill-bg-hover: #384279;
+   --sheet-pill-color: #f7f7f8;
+
+   --sheet-card-bg: #2f2f39;
+   --sheet-card-border: #454554;
+   --sheet-card-title-color: #f7f7f8;
+   --sheet-card-text-color: #d5d5dc;
+   --sheet-card-subtext-color: #9090a2;
+
+   --sheet-dropzone-bg: #232338;
+   --sheet-dropzone-border: #454554;
+
+   /* Messages Dark Mode Overrides */
+   --message-reply-bg: transparent;
+   --message-reply-card-bg: #232338;
+   --message-reply-card-border: #454554;
+   --message-reply-headline-color: #f7f7f8;
+   --message-reply-text-color: #d5d5dc;
+   --message-reply-secondary-color: #b8b8c4;
+   
+   --message-sent-bg: #2d3561;
+   --message-sent-border: #454554;
+   --message-sent-headline-color: #ffffff;
+   --message-sent-text-color: #e9eafc;
+   --message-sent-secondary-color: #d5d5dc;
+
+   --message-divider-color: #454554;
+   --message-border-color: #454554;
+
+   --message-citation-bg: #2f2f39;
+   --message-citation-text: #d5d5dc;
+   --message-citation-border: #454554;
+   --message-citation-bg-hover: #3d3d5c;
+   --message-citation-text-hover: #ffffff;
+
+   --message-card-bg: #232338;
+   --message-card-border: #454554;
+   --message-card-border-hover: #7c83fd;
+   --message-card-title-color: #f7f7f8;
+   --message-card-subtext-color: #b8b8c4;
+
+   --message-media-border: rgba(255, 255, 255, 0.1);
+   --message-media-border-hover: #7c83fd;
+
+   --message-popover-bg: #232338;
+   --message-popover-border: #454554;
+   --message-popover-item-hover-bg: #2f2f39;
+
+   --message-status-bg: #232338;
+   --message-status-border: #454554;
+   --message-status-title-color: #f7f7f8;
+   --message-status-subhead-color: #b8b8c4;
+   --message-step-bg: #2f2f39;
+   --message-step-border: #454554;
+   --message-code-bg: #1c1c28;
+   --message-code-text: #d5d5dc;
+
+   --message-action-icon-color: #b8b8c4;
+   --message-action-btn-hover-bg: #32324d;
+   --message-action-btn-pressed-bg: #3d3d5c;
+
+   --message-audio-bg-light: #232338;
+   --message-audio-border-light: #454554;
+   --message-audio-text-light: #f7f7f8;
+   --message-audio-pill-bg-light: #2f2f39;
+   /* ==========================================================================
+      HORIZONTAL CARD DESIGN TOKENS (Figma Node 1652:2701)
+      ========================================================================== */
+   --card-width: 340px;
+   --card-radius: var(--radius-md, 8px);
+   --card-padding-sm: 12px;
+   --card-padding-lg: 18px;
+   --card-gap: 12px;
+
+   /* Surfaces & Styles */
+   --card-bg-outlined: var(--color-surface, #ffffff);
+   --card-border-outlined: 1px solid var(--color-neutral-500, #d5d5dc);
+
+   --card-bg-elevated: var(--color-surface, #ffffff);
+   --card-border-elevated: 1px solid transparent;
+   --card-shadow-elevated: 0px 4px 12px rgba(47, 47, 57, 0.08);
+
+   --card-bg-filled: var(--color-blue-900, #f5f5fe);
+   --card-border-filled: 1px solid transparent;
+
+   --card-bg-warning: #fffbeb;
+   --card-border-warning: 1px solid #fde68a;
+
+   /* Thumbnail Media */
+   --card-thumb-radius-sm: var(--radius-sm, 6px);
+   --card-thumb-radius-lg: var(--radius-md, 8px);
+   --card-thumb-gradient: linear-gradient(135deg, #aab0f4 0%, #5965e9 100%);
+
+   /* Typography */
+   --card-title-color: var(--color-on-surface, #2f2f39);
+   --card-title-font-size: 14px;
+   --card-title-font-weight: 600;
+   --card-title-line-height: 22px;
+
+   --card-subtext-color: var(--color-neutral-200, #9090a2);
+   --card-subtext-font-size: 12px;
+   --card-subtext-font-weight: 400;
+   --card-subtext-line-height: 18px;
+
+   --card-body-color: var(--color-neutral-200, #9090a2);
+   --card-body-font-size: 11px;
+   --card-body-line-height: 16px;
+
+   --card-divider-color: var(--color-neutral-600, #e3e3e8);
+
+   /* Status Pill & Progress */
+   --card-status-chip-bg: var(--color-primary-surface, #f5f5fe);
+   --card-status-chip-border: 1px solid var(--color-primary-outline, #818aee);
+   --card-status-chip-color: var(--color-primary-action, #1e49e2);
+   --card-progress-track: var(--color-neutral-600, #e3e3e8);
+   --card-progress-fill: var(--color-primary-action, #1e49e2);
+
+   /* Interactive Elements */
+   --card-action-color: var(--color-neutral-200, #9090a2);
+   --card-action-hover-color: var(--color-primary-action, #1e49e2);
+   --card-action-hover-bg: var(--color-primary-surface, #f5f5fe);
+   --card-checkbox-border: var(--color-neutral-400, #c7c7d1);
+   --card-checkbox-checked-bg: var(--color-primary-action, #1e49e2);
+
+   /* ==========================================================================
+      HORIZONTAL CARDS RICH DESIGN TOKENS (Figma Node 1673:12549)
+      ========================================================================== */
+   --card-rich-width: 376px;
+   --card-rich-radius: var(--radius-lg, 12px);
+   --card-rich-padding: 18px;
+   --card-rich-gap: 12px;
+
+   /* Surfaces & Styles */
+   --card-rich-bg-outlined: var(--color-surface, #ffffff);
+   --card-rich-border-outlined: 1px solid var(--color-neutral-500, #d5d5dc);
+
+   --card-rich-bg-elevated: var(--color-surface, #ffffff);
+   --card-rich-border-elevated: 1px solid transparent;
+   --card-rich-shadow-elevated: 0px 6px 16px rgba(47, 47, 57, 0.08);
+
+   --card-rich-bg-filled: var(--color-blue-900, #f5f5fe);
+   --card-rich-border-filled: 1px solid transparent;
+
+   /* Header Typography */
+   --card-rich-header-title-font-size: 16px;
+   --card-rich-header-title-font-weight: 600;
+   --card-rich-header-title-line-height: 24px;
+   --card-rich-header-title-color: var(--color-on-surface, #2f2f39);
+
+   --card-rich-header-subhead-font-size: 12px;
+   --card-rich-header-subhead-font-weight: 400;
+   --card-rich-header-subhead-line-height: 20px;
+   --card-rich-header-subhead-color: var(--color-neutral-200, #9090a2);
+
+   /* Section Header */
+   --card-rich-section-title-font-size: 14px;
+   --card-rich-section-title-font-weight: 600;
+   --card-rich-section-title-line-height: 20px;
+   --card-rich-section-title-color: var(--color-on-surface, #2f2f39);
+   --card-rich-section-icon-color: var(--color-neutral-300, #454554);
+   --card-rich-section-icon-hover-bg: var(--color-primary-surface, #f5f5fe);
+
+   /* Dividers */
+   --card-rich-divider-color: var(--color-neutral-600, #e3e3e8);
+
+   /* ==========================================================================
+      SPECIAL CARDS DESIGN TOKENS (Figma Node 1652:22307)
+      ========================================================================== */
+   --card-special-radius: var(--radius-lg, 12px);
+   --card-special-padding: 18px;
+   --card-special-slider-width: 340px;
+   --card-special-chips-width: 428px;
+   --card-special-references-width: 435px;
+   --card-special-code-width: 435px;
+   --card-special-loading-width: 414px;
+   --card-special-rich-width: 376px;
+
+   /* ==========================================================================
+      DATA TABLE DESIGN TOKENS
+      ========================================================================== */
+   --data-table-width: 100%;
+   --data-table-height: 100%;
+   --data-table-col-width: 168px;
+   --data-table-col-min-width: 80px;
+   --data-table-col-gap: 8px;
+   --data-table-row-gap: 8px;
+   --data-table-header-height: 48px;
+   --data-table-header-min-height: 48px;
+   --data-table-header-margin-bottom: 12px;
+   --data-table-cell-height-default: 88px;
+   --data-table-cell-height-chip: 52px;
+   --data-table-cell-height-compact: 48px;
+   --data-table-cell-min-height: 48px;
+   --data-table-cell-radius: 8px;
+   --data-table-cell-padding: 12px;
+   --data-table-chip-cell-padding: 10px;
+   --data-table-header-padding: 12px;
+
+   /* Typography */
+   --data-table-header-font-size: 16px;
+   --data-table-header-line-height: 22px;
+   --data-table-header-font-weight: 400;
+   --data-table-header-color: #454554;
+   --data-table-cell-font-size: 12px;
+   --data-table-cell-line-height: 16px;
+   --data-table-cell-font-weight: 400;
+   --data-table-cell-color: #454554;
+
+   /* Header Button & Action */
+   --data-table-header-btn-size: 24px;
+   --data-table-header-btn-radius: 1000px;
+   --data-table-header-btn-enabled-bg: transparent;
+   --data-table-header-btn-enabled-color: #454554;
+   --data-table-header-btn-pressed-bg: #1e49e2;
+   --data-table-header-btn-pressed-color: #ffffff;
+
+   /* Cell States & Surfaces */
+   --data-table-cell-bg-default: #ffffff;
+   --data-table-cell-border-default: transparent;
+   --data-table-cell-bg-hovered: #f7f7f8;
+   --data-table-cell-border-hovered: transparent;
+   --data-table-cell-bg-pressed: #f5f5fe;
+   --data-table-cell-border-pressed: #818aee;
+   --data-table-cell-bg-error: #fff6fa;
+   --data-table-cell-border-error: #fc659b;
+   --data-table-cell-text-error: #c00f48;
+   --data-table-cell-bg-missing: #fefae5;
+   --data-table-cell-border-missing: #f4d533;
+   --data-table-cell-text-missing: #454554;
+
+   /* Chips inside Data Table */
+   --data-table-chip-font-size: 12px;
+   --data-table-chip-line-height: 16px;
+   --data-table-chip-color: #454554;
+   --data-table-chip-border: #9090a2;
+   --data-table-chip-radius: 1000px;
+   --data-table-chip-padding: 8px 12px;
+   --data-table-chip-error-bg: #ffcedf;
+   --data-table-chip-error-border: #fc659b;
+
+   /* Shimmer Loader Gradient */
+   --data-table-shimmer-color-1: #818aee;
+   --data-table-shimmer-color-2: #d1d1f9;
+   --data-table-shimmer-color-3: #f8f3fe;
+
+   /* Tooltip Popover */
+   --data-table-tooltip-width: 300px;
+   --data-table-tooltip-radius: 18px;
+   --data-table-tooltip-bg: #ffffff;
+   --data-table-tooltip-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
+   --data-table-tooltip-title-color: #2f2f39;
+   --data-table-tooltip-subtext-color: #454554;
+   --data-table-tooltip-divider: #d5d5dc;
 }
+
+
 
 
 
