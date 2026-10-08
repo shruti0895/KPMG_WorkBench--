@@ -105,15 +105,15 @@ export const Default: Story = {
 // 2. Interactive Selection
 export const InteractiveSelection: Story = {
   render: () => ({
-    props: { columns: enterpriseColumns, data: enterpriseRows, selectedKeys: ['row-2'], total: enterpriseRows.length },
+    props: { columns: enterpriseColumns, data: enterpriseRows, pickedRows: ['row-2'], total: enterpriseRows.length },
     template: `
       <div style="width:100%;height:auto;min-height:fit-content;display:flex;flex-direction:column;gap:16px">
         <div style="display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
           <h3 style="margin:0;font-size:18px;font-weight:600;color:#2f2f39">Multi-Row Checkbox Selection</h3>
-          <span style="font-size:13px;color:#454554;font-weight:500">{{ selectedKeys.length }} of {{ total }} rows selected</span>
+          <span style="font-size:13px;color:#454554;font-weight:500">{{ pickedRows.length }} of {{ total }} rows selected</span>
         </div>
         <div style="flex:1;min-height:0">
-          <kpmg-data-table [columns]="columns" [data]="data" [selectable]="true" [selectedRowKeys]="selectedKeys" (selectionChange)="selectedKeys = $event.keys" />
+          <kpmg-data-table [columns]="columns" [data]="data" [selectable]="true" [selectedRowKeys]="pickedRows" (selectionChange)="pickedRows = $event.keys" />
         </div>
       </div>`,
   }),
