@@ -7,6 +7,7 @@ const meta: Meta<TabComponent> = {
   title: 'Components/Tab',
   component: TabComponent,
   tags: ['autodocs'],
+  parameters: { layout: 'padded' },
   decorators: [moduleMetadata({ imports: [TabComponent, TabItemComponent] })],
   args: { size: 'small', bordered: true, fullWidth: false },
   argTypes: {
@@ -33,7 +34,8 @@ const meta: Meta<TabComponent> = {
 export default meta;
 type Story = StoryObj<TabComponent>;
 
-const wrap = (inner: string) => `<div style="padding: 24px">${inner}</div>`;
+const wrap = (inner: string) => `<div style="padding: 24px; background: var(--color-surface)">${inner}</div>`;
+const wrapFull = (inner: string) => `<div style="width: 100%; background: var(--color-surface)">${inner}</div>`;
 
 export const SmallDefaultInactive: Story = {
   name: '1. Small - Default - Inactive',
@@ -84,37 +86,38 @@ export const SmallWithBadgeDisabled: Story = {
   }),
 };
 export const LargeDefaultWithActions: Story = {
-  name: '9. Large - Default - With Actions',
+  name: '9. Large - Default - Active with Trailing Actions',
   render: () => ({
-    template: `<kpmg-tab size="large" defaultValue="overview"><kpmg-tab-item tabId="overview" label="Overview" /><kpmg-tab-item tabId="analytics" label="Analytics" /><kpmg-tab-item tabId="reports" label="Reports" /></kpmg-tab>`,
+    template: wrapFull(`<kpmg-tab size="large" defaultValue="overview"><kpmg-tab-item tabId="overview" label="Overview" /><kpmg-tab-item tabId="analytics" label="Analytics" /><kpmg-tab-item tabId="reports" label="Reports" /><kpmg-tab-item tabId="settings" label="Settings" /></kpmg-tab>`),
   }),
 };
 export const LargeWithBadgeWithActions: Story = {
-  name: '10. Large - With Badge - With Actions',
+  name: '10. Large - With Badge - Active with Trailing Actions',
   render: () => ({
-    template: `<kpmg-tab size="large" defaultValue="inbox"><kpmg-tab-item tabId="inbox" label="Inbox" badge="12" /><kpmg-tab-item tabId="sent" label="Sent" badge="3" /><kpmg-tab-item tabId="drafts" label="Drafts" /></kpmg-tab>`,
+    template: wrapFull(`<kpmg-tab size="large" defaultValue="inbox"><kpmg-tab-item tabId="inbox" label="Inbox" badge="12" /><kpmg-tab-item tabId="assigned" label="Assigned" badge="4" /><kpmg-tab-item tabId="completed" label="Completed" badge="8" /><kpmg-tab-item tabId="archive" label="Archive" /></kpmg-tab>`),
   }),
 };
 export const LargeCleanNoActions: Story = {
-  name: '11. Large - Clean',
+  name: '11. Large - Clean - Without Trailing Actions',
   render: () => ({
-    template: `
-      <kpmg-tab size="large" defaultValue="tab1">
+    template: wrapFull(`
+      <ng-template #none><span></span></ng-template>
+      <kpmg-tab size="large" [actions]="none" defaultValue="tab1">
         <kpmg-tab-item tabId="tab1" label="Dashboard" />
         <kpmg-tab-item tabId="tab2" label="Integrations" />
         <kpmg-tab-item tabId="tab3" label="Security" />
         <kpmg-tab-item tabId="tab4" label="Audit Log" />
       </kpmg-tab>
-    `,
+    `),
   }),
 };
 export const LargeMixedBadgesWithActions: Story = {
   name: '12. Large - Mixed Badges & Interactive Actions',
   render: () => ({
-    template: `
+    template: wrapFull(`
       <ng-template #acts>
         <div style="display: flex; gap: 8px; align-items: center">
-          <span style="font-size: 13px">Actions:</span>
+          <span style="font-size: 13px; color: var(--color-neutral-100)">Actions:</span>
           <button type="button" class="kpmg-tab__action-btn" title="Filter records" (click)="alert('Filter clicked')">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon></svg>
           </button>
@@ -129,8 +132,45 @@ export const LargeMixedBadgesWithActions: Story = {
         <kpmg-tab-item tabId="pending" label="Pending" badge="3" />
         <kpmg-tab-item tabId="archived" label="Archived" disabled />
       </kpmg-tab>
-    `,
+    `),
     props: { alert: (m: string) => window.alert(m) },
+  }),
+};
+
+export const AllTwelveVariantsMatrix: Story = {
+  name: 'Complete 12-Variant Matrix',
+  render: () => ({
+    props: {
+      variants: [
+        { id: 1, title: '1. Small - Default - Inactive', size: 'small', items: [{ label: 'Tab' }, { label: 'Tab' }, { label: 'Tab' }] },
+        { id: 2, title: '2. Small - Default - Active', size: 'small', items: [{ label: 'Tab', selected: true }, { label: 'Tab' }, { label: 'Tab' }] },
+        { id: 3, title: '3. Small - Default - Hovered', size: 'small', items: [{ label: 'Tab', state: 'hovered' }, { label: 'Tab' }, { label: 'Tab' }] },
+        { id: 4, title: '4. Small - Default - Disabled', size: 'small', items: [{ label: 'Tab', disabled: true }, { label: 'Tab', disabled: true }, { label: 'Tab', disabled: true }] },
+        { id: 5, title: '5. Small - With Badge - Inactive', size: 'small', items: [{ label: 'Tab', badge: 4 }, { label: 'Tab', badge: 4 }, { label: 'Tab', badge: 4 }] },
+        { id: 6, title: '6. Small - With Badge - Active', size: 'small', items: [{ label: 'Tab', badge: 4, selected: true }, { label: 'Tab', badge: 4 }, { label: 'Tab', badge: 4 }] },
+        { id: 7, title: '7. Small - With Badge - Hovered', size: 'small', items: [{ label: 'Tab', badge: 4, state: 'hovered' }, { label: 'Tab', badge: 4 }, { label: 'Tab', badge: 4 }] },
+        { id: 8, title: '8. Small - With Badge - Disabled', size: 'small', items: [{ label: 'Tab', badge: 4, disabled: true }, { label: 'Tab', badge: 4, disabled: true }, { label: 'Tab', badge: 4, disabled: true }] },
+        { id: 9, title: '9. Large - Default - Active with Trailing Actions', size: 'large', items: [{ label: 'Tab', selected: true }, { label: 'Tab' }, { label: 'Tab' }, { label: 'Tab' }] },
+        { id: 10, title: '10. Large - With Badge - Active with Trailing Actions', size: 'large', items: [{ label: 'Tab', badge: 4, selected: true }, { label: 'Tab', badge: 4 }, { label: 'Tab', badge: 4 }, { label: 'Tab', badge: 4 }] },
+        { id: 11, title: '11. Large - Clean - Without Trailing Actions', size: 'large', clean: true, items: [{ label: 'Tab', selected: true }, { label: 'Tab' }, { label: 'Tab' }, { label: 'Tab' }] },
+        { id: 12, title: '12. Large - Mixed Badges - With Trailing Actions', size: 'large', items: [{ label: 'Tab', selected: true }, { label: 'Tab', badge: 8 }, { label: 'Tab', badge: 3 }, { label: 'Tab', disabled: true }] },
+      ],
+    },
+    template: `
+      <ng-template #none><span></span></ng-template>
+      <div style="display: flex; flex-direction: column; gap: 28px; padding: 16px; background: var(--color-surface)">
+        <div style="border-bottom: 1px solid var(--color-neutral-600); padding-bottom: 12px">
+          <h2 style="font-size: 18px; font-weight: 600; color: var(--color-on-surface)">Tab Component: All 12 Canonical Variants Matrix</h2>
+          <p style="font-size: 14px; color: var(--color-neutral-100); margin-top: 4px">Demonstrating all 12 design system variant configurations with 100% token fidelity.</p>
+        </div>
+        @for (v of variants; track v.id) {
+          <div style="padding: 16px 20px; border-radius: 8px; border: 1px solid var(--color-neutral-500); background-color: var(--color-surface)">
+            <div style="font-size: 13px; font-weight: 600; color: var(--color-neutral-100); margin-bottom: 12px">{{ v.title }}</div>
+            <kpmg-tab [size]="$any(v.size)" [actions]="v.clean ? none : null" [items]="$any(v.items)" />
+          </div>
+        }
+      </div>
+    `,
   }),
 };
 
@@ -148,15 +188,51 @@ export const DataDriven: Story = {
 };
 
 export const InteractiveTabbedPanels: Story = {
+  name: 'Interactive Live Panel Navigation',
   render: () => ({
-    props: { active: 'overview' },
-    template: wrap(`
-      <kpmg-tab size="small" [(value)]="active">
-        <kpmg-tab-item tabId="overview" label="Overview" ariaControls="panel-overview" />
-        <kpmg-tab-item tabId="activity" label="Activity" badge="5" ariaControls="panel-activity" />
-        <kpmg-tab-item tabId="settings" label="Settings" ariaControls="panel-settings" />
-      </kpmg-tab>
-      <div style="padding: 16px" role="tabpanel">Active panel: <strong>{{ active }}</strong></div>
-    `),
+    props: { active: 'summary', alert: (m: string) => window.alert(m) },
+    template: `
+      <ng-template #acts>
+        <div style="display: flex; gap: 8px">
+          <button type="button" class="kpmg-tab__action-btn" title="Refresh data" (click)="alert('Data refreshed')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"></path><path d="M1 20v-6h6"></path><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+          </button>
+        </div>
+      </ng-template>
+      <div style="border: 1px solid var(--color-neutral-500); border-radius: 12px; overflow: hidden; background: var(--color-surface)">
+        <kpmg-tab size="large" [(value)]="active" [actions]="acts">
+          <kpmg-tab-item tabId="summary" label="Summary" badge="3" ariaControls="panel-summary" />
+          <kpmg-tab-item tabId="transactions" label="Transactions" badge="142" ariaControls="panel-transactions" />
+          <kpmg-tab-item tabId="analytics" label="Analytics" ariaControls="panel-analytics" />
+          <kpmg-tab-item tabId="settings" label="Settings" ariaControls="panel-settings" />
+        </kpmg-tab>
+        <div style="padding: 24px">
+          @if (active === 'summary') {
+            <div id="panel-summary" role="tabpanel">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--color-on-surface)">Executive Summary</h3>
+              <p style="font-size: 14px; color: var(--color-neutral-100); margin-top: 8px">Active project portfolio consists of 3 high-priority initiatives nearing completion.</p>
+            </div>
+          }
+          @if (active === 'transactions') {
+            <div id="panel-transactions" role="tabpanel">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--color-on-surface)">Recent Transactions</h3>
+              <p style="font-size: 14px; color: var(--color-neutral-100); margin-top: 8px">142 verified transactions processed within the current billing cycle.</p>
+            </div>
+          }
+          @if (active === 'analytics') {
+            <div id="panel-analytics" role="tabpanel">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--color-on-surface)">Predictive Analytics</h3>
+              <p style="font-size: 14px; color: var(--color-neutral-100); margin-top: 8px">AI-driven workload optimization shows a 24.8% efficiency gain across workstreams.</p>
+            </div>
+          }
+          @if (active === 'settings') {
+            <div id="panel-settings" role="tabpanel">
+              <h3 style="font-size: 16px; font-weight: 600; color: var(--color-on-surface)">Workspace Settings</h3>
+              <p style="font-size: 14px; color: var(--color-neutral-100); margin-top: 8px">Manage team permissions, webhook endpoints, and notification preferences.</p>
+            </div>
+          }
+        </div>
+      </div>
+    `,
   }),
 };

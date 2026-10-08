@@ -1,0 +1,22 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        # Angular 20 + Storybook 10 need Node >= 20.19
+        - nvm install 22
+        - nvm use 22
+        # .npmrc sets legacy-peer-deps=true
+        - npm ci
+    build:
+      commands:
+        # tokens -> styles -> Angular lib -> static Angular Storybook
+        - npm run build-storybook:angular
+  artifacts:
+    baseDirectory: storybook-static-angular
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - node_modules/**/*
+      - .angular/cache/**/*

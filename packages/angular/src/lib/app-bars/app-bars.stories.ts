@@ -146,9 +146,9 @@ export const AllVariantsGallery: Story = {
               <kpmg-app-bar-nested size="small" state="default" title="Audit_Pipeline_v2.0" statusType="configuring" [statusProgress]="35" /></div>
             <div><span style="${LABEL}">Variant: Nested Small - Filled State with Completed Status</span>
               <kpmg-app-bar-nested size="small" state="filled" title="Quarterly_Tax_Reconciliation_2026" statusType="completed" /></div>
-            <kpmg-app-bar-nested size="large" state="default" [breadcrumbs]="['Subheader', 'Subheader']" title="Header" [filterChips]="['All Frameworks', 'Active Reviews', 'Drafts', 'Archived']" hasContent>
+            <div><kpmg-app-bar-nested size="large" state="default" [breadcrumbs]="['Subheader', 'Subheader']" title="Header" [filterChips]="['All Frameworks', 'Active Reviews', 'Drafts', 'Archived']" hasContent>
               ${SAMPLE_CARDS}
-            </kpmg-app-bar-nested>
+            </kpmg-app-bar-nested></div>
             <div><span style="${LABEL}">Variant: Nested Large - Filled State with Multi-Level Breadcrumbs</span>
               <kpmg-app-bar-nested size="large" state="filled" [breadcrumbs]="['Advisory Practice', 'Risk & Compliance', 'Governance']" title="Global Governance Oversight" [filterChips]="['Overview', 'Controls', 'Exceptions', 'Audit Log']" hasContent>
                 ${SAMPLE_CARDS}
@@ -160,8 +160,10 @@ export const AllVariantsGallery: Story = {
           <h2 style="${H2}">3. Top App Bars Special (Dashboard &amp; Search)</h2>
           <p style="${SUB}">Portal dashboard headers with personalized greetings and search capabilities.</p>
           <div style="display: flex; flex-direction: column; gap: 24px">
-            <kpmg-app-bar-special size="extra-small" greeting="Greeting, name" searchPlaceholder="Ask me anything" />
-            <kpmg-app-bar-special size="small" greeting="Greeting, name" searchPlaceholder="Ask me anything" />
+            <div><span style="${LABEL}"></span>
+              <kpmg-app-bar-special size="extra-small" greeting="Greeting, name" searchPlaceholder="Ask me anything" /></div>
+            <div><span style="${LABEL}"></span>
+              <kpmg-app-bar-special size="small" greeting="Greeting, name" searchPlaceholder="Ask me anything" /></div>
             <div><span style="${LABEL}">Variant 3: Size=Large, With search=False</span>
               <kpmg-app-bar-special size="large" [withSearch]="false" greeting="Greeting, name" welcomeHeader="Welcome" [filterChips]="['Project tag', 'Project tag', 'Project tag']" /></div>
             <div><span style="${LABEL}">Variant 4: Size=Large, With search=True</span>

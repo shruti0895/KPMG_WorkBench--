@@ -36,6 +36,7 @@ const meta: Meta<MenuComponent> = {
     }),
   ],
   parameters: {
+    layout: 'padded',
     docs: {
       description: {
         component: `
@@ -176,7 +177,7 @@ export const DropdownBases: Story = {
       <div style="display: flex; flex-direction: column; gap: 32px; padding: 16px">
         <div>
           <h3 style="margin: 0; font-family: var(--font-family-base); color: var(--color-neutral-000)">Dropdown Bases — All 24 Canonical Variants</h3>
-          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Default Ghost/Pill, Gradient, Branded Pill, Card Outlined/Filled across sizes and open states.</p>
+          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">4 Styles (Default Ghost/Pill, Gradient, Branded Pill, Card Outlined/Filled) &times; 3 Sizes (Small, Medium, Large, Branded, Card) &times; Open States (False / True).</p>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 32px; align-items: flex-start">
           ${baseColumn('1. Default Ghost (Background=False)', 'default', false, false)}
@@ -276,7 +277,7 @@ export const DropdownMenuInteractive: Story = {
       <div style="display: flex; flex-direction: column; gap: 32px; padding: 16px">
         <div>
           <h3 style="margin: 0; font-family: var(--font-family-base); color: var(--color-neutral-000)">Dropdown Menu — Interactive Orientations &amp; Alignments</h3>
-          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Alignment (Left, Right, Center) x Orientation (Bottom, Top) x Card Base.</p>
+          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Testing Popover Placements from Figma: Alignment (Left, Right, Center) &times; Orientation (Bottom, Top) &times; Card Base.</p>
         </div>
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 48px; align-items: flex-start">
           <div style="min-height: 320px">
@@ -352,10 +353,11 @@ export const NavigationMenuStory: Story = {
     },
     template: `
       ${ICONS}
+      <ng-template #noAction></ng-template>
       <div style="display: flex; flex-direction: column; gap: 28px; padding: 16px">
         <div>
           <h3 style="margin: 0; font-family: var(--font-family-base); color: var(--color-neutral-000)">Navigation Menu — KPMG Sidebar &amp; Brand Pill</h3>
-          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Icons, notification badges, action buttons and active selection with item handlers.</p>
+          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Supports passing icons as props with labels, notification badges, action buttons, and active selection with interactive onClick handlers.</p>
         </div>
         <div style="display: flex; align-items: center; gap: 12px; padding: 12px 18px; background-color: var(--color-primary-container, #e9eafc); border-radius: var(--radius-sm, 8px); border: 1px solid var(--color-primary-outline, #818aee); color: var(--color-primary-on-container, #1a28c1); font-size: 13px; font-family: var(--font-family-base); flex-wrap: wrap">
           <span style="font-weight: 600">Active Selection:</span><span style="background: var(--color-surface, #fff); color: var(--color-neutral-000, #2f2f39); padding: 3px 10px; border-radius: 4px; border: 1px solid var(--color-neutral-outline, #d5d5dc); font-weight: 500">{{ selectedNav }}</span>
@@ -364,7 +366,7 @@ export const NavigationMenuStory: Story = {
         <div style="display: flex; gap: 96px; align-items: flex-start; flex-wrap: wrap">
           <div style="min-width: 320px; width: 320px; min-height: 580px">
             <h5 style="margin: 0 0 6px; font-size: 14px; color: var(--color-neutral-000)">Brand Pill Popover Trigger</h5>
-            <p style="margin: 0 0 16px; font-size: 12px; color: var(--color-neutral-100)">Click the KPMG brand pill to open/close the anchored popover.</p>
+            <p style="margin: 0 0 16px; font-size: 12px; color: var(--color-neutral-100)">Click the KPMG brand pill below to open/close the anchored popover navigation menu.</p>
             <kpmg-navigation-menu brandLabel="KPMG" [activeItem]="selectedNav" [closeOnSelect]="false" (itemSelect)="select($event); log('[Brand Pill Popover] selected ' + $event.value)"
               [items]="[
                 { label: 'Inbox', icon: inbox, badge: '24' },
@@ -373,15 +375,15 @@ export const NavigationMenuStory: Story = {
                 { label: 'Trash', icon: trash },
                 { type: 'divider' },
                 { type: 'group', title: 'Workspaces', items: [
-                  { label: 'Client Portals', icon: folder, actionButton: true },
-                  { label: 'Risk Advisory', icon: folder, actionButton: true },
-                  { label: 'Regulatory Docs', icon: folder, actionButton: true }
+                  { label: 'Client Portals', icon: folder, actionButton: noAction },
+                  { label: 'Risk Advisory', icon: folder, actionButton: noAction },
+                  { label: 'Regulatory Docs', icon: folder, actionButton: noAction }
                 ] }
               ]" />
           </div>
           <div style="min-width: 280px; width: 280px">
             <h5 style="margin: 0 0 6px; font-size: 14px; color: var(--color-neutral-000)">Stationary Sidebar Navigation Panel (Inline)</h5>
-            <p style="margin: 0 0 16px; font-size: 12px; color: var(--color-neutral-100)">Static sidebar rendered inline.</p>
+            <p style="margin: 0 0 16px; font-size: 12px; color: var(--color-neutral-100)">Static sidebar layout rendered inline with navigation items and action buttons.</p>
             <kpmg-navigation-menu [inline]="true" header="Navigation" [activeItem]="selectedNav" (itemSelect)="select($event); log('[Inline Sidebar] selected ' + $event.value)"
               [items]="[
                 { label: 'Inbox', icon: inbox, badge: '24' },
@@ -390,8 +392,9 @@ export const NavigationMenuStory: Story = {
                 { label: 'Trash', icon: trash },
                 { type: 'divider' },
                 { type: 'group', title: 'Workspaces', items: [
-                  { label: 'Client Portals', icon: folder, actionButton: true },
-                  { label: 'Risk Advisory', icon: folder, actionButton: true }
+                  { label: 'Client Portals', icon: folder, actionButton: noAction },
+                  { label: 'Risk Advisory', icon: folder, actionButton: noAction },
+                  { label: 'Regulatory Docs', icon: folder, actionButton: noAction }
                 ] }
               ]" />
           </div>
@@ -405,7 +408,7 @@ export const OverflowMenuStory: Story = {
   render: () => ({
     props: {
       selected: ['Option 1', 'Option 3'],
-      lastAction: 'Click any trigger to toggle the Dropdown Item Group',
+      lastAction: 'Click any trigger (⋮) to toggle the Dropdown Item Group',
       onSelect(this: { selected: string[]; lastAction: string }, e: { value: string }) {
         this.selected = this.selected.includes(e.value) ? this.selected.filter((v) => v !== e.value) : [...this.selected, e.value];
         this.lastAction = `Toggled item: "${e.value}"`;
@@ -415,11 +418,11 @@ export const OverflowMenuStory: Story = {
       <div style="display: flex; flex-direction: column; gap: 28px; padding: 16px">
         <div>
           <h3 style="margin: 0; font-family: var(--font-family-base); color: var(--color-neutral-000)">Overflow Menu — Dropdown Item Groups</h3>
-          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Vertical-ellipsis trigger opening the canonical Dropdown Item Groups (checklist or item-list).</p>
+          <p style="margin: 4px 0 0; font-size: 13px; color: var(--color-neutral-100)">Triggered by vertical ellipsis (&#8942;), opening the exact canonical Dropdown Item Groups menu (Checklist with circular checkboxes or Item-List with star + checkmark).</p>
         </div>
         <div style="display: flex; align-items: center; gap: 12px; padding: 10px 16px; background-color: var(--color-primary-container, #e9eafc); border-radius: var(--radius-sm, 8px); border: 1px solid var(--color-primary-outline, #818aee); color: var(--color-primary-on-container, #1a28c1); font-size: 13px; font-family: var(--font-family-base); flex-wrap: wrap">
           <span style="font-weight: 600">Selected Values:</span><span style="background: #fff; padding: 2px 8px; border-radius: 4px; border: 1px solid var(--color-neutral-outline)">{{ selected.length ? selected.join(', ') : 'None' }}</span>
-          <span style="margin-left: 12px; font-weight: 600">Last Event:</span><span style="font-style: italic">{{ lastAction }}</span>
+          <span style="margin-left: 12px; font-weight: 600">Last Event:</span><span style="font-style: italic; color: var(--color-neutral-000, #2f2f39)">{{ lastAction }}</span>
         </div>
         <div style="display: flex; gap: 64px; align-items: flex-start; flex-wrap: wrap">
           <div style="min-width: 240px; width: 240px; min-height: 360px">
@@ -434,12 +437,12 @@ export const OverflowMenuStory: Story = {
           </div>
           <div style="min-width: 240px; width: 240px; min-height: 360px">
             <h5 style="margin: 0 0 6px; font-size: 13px; color: var(--color-neutral-000)">Small Density (250px) — Checklist</h5>
-            <p style="margin: 0 0 12px; font-size: 11px; color: var(--color-neutral-100)">Compact 32px items, click to open</p>
+            <p style="margin: 0 0 12px; font-size: 11px; color: var(--color-neutral-100)">Compact 32px items, click &#8942; to open</p>
             <kpmg-overflow-menu size="large" density="small" groupType="checklist" placement="bottom-left" [selectedValues]="selected" (itemSelect)="onSelect($event)" />
           </div>
           <div style="min-width: 240px; width: 240px; min-height: 380px">
             <h5 style="margin: 0 0 6px; font-size: 13px; color: var(--color-neutral-000)">Large Density (322px) — Item-List</h5>
-            <p style="margin: 0 0 12px; font-size: 11px; color: var(--color-neutral-100)">Spacious 44px items, click to open</p>
+            <p style="margin: 0 0 12px; font-size: 11px; color: var(--color-neutral-100)">Spacious 44px items, click &#8942; to open</p>
             <kpmg-overflow-menu size="large" density="large" groupType="item-list" placement="bottom-left" [selectedValues]="selected" (itemSelect)="onSelect($event)" />
           </div>
           <div style="min-width: 160px; width: 160px">
@@ -458,16 +461,16 @@ export const AssistantMenuStory: Story = {
     template: `
       <div style="display: flex; flex-direction: column; gap: 32px; padding: 24px">
         <div>
-          <h3 style="margin: 0 0 8px; font-family: var(--font-family-base); color: var(--color-neutral-000)">Assistive Menu — Left &amp; Right Robot Trigger Variants</h3>
-          <p style="margin: 0; font-size: 14px; color: var(--color-neutral-100)">Click the robot icon to toggle the menu. Variant 1 has a right-aligned trigger; Variant 2 a left-aligned trigger.</p>
+          <h3 style="margin: 0 0 8px; font-family: var(--font-family-base); color: var(--color-neutral-000)">Assistive Menu — Left & Right Robot Trigger Variants</h3>
+          <p style="margin: 0; font-size: 14px; color: var(--color-neutral-100)">Click the little robot icon on either variant to toggle the menu open/closed. Variant 1 features a right-aligned robot trigger; Variant 2 features a left-aligned robot trigger.</p>
         </div>
         <div style="background-color: #fbfbfb; border-radius: 28px; padding: 40px; display: flex; gap: 80px; align-items: flex-start; flex-wrap: wrap; min-height: 920px">
           <div style="display: flex; flex-direction: column; align-items: flex-start; width: 400px">
-            <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #000; font-family: var(--font-family-base); margin-bottom: 24px">1</div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 400; color: #000; font-family: var(--font-family-base); margin-bottom: 24px">1</div>
             <kpmg-assistant-menu alignment="right" [defaultOpen]="true" />
           </div>
           <div style="display: flex; flex-direction: column; align-items: flex-start; width: 400px">
-            <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #000; font-family: var(--font-family-base); margin-bottom: 24px">2</div>
+            <div style="width: 28px; height: 28px; border-radius: 50%; border: 1px solid #000; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 400; color: #000; font-family: var(--font-family-base); margin-bottom: 24px">2</div>
             <kpmg-assistant-menu alignment="left" [defaultOpen]="true" />
           </div>
         </div>

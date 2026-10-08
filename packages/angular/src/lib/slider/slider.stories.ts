@@ -21,7 +21,7 @@ const meta: Meta<SliderComponent> = {
   },
   render: (args) => ({
     props: args,
-    template: `<div style="width: 360px"><kpmg-slider ${argsToTemplate(args)} /></div>`,
+    template: `<kpmg-slider ${argsToTemplate(args)} />`,
   }),
 };
 
@@ -44,7 +44,7 @@ export const InteractiveControlled: Story = {
     props: { val: 50, mode: 'continuous', badge: true },
     template: `
       <div style="display: flex; flex-direction: column; gap: 24px; width: 450px">
-        <h4 style="margin: 0">Interactive Slider Demo</h4>
+        <h4 style="font-family: 'Open Sans'; margin: 0">Interactive Slider Demo</h4>
         <kpmg-slider
           [variant]="mode"
           [(value)]="val"
@@ -54,11 +54,11 @@ export const InteractiveControlled: Story = {
           [subtext]="'Current Mode: ' + mode + ' (0 - 100)'"
         />
         <div style="display: flex; gap: 12px; flex-wrap: wrap">
-          <button type="button" (click)="mode = mode === 'continuous' ? 'discrete' : 'continuous'">Toggle Mode ({{ mode.toUpperCase() }})</button>
-          <button type="button" (click)="badge = !badge">Toggle Tooltip Badge ({{ badge ? 'ON' : 'OFF' }})</button>
-          <button type="button" (click)="val = 0">Set 0%</button>
-          <button type="button" (click)="val = 50">Set 50%</button>
-          <button type="button" (click)="val = 100">Set 100%</button>
+          <button type="button" style="padding: 6px 12px; border-radius: 4px; cursor: pointer; border: 1px solid #CCC" (click)="mode = mode === 'continuous' ? 'discrete' : 'continuous'">Toggle Mode ({{ mode.toUpperCase() }})</button>
+          <button type="button" style="padding: 6px 12px; border-radius: 4px; cursor: pointer; border: 1px solid #CCC" (click)="badge = !badge">Toggle Tooltip Badge ({{ badge ? 'ON' : 'OFF' }})</button>
+          <button type="button" style="padding: 6px 12px; border-radius: 4px; cursor: pointer; border: 1px solid #CCC" (click)="val = 0">Set 0%</button>
+          <button type="button" style="padding: 6px 12px; border-radius: 4px; cursor: pointer; border: 1px solid #CCC" (click)="val = 50">Set 50%</button>
+          <button type="button" style="padding: 6px 12px; border-radius: 4px; cursor: pointer; border: 1px solid #CCC" (click)="val = 100">Set 100%</button>
         </div>
       </div>
     `,
@@ -69,29 +69,43 @@ export const All15FigmaVariantsMatrix: Story = {
   render: () => ({
     moduleMetadata: { imports: [SliderComponent] },
     props: {
-      variants: ['continuous', 'discrete'],
-      states: [
-        { label: 'Enabled', state: 'enabled', badge: false },
-        { label: 'Enabled with indicator', state: 'Enabled with indicator', badge: true },
-        { label: 'Hovered', state: 'hovered', badge: false },
-        { label: 'Pressed', state: 'pressed', badge: false },
-        { label: 'Disabled', state: 'disabled', badge: false },
+      sections: [
+        { title: '1. Continuous Sliders (15 Variants)', variant: 'continuous', step: undefined, key: 'cont' },
+        { title: '2. Discrete Sliders with Ticks (15 Variants)', variant: 'discrete', step: 10, key: 'disc' },
       ],
-      progress: [0, 50, 100],
+      items: [
+        { label: 'State=Enabled, Progress=0', state: 'enabled', val: 0, badge: false },
+        { label: 'State=Enabled, Progress=50', state: 'enabled', val: 50, badge: false },
+        { label: 'State=Enabled, Progress=100', state: 'enabled', val: 100, badge: false },
+        { label: 'State=Enabled with indicator, Progress=0', state: 'Enabled with indicator', val: 0, badge: true },
+        { label: 'State=Enabled with indicator, Progress=50', state: 'Enabled with indicator', val: 50, badge: true },
+        { label: 'State=Enabled with indicator, Progress=100', state: 'Enabled with indicator', val: 100, badge: true },
+        { label: 'State=Hovered, Progress=0', state: 'hovered', val: 0, badge: false },
+        { label: 'State=Hovered, Progress=50', state: 'hovered', val: 50, badge: false },
+        { label: 'State=Hovered, Progress=100', state: 'hovered', val: 100, badge: false },
+        { label: 'State=Pressed, Progress=0', state: 'pressed', val: 0, badge: false },
+        { label: 'State=Pressed, Progress=50', state: 'pressed', val: 50, badge: false },
+        { label: 'State=Pressed, Progress=100', state: 'pressed', val: 100, badge: false },
+        { label: 'State=Disabled, Progress=0', state: 'disabled', val: 0, badge: false },
+        { label: 'State=Disabled, Progress=50', state: 'disabled', val: 50, badge: false },
+        { label: 'State=Disabled, Progress=100', state: 'disabled', val: 100, badge: false },
+      ],
     },
     template: `
       <div style="display: flex; flex-direction: column; gap: 48px; padding: 16px; max-width: 650px; width: 100%">
-        @for (v of variants; track v) {
-          <div style="padding: 24px; border: 1px solid #E3E3E8; border-radius: 12px">
-            <h4 style="margin: 0 0 20px">{{ v }} sliders (15 variants)</h4>
+        <header>
+          <h3 style="font-family: 'Open Sans'; margin-bottom: 8px">Slider Complete 15 Core Variants Matrix</h3>
+          <p style="font-family: 'Open Sans'; color: #5D5D6A; font-size: 14px">Continuous & Discrete Slider Modes</p>
+        </header>
+        @for (sec of sections; track sec.key) {
+          <div style="background-color: #FAFAFD; padding: 24px; border-radius: 12px; border: 1px solid #E3E3E8">
+            <h4 style="font-family: 'Open Sans'; margin-bottom: 20px">{{ sec.title }}</h4>
             <div style="display: flex; flex-direction: column; gap: 16px">
-              @for (s of states; track s.label) {
-                @for (p of progress; track p) {
-                  <div style="border-bottom: 1px solid #E3E3E8; padding-bottom: 12px">
-                    <span style="font-size: 12px; font-weight: 600; display: block; margin-bottom: 4px">State={{ s.label }}, Progress={{ p }}</span>
-                    <kpmg-slider [variant]="v" [step]="v === 'discrete' ? 10 : undefined" [state]="s.state" [value]="p" [showIndicator]="s.badge" />
-                  </div>
-                }
+              @for (item of items; track item.label) {
+                <div style="border-bottom: 1px solid #E3E3E8; padding-bottom: 12px">
+                  <span style="font-size: 12px; font-weight: 600; color: #3D405B; display: block; margin-bottom: 4px">{{ item.label }}</span>
+                  <kpmg-slider [variant]="sec.variant" [step]="sec.step ?? 1" [state]="item.state" [value]="item.val" [showIndicator]="item.badge" />
+                </div>
               }
             </div>
           </div>
