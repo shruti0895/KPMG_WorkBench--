@@ -7,16 +7,98 @@ const meta: Meta<ListComponent> = {
   title: 'Components/List',
   component: ListComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - List Component
+
+Lists organize related items in a vertical format. They provide a consistent layout for text, images, controls, and actions.
+
+#### Key Architecture & 12 Variants Matrix:
+- **3 Container Styles**:
+  - \`outlined\`: Clean container with subtle 1px border (\`--color-list-border-outlined\`)
+  - \`elevated\`: Container with soft elevation drop shadow (\`--color-list-elevated-shadow\`)
+  - \`filled\`: Subtle tinted container fill (\`--color-list-bg-filled\`)
+- **4 Canonical Leading Element Types**:
+  - \`Avatar\`: Circular 40px gradient avatar with user initials
+  - \`Image\`: Rounded 48px square image / document thumbnail
+  - \`Checkbox\`: Selection control with checkmark state
+  - \`Radio\`: Single-choice radio indicator
+- **Combinations**:
+  **4 Leading Types × 3 Container Styles = 12 Production Variants**
+
+#### 3 Density Sizes:
+- **Small** (1-line item): Title only
+- **Medium** (2-line item): Title + Supporting description
+- **Large** (3-line item): Title + Extended description + Secondary metadata
+        `,
+      },
+    },
+  },
+  subcomponents: {ListItem: ListItemComponent},
+  argTypes: {
+    styleType: {
+      control: 'select',
+      options: ['outlined', 'elevated', 'filled'],
+      description: 'Visual container treatment',
+      table: {
+        type: {
+          summary: "'outlined' | 'elevated' | 'filled'",
+        },
+        defaultValue: {
+          summary: "'outlined'",
+        },
+      },
+    },
+    styleVariant: {
+      control: 'radio',
+      options: ['outlined', 'elevated', 'filled'],
+      description: 'Alias for styleType',
+      table: {
+        type: {
+          summary: "'outlined' | 'elevated' | 'filled'",
+        },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Density size of list items',
+      table: {
+        type: {
+          summary: "'small' | 'medium' | 'large'",
+        },
+        defaultValue: {
+          summary: "'medium'",
+        },
+      },
+    },
+    divided: {
+      control: 'boolean',
+      description: 'Whether to show dividers between items',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    items: {
+      control: false,
+      description: 'Data-driven array of list item objects',
+      table: {
+        type: {
+          summary: 'object[]',
+        },
+      },
+    },
+  },
   decorators: [moduleMetadata({ imports: [ListComponent, ListItemComponent] })],
   args: { styleType: 'outlined', size: 'medium', divided: false },
-  argTypes: {
-    styleType: { control: 'select', options: ['outlined', 'elevated', 'filled'] },
-    styleVariant: { control: 'select', options: [undefined, 'outlined', 'elevated', 'filled'] },
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
-    divided: { control: 'boolean' },
-    items: { control: false },
-  },
   render: (args) => ({
     props: { ...args, rows: [1, 2, 3, 4, 5] },
     template: `
@@ -42,23 +124,15 @@ const meta: Meta<ListComponent> = {
 export default meta;
 type Story = StoryObj<ListComponent>;
 
-export const Default: Story = {};
-export const Divided: Story = { args: { divided: true } };
-
-export const DataDriven: Story = {
-  render: () => ({
-    props: {
-      items: [
-        { id: 1, title: 'Account Security', supportingText: 'Two-factor authentication enabled.', leading: 'avatar', leadingProps: { initials: 'AS' }, trailing: 'arrow' },
-        { id: 2, title: 'Billing Preferences', supportingText: 'Monthly invoice delivered via email.', leading: 'avatar', leadingProps: { initials: 'BP' }, trailing: 'arrow', selected: true },
-        { id: 3, title: 'Disabled item', supportingText: 'Not available.', leading: 'avatar', disabled: true },
-      ],
-    },
-    template: `<div style="max-width: 400px"><kpmg-list [items]="items" divided /></div>`,
-  }),
+export const Default: Story = {
+  parameters: { docs: { description: { story: 'Interactive Default Story' } } },
 };
 
+
+
+
 export const Complete12VariantsMatrix: Story = {
+  parameters: { docs: { description: { story: 'Complete 12 Variants Matrix (4 Leading Types × 3 Container Styles)' } } },
   render: () => ({
     props: {
       styles: [
@@ -136,6 +210,7 @@ export const Complete12VariantsMatrix: Story = {
 };
 
 export const DensitySizes: Story = {
+  parameters: { docs: { description: { story: '3 Density Sizes (Small, Medium, Large)' } } },
   render: () => ({
     template: `
       <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; max-width: 1100px">
@@ -168,6 +243,7 @@ export const DensitySizes: Story = {
 };
 
 export const InteractiveSelection: Story = {
+  parameters: { docs: { description: { story: 'Interactive Single & Multi-Selection' } } },
   render: () => ({
     props: {
       radioOptions: [

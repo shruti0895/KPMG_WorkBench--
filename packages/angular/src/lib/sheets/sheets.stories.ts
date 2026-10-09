@@ -7,8 +7,151 @@ const meta: Meta<SheetsComponent> = {
   title: 'Components/Sheets',
   component: SheetsComponent,
   tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - Sheets Component Family
+
+The **Sheets** component family provides structured overlay and companion panels across WorkBench applications.
+Designed in accordance with KPMG WorkBench Design System specifications:
+
+- **Floating Sheets**:
+  - **Informational**: Header task status card with circular progress tracking, Q&A message items with gradient dots, compliance status card, code score badge, and reference citation table.
+  - **Inputs**: Template dropdown selector, editable Word document input chips, parameter range sliders, drag-and-drop file upload dropzone, and primary action buttons.
+- **Side Sheets**:
+  - **Basic**: Title header with overflow action, collapsible section header pills with star indicator, collaborative avatar cluster, and interactive item list cards.
+  - **Special Layouts**:
+    - **Project**: Project detail overview, tag chips, "View project" call-to-action, people list, summary, and related projects.
+    - **File / Pages**: File metadata overview and interactive page preview cards with selected status badges.
+    - **Assistant**: Configuration sheet with editable purpose, knowledge base items, prompt templates, model selection, voice dictation, and advanced parameter slider controls.
+- **Drawer Support**: Can be rendered inline or as a slide-over companion drawer with background backdrop.
+        `,
+      },
+    },
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['floating', 'side'],
+      description: 'The layout family variant of the sheet: Floating overlay card or Side companion sheet',
+      table: {
+        type: {
+          summary: "'floating' | 'side'",
+        },
+        defaultValue: {
+          summary: "'floating'",
+        },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['informational', 'inputs', 'basic', 'project', 'pages', 'assistant'],
+      description: 'Functional content type for the sheet',
+      table: {
+        type: {
+          summary: "'informational' | 'inputs' | 'basic' | 'project' | 'pages' | 'assistant'",
+        },
+        defaultValue: {
+          summary: "'informational'",
+        },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['compact', 'small', 'large'],
+      description: 'Dimensional sizing tier (compact/small vs large)',
+      table: {
+        type: {
+          summary: "'compact' | 'small' | 'large'",
+        },
+        defaultValue: {
+          summary: "'large'",
+        },
+      },
+    },
+    sheetStyle: {
+      name: 'style',
+      control: 'select',
+      options: ['outlined', 'filled'],
+      description: 'Surface styling treatment: Outlined (1px border) or Filled (tinted background)',
+      table: {
+        type: {
+          summary: "'outlined' | 'filled'",
+        },
+        defaultValue: {
+          summary: "'outlined'",
+        },
+      },
+    },
+    title: {
+      control: 'text',
+      description: 'Header display title text',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Item'",
+        },
+      },
+    },
+    isOpen: {
+      control: 'boolean',
+      description: 'Controls visibility state when rendered as a drawer',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    isDrawer: {
+      control: 'boolean',
+      description: 'Whether the sheet renders as a slide-over drawer with backdrop overlay',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    fluid: {
+      control: 'boolean',
+      description: 'Whether the sheet stretches to fill 100% of its parent container width',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    progress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 5,
+      },
+      description: 'Progress completion percentage for the circular loading indicator (0 - 100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '80',
+        },
+      },
+    },
+  },
   decorators: [moduleMetadata({ imports: [SheetsComponent, ButtonComponent] })],
-  parameters: { layout: 'padded' },
   args: {
     variant: 'floating',
     type: 'informational',
@@ -19,17 +162,6 @@ const meta: Meta<SheetsComponent> = {
     isDrawer: false,
     fluid: false,
     isOpen: true,
-  },
-  argTypes: {
-    variant: { control: 'select', options: ['floating', 'side'] },
-    type: { control: 'select', options: ['informational', 'inputs', 'basic', 'project', 'pages', 'assistant'] },
-    size: { control: 'select', options: ['compact', 'small', 'large'] },
-    sheetStyle: { control: 'select', options: ['outlined', 'filled'] },
-    title: { control: 'text' },
-    progress: { control: { type: 'range', min: 0, max: 100, step: 5 } },
-    isDrawer: { control: 'boolean' },
-    fluid: { control: 'boolean' },
-    isOpen: { control: 'boolean' },
   },
   render: (args) => ({ props: args, template: `<kpmg-sheets ${argsToTemplate(args)} />` }),
 };

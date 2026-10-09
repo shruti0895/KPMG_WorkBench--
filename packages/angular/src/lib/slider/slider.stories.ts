@@ -6,19 +6,163 @@ const meta: Meta<SliderComponent> = {
   title: 'Components/Slider',
   component: SliderComponent,
   tags: ['autodocs'],
-  decorators: [moduleMetadata({ imports: [SliderComponent] })],
-  parameters: { layout: 'centered' },
-  args: { variant: 'continuous', defaultValue: 50, min: 0, max: 100, showIndicator: false, disabled: false },
-  argTypes: {
-    variant: { control: 'select', options: ['continuous', 'discrete'] },
-    state: { control: 'select', options: ['enabled', 'disabled', 'hovered', 'pressed', 'Enabled with indicator'] },
-    value: { control: { type: 'range', min: 0, max: 100, step: 1 } },
-    showIndicator: { control: 'boolean' },
-    showTicks: { control: 'boolean' },
-    disabled: { control: 'boolean' },
-    thumbIcon: { control: false },
-    indicatorIcon: { control: false },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: `Slider component features Continuous and Discrete modes, 15 core variant states, floating tooltip value indicator badges, step tick marks, and custom SVG props.`,
+      },
+    },
   },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['continuous', 'discrete'],
+      description: 'Slider track mode',
+      table: {
+        type: {
+          summary: "'continuous' | 'discrete'",
+        },
+        defaultValue: {
+          summary: "'continuous'",
+        },
+      },
+    },
+    value: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      description: 'Controlled slider value (number 0-100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+      },
+    },
+    defaultValue: {
+      control: 'number',
+      description: 'Default uncontrolled initial value',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '50',
+        },
+      },
+    },
+    min: {
+      control: 'number',
+      description: 'Minimum slider value',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '0',
+        },
+      },
+    },
+    max: {
+      control: 'number',
+      description: 'Maximum slider value',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '100',
+        },
+      },
+    },
+    state: {
+      control: 'select',
+      options: ['enabled', 'disabled', 'hovered', 'pressed', 'Enabled with indicator'],
+      description: 'Explicit Figma variant state',
+      table: {
+        type: {
+          summary: "'enabled' | 'disabled' | 'hovered' | 'pressed' | 'Enabled with indicator' | 'Enabled' | 'Disabled' | 'Hovered' | 'Pressed'",
+        },
+        defaultValue: {
+          summary: "'enabled'",
+        },
+      },
+    },
+    showIndicator: {
+      control: 'boolean',
+      description: 'Display floating value badge above thumb',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    showTicks: {
+      control: 'boolean',
+      description: 'Display discrete step tick marks',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state flag',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Optional label text or Node',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    subtext: {
+      control: 'text',
+      description: 'Optional subtext / description',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    thumbIcon: {
+      control: false,
+      description: 'Custom SVG Icon to override thumb handle',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    indicatorIcon: {
+      control: false,
+      description: 'Custom SVG / Node to override indicator badge',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+  },
+  decorators: [moduleMetadata({ imports: [SliderComponent] })],
+  args: { variant: 'continuous', defaultValue: 50, min: 0, max: 100, showIndicator: false, disabled: false },
   render: (args) => ({
     props: args,
     template: `<kpmg-slider ${argsToTemplate(args)} />`,

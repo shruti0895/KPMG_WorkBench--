@@ -9,18 +9,108 @@ const meta: Meta<SnackbarComponent> = {
   title: 'Components/Snackbar',
   component: SnackbarComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - Snackbar Component
+
+The **Snackbar** component provides brief, temporary notifications or contextual status updates anchored to the interface without disrupting current user workflows. Designed in compliance with KPMG WorkBench specifications.
+
+#### Key Architectural Highlights & 10 Canonical Variants:
+- **5 Form Factor Sizes**:
+  - \`Single-line\`: Compact text message paired with an action button and close dismiss control.
+  - \`Two-line\`: Accommodates two lines of descriptive message before actions.
+  - \`Extended\`: Multi-line body text container with right-justified action buttons at bottom.
+  - \`Extended with header\`: Adds an overarching header title above the descriptive text body.
+  - \`Extended with media\`: Features a header, description, and up to 3 interactive media card items with thumbnails and overflow menus.
+- **2 Container Outline Treatments**:
+  - \`Elevated\` (\`outlined={false}\`): Clean surface with delicate resting drop shadow (\`--shadow-300\`).
+  - \`Outlined\` (\`outlined={true}\`): Structural container with border stroke (\`--color-neutral-outline\`).
+- **Interactive Action & Dismiss**: Supports primary action pills ("Action", "Longer action", "Modify") and dismissible close controls.
+- **WAI-ARIA Accessibility**: Complies with \`role="status"\` and \`aria-live="polite"\` notification patterns.
+        `,
+      },
+    },
+  },
+  argTypes: {
+    message: {
+      control: 'text',
+      description: 'Main notification message text',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    header: {
+      control: 'text',
+      description: 'Header title text for extended variants',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['single-line', 'two-line', 'extended', 'extended-header', 'extended-media'],
+      description: 'Layout size format of the snackbar',
+      table: {
+        type: {
+          summary: "'single-line' | 'two-line' | 'extended' | 'extended-header' | 'extended-media'",
+        },
+        defaultValue: {
+          summary: "'single-line'",
+        },
+      },
+    },
+    outlined: {
+      control: 'boolean',
+      description: 'Whether to show a border outline (true) or resting elevation shadow (false)',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    action: {
+      control: false,
+      description: 'Action button configuration or custom React node',
+      table: {
+        type: {
+          summary: 'string | node | {    label: string,    onClick: func }',
+        },
+      },
+    },
+    actionLabel: {
+      control: 'text',
+      description: 'Text label for the primary action button',
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    closeable: {
+      control: 'boolean',
+      description: 'Whether to display the close (X) dismiss button',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+  },
   decorators: [moduleMetadata({ imports: [SnackbarComponent, SnackbarContainerComponent, SnackbarOutletComponent, ButtonComponent] })],
   args: { size: 'single-line', outlined: false, message: 'Snackbar text goes here', actionLabel: 'Action', closeable: true },
-  argTypes: {
-    size: { control: 'select', options: ['single-line', 'two-line', 'extended', 'extended-header', 'extended-media'] },
-    outlined: { control: 'boolean' },
-    header: { control: 'text' },
-    message: { control: 'text' },
-    actionLabel: { control: 'text' },
-    closeable: { control: 'boolean' },
-    action: { control: false },
-  },
   render: (args) => ({
     props: args,
     template: `<div style="padding: 32px; background: var(--color-surface-light); display: inline-flex"><kpmg-snackbar ${argsToTemplate(args)} /></div>`,

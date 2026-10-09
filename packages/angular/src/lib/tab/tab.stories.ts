@@ -7,16 +7,92 @@ const meta: Meta<TabComponent> = {
   title: 'Components/Tab',
   component: TabComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - Tab Component
+
+The **Tab** (Tabs / Tab Bar) component organizes and facilitates navigation between groups of related content that exist at the same level of hierarchy. It helps users switch between different sections or views quickly and efficiently without leaving the current page context.
+
+#### Key Architectural Highlights & 12 Production Variants:
+- **2 Canonical Sizes**:
+  - \`small\`: Compact height with pill-shaped tabs, designed for inline card navigation, modal dialogs, and dashboard tiles.
+  - \`large\`: Full-width application top bar with border divider, left-aligned tab navigation, and right-aligned trailing actions.
+- **2 Tab Content Types**:
+  - \`default\`: Standard clean text label with optimal internal padding.
+  - \`with-badge\`: Text label paired with a circular count badge showing live notifications or item totals.
+- **4 Canonical Interaction States**:
+  - \`enabled\`: Default resting state with neutral typography and transparent container.
+  - \`hovered\`: Interactive hover state featuring subtle lavender tinting (\`--color-primary-surface\`).
+  - \`pressed / active\`: Selected state featuring container fill (\`--color-primary-container\`) and high-contrast badge styling.
+  - \`disabled\`: Inactive/non-interactive state with muted contrast and pointer lock.
+- **Full ARIA & Keyboard Navigation**: Full compliance with WAI-ARIA tablist pattern (\`role="tablist"\`, \`role="tab"\`, \`aria-selected\`, \`aria-disabled\`) with ArrowLeft/ArrowRight, Home, and End keyboard controls.
+        `,
+      },
+    },
+  },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['small', 'large'],
+      description: 'Tab bar size: small (compact 41px) or large (top app bar 65px)',
+      table: {
+        type: {
+          summary: "'small' | 'large'",
+        },
+        defaultValue: {
+          summary: "'small'",
+        },
+      },
+    },
+    items: {
+      control: false,
+      description: 'Data-driven tab items list',
+      table: {
+        type: {
+          summary: 'object[]',
+          detail: '[{\n  id: string | number,\n  value: string | number,\n  label: node,\n  badge: number | string | node,\n  disabled: bool,\n  selected: bool,\n  state: \'enabled\' | \'hovered\' | \'pressed\' | \'disabled\',\n  onClick: func,\n  ariaControls: string\n}]',
+        },
+      },
+    },
+    actions: {
+      control: false,
+      description: 'Custom trailing actions element or renderer for Large Top Bar',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    bordered: {
+      control: 'boolean',
+      description: 'Show bottom border/divider in large mode',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    fullWidth: {
+      control: 'boolean',
+      description: 'Stretch the tab bar to 100% container width',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  },
   decorators: [moduleMetadata({ imports: [TabComponent, TabItemComponent] })],
   args: { size: 'small', bordered: true, fullWidth: false },
-  argTypes: {
-    size: { control: 'select', options: ['small', 'large'] },
-    bordered: { control: 'boolean' },
-    fullWidth: { control: 'boolean' },
-    items: { control: false },
-    actions: { control: false },
-  },
   render: (args) => ({
     props: args,
     template: `
@@ -174,18 +250,7 @@ export const AllTwelveVariantsMatrix: Story = {
   }),
 };
 
-export const DataDriven: Story = {
-  render: () => ({
-    props: {
-      items: [
-        { id: 'a', label: 'Overview' },
-        { id: 'b', label: 'Tasks', badge: 7 },
-        { id: 'c', label: 'Archived', disabled: true },
-      ],
-    },
-    template: wrap(`<kpmg-tab [items]="items" />`),
-  }),
-};
+
 
 export const InteractiveTabbedPanels: Story = {
   name: 'Interactive Live Panel Navigation',

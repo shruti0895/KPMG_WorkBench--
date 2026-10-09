@@ -1,4 +1,5 @@
-import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, model, output } from '@angular/core';
+import { booleanAttribute, ChangeDetectionStrategy, Component, computed, input, model, output, TemplateRef } from '@angular/core';
+import { NgTemplateOutlet } from '@angular/common';
 
 export type CheckboxSize = 'large' | 'small';
 export type CheckboxState = 'enabled' | 'disabled' | 'hovered' | 'pressed';
@@ -23,6 +24,7 @@ const DISABLED_COLOR = 'var(--color-checkbox-disabled-stroke, #9090A2)';
 @Component({
   selector: 'kpmg-checkbox',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [NgTemplateOutlet],
   host: { style: 'display: contents' },
   template: `
     <label [class]="classes()">
@@ -37,6 +39,9 @@ const DISABLED_COLOR = 'var(--color-checkbox-disabled-stroke, #9090A2)';
         (change)="onChange($event)"
       />
       <span class="kpmg-checkbox__box" aria-hidden="true">
+        @if (icon(); as customIcon) {
+          <ng-container [ngTemplateOutlet]="customIcon" />
+        } @else {
         @switch (activeType()) {
           @case ('checked') {
             <svg [attr.width]="iconPx()" [attr.height]="iconPx()" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -85,6 +90,7 @@ const DISABLED_COLOR = 'var(--color-checkbox-disabled-stroke, #9090A2)';
             </svg>
           }
         }
+        }
       </span>
       @if (label() || subtext()) {
         <span class="kpmg-checkbox__label-container">
@@ -112,6 +118,8 @@ export class CheckboxComponent {
   readonly inputId = input<string | undefined>(undefined);
   readonly name = input<string | undefined>(undefined);
   readonly value = input<string | undefined>(undefined);
+  /** Custom icon template that replaces the default SVG. */
+  readonly icon = input<TemplateRef<unknown> | null>(null);
   readonly className = input('');
 
   /** Native change event. */

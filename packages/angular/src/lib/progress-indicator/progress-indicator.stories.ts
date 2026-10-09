@@ -6,17 +6,103 @@ const meta: Meta<ProgressIndicatorComponent> = {
   title: 'Components/ProgressIndicator',
   component: ProgressIndicatorComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
-  decorators: [moduleMetadata({ imports: [ProgressIndicatorComponent] })],
-  argTypes: {
-    variant: { control: 'select', options: ['linear', 'circular'] },
-    type: { control: 'select', options: ['determinate', 'indeterminate'] },
-    progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
-    size: { control: 'select', options: ['large', 'medium', 'small'] },
-    showValue: { control: 'boolean' },
-    label: { control: 'text' },
-    subtext: { control: 'text' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: `ProgressIndicator component features Linear and Circular forms, Determinate and Indeterminate types, 33 exact Figma variants, token-driven styles, and custom SVG helpers.`,
+      },
+    },
   },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['linear', 'circular'],
+      description: 'Indicator form layout',
+      table: {
+        type: {
+          summary: "'linear' | 'circular' | 'Linear' | 'Circular'",
+        },
+        defaultValue: {
+          summary: "'linear'",
+        },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['determinate', 'indeterminate'],
+      description: 'Progress type (Fixed % vs Loading Spinner animation)',
+      table: {
+        type: {
+          summary: "'determinate' | 'indeterminate' | 'Determinate' | 'Indeterminate'",
+        },
+        defaultValue: {
+          summary: "'determinate'",
+        },
+      },
+    },
+    progress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      description: 'Progress percentage value (0 to 100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '0',
+        },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['large', 'medium', 'small'],
+      description: 'Size scale (Circular: 88px Large, 48px Medium, 24px Small)',
+      table: {
+        type: {
+          summary: "'large' | 'medium' | 'small' | 'Large' | 'Medium' | 'Small'",
+        },
+        defaultValue: {
+          summary: "'large'",
+        },
+      },
+    },
+    showValue: {
+      control: 'boolean',
+      description: 'Display value percentage text',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Optional label text or Node',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    subtext: {
+      control: 'text',
+      description: 'Optional subtext / description',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+  },
+  decorators: [moduleMetadata({ imports: [ProgressIndicatorComponent] })],
   render: (args) => ({ props: args, template: `<kpmg-progress-indicator ${argsToTemplate(args)} />` }),
 };
 

@@ -20,45 +20,248 @@ const meta: Meta<HorizontalCardComponent> = {
   title: 'Components/Cards',
   component: HorizontalCardComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - Card Family
+
+Enterprise presentation card components engineered to KPMG WorkBench specifications:
+
+1. **Horizontal Card**:
+   - **Sizes**: Small , Medium, Large, Extra large, Largest.
+   - **Interactive Types**: Image, Image and checkmark, Image and arrow icon, Image and more icon, Image and status.
+   - **Styles**: Outlined, Elevated, Filled, Warning / Missing.
+
+2. **Horizontal Card Rich**:
+   - **Types**: Default, List, Attachment.
+   - **Styles**: Outlined, Elevated, Filled.
+
+3. **Stacked Cards**:
+   - **Types**:
+     - **Media**: Top author header, media image(s) with document badge, content block, and action buttons footer.
+     - **Assistant**: Top author header, media image(s), content block, filter chips, and interactive social counters (Heart, Bookmark, Share).
+     - **Forum**: Top author header, media image(s), content block, and avatar group footer.
+   - **Styles**: Outline (1px neutral border), Elevated (drop shadow), Filled (tinted blue surface).
+   - **Image amount**: 1 (single hero image) or 2 (two side-by-side images).
+
+4. **Special Cards (30 Variants)**:
+   - **Slider**: parameter card with interactive discrete slider.
+   - **Chips**: categorical selection card with Filter, Assistive, or Input chips.
+   - **References**: citation card with linked resources and domain tags.
+   - **Code**:  syntax container in Small and Large  with one-click copy.
+   - **Loading**:  AI thinking/synthesis cards in Small , Medium , and Large  across Light & Dark modes.
+   - **Rich**:  collapsible parameter accordion with tooltip and nested micro-model sliders.
+   - **Styles**: Outline, Elevated, Filled.
+
+5. **Task Cards ( 27 Variants)**:
+   - **Types**: Unchecked (default empty checkbox), Checked (strikethrough title + filled checkmark), Loading (spinning circular progress ring).
+   - **Configurations**:
+     - Base : Title, supporting description, trailing 40x40 touch target.
+     - With Action: Title, supporting description, pill action button, trailing target.
+     - With File Uploader: Title, supporting description, dashed drag-and-drop file uploader, trailing target.
+   - **Styles**: Outline (1px neutral border), Elevated (drop shadow), Filled (tinted blue surface).
+   - **States**: Enabled, Hovered, Pressed.
+        `,
+      },
+    },
+  },
+  subcomponents: {HorizontalCardsRich: HorizontalCardsRichComponent, StackedCard: StackedCardComponent, SpecialCard: SpecialCardComponent, TaskCard: TaskCardComponent},
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['Small', 'Medium', 'Large', 'Extra large', 'Largest'],
+      description: 'Vertical card height and thumbnail scale',
+      table: {
+        type: {
+          summary: "'Small' | 'Medium' | 'Large' | 'Extra large' | 'Largest'",
+        },
+        defaultValue: {
+          summary: "'Medium'",
+        },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['Image', 'Image and checkmark', 'Image and arrow icon', 'Image and more icon', 'Image and status'],
+      description: 'Interactive trailing element and layout configuration',
+      table: {
+        type: {
+          summary: "'Image' | 'Image and checkmark' | 'Image and arrow icon' | 'Image and more icon' | 'Image and status'",
+        },
+        defaultValue: {
+          summary: "'Image'",
+        },
+      },
+    },
+    styleVariant: {
+      control: 'select',
+      options: ['Outlined', 'Elevated', 'Filled', 'Missing'],
+      description: 'Surface style and elevation',
+      table: {
+        type: {
+          summary: "'Outlined' | 'Elevated' | 'Filled' | 'Missing'",
+        },
+        defaultValue: {
+          summary: "'Outlined'",
+        },
+      },
+    },
+    title: {
+      control: 'text',
+      description: 'Primary headline text',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Header'",
+        },
+      },
+    },
+    supportingText: {
+      control: 'text',
+      description: 'Supporting description text',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Supporting line text Lorem ipsum dolor sit amet, consectetuer'",
+        },
+      },
+    },
+    bodyText: {
+      control: 'text',
+      description: 'Extended description text under divider (Largest / Extra large)',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Description text Lorem ipsum dolor sit amet, consectetuer adipiscing elit sed diam nonummy nibh'",
+        },
+      },
+    },
+    hasImage: {
+      control: 'boolean',
+      description: 'Whether thumbnail image box is displayed',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    checked: {
+      control: 'boolean',
+      description: 'Checked state for checkmark type',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    checkVariant: {
+      control: 'select',
+      options: ['default', 'checked', 'unchecked', 'unchecked-light', 'indeterminate', 'error-checked', 'error-unchecked', 'error-checked-light', 'error-indeterminate', 'primary', 'purple', 'error'],
+      description: 'Selection indicator variant type (Figma Checkbox component specification)',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'default'",
+        },
+      },
+    },
+    checkState: {
+      control: 'select',
+      options: ['enabled', 'hovered', 'pressed', 'disabled'],
+      description: 'Interactive state layer: enabled, hovered, pressed, disabled',
+      table: {
+        type: {
+          summary: "'enabled' | 'hovered' | 'pressed' | 'disabled'",
+        },
+        defaultValue: {
+          summary: "'enabled'",
+        },
+      },
+    },
+    checkboxShape: {
+      control: 'radio',
+      options: ['circle', 'square'],
+      description: 'Selection indicator shape: circle (Figma standard) or square',
+      table: {
+        type: {
+          summary: "'circle' | 'square'",
+        },
+        defaultValue: {
+          summary: "'circle'",
+        },
+      },
+    },
+    checkboxProps: {
+      control: false,
+      table: {
+        type: {
+          summary: 'object',
+        },
+        defaultValue: {
+          summary: '{ }',
+        },
+      },
+    },
+    showChip: {
+      control: 'boolean',
+      description: 'Toggle status badge chip visibility (true = show, false = hide)',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+      },
+    },
+    progress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 5,
+      },
+      description: 'Progress bar fill percentage (0-100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '65',
+        },
+      },
+    },
+    hasProgress: {
+      control: 'boolean',
+      description: 'Toggle linear progress bar container visibility',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [HorizontalCardComponent, HorizontalCardsRichComponent, StackedCardComponent, SpecialCardComponent, TaskCardComponent],
     }),
   ],
-  argTypes: {
-    size: { control: 'select', options: ['Small', 'Medium', 'Large', 'Extra large', 'Largest'] },
-    type: {
-      control: 'select',
-      options: ['Image', 'Image and arrow icon', 'Image and arrow', 'Image and checkmark', 'Image and more icon', 'Image and status'],
-    },
-    styleVariant: { control: 'select', options: ['Outlined', 'Elevated', 'Filled', 'Missing', 'Warning'] },
-    checkVariant: {
-      control: 'select',
-      options: [
-        'default',
-        'checked',
-        'unchecked',
-        'unchecked-light',
-        'indeterminate',
-        'error-checked',
-        'error-unchecked',
-        'error-checked-light',
-        'error-indeterminate',
-        'primary',
-        'purple',
-        'error',
-      ],
-    },
-    checkState: { control: 'select', options: ['enabled', 'hovered', 'pressed', 'disabled'] },
-    checkboxShape: { control: 'radio', options: ['circle', 'square'] },
-    checked: { control: 'boolean' },
-    hasImage: { control: 'boolean' },
-    hasProgress: { control: 'boolean' },
-    showChip: { control: 'boolean' },
-    progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
-    checkboxProps: { control: false },
-  },
   render: (args) => ({ props: args, template: `<kpmg-horizontal-card ${argsToTemplate(args)} />` }),
 };
 

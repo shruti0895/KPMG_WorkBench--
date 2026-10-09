@@ -7,7 +7,138 @@ const meta: Meta<BannerComponent> = {
   title: 'Components/Banner',
   component: BannerComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - Banner Component
+
+Banners display prominent messages at the top of the screen or workspace window, communicating status, background job progress, or alerts without interrupting ongoing user activity.
+
+#### Key Architecture & 12 Variants:
+- **2 Core States**:
+  - \`default\`: Subtle solid surface container with clean typography and determinate progress bar
+  - \`animated\`: Dynamic gradient background with subtle ambient shimmer effect and active progress flow
+- **6 Semantic Themes**:
+  - \`primary\`: Canonical brand theme with deep KPMG blue accents
+  - \`neutral\`: Monochromatic theme for subtle workspace updates
+  - \`info\`: Blue theme for system advisories
+  - \`success\`: Emerald theme for positive status & task completions
+  - \`warning\`: Warm amber theme for warnings and cautionary notices
+  - \`critical\`: Crimson theme for critical alerts and error notifications
+
+Total combinations: **6 Semantic Themes × 2 States = 12 Production Variants**
+        `,
+      },
+    },
+  },
+  argTypes: {
+    state: {
+      control: 'select',
+      options: ['default', 'animated'],
+      description: 'Visual container state',
+      table: {
+        type: {
+          summary: "'default' | 'animated'",
+        },
+        defaultValue: {
+          summary: "'default'",
+        },
+      },
+    },
+    variant: {
+      control: 'select',
+      options: ['primary', 'neutral', 'info', 'success', 'warning', 'critical'],
+      description: 'Semantic theme variant',
+      table: {
+        type: {
+          summary: "'primary' | 'neutral' | 'info' | 'success' | 'warning' | 'critical'",
+        },
+        defaultValue: {
+          summary: "'primary'",
+        },
+      },
+    },
+    title: {
+      control: 'text',
+      description: 'Primary status text',
+      table: {
+        type: {
+          summary: 'node',
+        },
+        defaultValue: {
+          summary: "'Configuring'",
+        },
+      },
+    },
+    detail: {
+      control: 'text',
+      description: 'Secondary detail or percentage text',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    progress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 1,
+      },
+      description: 'Linear progress bar percentage (0-100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+      },
+    },
+    showProgress: {
+      control: 'boolean',
+      description: 'Toggle linear progress bar visibility',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+      },
+    },
+    progressType: {
+      control: 'select',
+      options: ['determinate', 'indeterminate'],
+      description: 'Progress bar mode',
+      table: {
+        type: {
+          summary: "'determinate' | 'indeterminate'",
+        },
+      },
+    },
+    icon: {
+      control: false,
+      description: 'Leading icon component',
+      table: {
+        type: {
+          summary: 'node',
+        },
+        defaultValue: {
+          summary: '<BannerRobotSvg />',
+        },
+      },
+    },
+    dismissible: {
+      control: 'boolean',
+      description: 'Whether to show close button',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+  },
   decorators: [moduleMetadata({ imports: [BannerComponent, ButtonComponent] })],
   args: {
     state: 'default',
@@ -19,25 +150,17 @@ const meta: Meta<BannerComponent> = {
     progressType: 'determinate',
     dismissible: false,
   },
-  argTypes: {
-    state: { control: 'select', options: ['default', 'animated'] },
-    variant: { control: 'select', options: ['primary', 'neutral', 'info', 'success', 'warning', 'critical'] },
-    title: { control: 'text' },
-    detail: { control: 'text' },
-    progress: { control: { type: 'range', min: 0, max: 100, step: 1 } },
-    showProgress: { control: 'boolean' },
-    progressType: { control: 'select', options: ['determinate', 'indeterminate'] },
-    dismissible: { control: 'boolean' },
-    icon: { control: false },
-  },
   render: (args) => ({ props: args, template: `<kpmg-banner ${argsToTemplate(args)} />` }),
 };
 
 export default meta;
 type Story = StoryObj<BannerComponent>;
 
-export const Default: Story = {};
-export const AnimatedState: Story = { args: { state: 'animated' } };
+export const Default: Story = {
+  parameters: { docs: { description: { story: 'Interactive Default Story' } } },
+};
+export const AnimatedState: Story = {
+  parameters: { docs: { description: { story: 'Animated Gradient State' } } }, args: { state: 'animated' } };
 
 const variants = [
   { key: 'primary', label: 'Primary (Canonical)', title: 'Configuring system models', detail: '30%', progress: 30 },
@@ -49,6 +172,7 @@ const variants = [
 ];
 
 export const Complete12VariantsMatrix: Story = {
+  parameters: { docs: { description: { story: 'Complete 12 Variants Matrix' } } },
   render: () => ({
     props: { variants },
     template: `
@@ -71,6 +195,7 @@ export const Complete12VariantsMatrix: Story = {
 };
 
 export const LiveProgressSimulation: Story = {
+  parameters: { docs: { description: { story: 'Live Progress Simulation' } } },
   render: () => ({
     props: {
       progress: 15,
@@ -101,6 +226,7 @@ export const LiveProgressSimulation: Story = {
 };
 
 export const IndeterminateProgress: Story = {
+  parameters: { docs: { description: { story: 'Streaming / Indeterminate Progress' } } },
   args: {
     state: 'animated',
     title: 'Obtaining approval for external share',
@@ -112,6 +238,7 @@ export const IndeterminateProgress: Story = {
 };
 
 export const DismissibleWithActions: Story = {
+  parameters: { docs: { description: { story: 'Dismissible with Actions' } } },
   render: () => ({
     props: { visible: true },
     template: `

@@ -8,12 +8,257 @@ const meta: Meta<ModalComponent> = {
   title: 'Components/Modal',
   component: ModalComponent,
   tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+### KPMG WorkBench Design System - Modal Component Family
+
+The **Modal** component family provides structured modal dialogs and configuration panels across WorkBench applications.
+Designed according to canonical KPMG WorkBench Design System specifications:
+
+- **Header & Navigation**: Title display  with a circular dismiss action button.
+- **Linear Progress Indicator**: Integrated linear progress bar track for multi-step assistant wizard flows.
+- **Modular Section Layouts**:
+  - **Agent Preview Card**: Avatar, Title, Subhead, Assistant status tag, description, and social reactions (Heart, Bookmark, Share).
+  - **Pill Section Headers**: Reusable pill headers with contextual edit, info, and exit action buttons.
+  - **Name & Purpose Inputs**: Structured multi-line textareas with voice dictation mic trigger.
+  - **Knowledge Base Uploader**: Drag-and-drop dropzone supporting local file attachment with removable tag badges.
+  - **Prompt Templates**: Template configuration with editable prompt textarea and side-sheet list items.
+  - **Action Footer**: Right-aligned secondary outlined Back button and primary filled Next button.
+        `,
+      },
+    },
+  },
+  argTypes: {
+    isOpen: {
+      control: 'boolean',
+      description: 'Controls the open/closed visibility state of the modal',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    inline: {
+      control: 'boolean',
+      description: 'Renders the modal inline in the document flow without a fixed overlay backdrop',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    title: {
+      control: 'text',
+      description: 'Modal header display title text',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Create an assistant'",
+        },
+      },
+    },
+    withProgress: {
+      control: 'boolean',
+      description: 'Toggles the top linear progress bar indicator',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    progress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 5,
+      },
+      description: 'Progress completion percentage (0 - 100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '80',
+        },
+      },
+    },
+    agentModule: {
+      control: 'boolean',
+      description: 'Displays the assistant profile preview card with reactions',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    inputModule1: {
+      control: 'boolean',
+      description: 'Displays the Name input section with editable pill header and textarea',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    inputModule2: {
+      control: 'boolean',
+      description: 'Displays the Purpose input section with editable pill header, textarea, and mic icon',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    fileUploaderModule: {
+      control: 'boolean',
+      description: 'Displays the Knowledge base drag-and-drop file uploader module',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    inputModule3: {
+      control: 'boolean',
+      description: 'Displays the Prompt templates module with textarea and card items',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    cardModule1: {
+      control: 'boolean',
+      description: 'Displays the 2x2 Model selection grid',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    cardModule2: {
+      control: 'boolean',
+      description: 'Displays the 2x2 Voice selection grid with gradient avatars',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    backLabel: {
+      control: 'text',
+      description: 'Label for secondary outlined back button',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Back'",
+        },
+      },
+    },
+    nextLabel: {
+      control: 'text',
+      description: 'Label for primary filled next button',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Next'",
+        },
+      },
+    },
+    showFooter: {
+      control: 'boolean',
+      description: 'Whether to display the footer actions container',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    nameValue: {
+      control: 'text',
+      description: 'Default text value for the Name input textarea',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Lorem ipsum dolor sit amet, consectetur adipiscing elit'",
+        },
+      },
+    },
+    purposeValue: {
+      control: 'text',
+      description: 'Default text value for the Purpose input textarea',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor'",
+        },
+      },
+    },
+    promptValue: {
+      control: 'text',
+      description: 'Default text value for the Prompt templates textarea',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Lorem ipsum dolor sit amet, consectetur adipiscing elit'",
+        },
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [ModalComponent, ModalItemComponent, ModalAgentCardComponent, ModalCardComponent, ModalPromptItemComponent],
     }),
   ],
-  parameters: { layout: 'padded' },
   args: {
     isOpen: true,
     inline: true,
@@ -31,23 +276,6 @@ const meta: Meta<ModalComponent> = {
     backLabel: 'Back',
     nextLabel: 'Next',
   },
-  argTypes: {
-    progress: { control: { type: 'range', min: 0, max: 100, step: 5 } },
-    isOpen: { control: 'boolean' },
-    inline: { control: 'boolean' },
-    withProgress: { control: 'boolean' },
-    agentModule: { control: 'boolean' },
-    inputModule1: { control: 'boolean' },
-    inputModule2: { control: 'boolean' },
-    fileUploaderModule: { control: 'boolean' },
-    inputModule3: { control: 'boolean' },
-    cardModule1: { control: 'boolean' },
-    cardModule2: { control: 'boolean' },
-    showFooter: { control: 'boolean' },
-    nameValue: { control: 'text' },
-    purposeValue: { control: 'text' },
-    promptValue: { control: 'text' },
-  },
   render: (args) => ({
     props: args,
     template: `<div style="display: flex; justify-content: center; padding: 24px"><kpmg-modal ${argsToTemplate(args)} /></div>`,
@@ -57,21 +285,27 @@ const meta: Meta<ModalComponent> = {
 export default meta;
 type Story = StoryObj<ModalComponent>;
 
-export const Basic: Story = {};
+export const Basic: Story = {
+  parameters: { docs: { description: { story: 'Basic interactive playground story with full controls and props table at the top.' } } },
+};
 
-export const NonProgressCompactInput: Story = { name: 'Non-Progress - Compact Input' };
+export const NonProgressCompactInput: Story = {
+  parameters: { docs: { description: { story: 'Non-Progress - Compact Input Variant\nMinimal streamlined layout featuring Header, Purpose input with voice dictation, and Action Footer.' } } }, name: 'Non-Progress - Compact Input' };
 
 export const NonProgressTemplateConfiguration: Story = {
+  parameters: { docs: { description: { story: 'Non-Progress - Template Configuration Variant\nDedicated template setup layout featuring Header, Name input, and Prompt Templates with item list.' } } },
   name: 'Non-Progress - Template Configuration',
   args: { inputModule1: true, inputModule2: false, inputModule3: true },
 };
 
 export const WithProgressAssistantProfile: Story = {
+  parameters: { docs: { description: { story: 'With Progress - Assistant Profile & Setup Variant\nInitial creation step featuring Linear Progress Bar, Assistant Profile preview card, Name input, and Purpose input.' } } },
   name: 'With Progress - Assistant Profile & Setup',
   args: { withProgress: true, progress: 30, agentModule: true, inputModule1: true, inputModule2: true },
 };
 
 export const WithProgressMultiStepCreation: Story = {
+  parameters: { docs: { description: { story: 'With Progress - Multi-Step Assistant Creation Variant\nAdvanced creation step featuring Linear Progress Bar, Assistant Profile card, Name, Purpose, Knowledge Base file uploader, and Prompt Templates.' } } },
   name: 'With Progress - Multi-Step Assistant Creation',
   args: {
     withProgress: true,
@@ -85,6 +319,7 @@ export const WithProgressMultiStepCreation: Story = {
 };
 
 export const CompleteMasterModal: Story = {
+  parameters: { docs: { description: { story: 'Complete Master Modal Variant\nComplete canonical showcase incorporating all seven modules: Assistant Card, Name, Purpose, Knowledge Base Uploader, Prompt Templates, Model Selection Grid, and Voice Selection Grid.' } } },
   name: 'Complete Master Modal',
   args: {
     withProgress: true,
@@ -100,6 +335,7 @@ export const CompleteMasterModal: Story = {
 };
 
 export const ModalSectionHeaderItems: Story = {
+  parameters: { docs: { description: { story: 'Modal Section Header Items\nSubcomponent showcase for ModalItem pill section headers across all sizes, states, and action types.' } } },
   name: 'Modal Section Header Items',
   render: () => ({
     template: `
@@ -124,7 +360,12 @@ export const ModalSectionHeaderItems: Story = {
 
 export const InteractiveDialogDemo: Story = {
   name: 'Interactive Dialog Demo',
-  parameters: { docs: { story: { iframeHeight: 900 } } },
+  parameters: {
+    docs: {
+      story: { iframeHeight: 900 },
+      description: { story: 'Interactive Dialog Demo\nLive interactive demonstration of the modal triggered by a button, rendered with modal overlay backdrop, Escape key listener, and close handler.' },
+    },
+  },
   render: () => ({
     props: { open: false },
     template: `
