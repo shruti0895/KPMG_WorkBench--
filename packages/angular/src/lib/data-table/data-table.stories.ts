@@ -70,6 +70,82 @@ Enterprise-grade, prop-driven tabular component engineered for complex data visu
       },
     },
   },
+  subcomponents: {DataTableHeader: DataTableHeaderComponent, DataTableCell: DataTableCellComponent, DataTableTooltip: DataTableTooltipComponent},
+  argTypes: {
+    selectable: {
+      control: 'boolean',
+      description: 'Enables row selection checkboxes',
+      table: {
+        type: {
+          summary: 'unknown',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    loading: {
+      control: 'boolean',
+      description: 'Activates full table shimmer loading state',
+      table: {
+        type: {
+          summary: 'unknown',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    density: {
+      control: 'select',
+      options: ['default', 'dense'],
+      description: 'Controls vertical row padding and spacing',
+      table: {
+        type: {
+          summary: 'unknown',
+        },
+        defaultValue: {
+          summary: "'default'",
+        },
+      },
+    },
+    hoverable: {
+      control: 'boolean',
+      description: 'Highlights cells on mouse hover',
+      table: {
+        type: {
+          summary: 'unknown',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    width: {
+      control: 'text',
+      description: 'Width of the table container (defaults to 100%)',
+      table: {
+        type: {
+          summary: 'unknown',
+        },
+        defaultValue: {
+          summary: "'100%'",
+        },
+      },
+    },
+    height: {
+      control: 'text',
+      description: 'Height of the table container (defaults to 100%)',
+      table: {
+        type: {
+          summary: 'unknown',
+        },
+        defaultValue: {
+          summary: "'100%'",
+        },
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [DataTableComponent, DataTableHeaderComponent, DataTableCellComponent, DataTableTooltipComponent],
@@ -82,14 +158,6 @@ Enterprise-grade, prop-driven tabular component engineered for complex data visu
       };
     },
   ],
-  argTypes: {
-    width: { name: 'width', description: 'Width of the table container (defaults to 100%)', control: 'text' },
-    height: { name: 'height', description: 'Height of the table container (defaults to 100%)', control: 'text' },
-    density: { name: 'density', description: 'Controls vertical row padding and spacing', control: 'select', options: ['default', 'dense'] },
-    selectable: { name: 'selectable', description: 'Enables row selection checkboxes', control: 'boolean' },
-    loading: { name: 'loading', description: 'Activates full table shimmer loading state', control: 'boolean' },
-    hoverable: { name: 'hoverable', description: 'Highlights cells on mouse hover', control: 'boolean' },
-  },
 };
 export default meta;
 type Story = StoryObj<DataTableComponent>;

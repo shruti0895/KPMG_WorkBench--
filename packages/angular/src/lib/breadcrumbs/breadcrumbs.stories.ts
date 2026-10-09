@@ -33,21 +33,104 @@ const meta: Meta<BreadcrumbsComponent> = {
   title: 'Components/Breadcrumbs',
   component: BreadcrumbsComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'centered' },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: `Breadcrumbs component formatted to match Figma dropdown card specs. Features top-left tooltip arrow caret, Circle Checkbox list (Image 1 spec), Star/Bookmark & Checkmark list (Image 2 spec), and custom SVG props.`,
+      },
+    },
+  },
+  argTypes: {
+    items: {
+      control: false,
+      description: 'Array of breadcrumb items (strings or item objects)',
+      table: {
+        type: {
+          summary: 'string | object[]',
+        },
+        defaultValue: {
+          summary: '[]',
+        },
+      },
+    },
+    maxItems: {
+      control: 'number',
+      description: 'Maximum number of visible items before collapsing into ... overflow',
+      table: {
+        type: {
+          summary: 'number',
+        },
+      },
+    },
+    separator: {
+      control: false,
+      description: 'Separator character or node (default: exact Figma SlashForwardIconSvg)',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['sm', 'md'],
+      description: 'Size scale (sm: 12px, md: 14px)',
+      table: {
+        type: {
+          summary: "'sm' | 'md'",
+        },
+        defaultValue: {
+          summary: "'md'",
+        },
+      },
+    },
+    overflowTrigger: {
+      control: 'select',
+      options: ['click', 'hover'],
+      description: "Overflow trigger mode ('click' or 'hover')",
+      table: {
+        type: {
+          summary: "'click' | 'hover'",
+        },
+        defaultValue: {
+          summary: "'click'",
+        },
+      },
+    },
+    circleCheckboxIcon: {
+      control: false,
+      description: 'Custom SVG for Circle Checkbox',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    starIcon: {
+      control: false,
+      description: 'Custom SVG for Star / Bookmark',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    checkIcon: {
+      control: false,
+      description: 'Custom SVG for Trailing Checkmark',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [BreadcrumbsComponent, CircleCheckboxIconComponent, StarFilledIconComponent, CheckmarkIconComponent],
     }),
   ],
-  argTypes: {
-    size: { control: 'select', options: ['sm', 'md'] },
-    maxItems: { control: 'number' },
-    overflowTrigger: { control: 'select', options: ['click', 'hover'] },
-    separator: { control: 'text' },
-    circleCheckboxIcon: { control: false },
-    starIcon: { control: false },
-    checkIcon: { control: false },
-  },
   render: (args) => ({ props: args, template: `<kpmg-breadcrumbs ${argsToTemplate(args)} />` }),
 };
 

@@ -6,20 +6,119 @@ const meta: Meta<FileUploaderComponent> = {
   title: 'Components/FileUploader',
   component: FileUploaderComponent,
   tags: ['autodocs'],
-  decorators: [moduleMetadata({ imports: [FileUploaderComponent] })],
-  parameters: { layout: 'centered' },
-  args: { size: 'medium', state: 'outline', label: 'Drag and drop files or ', browseText: 'browse on computer', multiple: true, disabled: false },
-  argTypes: {
-    size: { control: 'select', options: ['small', 'medium', 'large'] },
-    state: { control: 'select', options: ['outline', 'elevated', 'filled'] },
-    label: { control: 'text' },
-    browseText: { control: 'text' },
-    subtext: { control: 'text' },
-    accept: { control: 'text' },
-    disabled: { control: 'boolean' },
-    multiple: { control: 'boolean' },
-    icon: { control: false },
+  parameters: {
+    layout: 'centered',
+    docs: {
+      description: {
+        component: `FileUploader component complete 9 variant matrix (3 Sizes: Small, Medium, Large × 3 Surface States: Outline, Elevated, Filled) with drag and drop file handling, custom SVG props, and token-driven design.`,
+      },
+    },
   },
+  argTypes: {
+    size: {
+      control: 'select',
+      options: ['small', 'medium', 'large'],
+      description: 'Uploader height scale (Small, Medium, Large)',
+      table: {
+        type: {
+          summary: "'small' | 'medium' | 'large' | 'Small' | 'Medium' | 'Large'",
+        },
+        defaultValue: {
+          summary: "'medium'",
+        },
+      },
+    },
+    state: {
+      control: 'select',
+      options: ['outline', 'elevated', 'filled'],
+      description: 'Surface visual state (Outline border, Elevated shadow, Filled tonal background)',
+      table: {
+        type: {
+          summary: "'outline' | 'elevated' | 'filled' | 'Outline' | 'Elevated' | 'Filled'",
+        },
+        defaultValue: {
+          summary: "'outline'",
+        },
+      },
+    },
+    label: {
+      control: 'text',
+      description: 'Main prompt text preceding the browse link',
+      table: {
+        type: {
+          summary: 'node',
+        },
+        defaultValue: {
+          summary: "'Drag and drop files or '",
+        },
+      },
+    },
+    browseText: {
+      control: 'text',
+      description: 'Clickable link text',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'browse on computer'",
+        },
+      },
+    },
+    subtext: {
+      control: 'text',
+      description: 'Optional subtext (e.g. file size/format limits)',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+    accept: {
+      control: 'text',
+      description: "Accepted file formats string (e.g. '.png,.jpg,.pdf')",
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    multiple: {
+      control: 'boolean',
+      description: 'Enable multiple file selections',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    disabled: {
+      control: 'boolean',
+      description: 'Disabled state flag',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    icon: {
+      control: false,
+      description: 'Custom SVG icon prop override',
+      table: {
+        type: {
+          summary: 'node',
+        },
+      },
+    },
+  },
+  decorators: [moduleMetadata({ imports: [FileUploaderComponent] })],
+  args: { size: 'medium', state: 'outline', label: 'Drag and drop files or ', browseText: 'browse on computer', multiple: true, disabled: false },
   render: (args) => ({
     props: args,
     template: `<kpmg-file-uploader ${argsToTemplate(args)} />`,
@@ -34,7 +133,7 @@ export const LargeFilledWithIllustration: Story = {
   args: { size: 'large', state: 'filled', subtext: 'Supports CSV, XLSX up to 25MB' },
 };
 export const ElevatedCard: Story = { args: { state: 'elevated' } };
-export const Disabled: Story = { args: { disabled: true } };
+
 
 export const InteractiveFileSelection: Story = {
   render: () => ({

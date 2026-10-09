@@ -17,6 +17,108 @@ const meta: Meta<MenuComponent> = {
   title: 'Components/Menu',
   component: MenuComponent,
   tags: ['autodocs'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+# KPMG WorkBench Menu Component System
+
+A scalable, principal-engineered menu system implementing all **4 canonical types of menus**:
+1. **Dropdown Menu**: Options lists triggered by action buttons or cards, supporting densities (Small, Medium, Large), Checklist and Icon lists, and full state matrices (Enabled, Hovered, Pressed, Selected, Disabled, Error).
+2. **Navigation Menu**: Vertical panel navigation triggered by the KPMG brand pill or rendered inline, featuring pill navigation items with notification counters and action buttons.
+3. **Overflow Menu**: Contextual action menus triggered by vertical ellipsis (\`⋮\`) in Small and Large sizes with non-destructive and destructive actions.
+4. **Assistant Menu**: KPMG Trusted AI assistant menu featuring an AI prompt search bar, verification badge, rich assistant cards with purple-blue gradient thumbnails, and primary CTA actions.
+
+        `,
+      },
+    },
+  },
+  argTypes: {
+    trigger: {
+      control: false,
+      table: {
+        type: {
+          summary: 'node | func',
+        },
+      },
+    },
+    placement: {
+      control: 'select',
+      options: ['bottom-left', 'bottom-right', 'bottom-center', 'top-left', 'top-right', 'top-center'],
+      description: 'Popover placement relative to trigger',
+      table: {
+        type: {
+          summary: "'bottom-left' | 'bottom-right' | 'bottom-center' | 'top-left' | 'top-right' | 'top-center'",
+        },
+        defaultValue: {
+          summary: "'bottom-left'",
+        },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['dropdown', 'navigation', 'overflow', 'assistant'],
+      description: 'The canonical menu type',
+      table: {
+        type: {
+          summary: "'dropdown' | 'navigation' | 'overflow' | 'assistant'",
+        },
+        defaultValue: {
+          summary: "'dropdown'",
+        },
+      },
+    },
+    density: {
+      control: 'select',
+      options: ['small', 'medium', 'large', 'navigation'],
+      description: 'Item density height',
+      table: {
+        type: {
+          summary: "'small' | 'medium' | 'large' | 'navigation'",
+        },
+        defaultValue: {
+          summary: "'medium'",
+        },
+      },
+    },
+    width: {
+      table: {
+        type: {
+          summary: 'number | string',
+        },
+      },
+    },
+    elevation: {
+      control: 'boolean',
+      description: 'Whether the menu card has an elevated drop shadow',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    inline: {
+      control: 'boolean',
+      description: 'Render inline as a static menu container instead of an anchored popover',
+      table: {
+        type: {
+          summary: 'bool',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    headerTemplate: {
+      table: {
+        disable: true,
+      },
+    },
+  },
   decorators: [
     moduleMetadata({
       imports: [
@@ -35,35 +137,7 @@ const meta: Meta<MenuComponent> = {
       ],
     }),
   ],
-  parameters: {
-    layout: 'padded',
-    docs: {
-      description: {
-        component: `
-# KPMG WorkBench Menu Component System
-
-Four canonical menu types:
-1. **Dropdown Menu** (\`kpmg-dropdown-menu\`): option lists triggered by buttons or cards; Small/Medium/Large densities, checklist and icon lists.
-2. **Navigation Menu** (\`kpmg-navigation-menu\`): vertical navigation triggered by the KPMG brand pill or rendered inline, with badges and action buttons.
-3. **Overflow Menu** (\`kpmg-overflow-menu\`): contextual actions behind a vertical ellipsis, Small and Large triggers.
-4. **Assistant Menu** (\`kpmg-assistant-menu\`): KPMG Trusted AI menu with prompt bar, verification line, assistant cards and a CTA.
-        `,
-      },
-    },
-  },
   args: { type: 'dropdown', density: 'medium', placement: 'bottom-left', elevation: true, inline: true, width: 220 },
-  argTypes: {
-    type: { control: 'select', options: ['dropdown', 'navigation', 'overflow', 'assistant'] },
-    density: { control: 'select', options: ['small', 'medium', 'large', 'navigation'] },
-    placement: {
-      control: 'select',
-      options: ['bottom-left', 'bottom-right', 'bottom-center', 'top-left', 'top-right', 'top-center'],
-    },
-    elevation: { control: 'boolean' },
-    inline: { control: 'boolean' },
-    trigger: { control: false },
-    headerTemplate: { control: false },
-  },
   render: (args) => ({
     props: args,
     template: `
@@ -92,7 +166,7 @@ const ICONS = `
 const LABEL = 'margin: 0; font-size: 14px; color: var(--color-neutral-100)';
 const SMALL = 'font-size: 11px; color: var(--color-neutral-200)';
 
-export const Default: Story = {};
+
 
 export const AllFourMenuTypes: Story = {
   render: () => ({
@@ -216,39 +290,7 @@ export const DropdownItemGroups: Story = {
   }),
 };
 
-export const MenuItemStates: Story = {
-  render: () => ({
-    template: `
-      ${ICONS}
-      <div style="display: flex; flex-wrap: wrap; gap: 32px; padding: 16px">
-        <kpmg-menu [inline]="true" [width]="260">
-          <kpmg-menu-item label="Enabled" />
-          <kpmg-menu-item label="Hovered" state="hovered" />
-          <kpmg-menu-item label="Pressed" state="pressed" />
-          <kpmg-menu-item label="Selected" [selected]="true" />
-          <kpmg-menu-item label="Disabled" [disabled]="true" />
-          <kpmg-menu-item label="Error" [error]="true" />
-          <kpmg-menu-item label="Destructive" [destructive]="true" />
-          <kpmg-menu-item label="With description" description="Supporting text" />
-        </kpmg-menu>
-        <kpmg-menu [inline]="true" [width]="260">
-          <kpmg-menu-item type="icon" label="Icon item" />
-          <kpmg-menu-item type="icon" label="Icon selected" [selected]="true" />
-          <kpmg-menu-item type="checklist" label="Checklist" />
-          <kpmg-menu-item type="checklist" label="Checklist selected" [selected]="true" />
-          <kpmg-menu-item label="With badge" [icon]="inbox" badge="24" />
-          <kpmg-menu-item label="With action" [icon]="folder" [actionButton]="true" />
-          <kpmg-menu-item label="Custom suffix" [suffix]="check" />
-        </kpmg-menu>
-        <kpmg-menu [inline]="true" type="navigation" header="Group example" [width]="260">
-          <kpmg-menu-group title="Labels">
-            <kpmg-menu-item label="Project Alpha" [icon]="folder" />
-            <kpmg-menu-item label="Tax Advisory" [icon]="folder" />
-          </kpmg-menu-group>
-        </kpmg-menu>
-      </div>`,
-  }),
-};
+
 
 export const DropdownMenuInteractive: Story = {
   render: () => ({
@@ -339,7 +381,7 @@ export const DropdownMenuInteractive: Story = {
 };
 
 export const NavigationMenuStory: Story = {
-  name: 'Navigation Menu',
+  name: 'Navigation Menu Story',
   render: () => ({
     props: {
       selectedNav: 'Inbox',
@@ -404,7 +446,7 @@ export const NavigationMenuStory: Story = {
 };
 
 export const OverflowMenuStory: Story = {
-  name: 'Overflow Menu',
+  name: 'Overflow Menu Story',
   render: () => ({
     props: {
       selected: ['Option 1', 'Option 3'],
@@ -456,7 +498,7 @@ export const OverflowMenuStory: Story = {
 };
 
 export const AssistantMenuStory: Story = {
-  name: 'Assistant Menu',
+  name: 'Assistant Menu Story',
   render: () => ({
     template: `
       <div style="display: flex; flex-direction: column; gap: 32px; padding: 24px">
@@ -478,9 +520,4 @@ export const AssistantMenuStory: Story = {
   }),
 };
 
-export const AssistantCardStory: Story = {
-  name: 'Assistant Card',
-  render: () => ({
-    template: `<div style="width: 360px; padding: 16px"><kpmg-assistant-card title="Header" subtitle="Supporting line text lorem ipsu..." /></div>`,
-  }),
-};
+

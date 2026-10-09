@@ -22,8 +22,325 @@ const meta: Meta<AppBarsComponent> = {
     layout: 'padded',
     docs: {
       description: {
-        component:
-          'App Bars family: Top App Bars Full (default / with action), Nested (small / large, default / filled), Special (extra-small / small / large with search), status items, bottom app bars (text variants, voice modes) and docked chat / voice panels.',
+        component: `
+### KPMG WorkBench Design System - App Bars Component Family
+
+The **AppBars** component family provides header navigation, search bars, contextual actions, and bottom search/voice bars across all WorkBench workspaces.
+Designed according to canonical KPMG Design System specifications:
+
+- **Top App Bars Full**:
+  - \`Default\` : Brand pill popover trigger, breadcrumbs navigation, assistant robot, notification bell, overflow menu, and avatar.
+  - \`With Action\` : Primary bar + secondary action container for actions like Save, Submit, and Cancel.
+- **Top App Bars Nested**:
+  - \`Small\`: Compact view with back button, page title, status badge, and utility icons.
+  - \`Large\` : Hero header with subheader category, display title, filter chips, and card layout slot.
+  - States: \`Default\` (white surface) and \`Filled\` (subtle container background).
+- **Top App Bars Special**:
+  - \`Extra small\`  & \`Small\`  with integrated search input.
+  - \`Large\`  with welcome greeting, filter chips, and prominent search bar.
+- **Bottom App Bars (All Canonical Variants)**:
+  - \`Default\` : Search pill with attach filepicker, input, mic, and send.
+  - \`With verification\` : Adds KPMG Trusted AI verification footnote.
+  - \`With project\` : Includes working project dropdown selector.
+  - \`With button\` : Includes contextual action pill button.
+  - \`With project and button\` : Combines project selector and action button.
+  - \`With prompts\` : Horizontal scrollable suggestion chips row.
+- **Voice Modes**:
+  - Active pulsing gradient vs Muted gradient with mute toggle.
+- **Docked Chat & Voice Panels**:
+  - Expandable panel with header drag handle, multi-turn chat stream or audio equalizer transcript, with bottom app bar docked.
+        `,
+      },
+    },
+  },
+  argTypes: {
+    variant: {
+      control: 'select',
+      options: ['full', 'nested', 'special', 'bottom', 'bottom-docked'],
+      description: 'Primary app bar category variant (Figma component family)',
+      table: {
+        type: {
+          summary: "'full' | 'nested' | 'special' | 'bottom' | 'bottom-docked'",
+        },
+        defaultValue: {
+          summary: "'full'",
+        },
+      },
+    },
+    type: {
+      control: 'select',
+      options: ['default', 'with-action'],
+      description: 'Bar layout type (used by "full" variant: "default" 64px or "with-action" 128px)',
+      table: {
+        type: {
+          summary: "'default' | 'with-action'",
+        },
+        defaultValue: {
+          summary: "'default'",
+        },
+      },
+    },
+    size: {
+      control: 'select',
+      options: ['extra-small', 'small', 'large'],
+      description: 'Size scale (used by "nested": "small" | "large"; "special": "extra-small" | "small" | "large")',
+      table: {
+        type: {
+          summary: "'extra-small' | 'small' | 'large'",
+        },
+        defaultValue: {
+          summary: "'small'",
+        },
+      },
+    },
+    state: {
+      control: 'select',
+      options: ['default', 'filled', 'with-verification', 'with-project', 'with-button', 'with-project-and-button', 'with-prompts', 'listening', 'muted'],
+      description: 'Visual state across nested ("default" | "filled"), bottom ("default" | "with-verification" | "with-project" | "with-button" | "with-project-and-button" | "with-prompts"), and voice ("listening" | "muted")',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'default'",
+        },
+      },
+    },
+    brandLabel: {
+      control: 'text',
+      description: 'Brand wordmark or label in primary header',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'KPMG'",
+        },
+      },
+    },
+    breadcrumbs: {
+      control: false,
+      description: 'Breadcrumb trail items (array of route strings or item objects)',
+      table: {
+        type: {
+          summary: 'Array<string | object>',
+        },
+      },
+    },
+    showBreadcrumbs: {
+      control: 'boolean',
+      description: 'Toggle breadcrumbs hierarchy vs single page title mode',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    pageTitle: {
+      control: 'text',
+      description: 'Page title displayed when breadcrumbs are hidden or in compact nested view',
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    title: {
+      control: 'text',
+      description: 'Display title in nested hero bar',
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    subheader: {
+      control: 'text',
+      description: 'Subheader category label displayed above nested hero title',
+      table: {
+        type: {
+          summary: 'string',
+        },
+      },
+    },
+    statusType: {
+      control: 'select',
+      options: ['configuring', 'completed', 'saved', 'reviewed'],
+      description: 'Status badge type in nested bars',
+      table: {
+        type: {
+          summary: "'configuring' | 'completed' | 'saved' | 'reviewed'",
+        },
+        defaultValue: {
+          summary: "'configuring'",
+        },
+      },
+    },
+    statusProgress: {
+      control: {
+        type: 'range',
+        min: 0,
+        max: 100,
+        step: 5,
+      },
+      description: 'Linear progress percentage for "configuring" status (0-100)',
+      table: {
+        type: {
+          summary: 'number',
+        },
+        defaultValue: {
+          summary: '60',
+        },
+      },
+    },
+    greeting: {
+      control: 'text',
+      description: 'Personalized dashboard greeting text',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Greeting, name'",
+        },
+      },
+    },
+    welcomeHeader: {
+      control: 'text',
+      description: 'Hero display welcome title in special bar',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Welcome'",
+        },
+      },
+    },
+    placeholder: {
+      control: 'text',
+      description: 'Search/prompt input placeholder text across special and bottom bars',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Ask me anything'",
+        },
+      },
+    },
+    withSearch: {
+      control: 'boolean',
+      description: 'Whether search pill is visible in special landing bar',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    filterChips: {
+      control: false,
+      description: 'Category or project filter pill tags',
+      table: {
+        type: {
+          summary: 'string[]',
+        },
+      },
+    },
+    enableMic: {
+      control: 'boolean',
+      description: 'Enables or disables microphone voice input button',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    enableAttach: {
+      control: 'boolean',
+      description: 'Enables or disables file attachment button',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    buttonLabel: {
+      control: 'text',
+      description: 'Contextual action button label in bottom app bar',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Review Changes'",
+        },
+      },
+    },
+    projectLabel: {
+      control: 'text',
+      description: 'Working project headline in bottom app bar project selector',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'Working on project headline'",
+        },
+      },
+    },
+    mode: {
+      control: 'inline-radio',
+      options: ['text', 'voice'],
+      description: 'Bottom app bar or docked panel mode',
+      table: {
+        type: {
+          summary: "'text' | 'voice'",
+        },
+        defaultValue: {
+          summary: "'text'",
+        },
+      },
+    },
+    isMuted: {
+      control: 'boolean',
+      description: 'Mute toggle state for voice mode',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'false',
+        },
+      },
+    },
+    isOpen: {
+      control: 'boolean',
+      description: 'Expanded/collapsed state for docked chat/voice panel',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    mute: {
+      table: {
+        disable: true,
       },
     },
   },
@@ -44,18 +361,6 @@ const meta: Meta<AppBarsComponent> = {
       ],
     }),
   ],
-  argTypes: {
-    variant: { control: 'select', options: ['full', 'nested', 'special', 'bottom', 'bottom-docked'] },
-    type: { control: 'radio', options: ['default', 'with-action'] },
-    size: { control: 'select', options: ['extra-small', 'small', 'large'] },
-    state: { control: 'text' },
-    showBreadcrumbs: { control: 'boolean' },
-    withSearch: { control: 'boolean' },
-    statusType: { control: 'select', options: [undefined, 'configuring', 'completed', 'saved', 'reviewed'] },
-    statusProgress: { control: { type: 'range', min: 0, max: 100 } },
-    mode: { control: 'radio', options: ['text', 'voice'] },
-    mute: { control: 'boolean' },
-  },
 };
 
 export default meta;

@@ -9,73 +9,71 @@ import {
   input,
   linkedSignal,
   model,
+  output,
   TemplateRef,
 } from '@angular/core';
 import { NgTemplateOutlet } from '@angular/common';
+import { DropdownItemGroupComponent } from '../menu/dropdown-item-group.component';
+import { DropdownGroupDensity, DropdownGroupType, DropdownItem, DropdownItemSelectEvent } from '../menu/menu.types';
 
 export type TooltipTheme = 'elevated' | 'filled';
-export type TooltipVariant =
-  | 'single-line'
-  | 'multi-line'
-  | 'rich-action'
-  | 'rich-source'
-  | 'rich-alert-small'
-  | 'rich-alert-large'
-  | 'menu-list'
-  | 'menu-icon'
-  | 'custom';
-export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right' | 'side-l' | 'side-r';
-export type TooltipAlign = 'center' | 'left' | 'right' | 'middle' | 'top' | 'bottom';
+export type TooltipType = 'base-small' | 'base-large' | 'rich' | 'menu';
+export type TooltipPosition = 'top' | 'bottom' | 'side-l' | 'side-r';
+export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
+export type TooltipAlignment = 'left' | 'center' | 'right' | 'top' | 'middle' | 'bottom';
 export type TooltipCaretSize = 'sm' | 'md' | 'lg';
 export type TooltipTrigger = 'hover' | 'click' | 'manual';
 
 export interface TooltipAction {
-  label: string;
-  variant?: 'outline' | 'filled';
-  onClick?: () => void;
+  label?: string;
+  variant?: 'primary' | 'outline';
+  onClick?: (event: Event) => void;
 }
 
+/** Menu item descriptor (legacy `id`/`checked`/`divider` or DropdownItemGroup `value`/`selected`/`type: 'divider'`). */
 export interface TooltipItem {
   id?: string;
+  value?: string;
   label?: string;
-  title?: string;
-  subtitle?: string;
   checked?: boolean;
+  selected?: boolean;
   divider?: boolean;
+  type?: 'divider';
+  disabled?: boolean;
+  onClick?: (event: Event) => void;
 }
 
-const DEFAULT_MENU_ITEMS: TooltipItem[] = [
-  { id: '1', label: 'Option', checked: true },
-  { id: '2', label: 'Option', checked: true, divider: true },
-  { id: '3', label: 'Option', checked: true },
-  { id: '4', label: 'Option', checked: true },
-  { id: '5', label: 'Option', checked: true, divider: true },
-  { id: '6', label: 'Option', checked: true },
-];
-const DEFAULT_SOURCE_ITEMS: TooltipItem[] = [1, 2, 3, 4].map((n) => ({ id: String(n), label: 'Option', checked: true }));
-const DEFAULT_ALERT_SMALL: TooltipItem[] = [{ id: '1', title: 'Header', subtitle: 'Supporting line...' }];
-const DEFAULT_ALERT_LARGE: TooltipItem[] = [
-  { id: '1', title: 'Header', subtitle: 'Supporting line...' },
-  { id: '2', title: 'Header', subtitle: 'Supporting line...' },
+const DEFAULT_MENU_ITEMS: DropdownItem[] = [
+  { label: 'Option', value: 'Option 1', selected: true },
+  { type: 'divider' },
+  { label: 'Option', value: 'Option 2', selected: true },
+  { label: 'Option', value: 'Option 3', selected: true },
+  { label: 'Option', value: 'Option 4', selected: true },
+  { label: 'Option', value: 'Option 5', selected: true },
+  { type: 'divider' },
+  { label: 'Option', value: 'Option 6', selected: true },
 ];
 
-const ACTION_BASE =
-  'padding: 6px 14px; border-radius: 1000px; font-size: 12px; font-weight: 500; cursor: pointer;';
+const DEFAULT_ACTIONS: TooltipAction[] = [
+  { label: 'Label', variant: 'primary' },
+  { label: 'Label', variant: 'outline' },
+];
 
 let nextId = 0;
 
 /**
  * WorkBench Tooltip — mirrors packages/ui/src/components/Tooltip/Tooltip.jsx
- * (2 themes, 9 variants, 3 caret sizes, hover/click/manual triggers).
+ * (4 types, 2 themes, 4 caret positions, 3 caret sizes, hover/click/manual triggers).
  *
  * Deviations: the anchor is projected content; set `static` to render the
  * tooltip on its own (React infers this from the absence of `children`).
- * A custom body is passed as `contentTemplate` (React: a node as `content`).
+ * Custom action markup is passed as a template in `actions`.
+ * `onItemClick`/`onSelect`/`onOpenChange` map to the `itemClick`/`itemSelect` outputs and `[(open)]`.
  */
 @Component({
   selector: 'kpmg-tooltip',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [NgTemplateOutlet],
+  imports: [NgTemplateOutlet, DropdownItemGroupComponent],
   host: {
     style: 'display: contents',
     '(document:mousedown)': 'onDocumentMouseDown($event)',
@@ -93,9 +91,9 @@ let nextId = 0;
       >
         <div
           class="kpmg-tooltip-target"
-          [attr.aria-describedby]="!isMenuVariant() ? tooltipId() : null"
-          [attr.aria-haspopup]="isMenuVariant() ? 'true' : null"
-          [attr.aria-expanded]="isMenuVariant() ? (isOpen() ? 'true' : 'false') : null"
+          [attr.aria-describedby]="resolvedType() !== 'menu' ? tooltipId() : null"
+          [attr.aria-haspopup]="resolvedType() === 'menu' ? 'true' : null"
+          [attr.aria-expanded]="resolvedType() === 'menu' ? (isOpen() ? 'true' : 'false') : null"
           (click)="onClick($event)"
         >
           <ng-content />
@@ -107,193 +105,149 @@ let nextId = 0;
     <ng-template #tooltipNode>
       <div
         [id]="tooltipId()"
-        [attr.role]="isMenuVariant() ? 'menu' : 'tooltip'"
+        [attr.role]="resolvedType() === 'menu' ? 'menu' : 'tooltip'"
         [attr.aria-hidden]="!isOpen() && !isStatic()"
         [class]="classes()"
+        [style]="combinedStyles()"
       >
-        @if (contentTemplate(); as tpl) {
-          <ng-container [ngTemplateOutlet]="tpl" />
-        } @else {
-          @switch (variant()) {
-            @case ('rich-action') {
-              <div class="kpmg-tooltip__header">
-                @if (title()) { <h4 class="kpmg-tooltip__title">{{ title() }}</h4> }
-                @if (content()) { <p class="kpmg-tooltip__body">{{ content() }}</p> }
-              </div>
-              <div class="kpmg-tooltip__actions">
-                @if (actionsTemplate(); as tpl) {
-                  <ng-container [ngTemplateOutlet]="tpl" />
-                } @else if (actionList(); as list) {
-                  @for (act of list; track $index) {
-                    <button
-                      type="button"
-                      (click)="act.onClick?.()"
-                      [style]="actionStyle(act.variant === 'outline')"
-                    >{{ act.label }}</button>
-                  }
-                } @else {
-                  <button type="button" [style]="actionStyle(false)">Label</button>
-                  <button type="button" [style]="actionStyle(true)">Label</button>
-                }
+        @if (caret() && resolvedPosition() === 'top') {
+          <ng-container [ngTemplateOutlet]="caretTpl" [ngTemplateOutletContext]="{ pos: 'top' }" />
+        }
+        @if (caret() && resolvedPosition() === 'side-l') {
+          <ng-container [ngTemplateOutlet]="caretTpl" [ngTemplateOutletContext]="{ pos: 'side-l' }" />
+        }
+
+        <div class="kpmg-tooltip__body-wrap">
+          @switch (resolvedType()) {
+            @case ('base-small') {
+              <div class="kpmg-tooltip__base-small">
+                <span class="kpmg-tooltip__base-small-text">{{ content() || text() || description() || title() || 'Tooltip text' }}</span>
               </div>
             }
-            @case ('rich-source') {
-              <div class="kpmg-tooltip__header">
-                @if (title()) { <h4 class="kpmg-tooltip__title">{{ title() }}</h4> }
-                @if (content()) { <p class="kpmg-tooltip__body">{{ content() }}</p> }
+            @case ('base-large') {
+              <div class="kpmg-tooltip__base-large">
+                <p class="kpmg-tooltip__base-large-text">{{ content() || description() || text() || defaultBaseLarge }}</p>
               </div>
-              <div class="kpmg-tooltip__card-list">
-                @for (it of items() ?? defaultSourceItems; track it.id ?? $index) {
-                  <div
-                    style="display: flex; align-items: center; justify-content: space-between; padding: 6px 8px; font-size: 13px"
-                    [style.border-bottom]="$index < 3 ? '1px solid var(--color-neutral-600)' : 'none'"
-                  >
-                    <div style="display: flex; align-items: center; gap: 8px">
-                      <ng-container [ngTemplateOutlet]="starIcon" [ngTemplateOutletContext]="{ size: 14 }" />
-                      <span>{{ it.label }}</span>
-                    </div>
-                    @if (it.checked) {
-                      <span style="color: var(--color-neutral-200); display: inline-flex">
-                        <ng-container [ngTemplateOutlet]="checkIcon" [ngTemplateOutletContext]="{ size: 14 }" />
-                      </span>
+            }
+            @case ('rich') {
+              <div class="kpmg-tooltip__rich">
+                <div class="kpmg-tooltip__rich-header">
+                  @if (displayTitle()) { <h4 class="kpmg-tooltip__rich-title">{{ displayTitle() }}</h4> }
+                  @if (displayDesc()) { <p class="kpmg-tooltip__rich-desc">{{ displayDesc() }}</p> }
+                </div>
+                @if (secondaryText()) {
+                  <div class="kpmg-tooltip__divider"></div>
+                  <p class="kpmg-tooltip__rich-secondary">{{ secondaryText() }}</p>
+                }
+                @if (actionTemplate(); as tpl) {
+                  <div class="kpmg-tooltip__rich-actions"><ng-container [ngTemplateOutlet]="tpl" /></div>
+                } @else if (actionList(); as list) {
+                  <div class="kpmg-tooltip__rich-actions">
+                    @for (act of list; track $index) {
+                      <button
+                        type="button"
+                        (click)="act.onClick?.($event)"
+                        [class]="'kpmg-tooltip__rich-btn kpmg-tooltip__rich-btn--' + (act.variant || 'primary')"
+                      >{{ act.label || 'Label' }}</button>
                     }
                   </div>
                 }
               </div>
             }
-            @case ('rich-alert-small') {
-              <ng-container [ngTemplateOutlet]="alertCards" [ngTemplateOutletContext]="{ fallback: defaultAlertSmall }" />
-            }
-            @case ('rich-alert-large') {
-              <ng-container [ngTemplateOutlet]="alertCards" [ngTemplateOutletContext]="{ fallback: defaultAlertLarge }" />
-            }
-            @case ('menu-list') {
-              <ul class="kpmg-tooltip__menu-list" role="menu">
-                @for (item of items() ?? defaultMenuItems; track item.id ?? $index) {
-                  <li class="kpmg-tooltip__menu-item" role="menuitem">
-                    <div class="kpmg-tooltip__menu-left">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="color: var(--color-neutral-000)">
-                        <circle cx="12" cy="12" r="10" fill="currentColor" fill-opacity="0.15" />
-                        <path d="m9 12 2 2 4-4" />
-                      </svg>
-                      <span>{{ item.label }}</span>
-                    </div>
-                  </li>
-                  @if (item.divider) { <li class="kpmg-tooltip__menu-divider" role="separator"></li> }
-                }
-              </ul>
-            }
-            @case ('menu-icon') {
-              <ul class="kpmg-tooltip__menu-list" role="menu">
-                @for (item of items() ?? defaultMenuItems; track item.id ?? $index) {
-                  <li class="kpmg-tooltip__menu-item" role="menuitem">
-                    <div class="kpmg-tooltip__menu-left">
-                      <span style="color: var(--color-neutral-200); display: inline-flex">
-                        <ng-container [ngTemplateOutlet]="starIcon" [ngTemplateOutletContext]="{ size: 16 }" />
-                      </span>
-                      <span>{{ item.label }}</span>
-                    </div>
-                    @if (item.checked) {
-                      <span style="color: var(--color-neutral-200); display: inline-flex">
-                        <ng-container [ngTemplateOutlet]="checkIcon" [ngTemplateOutletContext]="{ size: 14 }" />
-                      </span>
-                    }
-                  </li>
-                  @if (item.divider) { <li class="kpmg-tooltip__menu-divider" role="separator"></li> }
-                }
-              </ul>
-            }
-            @case ('multi-line') {
-              <div class="kpmg-tooltip__body">{{ content() || defaultMultiLine }}</div>
-            }
-            @default {
-              <span>{{ content() || title() || 'Supporting text' }}</span>
+            @case ('menu') {
+              <div class="kpmg-tooltip__menu" role="menu">
+                <kpmg-dropdown-item-group
+                  [density]="menuDensity()"
+                  [type]="menuType()"
+                  [items]="menuItems()"
+                  [selectedValues]="selectedValues()"
+                  [defaultSelectedValues]="defaultSelectedValues()"
+                  (itemSelect)="onItemSelect($event)"
+                />
+              </div>
             }
           }
-        }
-        @if (caret()) {
-          <span [class]="caretClasses()" aria-hidden="true"></span>
-        }
-      </div>
-    </ng-template>
+        </div>
 
-    <ng-template #alertCards let-fallback="fallback">
-      <div class="kpmg-tooltip__header">
-        @if (title()) { <h4 class="kpmg-tooltip__title">{{ title() }}</h4> }
-        @if (content()) { <p class="kpmg-tooltip__body">{{ content() }}</p> }
-      </div>
-      @if (sectionLabel()) { <div class="kpmg-tooltip__section-label">{{ sectionLabel() }}</div> }
-      <div class="kpmg-tooltip__card-list">
-        @for (item of items() ?? fallback; track item.id ?? $index) {
-          <div class="kpmg-tooltip__card-item">
-            <div class="kpmg-tooltip__card-thumb"></div>
-            <div class="kpmg-tooltip__card-info">
-              <span class="kpmg-tooltip__card-title">{{ item.title }}</span>
-              @if (item.subtitle) { <span class="kpmg-tooltip__card-subtitle">{{ item.subtitle }}</span> }
-            </div>
-            <button type="button" class="kpmg-tooltip__card-action" aria-label="More options">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <circle cx="12" cy="12" r="1" /><circle cx="12" cy="5" r="1" /><circle cx="12" cy="19" r="1" />
-              </svg>
-            </button>
-          </div>
+        @if (caret() && resolvedPosition() === 'bottom') {
+          <ng-container [ngTemplateOutlet]="caretTpl" [ngTemplateOutletContext]="{ pos: 'bottom' }" />
+        }
+        @if (caret() && resolvedPosition() === 'side-r') {
+          <ng-container [ngTemplateOutlet]="caretTpl" [ngTemplateOutletContext]="{ pos: 'side-r' }" />
         }
       </div>
     </ng-template>
 
-    <ng-template #starIcon let-size="size">
-      <svg [attr.width]="size" [attr.height]="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-      </svg>
-    </ng-template>
-
-    <ng-template #checkIcon let-size="size">
-      <svg [attr.width]="size" [attr.height]="size" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-        <polyline points="20 6 9 17 4 12" />
-      </svg>
+    <ng-template #caretTpl let-pos="pos">
+      <div
+        [class]="'kpmg-tooltip__caret-slot kpmg-tooltip__caret-slot--' + pos + ' kpmg-tooltip__caret-slot--align-' + resolvedAlignment()"
+        aria-hidden="true"
+      >
+        <svg
+          [attr.width]="caretGeometry().svgWidth"
+          [attr.height]="caretGeometry().svgHeight"
+          [attr.viewBox]="'0 0 ' + caretGeometry().svgWidth + ' ' + caretGeometry().svgHeight"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          class="kpmg-tooltip__caret-svg"
+        >
+          <path [attr.d]="caretGeometry().path" [attr.fill]="caretColor()" />
+        </svg>
+      </div>
     </ng-template>
   `,
 })
 export class TooltipComponent {
-  /** Header title for rich variants. */
-  readonly title = input<string | undefined>(undefined);
-  /** Text content. */
-  readonly content = input<string | undefined>(undefined);
-  /** Custom body (React: a node passed as `content`). */
-  readonly contentTemplate = input<TemplateRef<unknown> | null>(null);
-  /** elevated (white + shadow) or filled (lavender tint + shadow). */
+  /** Canonical variant type. */
+  readonly type = input<TooltipType | undefined>(undefined);
+  /** Backward-compatible alias for `type`. */
+  readonly variant = input<string | undefined>(undefined);
+  /** Edge of the tooltip where the caret is positioned. */
+  readonly position = input<TooltipPosition | undefined>(undefined);
+  /** Placement relative to the anchor in interactive mode. */
+  readonly placement = input<TooltipPlacement | undefined>(undefined);
+  /** Caret alignment along the edge. */
+  readonly alignment = input<TooltipAlignment | undefined>(undefined);
+  /** Backward-compatible alias for `alignment`. */
+  readonly align = input<TooltipAlignment | undefined>(undefined);
   readonly theme = input<TooltipTheme>('elevated');
-  readonly variant = input<TooltipVariant>('single-line');
-  readonly placement = input<TooltipPlacement>('top');
-  readonly align = input<TooltipAlign | undefined>(undefined);
   readonly caret = input(true, { transform: booleanAttribute });
-  /** sm (12×6), md (18×9), lg (24×12); derived from `variant` if omitted. */
   readonly caretSize = input<TooltipCaretSize | undefined>(undefined);
+  readonly title = input<string | undefined>(undefined);
+  readonly description = input<string | undefined>(undefined);
+  readonly content = input<string | undefined>(undefined);
+  readonly text = input<string | undefined>(undefined);
+  readonly secondaryText = input<string | undefined>(undefined);
+  /** Action buttons for rich tooltips: an array, or a template for custom markup. */
+  readonly actions = input<TooltipAction[] | TemplateRef<unknown> | undefined>(undefined);
+  /** Items for menu tooltips. */
+  readonly items = input<TooltipItem[] | undefined>(undefined);
+  readonly menuDensity = input<DropdownGroupDensity>('small');
+  readonly menuType = input<DropdownGroupType>('checklist');
+  readonly selectedValues = input<string[] | undefined>(undefined);
+  readonly defaultSelectedValues = input<string[] | undefined>(undefined);
   readonly trigger = input<TooltipTrigger>('hover');
   /** Open state. Two-way bindable: `[(open)]`. */
   readonly open = model<boolean | undefined>(undefined);
-  /** Initial open state when `open` is not bound. */
   readonly defaultOpen = input(false, { transform: booleanAttribute });
-  /** Milliseconds before opening on hover. */
   readonly delay = input(150);
-  /** Milliseconds before closing on mouseleave. */
   readonly closeDelay = input(150);
-  /** Action buttons for `rich-action`: an array, or a template for custom markup. */
-  readonly actions = input<TooltipAction[] | TemplateRef<unknown> | undefined>(undefined);
-  readonly items = input<TooltipItem[] | undefined>(undefined);
-  readonly sectionLabel = input<string | undefined>(undefined);
   /** Render the tooltip on its own, without an anchor wrapper. */
   readonly isStatic = input(false, { alias: 'static', transform: booleanAttribute });
+  readonly width = input<string | number | undefined>(undefined);
+  readonly minWidth = input<string | number | undefined>(undefined);
+  readonly maxWidth = input<string | number | undefined>(undefined);
   readonly className = input('');
   /** DOM id of the tooltip element. */
   readonly tooltipIdInput = input<string | undefined>(undefined, { alias: 'tooltipId' });
 
-  protected readonly defaultMenuItems = DEFAULT_MENU_ITEMS;
-  protected readonly defaultSourceItems = DEFAULT_SOURCE_ITEMS;
-  protected readonly defaultAlertSmall = DEFAULT_ALERT_SMALL;
-  protected readonly defaultAlertLarge = DEFAULT_ALERT_LARGE;
-  protected readonly defaultMultiLine =
-    'Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt.';
+  /** A menu item was clicked (React: `onItemClick(item, e)`). */
+  readonly itemClick = output<{ item: DropdownItem; event: Event }>();
+  /** A menu selection changed (React: `onSelect`). */
+  readonly itemSelect = output<DropdownItemSelectEvent>();
+
+  protected readonly defaultBaseLarge =
+    'Supporting text. Body text string goes here. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
   private readonly host = inject<ElementRef<HTMLElement>>(ElementRef);
   private timer: ReturnType<typeof setTimeout> | undefined;
@@ -307,65 +261,139 @@ export class TooltipComponent {
     inject(DestroyRef).onDestroy(() => clearTimeout(this.timer));
   }
 
-  protected readonly isRichVariant = computed(() =>
-    ['rich-action', 'rich-source', 'rich-alert-small', 'rich-alert-large'].includes(this.variant()),
-  );
-  protected readonly isMenuVariant = computed(() => ['menu-list', 'menu-icon'].includes(this.variant()));
+  protected readonly resolvedType = computed<TooltipType>(() => {
+    const raw = (this.type() || this.variant() || 'base-small').toLowerCase();
+    if (raw === 'base-large' || raw === 'multi-line') return 'base-large';
+    if (raw === 'rich' || raw.startsWith('rich-')) return 'rich';
+    if (raw === 'menu' || raw === 'menu-list' || raw === 'menu-icon') return 'menu';
+    return 'base-small';
+  });
 
-  protected readonly actionsTemplate = computed(() => {
+  protected readonly resolvedPosition = computed<TooltipPosition>(() => {
+    const pos = this.position();
+    if (pos) {
+      const p = pos.toLowerCase();
+      if (p === 'bottom') return 'bottom';
+      if (p === 'side-l' || p === 'left') return 'side-l';
+      if (p === 'side-r' || p === 'right') return 'side-r';
+      return 'top';
+    }
+    const pl = this.placement()?.toLowerCase();
+    if (pl === 'top') return 'bottom';
+    if (pl === 'left') return 'side-r';
+    if (pl === 'right') return 'side-l';
+    return 'top';
+  });
+
+  protected readonly resolvedAlignment = computed(() => {
+    const raw = (this.alignment() || this.align() || '').toLowerCase();
+    const side = this.resolvedPosition() === 'side-l' || this.resolvedPosition() === 'side-r';
+    if (side) return raw === 'top' ? 'top' : raw === 'bottom' ? 'bottom' : 'middle';
+    return raw === 'left' ? 'left' : raw === 'right' ? 'right' : 'center';
+  });
+
+  private readonly resolvedCaretSize = computed<TooltipCaretSize>(
+    () =>
+      this.caretSize() ??
+      (this.resolvedType() === 'base-small' ? 'sm' : this.resolvedType() === 'rich' ? 'lg' : 'md'),
+  );
+
+  protected readonly caretColor = computed(() =>
+    this.theme() === 'filled'
+      ? 'var(--color-tooltip-filled-bg, #f5f5fe)'
+      : 'var(--color-tooltip-elevated-bg, #ffffff)',
+  );
+
+  protected readonly caretGeometry = computed(() => {
+    const s = this.resolvedCaretSize();
+    const w = s === 'sm' ? 12 : s === 'lg' ? 24 : 18;
+    const h = s === 'sm' ? 6 : s === 'lg' ? 12 : 9;
+    const side = this.resolvedPosition() === 'side-l' || this.resolvedPosition() === 'side-r';
+    let path = '';
+    switch (this.resolvedPosition()) {
+      case 'top': path = `M0 ${h} L${w / 2} 0 L${w} ${h} Z`; break;
+      case 'bottom': path = `M0 0 L${w / 2} ${h} L${w} 0 Z`; break;
+      case 'side-l': path = `M${h} 0 L0 ${w / 2} L${h} ${w} Z`; break;
+      case 'side-r': path = `M0 0 L${h} ${w / 2} L0 ${w} Z`; break;
+    }
+    return { svgWidth: side ? h : w, svgHeight: side ? w : h, path };
+  });
+
+  protected readonly displayTitle = computed(() => (this.title() !== undefined ? this.title() : 'Title'));
+  protected readonly displayDesc = computed(
+    () =>
+      this.description() ||
+      this.content() ||
+      'Supporting text. Lorem ipsum dolor sit amet, consectetur elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+  );
+
+  protected readonly actionTemplate = computed(() => {
     const a = this.actions();
     return a instanceof TemplateRef ? a : null;
   });
   protected readonly actionList = computed(() => {
     const a = this.actions();
+    if (a === undefined) return DEFAULT_ACTIONS;
     return Array.isArray(a) ? a : null;
   });
 
-  private readonly resolvedCaretSize = computed(
-    () =>
-      this.caretSize() ??
-      (this.variant() === 'single-line' ? 'sm' : this.variant() === 'multi-line' ? 'md' : 'lg'),
-  );
-
-  private readonly normalizedPlacement = computed(() => {
-    const p = this.placement();
-    return p === 'side-l' ? 'left' : p === 'side-r' ? 'right' : p;
+  protected readonly menuItems = computed<DropdownItem[]>(() => {
+    const items = this.items();
+    if (!items) return DEFAULT_MENU_ITEMS;
+    return items.map((item, idx) => {
+      if (item.type === 'divider' || item.divider) return { type: 'divider' } as DropdownItem;
+      return {
+        label: item.label || 'Option',
+        value: item.value || item.id || `opt-${idx}`,
+        selected: item.selected !== undefined ? item.selected : (item.checked ?? true),
+        disabled: item.disabled,
+        onClick: item.onClick,
+      };
+    });
   });
 
-  private readonly effectiveAlign = computed(
-    () => this.align() ?? (['top', 'bottom'].includes(this.placement()) ? 'center' : 'middle'),
-  );
+  protected readonly combinedStyles = computed(() => {
+    const w = this.width();
+    const px = (v: string | number) => (typeof v === 'number' ? `${v}px` : v);
+    const s: Record<string, string> = {};
+    if (w) { s['width'] = px(w); s['max-width'] = px(w); }
+    const min = this.minWidth();
+    if (min) s['min-width'] = px(min);
+    const max = this.maxWidth();
+    if (max) s['max-width'] = px(max);
+    return s;
+  });
 
   protected readonly classes = computed(() => {
-    const base = this.isRichVariant() ? 'rich' : this.isMenuVariant() ? 'menu' : this.variant();
     const isStatic = this.isStatic();
+    const placement = this.placement();
     return [
       'kpmg-tooltip',
-      `kpmg-tooltip--${this.theme()}`,
-      `kpmg-tooltip--${base}`,
-      !isStatic ? `kpmg-tooltip--placement-${this.normalizedPlacement()}` : '',
-      !isStatic ? `kpmg-tooltip--align-${this.effectiveAlign()}` : '',
+      `kpmg-tooltip--${this.resolvedType()}`,
+      `kpmg-tooltip--pos-${this.resolvedPosition()}`,
+      `kpmg-tooltip--align-${this.resolvedAlignment()}`,
+      `kpmg-tooltip--theme-${this.theme()}`,
       this.isOpen() || isStatic ? 'kpmg-tooltip--visible' : '',
       isStatic ? 'kpmg-tooltip--static' : '',
+      !isStatic
+        ? placement
+          ? `kpmg-tooltip--placement-${placement}`
+          : `kpmg-tooltip--anchor-for-${this.resolvedPosition()}`
+        : '',
       this.className(),
     ]
       .filter(Boolean)
       .join(' ');
   });
 
-  protected readonly caretClasses = computed(
-    () => `kpmg-tooltip__caret kpmg-tooltip__caret--${this.resolvedCaretSize()}`,
-  );
-
-  protected actionStyle(outline: boolean): string {
-    return outline
-      ? `${ACTION_BASE} border: 1px solid var(--color-blue-200); background: transparent; color: var(--color-blue-200);`
-      : `${ACTION_BASE} border: none; background: var(--color-primary-action); color: #ffffff;`;
-  }
-
   private setOpen(next: boolean): void {
     this.current.set(next);
     this.open.set(next);
+  }
+
+  protected onItemSelect(e: DropdownItemSelectEvent): void {
+    this.itemClick.emit({ item: e.item, event: e.event });
+    this.itemSelect.emit(e);
   }
 
   protected onMouseEnter(): void {

@@ -45,8 +45,214 @@ const meta: Meta<MessageComponent> = {
     layout: 'padded',
     docs: {
       description: {
-        component:
-          'The Message family powers conversational assistant and human messaging: Assistant Reply and Human Sent variants, minimized/expanded states, citations, attachments, media gallery, workflow status card, action icon bar, thread container and chat assistant window.',
+        component: `
+### KPMG WorkBench Design System - Message Component Family
+
+The **Message** component family powers conversational, assistant, and human messaging interfaces across WorkBench applications.
+Engineered according to canonical KPMG WorkBench Design System specifications with 100% tokenized CSS and zero hardcoding:
+
+- **Participant Variations**:
+  - **Assistant Reply**: Clean, uncontained or card surface with brand gradient avatar dot, headline, message body, citation footnote badges, divider, collapsible secondary text, attachments, media gallery, workflow status tracking card, and bottom action icon bar.
+  - **Human Sent**: Elevated tinted container bubble with headline, message text, secondary text, attachments, and media gallery.
+- **Collapsible States**:
+  - **Minimized**: Truncated 2-line secondary text, single attachment preview, centered Chevron Down toggle.
+  - **Expanded**: Full multi-line secondary text, secondary citation chips bar, dual attachments preview, centered Chevron Up toggle.
+- **Workflow Status Integration**:
+  - Reuses **Linear ProgressIndicator** track for multi-step task progress.
+  - Reuses **Circular Indeterminate ProgressIndicator** for in-progress step items.
+  - Step items with completed checkmarks, pending circle outlines, and active loading spinners.
+  - Monospace code execution block and source citation cards.
+- **Chat Assistant Window**:
+  - Full assistant window featuring top app bar with drag handle and window actions, multi-turn conversation stream card, and bottom input bar with project dropdown pill, rounded query input, send action button, and KPMG Trusted AI verification subtitle.
+- **Action Icon Bar**: Thumbs Up, Thumbs Down, Read Aloud Speaker, Copy to Clipboard, and Regenerate Response.
+- **Media Gallery**: 3-card square image gallery supporting enabled, hovered, disabled, and pressed states with contextual popover options menus.
+- **Thread Orchestration**: Conversational streams supporting Default bot-first, Card bot-first, Default human-first, and Card human-first layouts.
+        `,
+      },
+    },
+  },
+  argTypes: {
+    type: {
+      control: 'select',
+      options: ['Message reply', 'Message sent'],
+      description: 'Canonical message type: Message reply (Assistant bot) or Message sent (Human user)',
+      table: {
+        type: {
+          summary: "'Message reply' | 'Message sent'",
+        },
+        defaultValue: {
+          summary: "'Message reply'",
+        },
+      },
+    },
+    layout: {
+      control: 'select',
+      options: ['default', 'card'],
+      description: 'Surface presentation treatment: Default conversational stream or Card container',
+      table: {
+        type: {
+          summary: "'default' | 'card'",
+        },
+        defaultValue: {
+          summary: "'default'",
+        },
+      },
+    },
+    state: {
+      control: 'select',
+      options: ['Minimized', 'Expanded'],
+      description: 'Collapsible state for secondary content and attachment count: Minimized or Expanded',
+      table: {
+        type: {
+          summary: "'Minimized' | 'Expanded'",
+        },
+        defaultValue: {
+          summary: "'Minimized'",
+        },
+      },
+    },
+    header: {
+      control: 'boolean',
+      description: 'Toggles visibility of the message headline text',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    headlineText: {
+      control: 'text',
+      description: 'Headline text displayed at the top of the message',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'This headline text'",
+        },
+      },
+    },
+    supporting: {
+      control: 'boolean',
+      description: 'Toggles visibility of the primary chat body paragraph',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    supportingText: {
+      control: 'text',
+      description: 'Primary message body paragraph',
+      table: {
+        type: {
+          summary: 'string',
+        },
+        defaultValue: {
+          summary: "'More than single line chat message. Lorem ipsum dolor sit amet, labore consectetur.'",
+        },
+      },
+    },
+    citationBar: {
+      control: 'boolean',
+      description: 'Toggles visibility of footnote citation badges (Reply only)',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    divider: {
+      control: 'boolean',
+      description: 'Toggles the horizontal separator line between message sections',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    secondaryText: {
+      control: 'boolean',
+      description: 'Toggles or provides secondary contextual text block supporting collapse/expansion',
+      table: {
+        type: {
+          summary: 'boolean | string',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    expandIcon: {
+      control: 'boolean',
+      description: 'Toggles the Chevron expand/minimize collapse trigger button',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    attachmentBar: {
+      control: 'boolean',
+      description: 'Toggles visibility of the attachment card section',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    mediaBar: {
+      control: 'boolean',
+      description: 'Toggles visibility of the 3-image media grid section',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    card: {
+      control: 'boolean',
+      description: 'Toggles visibility of the Task cards rich workflow status card (Reply only)',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
+      },
+    },
+    iconBar: {
+      control: 'boolean',
+      description: 'Toggles visibility of the bottom 5-icon action bar (Reply only)',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+        defaultValue: {
+          summary: 'true',
+        },
       },
     },
   },
@@ -69,23 +275,6 @@ const meta: Meta<MessageComponent> = {
       ],
     }),
   ],
-  argTypes: {
-    type: { control: 'select', options: [undefined, 'Message reply', 'Message sent'] },
-    state: { control: 'select', options: ['Minimized', 'Expanded'] },
-    layout: { control: 'select', options: ['default', 'card'] },
-    header: { control: 'boolean' },
-    headlineText: { control: 'text' },
-    supporting: { control: 'boolean' },
-    supportingText: { control: 'text' },
-    citationBar: { control: 'boolean' },
-    divider: { control: 'boolean' },
-    secondaryText: { control: 'boolean' },
-    expandIcon: { control: 'boolean' },
-    attachmentBar: { control: 'boolean' },
-    mediaBar: { control: 'boolean' },
-    card: { control: 'boolean' },
-    iconBar: { control: 'boolean' },
-  },
 };
 
 export default meta;
@@ -349,12 +538,4 @@ export const StandaloneWorkflowStatusCard: Story = {
   }),
 };
 
-export const AudioRich: Story = {
-  name: 'Audio Rich',
-  render: () => ({
-    template: `<div style="display: flex; flex-direction: column; gap: 16px; max-width: 480px">
-      <kpmg-message-audio-rich mode="light" [withProjectDropdown]="true" />
-      <kpmg-message-audio-rich mode="dark" />
-    </div>`,
-  }),
-};
+

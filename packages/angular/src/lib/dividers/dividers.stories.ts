@@ -6,17 +6,79 @@ const meta: Meta<DividersComponent> = {
   title: 'Components/Dividers',
   component: DividersComponent,
   tags: ['autodocs'],
-  parameters: { layout: 'padded' },
-  decorators: [moduleMetadata({ imports: [DividersComponent] })],
-  argTypes: {
-    state: { control: { type: 'radio' }, options: ['Horizontal', 'Vertical'] },
-    theme: { control: { type: 'radio' }, options: ['Light', 'Dark'] },
-    width: {
-      control: { type: 'select' },
-      options: ['Full', 'Inset', 'Inset middle small', 'Inset middle medium', 'Inset middle large', 'Inset middle with text', 'Inset middle'],
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        component: `
+# Dividers Component
+
+The KPMG WorkBench Divider is an accessible, token-driven separator component adhering strictly to the KPMG WorkBench Design System specification.
+
+### Key Capabilities
+- **18 Canonical Figma Variants**: Full coverage of all 18 variants across 2 themes (Light, Dark), 2 orientations (Horizontal, Vertical), and 6 inset width configurations.
+- **Concentric & Calibrated Insets**: Pixel-precise alignment for Full, Inset , Inset middle small , Inset middle medium , and Inset middle large .
+- **Subheader Typography**: Integrated title/small subheader text configuration (14px font, 20px line height, regular weight).
+- **Flexible Vertical Mode**: Calibrated 17px container with centered 1px line supporting Full, Inset (top), and Inset Middle (top & bottom).
+- **WCAG Accessibility**: Standard \`role="separator"\`, \`aria-orientation\`, and semantic token contrast.
+        `,
+      },
     },
-    text: { control: 'text' },
   },
+  argTypes: {
+    state: {
+      control: 'radio',
+      options: ['Horizontal', 'Vertical'],
+      description: 'Orientation of the divider',
+      table: {
+        type: {
+          summary: "'Horizontal' | 'Vertical' | 'horizontal' | 'vertical'",
+        },
+        defaultValue: {
+          summary: "'Horizontal'",
+        },
+      },
+    },
+    theme: {
+      control: 'radio',
+      options: ['Light', 'Dark'],
+      description: 'Theme variation (Light = subtle line, Dark = high-contrast line)',
+      table: {
+        type: {
+          summary: "'Light' | 'Dark' | 'light' | 'dark'",
+        },
+        defaultValue: {
+          summary: "'Light'",
+        },
+      },
+    },
+    width: {
+      control: 'select',
+      options: ['Full', 'Inset', 'Inset middle small', 'Inset middle medium', 'Inset middle large', 'Inset middle with text', 'Inset middle'],
+      description: 'Inset and width configuration',
+      table: {
+        type: {
+          summary: "'Full' | 'Inset' | 'Inset middle small' | 'Inset middle medium' | 'Inset middle large' | 'Inset middle with text' | 'Inset middle' | 'full' | 'inset' | 'inset-middle-small' | 'inset-middle-medium' | 'inset-middle-large' | 'inset-middle-with-text' | 'inset-middle'",
+        },
+        defaultValue: {
+          summary: "'Full'",
+        },
+      },
+    },
+    text: {
+      control: 'text',
+      description: 'Optional subheader text for Inset middle with text variant',
+      table: {
+        type: {
+          summary: 'node',
+        },
+        defaultValue: {
+          summary: "'Subheader'",
+        },
+      },
+    },
+  },
+  decorators: [moduleMetadata({ imports: [DividersComponent] })],
 };
 
 export default meta;
