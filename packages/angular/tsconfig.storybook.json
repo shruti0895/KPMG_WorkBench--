@@ -4,5 +4,5 @@
     "outDir": "./dist/out-tsc-storybook",
     "types": ["node"]
   },
-  "include": ["src/**/*.ts", "../../.storybook-angular/**/*.ts"]
+  "include": ["src/**/*.ts", "../../.storybook-angular/**/*.ts", "../../.storybook-shared/**/*.ts"]
 }

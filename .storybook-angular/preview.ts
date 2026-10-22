@@ -1,4 +1,5 @@
 import type { Preview } from '@storybook/angular';
+import { GuidelinePage } from '../.storybook-shared/guideline-page';
 
 // Tokens + component CSS from @designkpmg/styles, served via `staticDirs`
 // in main.ts. Same stylesheet the React Storybook consumes, so both render
@@ -16,6 +17,7 @@ linkStylesheet('kpmg-design-tokens', './index.css');
 
 const preview: Preview = {
   parameters: {
+    docs: { page: GuidelinePage },
     layout: 'centered',
     controls: {
       matchers: {
