@@ -24,6 +24,8 @@ const config = {
     "@storybook/addon-docs",
     "@storybook/addon-mcp"
   ],
+  // Side nav: first entry under each component is "Overview" (the docs page), then its variants.
+  "docs": { "defaultName": "Overview" },
   "framework": "@storybook/react-vite"
 };
 export default config;

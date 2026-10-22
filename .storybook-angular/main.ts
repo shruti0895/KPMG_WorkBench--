@@ -10,6 +10,8 @@ const VISIBLE_COMPONENTS = [
 const config: StorybookConfig = {
   stories: VISIBLE_COMPONENTS.map((name) => `../packages/angular/src/lib/${name}/*.stories.@(ts|mdx)`),
   addons: ['@storybook/addon-docs'],
+  // Side nav: first entry under each component is "Overview" (the docs page), then its variants.
+  docs: { defaultName: 'Overview' },
   // Serves packages/styles/dist/* at the Storybook server root (e.g. /index.css).
   // The Angular webpack builder doesn't run the app-style CSS pipeline, so the
   // global stylesheet is linked at runtime (see preview.ts) instead of imported.

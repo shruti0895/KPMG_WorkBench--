@@ -31,7 +31,7 @@ Component CSS lives next to the React component (`packages/ui/src/components/<Na
 | `npm run build:angular-lib` | Library only → `packages/angular/dist/` |
 | `npm run dev` | React demo app |
 
-Deploy `storybook-static/` and `storybook-static-angular/` as two sites. Both use the story titles `Components/<Name>`, so story ids match (`components-<slug>--docs`) and the portal can build the React and Angular URLs from one slug.
+Deploy `storybook-static/` and `storybook-static-angular/` as two sites. Both use the story titles `Components/<Name>`, so story ids match (`components-<slug>--overview` for the docs page) and the portal can build the React and Angular URLs from one slug.
 
 ## Angular components
 
