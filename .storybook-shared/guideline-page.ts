@@ -11,10 +11,11 @@ import { componentDocs } from './content';
  *   1.b  Accessibility link    -> Live Demo site (14px)
  *   2.   Table of Contents (24px) - built from the sections this component has
  *   2.a  Overview  - what it is, a live example, when to use / not to use it, anatomy
+ *   2.c  API       - props & events table, placed right below the Overview
  *   2.b  Variants  - what each variant is for, then links to every story (kept
  *                    out of the page so it stays short; each story has its own page)
  *        Formatting & content, Behaviors - optional, per component
- *   2.c  API       - props, events, accessibility
+ *        Accessibility - its own section after Behaviors
  *   2.d  Guides    - optional short how-tos (per component, in content/<name>.ts)
  *   3.   References (24px)
  *
@@ -116,6 +117,7 @@ export function GuidelinePage() {
           ]
         : [],
     },
+    { id: 'api', label: 'API' },
     { id: 'variants', label: 'Variants' },
     ...(doc?.formatting?.length
       ? [{ id: 'formatting', label: 'Formatting & content', children: doc.formatting.map((f, i) => ({ id: `formatting-${i}`, label: f.title })) }]
@@ -123,14 +125,7 @@ export function GuidelinePage() {
     ...(doc?.behaviors?.length
       ? [{ id: 'behaviors', label: 'Behaviors', children: doc.behaviors.map((b, i) => ({ id: `behaviors-${i}`, label: b.title })) }]
       : []),
-    {
-      id: 'api',
-      label: 'API',
-      children: [
-        { id: 'api-props', label: 'Props & events' },
-        { id: 'api-accessibility', label: 'Accessibility' },
-      ],
-    },
+    { id: 'accessibility', label: 'Accessibility' },
     ...(guides.length
       ? [{ id: 'guides', label: 'Guides', children: guides.map((g) => ({ id: `guide-${g.id}`, label: g.title })) }]
       : []),
@@ -187,6 +182,11 @@ export function GuidelinePage() {
         )
       : null,
 
+    // API: props & events, right below the Overview
+    sectionHeading('api', 'API', 20),
+    h('p', { style: body }, 'Props and events.'),
+    h(Controls, null),
+
     // 2.b Variants (the first story is already shown under Overview)
     sectionHeading('variants', 'Variants', 20),
     h('p', { style: body }, 'Supported configurations of the component.'),
@@ -199,12 +199,8 @@ export function GuidelinePage() {
     doc?.behaviors?.length ? sectionHeading('behaviors', 'Behaviors', 20) : null,
     ...(doc?.behaviors ?? []).map((b, i) => pointGroup(`behaviors-${i}`, b.title, b.points)),
 
-    // 2.c API
-    sectionHeading('api', 'API', 20),
-    h('p', { style: body }, 'Props, events and accessibility.'),
-    subHeading('Props & events', 'api-props'),
-    h(Controls, null),
-    subHeading('Accessibility', 'api-accessibility'),
+    // Accessibility
+    sectionHeading('accessibility', 'Accessibility', 20),
     doc
       ? h('ul', { style: list }, doc.accessibility.map((a, i) => h('li', { key: i }, a)))
       : h('p', { style: body }, 'Accessibility notes coming soon.'),
