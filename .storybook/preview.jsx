@@ -5,6 +5,7 @@ import { GuidelinePage } from '../.storybook-shared/guideline-page';
 const preview = {
   parameters: {
     docs: { page: GuidelinePage },
+    kpmgFramework: 'react',
     controls: {
       matchers: {
         color: /(background|color)$/i,

@@ -18,6 +18,7 @@ linkStylesheet('kpmg-design-tokens', './index.css');
 const preview: Preview = {
   parameters: {
     docs: { page: GuidelinePage },
+    kpmgFramework: 'angular',
     layout: 'centered',
     controls: {
       matchers: {

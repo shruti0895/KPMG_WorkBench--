@@ -27,6 +27,111 @@ export const modal: ComponentDoc = {
     'The component does not move focus into the dialog, trap focus or restore it on close; manage focus in the host application.',
     'The file drop zone is focusable (role="button", tabIndex 0).',
   ],
+
+  guides: [
+    {
+      id: 'open-close',
+      title: 'Opening and closing the modal',
+      paragraphs: [
+        'The modal does not manage its own visibility. Show it by setting isOpen, and hide it by setting isOpen to false in your close handler (onClose in React, the (modalClose) output in Angular). When isOpen is false the modal renders nothing.',
+        'The close handler is called when the user presses the close button, presses Escape, or clicks the overlay. To keep the modal open for one of these, do not change the open state in the handler.',
+      ],
+      code: {
+        react: `import { useState } from 'react';
+import { Modal } from '@designkpmg/ui/components/Modal';
+import { Button } from '@designkpmg/ui/components/Button/Button';
+
+export function Example() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <>
+      <Button onClick={() => setOpen(true)}>Open modal</Button>
+      <Modal isOpen={open} onClose={() => setOpen(false)} title="Create an assistant" />
+    </>
+  );
+}`,
+        angular: `import { Component, signal } from '@angular/core';
+import { ButtonComponent, ModalComponent } from '@designkpmg/angular';
+
+@Component({
+  selector: 'app-example',
+  imports: [ButtonComponent, ModalComponent],
+  template: \`
+    <kpmg-button (click)="open.set(true)">Open modal</kpmg-button>
+    <kpmg-modal [isOpen]="open()" (modalClose)="open.set(false)" title="Create an assistant" />
+  \`,
+})
+export class Example {
+  open = signal(false);
+}`,
+      },
+    },
+    {
+      id: 'inline',
+      title: 'Showing the modal inline',
+      paragraphs: [
+        'Set inline to render the modal in the normal page flow, without the overlay. Inline modals do not close on Escape and report aria-modal as false. Use this for documentation and previews, not for real dialogs.',
+      ],
+      code: {
+        react: `<Modal inline title="Create an assistant" />`,
+        angular: `<kpmg-modal inline title="Create an assistant" />`,
+      },
+    },
+    {
+      id: 'steps',
+      title: 'Multi-step flows: progress and footer',
+      paragraphs: [
+        'Turn on withProgress and set progress (0 to 100) to show the linear progress bar for the current step. Use backLabel and nextLabel to rename the footer buttons, and handle the Back and Next buttons with onBack and onNext in React, or the (back) and (next) outputs in Angular. Set showFooter to false to hide the footer.',
+      ],
+      code: {
+        react: `<Modal
+  isOpen={open}
+  title="Create an assistant"
+  withProgress
+  progress={60}
+  backLabel="Previous"
+  nextLabel="Continue"
+  onBack={() => setStep(step - 1)}
+  onNext={() => setStep(step + 1)}
+  onClose={() => setOpen(false)}
+/>`,
+        angular: `<kpmg-modal
+  [isOpen]="open()"
+  title="Create an assistant"
+  withProgress
+  [progress]="60"
+  backLabel="Previous"
+  nextLabel="Continue"
+  (back)="step.update(s => s - 1)"
+  (next)="step.update(s => s + 1)"
+  (modalClose)="open.set(false)"
+/>`,
+      },
+      note: 'The modal does not track the current step. Update progress and the module props yourself as the user moves between steps.',
+    },
+    {
+      id: 'modules',
+      title: 'Choosing the modules in the body',
+      paragraphs: [
+        'The body is built from optional modules, each turned on with its own prop: agentModule (assistant preview card), inputModule1 (name), inputModule2 (purpose), fileUploaderModule (knowledge base), inputModule3 (prompt templates), cardModule1 (model selection) and cardModule2 (voice selection). Combine the ones a step needs.',
+      ],
+      code: {
+        react: `<Modal isOpen title="Add knowledge" inputModule2 fileUploaderModule />`,
+        angular: `<kpmg-modal title="Add knowledge" inputModule2 fileUploaderModule />`,
+      },
+    },
+    {
+      id: 'focus',
+      title: 'Managing focus',
+      paragraphs: [
+        'The modal does not move focus into the dialog, keep focus inside it, or return focus to the button that opened it. Your application should do this:',
+        '1. When the modal opens, move focus to the first field or the close button.',
+        '2. While it is open, keep Tab and Shift+Tab inside the dialog.',
+        '3. When it closes, return focus to the element that opened it.',
+      ],
+    },
+  ],
   references: [
     { label: 'ProgressIndicator', text: 'The progress module uses the linear progress indicator.' },
     { label: 'FileUploader', text: 'The file module follows the file uploader pattern.' },

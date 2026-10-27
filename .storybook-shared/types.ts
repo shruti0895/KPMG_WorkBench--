@@ -4,6 +4,18 @@ export interface AnatomyPart {
   description: string;
 }
 
+export interface Guide {
+  /** Anchor id suffix; the section id becomes `guide-<id>`. */
+  id: string;
+  title: string;
+  /** Short explanatory paragraphs. */
+  paragraphs: string[];
+  /** Optional code sample per framework; the page shows the one for the current Storybook. */
+  code?: { react?: string; angular?: string };
+  /** Optional callout shown under the code. */
+  note?: string;
+}
+
 export interface ComponentDoc {
   overview: {
     /** What the component is. */
@@ -15,6 +27,8 @@ export interface ComponentDoc {
   };
   /** Accessibility behaviour: roles, aria attributes, keyboard support. */
   accessibility: string[];
+  /** Short how-to sections (opening, sizing, focus...). Shown under API and listed in the Table of Contents. */
+  guides?: Guide[];
   /** Supporting explanation / related guidance. */
   references: { label: string; text: string }[];
 }
