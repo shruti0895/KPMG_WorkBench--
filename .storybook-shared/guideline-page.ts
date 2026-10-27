@@ -1,5 +1,5 @@
 import React from 'react';
-import { Controls, Primary, Source, Stories, useOf } from '@storybook/addon-docs/blocks';
+import { Controls, Primary, Source, useOf } from '@storybook/addon-docs/blocks';
 import { LIVE_DEMO_BASE_URL } from './config';
 import { componentDocs } from './content';
 
@@ -11,7 +11,8 @@ import { componentDocs } from './content';
  *   1.b  Accessibility link    -> Live Demo site (14px)
  *   2.   Table of Contents (24px) - built from the sections this component has
  *   2.a  Overview  - what it is, a live example, when to use / not to use it, anatomy
- *   2.b  Variants  - what each variant is for, then the stories
+ *   2.b  Variants  - what each variant is for, then links to every story (kept
+ *                    out of the page so it stays short; each story has its own page)
  *        Formatting & content, Behaviors - optional, per component
  *   2.c  API       - props, events, accessibility
  *   2.d  Guides    - optional short how-tos (per component, in content/<name>.ts)
@@ -66,6 +67,21 @@ const variantsTable = (rows: { name: string; purpose: string }[]) =>
 const pointGroup = (id: string, title: string, points: string[]) =>
   h('div', { key: id }, subHeading(title, id), h('ul', { style: list }, points.map((p, i) => h('li', { key: i }, p))));
 
+// Links open each story in the Storybook manager (the sidebar entry), so the docs page stays short.
+const storyLinks = (stories: { id: string; name: string }[]) =>
+  h(
+    'div',
+    null,
+    subHeading(`Examples (${stories.length})`),
+    h(
+      'ul',
+      { style: { ...list, columns: 2, columnGap: 32 } },
+      stories.map((st) =>
+        h('li', { key: st.id }, h('a', { href: `./?path=/story/${st.id}`, target: '_top', style: { color: link } }, st.name)),
+      ),
+    ),
+  );
+
 interface TocEntry {
   id: string;
   label: string;
@@ -75,11 +91,11 @@ interface TocEntry {
 export function GuidelinePage() {
   const meta = useOf('meta') as {
     preparedMeta: { title: string; parameters?: { kpmgFramework?: 'react' | 'angular' } };
-    csfFile?: { stories?: Record<string, unknown> };
+    csfFile?: { stories?: Record<string, { id: string; name: string }> };
   };
   const name = meta.preparedMeta.title.split('/').pop() ?? '';
   const framework = meta.preparedMeta.parameters?.kpmgFramework ?? 'react';
-  const storyCount = Object.keys(meta.csfFile?.stories ?? {}).length;
+  const stories = Object.values(meta.csfFile?.stories ?? {});
   const slug = slugify(name);
   const doc = componentDocs[name];
   const guides = doc?.guides ?? [];
@@ -175,7 +191,7 @@ export function GuidelinePage() {
     sectionHeading('variants', 'Variants', 20),
     h('p', { style: body }, 'Supported configurations of the component.'),
     doc?.variants?.length ? variantsTable(doc.variants) : null,
-    h(Stories, { title: '', includePrimary: storyCount <= 1 }),
+    stories.length > 1 ? storyLinks(stories) : null,
 
     // Formatting & content / Behaviors (optional, per component)
     doc?.formatting?.length ? sectionHeading('formatting', 'Formatting & content', 20) : null,
