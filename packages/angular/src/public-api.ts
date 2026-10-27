@@ -1,6 +1,10 @@
 /*
  * Public API surface of @designkpmg/angular
  */
+export * from './lib/accordion/accordion-context';
+export * from './lib/accordion/accordion-item.component';
+export * from './lib/accordion/accordion-skeleton.component';
+export * from './lib/accordion/accordion.component';
 export * from './lib/app-bars/app-bar-breadcrumbs';
 export * from './lib/app-bars/app-bar-full.component';
 export * from './lib/app-bars/app-bar-icons.component';

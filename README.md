@@ -37,7 +37,7 @@ Deploy `storybook-static/` and `storybook-static-angular/` as two sites. Both us
 
 Standalone, `OnPush`, signal inputs; selectors are `kpmg-<name>`. Each mirrors its React counterpart's DOM and `kpmg-*` classes.
 
-All React components are ported (see `packages/angular/src/lib/<name>/`): Button, IconButton, Badge, Chip, Checkbox, Switch, Textarea, Tooltip, Banner, Breadcrumbs, Dividers, ProgressIndicator, Slider, FileUploader, Tab, List, Snackbar, Modal, Sheets, Cards, Tiles, Menu, Message, AppBars, DataTable.
+All React components are ported (see `packages/angular/src/lib/<name>/`): Accordion, Button, IconButton, Badge, Chip, Checkbox, Switch, Textarea, Tooltip, Banner, Breadcrumbs, Dividers, ProgressIndicator, Slider, FileUploader, Tab, List, Snackbar, Modal, Sheets, Cards, Tiles, Menu, Message, AppBars, DataTable.
 
 Angular cannot detect projected content or attached callbacks, so React `children`/`onX` presence checks become explicit inputs/outputs (e.g. `anchored`, `clickable`, `hasContent`). Each class's JSDoc lists its deviations from the React version.
 

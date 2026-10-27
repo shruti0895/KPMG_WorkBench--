@@ -1,0 +1,182 @@
+/**
+ * KPMG WorkBench Design System - Accordion
+ * 100% token-driven styles. Flush rectangles: items are separated by borders.
+ */
+
+/* ==========================================================================
+   Container
+   ========================================================================== */
+.kpmg-accordion {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-family: var(--font-family-base, 'Open Sans', sans-serif);
+  font-size: var(--font-size-body-md, 14px);
+  line-height: var(--line-height-body-md, 20px);
+  color: var(--color-neutral-100, #454554);
+  border-bottom: 1px solid var(--color-neutral-500, #d5d5dc);
+}
+
+.kpmg-accordion--sm { --kpmg-accordion-heading-height: var(--spacing-7, 32px); }
+.kpmg-accordion--md { --kpmg-accordion-heading-height: var(--spacing-8, 40px); }
+.kpmg-accordion--lg { --kpmg-accordion-heading-height: var(--spacing-9, 48px); }
+
+/* ==========================================================================
+   Item
+   ========================================================================== */
+.kpmg-accordion__item {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--color-neutral-500, #d5d5dc);
+}
+
+/* ==========================================================================
+   Heading
+   ========================================================================== */
+.kpmg-accordion__heading {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-4, 12px);
+  width: 100%;
+  min-height: var(--kpmg-accordion-heading-height, 40px);
+  margin: 0;
+  padding: var(--spacing-1, 4px) var(--spacing-5, 18px);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-neutral-100, #454554);
+  font: inherit;
+  font-weight: var(--font-weight-regular, 400);
+  text-align: start;
+  cursor: pointer;
+  transition: background-color var(--transition-fast, 150ms ease);
+}
+
+.kpmg-accordion__title {
+  flex: 1 1 auto;
+  min-width: 0;
+  order: 1;
+}
+
+.kpmg-accordion__chevron {
+  flex: 0 0 auto;
+  order: 2;
+  transition: transform var(--transition-fast, 150ms ease);
+}
+
+.kpmg-accordion__item--active > .kpmg-accordion__heading .kpmg-accordion__chevron {
+  transform: rotate(180deg);
+}
+
+.kpmg-accordion__heading:hover:not(:disabled) {
+  background-color: var(--color-neutral-800, #f7f7f8);
+}
+
+.kpmg-accordion__heading:focus-visible {
+  outline: 2px solid var(--color-tab-item-focus-ring, var(--color-primary-outline, #818aee));
+  outline-offset: -2px;
+}
+
+/* ==========================================================================
+   Content
+   ========================================================================== */
+.kpmg-accordion__content {
+  box-sizing: border-box;
+  padding: var(--spacing-2, 8px) var(--spacing-5, 18px) var(--spacing-5, 18px);
+  color: var(--color-neutral-100, #454554);
+}
+
+.kpmg-accordion__content[hidden] {
+  display: none;
+}
+
+/* ==========================================================================
+   Alignment and flush
+   ========================================================================== */
+/* Chevron before the title; points right when closed and down when open */
+.kpmg-accordion--align-start .kpmg-accordion__chevron {
+  order: 0;
+  transform: rotate(-90deg);
+}
+
+.kpmg-accordion--align-start .kpmg-accordion__item--active > .kpmg-accordion__heading .kpmg-accordion__chevron {
+  transform: rotate(0deg);
+}
+
+.kpmg-accordion--align-start .kpmg-accordion__content {
+  padding-inline-start: calc(var(--spacing-5, 18px) + 16px + var(--spacing-4, 12px));
+}
+
+.kpmg-accordion--flush.kpmg-accordion--align-end .kpmg-accordion__heading,
+.kpmg-accordion--flush.kpmg-accordion--align-end .kpmg-accordion__content {
+  padding-inline: 0;
+}
+
+/* ==========================================================================
+   Disabled
+   ========================================================================== */
+.kpmg-accordion__item--disabled > .kpmg-accordion__heading,
+.kpmg-accordion__heading:disabled {
+  color: var(--color-neutral-300, #b8b8c4);
+  cursor: not-allowed;
+}
+
+.kpmg-accordion__item--disabled > .kpmg-accordion__content {
+  color: var(--color-neutral-300, #b8b8c4);
+}
+
+/* ==========================================================================
+   Skeleton
+   ========================================================================== */
+.kpmg-accordion--skeleton .kpmg-accordion__heading {
+  cursor: default;
+}
+
+.kpmg-accordion--skeleton .kpmg-accordion__heading:hover {
+  background-color: transparent;
+}
+
+.kpmg-accordion--skeleton .kpmg-accordion__chevron {
+  color: var(--color-neutral-400, #c7c7d1);
+}
+
+.kpmg-accordion--skeleton .kpmg-accordion__content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-2, 8px);
+}
+
+.kpmg-accordion__skeleton-bar {
+  display: block;
+  height: var(--spacing-4, 12px);
+  background: linear-gradient(
+    90deg,
+    var(--color-neutral-600, #e3e3e8) 25%,
+    var(--color-neutral-800, #f7f7f8) 50%,
+    var(--color-neutral-600, #e3e3e8) 75%
+  );
+  background-size: 200% 100%;
+  animation: kpmg-accordion-shimmer 1.5s linear infinite;
+}
+
+.kpmg-accordion__skeleton-bar--title { width: 35%; }
+.kpmg-accordion__skeleton-bar--lg { width: 90%; }
+.kpmg-accordion__skeleton-bar--md { width: 75%; }
+.kpmg-accordion__skeleton-bar--sm { width: 50%; }
+
+@keyframes kpmg-accordion-shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .kpmg-accordion__skeleton-bar { animation: none; }
+  .kpmg-accordion__chevron,
+  .kpmg-accordion__heading { transition: none; }
+}

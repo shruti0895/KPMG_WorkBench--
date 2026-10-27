@@ -1,4 +1,5 @@
 import type { ComponentDoc } from '../types';
+import accordion from './accordion';
 import appBars from './app-bars';
 import badge from './badge';
 import banner from './banner';
@@ -31,6 +32,7 @@ import tooltip from './tooltip';
  * One file per component in this folder; register it below.
  */
 export const componentDocs: Record<string, ComponentDoc> = {
+  Accordion: accordion,
   AppBars: appBars,
   Badge: badge,
   Banner: banner,

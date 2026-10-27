@@ -1,4 +1,5 @@
 // Public API of @designkpmg/ui — one re-export per component folder.
+export * from './components/Accordion/index.js';
 export * from './components/Badge/index.js';
 export * from './components/Banner/index.js';
 export * from './components/Breadcrumbs/Breadcrumbs.jsx';
