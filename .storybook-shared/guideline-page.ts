@@ -10,8 +10,9 @@ import { componentDocs } from './content';
  *   1.a  Usage Guideline link  -> Live Demo site (14px)
  *   1.b  Accessibility link    -> Live Demo site (14px)
  *   2.   Table of Contents (24px) - built from the sections this component has
- *   2.a  Overview  - what it is, a live example, when to use / not to use it, anatomy
- *   2.c  API       - props & events table, placed right below the Overview
+ *   2.a  Overview  - what it is, a live example
+ *   2.c  API       - props & events table, right below the Overview
+ *        When to use, When not to use, Anatomy - right below the props table
  *   2.b  Variants  - what each variant is for, then links to every story (kept
  *                    out of the page so it stays short; each story has its own page)
  *        Formatting & content, Behaviors - optional, per component
@@ -106,18 +107,15 @@ export function GuidelinePage() {
     h('a', { href: demo(hash), target: '_blank', rel: 'noreferrer', style: { fontFamily: font, fontSize: 14, color: link, textDecoration: 'underline' } }, label);
 
   const toc: TocEntry[] = [
-    {
-      id: 'overview',
-      label: 'Overview',
-      children: doc
-        ? [
-            { id: 'overview-when', label: 'When to use' },
-            ...(doc.overview.whenNot?.length ? [{ id: 'overview-when-not', label: 'When not to use' }] : []),
-            { id: 'overview-anatomy', label: 'Anatomy' },
-          ]
-        : [],
-    },
+    { id: 'overview', label: 'Overview' },
     { id: 'api', label: 'API' },
+    ...(doc
+      ? [
+          { id: 'overview-when', label: 'When to use' },
+          ...(doc.overview.whenNot?.length ? [{ id: 'overview-when-not', label: 'When not to use' }] : []),
+          { id: 'overview-anatomy', label: 'Anatomy' },
+        ]
+      : []),
     { id: 'variants', label: 'Variants' },
     ...(doc?.formatting?.length
       ? [{ id: 'formatting', label: 'Formatting & content', children: doc.formatting.map((f, i) => ({ id: `formatting-${i}`, label: f.title })) }]
@@ -165,27 +163,21 @@ export function GuidelinePage() {
     doc ? h('p', { style: body }, doc.overview.what) : h('p', { style: body }, 'Overview coming soon.'),
     // Live example: the component's first story
     h(Primary, null),
-    doc
-      ? h(
-          React.Fragment,
-          null,
-          subHeading('When to use', 'overview-when'),
-          h('ul', { style: list }, doc.overview.when.map((w, i) => h('li', { key: i }, w))),
-          doc.overview.whenNot?.length ? subHeading('When not to use', 'overview-when-not') : null,
-          doc.overview.whenNot?.length ? h('ul', { style: list }, doc.overview.whenNot.map((w, i) => h('li', { key: i }, w))) : null,
-          subHeading('Anatomy', 'overview-anatomy'),
-          h(
-            'ol',
-            { style: list },
-            doc.overview.anatomy.map((a, i) => h('li', { key: i }, h('strong', null, a.part), ` — ${a.description}`)),
-          ),
-        )
-      : null,
 
     // API: props & events, right below the Overview
     sectionHeading('api', 'API', 20),
     h('p', { style: body }, 'Props and events.'),
     h(Controls, null),
+
+    // When to use / When not to use / Anatomy: below the props table
+    doc ? sectionHeading('overview-when', 'When to use', 20) : null,
+    doc ? h('ul', { style: list }, doc.overview.when.map((w, i) => h('li', { key: i }, w))) : null,
+    doc?.overview.whenNot?.length ? sectionHeading('overview-when-not', 'When not to use', 20) : null,
+    doc?.overview.whenNot?.length ? h('ul', { style: list }, doc.overview.whenNot.map((w, i) => h('li', { key: i }, w))) : null,
+    doc ? sectionHeading('overview-anatomy', 'Anatomy', 20) : null,
+    doc
+      ? h('ol', { style: list }, doc.overview.anatomy.map((a, i) => h('li', { key: i }, h('strong', null, a.part), ` — ${a.description}`)))
+      : null,
 
     // 2.b Variants (the first story is already shown under Overview)
     sectionHeading('variants', 'Variants', 20),
