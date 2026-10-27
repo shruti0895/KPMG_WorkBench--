@@ -8,8 +8,11 @@ export const modal: ComponentDoc = {
       'Collect focused input in a step-by-step flow, such as creating an assistant.',
       'Combine modules as needed: progress, agent preview, text inputs, file drop zone, prompt templates and model or voice selection.',
       'Use the inline option to show the dialog in the page flow, for example in documentation.',
-      'Avoid it for brief confirmations or notices; use a snackbar or banner instead.',
-      'Avoid it for content users need alongside the page; use a sheet instead.',
+    ],
+    whenNot: [
+      "Brief confirmations or notices: use a snackbar or banner instead.",
+      "Content users need to see alongside the page: use a sheet instead.",
+      "Small, non-blocking inputs or choices: use a menu instead.",
     ],
     anatomy: [
       { part: 'Overlay', description: 'Backdrop behind the dialog; clicking it calls onClose.' },
@@ -19,6 +22,54 @@ export const modal: ComponentDoc = {
       { part: 'Footer', description: 'Outlined Back button and filled Next button.' },
     ],
   },
+  variants: [
+    { name: "Overlay (default)", purpose: "Shown over the page with a backdrop. It blocks the page and closes on Escape, a click on the backdrop or the close button. Use it for real dialogs." },
+    { name: "Inline", purpose: "Rendered in the page flow with no backdrop and no Escape handling. Use it only for documentation and previews." },
+    { name: "With progress", purpose: "Adds a linear progress bar under the header to show the current step of a flow." },
+    { name: "Body modules", purpose: "Agent preview, name and purpose inputs, file drop zone, prompt templates and model or voice cards. Turn on only the modules a step needs." },
+    { name: "With or without footer", purpose: "The footer has Back and Next buttons with editable labels. Hide it when the dialog needs no step actions." },
+  ],
+  formatting: [
+    {
+      title: "Sizing",
+      points: [
+        "The dialog is 700px wide and never wider than the viewport minus 32px. The body scrolls when the content is taller than the dialog.",
+      ],
+    },
+    {
+      title: "Content",
+      points: [
+        "Write a title that names the task. It is truncated with an ellipsis if it is too long.",
+        "Use short button labels such as \"Next\" and \"Back\" or a verb that names the result.",
+        "Keep each step to a few modules; split longer flows across steps and update the progress value for each step.",
+      ],
+    },
+    {
+      title: "Placement",
+      points: [
+        "Open a modal from a button the user pressed, and close it from the same flow. The modal does not manage its own visibility.",
+      ],
+    },
+  ],
+  behaviors: [
+    {
+      title: "Mouse and touch",
+      points: [
+        "The close button and a click on the backdrop call onClose. A click inside the dialog does not.",
+        "Back and Next call onBack and onNext; the modal does not track the current step.",
+        "The file drop zone accepts dropped files or opens the file browser on click, and each added file has a remove button.",
+        "Model and voice cards select one card at a time.",
+      ],
+    },
+    {
+      title: "Keyboard and focus",
+      points: [
+        "Escape calls onClose when the modal is shown over the page.",
+        "Focus is not moved into the dialog, trapped or restored; manage it in the application.",
+        "The drop zone is focusable; Enter and Space on it are not handled by the modal.",
+      ],
+    },
+  ],
   accessibility: [
     'The dialog has role="dialog" and is labelled by its title through aria-labelledby.',
     'aria-modal is true when shown over the page and false when rendered inline.',

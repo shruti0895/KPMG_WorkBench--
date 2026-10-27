@@ -20,11 +20,19 @@ export interface ComponentDoc {
   overview: {
     /** What the component is. */
     what: string;
-    /** When to use it (and when not to). */
+    /** When to use it. */
     when: string[];
+    /** When not to use it, naming the component to use instead where there is one. */
+    whenNot?: string[];
     /** The component's parts, in visual order. */
     anatomy: AnatomyPart[];
   };
+  /** What each variant is for, in plain words (shown as a table above the variant stories). */
+  variants?: { name: string; purpose: string }[];
+  /** Formatting and content rules: sizing, placement, labelling, truncation, spacing... One titled group per topic. */
+  formatting?: { title: string; points: string[] }[];
+  /** How it behaves: mouse, keyboard, touch, states. One titled group per input type. */
+  behaviors?: { title: string; points: string[] }[];
   /** Accessibility behaviour: roles, aria attributes, keyboard support. */
   accessibility: string[];
   /** Short how-to sections (opening, sizing, focus...). Shown under API and listed in the Table of Contents. */

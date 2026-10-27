@@ -10,8 +10,9 @@ import { componentDocs } from './content';
  *   1.a  Usage Guideline link  -> Live Demo site (14px)
  *   1.b  Accessibility link    -> Live Demo site (14px)
  *   2.   Table of Contents (24px) - built from the sections this component has
- *   2.a  Overview  - what it is, a live example, when to use it, anatomy
- *   2.b  Variants  - supported configurations (the stories)
+ *   2.a  Overview  - what it is, a live example, when to use / not to use it, anatomy
+ *   2.b  Variants  - what each variant is for, then the stories
+ *        Formatting & content, Behaviors - optional, per component
  *   2.c  API       - props, events, accessibility
  *   2.d  Guides    - optional short how-tos (per component, in content/<name>.ts)
  *   3.   References (24px)
@@ -43,6 +44,28 @@ const subHeading = (label: string, id?: string) =>
 const body = { fontFamily: font, fontSize: 14, lineHeight: '22px', color: text, margin: '0 0 8px' } as const;
 const list = { ...body, paddingLeft: 24 } as const;
 
+const cell = {
+  fontFamily: font,
+  fontSize: 14,
+  lineHeight: '22px',
+  color: text,
+  padding: '8px 12px',
+  textAlign: 'left',
+  verticalAlign: 'top',
+  borderBottom: '1px solid var(--color-neutral-600, #e3e3e8)',
+} as const;
+
+const variantsTable = (rows: { name: string; purpose: string }[]) =>
+  h(
+    'table',
+    { style: { borderCollapse: 'collapse', width: '100%', margin: '8px 0 16px' } },
+    h('thead', null, h('tr', null, h('th', { style: { ...cell, fontWeight: 600, color: heading } }, 'Variant'), h('th', { style: { ...cell, fontWeight: 600, color: heading } }, 'Purpose'))),
+    h('tbody', null, rows.map((r, i) => h('tr', { key: i }, h('td', { style: { ...cell, fontWeight: 600, whiteSpace: 'nowrap' } }, r.name), h('td', { style: cell }, r.purpose)))),
+  );
+
+const pointGroup = (id: string, title: string, points: string[]) =>
+  h('div', { key: id }, subHeading(title, id), h('ul', { style: list }, points.map((p, i) => h('li', { key: i }, p))));
+
 interface TocEntry {
   id: string;
   label: string;
@@ -72,11 +95,18 @@ export function GuidelinePage() {
       children: doc
         ? [
             { id: 'overview-when', label: 'When to use' },
+            ...(doc.overview.whenNot?.length ? [{ id: 'overview-when-not', label: 'When not to use' }] : []),
             { id: 'overview-anatomy', label: 'Anatomy' },
           ]
         : [],
     },
     { id: 'variants', label: 'Variants' },
+    ...(doc?.formatting?.length
+      ? [{ id: 'formatting', label: 'Formatting & content', children: doc.formatting.map((f, i) => ({ id: `formatting-${i}`, label: f.title })) }]
+      : []),
+    ...(doc?.behaviors?.length
+      ? [{ id: 'behaviors', label: 'Behaviors', children: doc.behaviors.map((b, i) => ({ id: `behaviors-${i}`, label: b.title })) }]
+      : []),
     {
       id: 'api',
       label: 'API',
@@ -130,6 +160,8 @@ export function GuidelinePage() {
           null,
           subHeading('When to use', 'overview-when'),
           h('ul', { style: list }, doc.overview.when.map((w, i) => h('li', { key: i }, w))),
+          doc.overview.whenNot?.length ? subHeading('When not to use', 'overview-when-not') : null,
+          doc.overview.whenNot?.length ? h('ul', { style: list }, doc.overview.whenNot.map((w, i) => h('li', { key: i }, w))) : null,
           subHeading('Anatomy', 'overview-anatomy'),
           h(
             'ol',
@@ -142,7 +174,14 @@ export function GuidelinePage() {
     // 2.b Variants (the first story is already shown under Overview)
     sectionHeading('variants', 'Variants', 20),
     h('p', { style: body }, 'Supported configurations of the component.'),
+    doc?.variants?.length ? variantsTable(doc.variants) : null,
     h(Stories, { title: '', includePrimary: storyCount <= 1 }),
+
+    // Formatting & content / Behaviors (optional, per component)
+    doc?.formatting?.length ? sectionHeading('formatting', 'Formatting & content', 20) : null,
+    ...(doc?.formatting ?? []).map((f, i) => pointGroup(`formatting-${i}`, f.title, f.points)),
+    doc?.behaviors?.length ? sectionHeading('behaviors', 'Behaviors', 20) : null,
+    ...(doc?.behaviors ?? []).map((b, i) => pointGroup(`behaviors-${i}`, b.title, b.points)),
 
     // 2.c API
     sectionHeading('api', 'API', 20),

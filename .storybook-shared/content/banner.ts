@@ -9,7 +9,12 @@ export const banner: ComponentDoc = {
       'Surface a persistent message in one of six variants: primary, neutral, info, success, warning or critical.',
       'Use the animated state for work in progress and the default state for static messages.',
       'Add an action or a dismiss button when the user can respond to or clear the message.',
-      'Avoid banners for short-lived feedback; use a snackbar. Use a modal when the user must respond before continuing.',
+    ],
+    whenNot: [
+      'Do not use a banner for short-lived feedback; use a Snackbar.',
+      'Do not use a banner when the user must respond before continuing; use a Modal.',
+      'Do not use a banner for feedback tied to one piece of content; use Message inline.',
+      'Do not use a banner only to show progress; use ProgressIndicator.',
     ],
     anatomy: [
       { part: 'Container', description: 'Full-width surface coloured by variant, with a static or animated gradient state.' },
@@ -21,6 +26,55 @@ export const banner: ComponentDoc = {
       { part: 'Dismiss button', description: 'Close button that calls onClose.' },
     ],
   },
+  variants: [
+    { name: 'Primary', purpose: 'Brand-coloured default. Use it for general status, such as assistant or configuration progress.' },
+    { name: 'Neutral', purpose: 'Low-emphasis information that is not urgent.' },
+    { name: 'Info', purpose: 'Helpful information the user should know about.' },
+    { name: 'Success', purpose: 'A completed action or a positive outcome.' },
+    { name: 'Warning', purpose: 'A condition that needs attention but is not blocking.' },
+    { name: 'Critical', purpose: 'An error or a blocking problem. It uses role="alert" so it is announced immediately.' },
+    { name: 'Default state', purpose: 'A static banner for messages that do not change.' },
+    { name: 'Animated state', purpose: 'An ambient moving gradient. Use it while work is in progress; without a progress value it shows an indeterminate bar.' },
+  ],
+  formatting: [
+    {
+      title: 'Placement',
+      points: [
+        'Place a banner at the top of the screen or container it applies to, spanning the full width.',
+        'Show one banner at a time; do not stack several banners.',
+      ],
+    },
+    {
+      title: 'Content',
+      points: [
+        'Write a short title that states the status, and use detail for a percentage or one short supporting phrase.',
+        'Use progress (0 to 100) for known progress and progressType="indeterminate" when the duration is unknown.',
+        'Provide an action only for a single, relevant next step.',
+      ],
+    },
+  ],
+  behaviors: [
+    {
+      title: 'Mouse and touch',
+      points: [
+        'The dismiss button calls onClose; the banner does not remove itself, so the consumer must hide it.',
+        'When onIconClick is set, the leading icon shows a pointer cursor and hover background and calls the handler.',
+      ],
+    },
+    {
+      title: 'Keyboard',
+      points: [
+        'The dismiss button is a native button, reached with Tab and activated with Enter or Space.',
+        'The clickable leading icon is focusable but has no key handler, so Enter and Space do not activate it. There is no Escape handling.',
+      ],
+    },
+    {
+      title: 'States',
+      points: [
+        'Progress updates as the progress prop changes; the banner announces politely through aria-live.',
+      ],
+    },
+  ],
   accessibility: [
     'The banner uses role="status" with aria-live="polite" by default; the critical variant uses role="alert". Both can be overridden with role and ariaLive.',
     'The progress bar has role="progressbar" with aria-valuemin, aria-valuemax, an aria-label based on the title and aria-valuenow for determinate progress only.',

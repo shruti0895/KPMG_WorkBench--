@@ -8,7 +8,12 @@ export const breadcrumbs: ComponentDoc = {
       'Show the path to the current page in deep or multi-level navigation.',
       'Use maxItems to collapse middle levels into a "..." menu when the trail is long.',
       'The overflow menu items can optionally carry a bookmark star or a route checkbox.',
-      'Avoid breadcrumbs for flat navigation or for step-by-step flows; use tabs or a stepper pattern instead.',
+    ],
+    whenNot: [
+      'Do not use breadcrumbs for a multi-step flow; use ProgressIndicator to show steps.',
+      'Do not use breadcrumbs to switch between sibling views; use Tab.',
+      'Do not use breadcrumbs for flat navigation with no hierarchy.',
+      'Do not use breadcrumbs as a menu of actions; use Menu.',
     ],
     anatomy: [
       { part: 'Link', description: 'Ancestor level, rendered as a link when href is set and as a button otherwise.' },
@@ -18,6 +23,47 @@ export const breadcrumbs: ComponentDoc = {
       { part: 'Current page', description: 'Last item, shown as non-interactive text.' },
     ],
   },
+  variants: [
+    { name: 'Small', purpose: '12px text. Use in dense layouts such as nested app bars or compact page headers.' },
+    { name: 'Medium (default)', purpose: '14px text. Use as the standard size in page headers.' },
+    { name: 'Click overflow (default)', purpose: 'The "..." menu opens on click. Use it for touch support and when the menu has interactive items.' },
+    { name: 'Hover overflow', purpose: 'The "..." menu opens on mouse hover. Use only on pointer-driven interfaces; it is not available by hover on touch.' },
+  ],
+  formatting: [
+    {
+      title: 'Placement',
+      points: [
+        'Place breadcrumbs at the top left of the page content, under the header and above the page title.',
+        'Keep one breadcrumb trail per page.',
+      ],
+    },
+    {
+      title: 'Content',
+      points: [
+        'Make each level a short label that matches the page title it links to.',
+        'The last item is the current page: it is plain text, not a link.',
+        'Set maxItems to collapse middle levels into the "..." menu; the first item and the last itemsAfterCollapse items stay visible.',
+        'Our component does not truncate labels and lets the trail wrap onto a new line when space runs out, so use maxItems to keep the trail on one line.',
+      ],
+    },
+  ],
+  behaviors: [
+    {
+      title: 'Mouse and touch',
+      points: [
+        'Clicking a level calls its onClick and onItemClick, or follows its href.',
+        'Clicking the "..." button toggles the overflow card; clicking outside closes it, as does choosing an item.',
+        'In the overflow card, the star toggles a bookmark and shows a short confirmation; the circle checkbox toggles a route.',
+      ],
+    },
+    {
+      title: 'Keyboard',
+      points: [
+        'Links and the "..." button are reached with Tab and activated with Enter or Space.',
+        'The overflow card has no arrow-key navigation and no Escape handling; its items are links reached with Tab.',
+      ],
+    },
+  ],
   accessibility: [
     'The component is a nav element with aria-label="Breadcrumb" containing an ordered list.',
     'The current page is marked with aria-current="page".',

@@ -9,7 +9,12 @@ export const progressIndicator: ComponentDoc = {
       'Indeterminate: show that something is loading when the duration is unknown.',
       'Use linear for tasks inside a page, card or dialog, and circular for compact or centred loading states.',
       'Add a label, percentage and subtext to explain what is progressing.',
-      'Avoid it for very short waits; show nothing or use inline feedback instead.',
+    ],
+    whenNot: [
+      "Very short waits: show nothing, or use inline feedback, instead.",
+      "A value the user sets or adjusts, such as volume: use a slider instead.",
+      "A choice between sections or views: use tabs instead.",
+      "Reporting the result of a finished task: use a snackbar or banner instead.",
     ],
     anatomy: [
       { part: 'Header', description: 'Linear only: optional label and percentage value above the bar.' },
@@ -18,6 +23,47 @@ export const progressIndicator: ComponentDoc = {
       { part: 'Label and subtext', description: 'Optional text describing the task, below the bar or beside the ring.' },
     ],
   },
+  variants: [
+    { name: "Linear", purpose: "A horizontal bar. Use it inside a page, card or dialog, where there is width to spare. It supports a label and percentage above the bar and subtext below it." },
+    { name: "Circular", purpose: "A ring with the label and subtext beside it. Use it for compact or centred loading states and for small status indicators." },
+    { name: "Determinate", purpose: "Fills from 0 to 100 percent. Use it when the amount of work is known, such as an upload or a step in a flow." },
+    { name: "Indeterminate", purpose: "Animates a looping segment with no value. Use it when the duration is unknown." },
+    { name: "Large, medium and small (circular)", purpose: "88px, 48px and 24px rings. Use large for a main loading state, medium inside cards, and small next to text or in a list row. The percentage inside the ring shows in large and medium only." },
+  ],
+  formatting: [
+    {
+      title: "Sizing",
+      points: [
+        "The linear bar is 4px high and fills the width of its container; control the width with the container.",
+        "Size applies to the circular variant. The linear variant has one size.",
+      ],
+    },
+    {
+      title: "Content",
+      points: [
+        "Write a label that names what is progressing, such as \"Uploading file\", and keep it short.",
+        "Use subtext for detail that changes, such as the number of files or the time left.",
+        "Set showValue for determinate progress when users need the exact figure. It is not shown for indeterminate progress.",
+      ],
+    },
+    {
+      title: "Placement",
+      points: [
+        "Put the indicator next to the content it describes. For a task that blocks a section, show it in place of that section.",
+      ],
+    },
+  ],
+  behaviors: [
+    {
+      title: "States",
+      points: [
+        "Determinate: progress is clamped between 0 and 100 and rounded for display.",
+        "Indeterminate: the bar or ring animates continuously until you remove it. There is no value, and no completion state.",
+        "The component is not interactive. It has no hover, focus or pressed state and takes no keyboard input.",
+        "It does not change when progress reaches 100; replace or remove it, and report the result, in the page.",
+      ],
+    },
+  ],
   accessibility: [
     'The container has role="progressbar" with aria-valuemin 0 and aria-valuemax 100.',
     'aria-valuenow carries the rounded percentage for determinate progress and is omitted when indeterminate.',
